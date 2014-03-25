@@ -31,6 +31,9 @@ a basic build-file example:
   },
 
   "dsv_base": {
+    "requires": [
+      "drupal_base"
+    ],
     "modules": {
       "bootstrap": {
         "repo": "http://git.drupal.org/project/bootstrap.git",
