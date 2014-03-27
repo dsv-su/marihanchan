@@ -6,7 +6,7 @@ __copyright__ = 'Copyright 2014, Department of Computer and System Sciences, Sto
 
 __maintainer__ = 'Simon Jarbrant'
 __email__      = 'simon@dsv.su.se'
-__version__    = '0.0.1'
+__version__    = '0.0.2a'
 
 import sys, argparse, json, git
 from git import *
@@ -15,6 +15,31 @@ projects     = ''
 buildProject = ''
 buildName    = ''
 rootPath     = ''
+
+def checkCircularDependencies( projectname, dependencies ):
+	print 'checking dependencies for ' + projectname + '...'
+
+	# add the current project to the dependencies
+	if projectname not in dependencies:
+		dependencies.append(projectname)
+	else:
+		print 'error: circular dependency found'
+		sys.exit()
+
+	# load the full project from the build-file so that we have its dependencies
+	project = projects.get(projectname)
+
+	# loop through this project's dependencies and check them
+	if 'requires' in project:
+		for dependency in project.get('requires'):
+			if dependency in dependencies:
+				print 'error: circular dependency found'
+				sys.exit()
+			else:
+				# loop through this dependency's dependencies
+				checkCircularDependencies( dependency, dependencies )
+
+	return
 
 
 def fetchModule( name, module ):
@@ -97,11 +122,16 @@ def main():
 	# extract the buildtarget from the list of available projects
 	buildTarget = projects.get(buildName)
 
+	# check for circular dependencies
+	checkCircularDependencies(buildName, [])
+
 	# set install path
 	if 'root' in buildTarget:
 		rootPath = buildTarget.get('root')
 	else:
 		print 'warning: project has no root location specified, cloning in current dir'
+
+	print 'ok, I\'m building project ' + buildName + ' now :)'
 
 	# build target
 	buildProject( buildTarget )
