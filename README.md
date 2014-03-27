@@ -97,7 +97,8 @@ change this fact.
 the "rqeuires" property tells marihan what other projects this current one depends on. in
 the example above, the "dsv_forms" project depends on the "dsv_base", which in turn depends
 on "drupal_base". marihan will always build in a recursive manner, beginning with the
-dependency furthest down.
+dependency furthest down. it also checks for circular references, and will not execute
+jobs that contain them.
 
 finally, the "modules" property declares what modules a project has. please take a look at
 the section about module definitions below.

@@ -16,28 +16,30 @@ buildProject = ''
 buildName    = ''
 rootPath     = ''
 
-def checkCircularDependencies( projectname, dependencies ):
-	print 'checking dependencies for ' + projectname + '...'
-
-	# add the current project to the dependencies
+def checkCircularDependencies( projectname, parentname, dependencies ):
+	# add the current projectname to the dependencies dict
 	if projectname not in dependencies:
-		dependencies.append(projectname)
+		dependencies[projectname] = parentname
 	else:
-		print 'error: circular dependency found'
+		if parentname == projectname:
+			print 'I hate you! >:('
+			print 'you have declared ' + projectname + ' to require itself'
+		elif dependencies.get(projectname) == 'project':
+			print 'I hate you! >:('
+			print 'you\'ve said that ' + parentname + ' requires ' + projectname + ', but ' + projectname + ' is the project you\'re currently building!'
+		else:
+			print 'I hate you! >:('
+			print 'you\'ve said that ' + parentname + ' requires ' + projectname + ', but that is already required by ' + dependencies.get(projectname)
 		sys.exit()
 
 	# load the full project from the build-file so that we have its dependencies
 	project = projects.get(projectname)
 
-	# loop through this project's dependencies and check them
+	# recursively loop through this project's dependencies and check them
 	if 'requires' in project:
 		for dependency in project.get('requires'):
-			if dependency in dependencies:
-				print 'error: circular dependency found'
-				sys.exit()
-			else:
-				# loop through this dependency's dependencies
-				checkCircularDependencies( dependency, dependencies )
+			# loop through this dependency's dependencies
+			checkCircularDependencies( dependency, projectname, dependencies )
 
 	return
 
@@ -81,7 +83,6 @@ def buildProject( project ):
 	# build project requirements first
 	if 'requires' in project:
 		for dependency in project.get('requires'):
-			print 'processing dependency: ' + dependency
 			if dependency not in projects:
 				print 'error: cannot find build declaration for project ' + dependency
 				sys.exit()
@@ -122,8 +123,11 @@ def main():
 	# extract the buildtarget from the list of available projects
 	buildTarget = projects.get(buildName)
 
-	# check for circular dependencies
-	checkCircularDependencies(buildName, [])
+	# check dependencies
+	print '*giggles* ok, checking dependencies...' 
+	checkCircularDependencies(buildName, 'project', {})
+
+	print '*giggles* dependencies ok! :)'
 
 	# set install path
 	if 'root' in buildTarget:
@@ -135,6 +139,6 @@ def main():
 
 	# build target
 	buildProject( buildTarget )
-	print 'project ' + buildName + ' built'
+	print '*giggles* ok I\'m done! project ' + buildName + ' built :)'
 
 main()
