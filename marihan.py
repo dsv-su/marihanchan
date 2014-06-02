@@ -6,139 +6,152 @@ __copyright__ = 'Copyright 2014, Department of Computer and System Sciences, Sto
 
 __maintainer__ = 'Simon Jarbrant'
 __email__      = 'simon@dsv.su.se'
-__version__    = '0.0.2a'
+__version__    = '0.0.3beta'
 
-import sys, argparse, json, git
+import sys, argparse, json, git, shutil
 from git import *
 
-projects     = ''
-buildProject = ''
-buildName    = ''
-rootPath     = ''
+buildFileName = 'build.json'
+projects      = ''
+installPath   = ''
 
 def checkCircularDependencies( projectname, parentname, dependencies ):
-	# add the current projectname to the dependencies dict
-	if projectname not in dependencies:
-		dependencies[projectname] = parentname
-	else:
-		if parentname == projectname:
-			print 'I hate you! >:('
-			print 'you have declared ' + projectname + ' to require itself'
-		elif dependencies.get(projectname) == 'project':
-			print 'I hate you! >:('
-			print 'you\'ve said that ' + parentname + ' requires ' + projectname + ', but ' + projectname + ' is the project you\'re currently building!'
-		else:
-			print 'I hate you! >:('
-			print 'you\'ve said that ' + parentname + ' requires ' + projectname + ', but that is already required by ' + dependencies.get(projectname)
-		sys.exit()
+    # add the current projectname to the dependencies dict
+    if projectname not in dependencies:
+        dependencies[ projectname ] = parentname
+    else:
+        if parentname == projectname:
+            print 'I hate you! >:('
+            print 'you have declared ' + projectname + ' to require itself!'
+        elif dependencies.get( projectname ) == 'project':
+            print 'I hate you! >:('
+            print 'you\'ve said that ' + parentname + ' requires ' + projectname + ', but ' + projectname + ' is the project you\'re currently building!'
+        else:
+            print 'I hate you! >:('
+            print 'you\'ve said that ' + parentname + ' requires ' + projectname + ', but that is already required by ' + dependencies.get( projectname )
+        sys.exit( -1 )
 
-	# load the full project from the build-file so that we have its dependencies
-	project = projects.get(projectname)
+    # load the full project from the build-file so that we have its dependencies
+    project = projects.get( projectname )
 
-	# recursively loop through this project's dependencies and check them
-	if 'requires' in project:
-		for dependency in project.get('requires'):
-			# loop through this dependency's dependencies
-			checkCircularDependencies( dependency, projectname, dependencies )
+    # recursively loop through this project's dependencies and check them
+    if 'requires' in project:
+        for dependency in project.get( 'requires' ):
+            # loop through this dependency's dependencies (WE NEED TO GO DEEPER BAAAAAAAAAAAAAAMMMMMM)
+            checkCircularDependencies( dependency, projectname, dependencies )
 
-	return
+    return
 
 
 def fetchModule( name, module ):
-	global rootPath
+    global installPath
 
-	if 'repo' not in module:
-		print 'error: module doesn\'t have the \'repo\' option set'
-		sys.exit()
+    if 'repo' not in module:
+        print 'error: module doesn\'t have the \'repo\' key set'
+        sys.exit( -1 )
 
-	# get the relative destination for the module
-	clonePath = ''
-	if rootPath != '':
-		clonePath = rootPath + '/'
+    print 'installPath: ' + installPath
 
-	# if the module has a path specified, use that
-	if 'path' in module:
-		clonePath += module.get('path') + '/'
-	else:
-		print 'warning: module ' + name + ' doesn\'t have a path specified'
+    # get the relative destination for the module
+    clonePath = ''
+    if installPath != '':
+        clonePath += installPath
 
-	# add module name to clonePath
-	clonePath += name
+    # if the module has an explicit path specified, use that
+    if 'path' in module:
+        clonePath += module.get( 'path' )
+    else:
+        print 'warning: module ' + name + ' doesn\'t have a path specified'
 
-	# if there's a branch specified, use that - otherwise default to master
-	branch = 'master'
-	if 'branch' in module:
-		branch = module.get('branch')
+    print 'clonePath: ' + clonePath
 
-	repo = Repo.clone_from(module.get('repo'), clonePath, branch=branch)
+    # if there's a branch specified, use that - otherwise default to master
+    branch = 'master'
+    if 'branch' in module:
+        branch = module.get( 'branch' )
 
-	# if there's a tag specified, try to checkout that
-	if 'tag' in module:
-		repo.git.checkout('tags/' + module.get('tag'))
+    repo = Repo.clone_from( module.get('repo'), clonePath, branch=branch )
 
-	return
+    # if there's a tag specified, try to checkout that
+    if 'tag' in module:
+        repo.git.checkout( 'tags/' + module.get('tag') )
+
+    return
 
 
 def buildProject( project ):
-	# build project requirements first
-	if 'requires' in project:
-		for dependency in project.get('requires'):
-			if dependency not in projects:
-				print 'error: cannot find build declaration for project ' + dependency
-				sys.exit()
+    global projects
 
-			# build dependency
-			buildProject( projects.get(dependency) )
+    # build project requirements first
+    if 'requires' in project:
+        for dependency in project.get( 'requires' ):
+            if dependency not in projects:
+                print 'error: cannot find build declaration for project ' + dependency
+                sys.exit( -1 )
 
-	# now proceed with building project
-	if 'modules' not in project:
-		print 'warning: project has no modules, skipping'
-	else:
-		for name, module in project.get('modules').iteritems():
-			fetchModule( name, module )
+            # build dependency
+            buildProject( projects.get(dependency) )
 
-	return
+    # now proceed with building project
+    if 'modules' not in project:
+        print 'warning: project has no modules, skipping'
+    else:
+        for name, module in project.get( 'modules' ).iteritems():
+            fetchModule( name, module )
+
+    return
 
 
 def main():
-	global projects, buildTarget, buildName, rootPath
+    global buildFileName, projects, installPath
 
-	# parse cli arguments
-	parser = argparse.ArgumentParser()
-	parser.add_argument('-m', '--make', help='Target build to make', required=True)
-	args = parser.parse_args()
+    # parse cli arguments
+    parser = argparse.ArgumentParser()
+    parser.add_argument( '-b', '--build', help='Target build to make', required=True )
+    parser.add_argument( '-d', '--directory', help='Directory to install to' )
+    args = parser.parse_args()
 
-	# set build project to make
-	buildName = args.make
+    targetName  = args.build
+    installPath = args.directory
 
-	# open buildfile and parse contents
-	buildFile = open('build.json', 'r')
-	projects = json.load(buildFile)
+    # add trailing slash to installPath if needed
+    if installPath != '':
+        installPath += '/'
 
-	# only continue if we have a valid target
-	if buildName not in projects:
-		print 'error: unknown build target \'' + buildName + '\''
-		sys.exit()
+    print 'installPath: ' + installPath
 
-	# extract the buildtarget from the list of available projects
-	buildTarget = projects.get(buildName)
+    # open buildfile and parse contents
+    buildFile = open( buildFileName, 'r' )
+    projects  = json.load( buildFile )
 
-	# check dependencies
-	print '*giggles* ok, checking dependencies...' 
-	checkCircularDependencies(buildName, 'project', {})
+    # only continue if we have a valid target
+    if targetName not in projects:
+        print 'error: unknown build target \'' + targetName + '\''
+        sys.exit( -1 )
 
-	print '*giggles* dependencies ok! :)'
+    # extract the buildtarget from the list of available projects
+    targetProject = projects.get( targetName )
 
-	# set install path
-	if 'root' in buildTarget:
-		rootPath = buildTarget.get('root')
-	else:
-		print 'warning: project has no root location specified, cloning in current dir'
+    # check dependencies
+    print '*giggles* ok, checking dependencies...' 
+    checkCircularDependencies( targetName, 'project', {} )
 
-	print 'ok, I\'m building project ' + buildName + ' now :)'
+    print '*giggles* dependencies ok! :)'
 
-	# build target
-	buildProject( buildTarget )
-	print '*giggles* ok I\'m done! project ' + buildName + ' built :)'
+    # set root folder path
+    if 'root' in targetProject:
+        installPath += targetProject.get( 'root' ) + '/'
+    else:
+        print 'warning: project ' + targetName + ' has no root folder specified'
+
+    print 'ok, I\'m building project ' + targetName + ' now :)'
+
+    # build target
+    buildProject( targetProject )
+
+    # save buildFile to install path
+    shutil.copyfile( buildFileName, installPath + buildFileName )
+
+    print '*giggles* ok I\'m done! project ' + targetName + ' built :)'
 
 main()

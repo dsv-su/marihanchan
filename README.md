@@ -5,7 +5,23 @@ _a git cloning utility for the DSVIT CMS deployment system_
 
 basic usage:
 ```
-    ./marihan.py --make <project>
+    ./marihan.py --build <project>
+```
+
+
+usage
+-----
+
+the marihan tool has two flags that can be set, one of which is required. the different
+flags that are recognized are:
+```
+    # the build flag (which is required)
+    ./marihan.py -b (--build) <project>
+```
+
+```
+    # the directory flag, which is optional
+    ./marihan.py -b (--build) <project> -d (--directory) /var/www
 ```
 
 the build-file
@@ -31,6 +47,7 @@ a basic build-file example:
   },
 
   "dsv_base": {
+    "root": "dsv_base",
     "requires": [
       "drupal_base"
     ],
@@ -38,11 +55,11 @@ a basic build-file example:
       "bootstrap": {
         "repo": "http://git.drupal.org/project/bootstrap.git",
         "branch": "7.x-3.x",
-        "path": "sites/all/themes/contrib"
+        "path": "sites/all/themes/contrib/bootstrap"
       },
       "drupal_theme_next": {
         "repo": "https://github.com/dsv-su/drupal_theme_next.git",
-        "path": "sites/all/themes/custom"
+        "path": "sites/all/themes/custom/drupal_theme_next"
       }
     }
   },
@@ -57,7 +74,7 @@ a basic build-file example:
         "repo": "http://git.drupal.org/project/webform.git",
         "branch": "7.x-3.x",
         "tag": "7.x-3.20",
-        "path": "sites/all/modules/contrib"
+        "path": "sites/all/modules/contrib/webforms"
       }
     }
   }
@@ -71,7 +88,7 @@ in the example above, there are 3 projects: "drupal_base", "dsv_base", and "dsv_
 a project is defined by a key (the name of the project) and a JSON object (the properties
 of the project). projects can have 3 different properties:
 
- - root = a simple string telling marihan where to put the project
+ - root = a simple string telling marihan if the project should be put in a specific folder in the installation path
  - requires = what other project(s) this project requires
  - modules = the different modules of this project
 
@@ -121,9 +138,8 @@ self-explanatory.
 the one property I will mention a bit though is the "path". this defines where inside of
 the project this module will end up being cloned. take a look at the project "dsv_forms" in
 the example above. in the project itself we say that the root dir is plainly "forms". this
-will create a  folder within the working path called "forms" and clone into that. now,
+will create a  folder within the installation path called "forms" and clone into that. now,
 take a look in that project's only module, "webforms". it has its path set to
-"sites/all/modules/contrib", which means that it will end up in
-"forms/sites/all/modules/contrib/webforms" (modules, unlike projects, are always cloned
-to their path with the module name appended).
-if you do not specify a path for a module, it will be cloned into "project root"/"modulename".
+"sites/all/modules/contrib/webforms", which means that it will end up in
+"forms/sites/all/modules/contrib/webforms".
+if you do not specify a path for a module, it will simply be cloned into the project root.
