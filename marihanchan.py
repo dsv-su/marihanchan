@@ -6,22 +6,35 @@ __copyright__ = 'Copyright 2014, Department of Computer and System Sciences, Sto
 
 __maintainer__ = 'Simon Jarbrant'
 __email__      = 'simon@dsv.su.se'
-__version__    = '0.0.3beta'
+__version__    = '0.0.4beta'
 
-import sys, argparse, json, git, shutil
+import sys
+import os       # to check if files exists
+import argparse # parse cli args
+import json     # parse build files
+import git      # the main GitPython used to control git
+import shutil   # used to copy files
+
+# import path from os, everything from git
+from os import path
 from git import *
 
+#
+# Global variables used throughout the script
+# --------------------------------------------
+#
 buildFileName = 'build.json'
 projects      = ''
 installPath   = ''
 
+# Checks for circular dependencies within a build-file
 def checkCircularDependencies( projectname, parentname, dependencies ):
     # add the current projectname to the dependencies dict
     if projectname not in dependencies:
         dependencies[ projectname ] = parentname
     else:
         if parentname == projectname:
-            print 'I hate you! >:('
+            print 'You\'re so mean! >:('
             print 'you have declared ' + projectname + ' to require itself!'
         elif dependencies.get( projectname ) == 'project':
             print 'I hate you! >:('
@@ -42,7 +55,7 @@ def checkCircularDependencies( projectname, parentname, dependencies ):
 
     return
 
-
+# This does the actual hard work, and fetches git repos
 def fetchModule( name, module ):
     global installPath
 
@@ -102,27 +115,50 @@ def buildProject( project ):
     return
 
 
+def updateProject( project ):
+    global buildFileName, projects, installPath
+
+    # first, get the changes that have been done since the last used build file
+    if os.path.isfile( installPath + buildFileName ):
+        buildFile = open( installPath + buildFileName, 'r' )
+        installedProject = json.load( buildFile )
+    else:
+        print 'error, no build file found at ' + installPath + buildFileName
+        sys.exit( -1 )
+
+    print 'installed project: %s' % str( installedProject )
+
+
 def main():
     global buildFileName, projects, installPath
 
     # parse cli arguments
     parser = argparse.ArgumentParser()
     parser.add_argument( '-b', '--build', help='Target build to make', required=True )
-    parser.add_argument( '-d', '--directory', help='Directory to install to' )
+    parser.add_argument( '-u', '--update', help='Target build to update', action='store_true' )
+    parser.add_argument( '-d', '--directory', help='Directory to install to or update' )
     args = parser.parse_args()
 
     targetName  = args.build
-    installPath = args.directory
+    update      = args.update
+
+    # if directory argument is supplied, use that. otherwise install in current dir
+    if args.directory:
+        installPath = args.directory
+    else:
+        installPath = ''
 
     # add trailing slash to installPath if needed
     if installPath != '':
         installPath += '/'
 
-    print 'installPath: ' + installPath
-
     # open buildfile and parse contents
-    buildFile = open( buildFileName, 'r' )
-    projects  = json.load( buildFile )
+    if os.path.isfile( buildFileName ):
+        buildFile = open( buildFileName, 'r' )
+        projects  = json.load( buildFile )
+    else:
+        print 'You\'re so mean! you haven\'t put a buildfile in the folder where I am.. >:('
+        sys.exit( -1 )
 
     # only continue if we have a valid target
     if targetName not in projects:
@@ -142,16 +178,20 @@ def main():
     if 'root' in targetProject:
         installPath += targetProject.get( 'root' ) + '/'
     else:
-        print 'warning: project ' + targetName + ' has no root folder specified'
+        print 'but... project ' + targetName + ' has no root folder specified :/'
 
-    print 'ok, I\'m building project ' + targetName + ' now :)'
-
-    # build target
-    buildProject( targetProject )
+    # build or update target accordingly
+    if update:
+        print 'ok, I\'m updating project ' + targetName + ' now :)'
+        updateProject( targetProject )
+    else:
+        print 'ok, I\'m building project ' + targetName + ' now :)'
+        buildProject( targetProject )
 
     # save buildFile to install path
     shutil.copyfile( buildFileName, installPath + buildFileName )
 
     print '*giggles* ok I\'m done! project ' + targetName + ' built :)'
 
+# after all the function declarations, call main so that the program starts
 main()
