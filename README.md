@@ -3,6 +3,9 @@ marihan
 
 _a git cloning utility for the DSVIT CMS deployment system_
 
+
+_"make me a ~~sandwich~~ project!"_
+
 basic usage:
 ```
     ./marihan.py --build <project>
