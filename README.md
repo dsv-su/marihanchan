@@ -8,7 +8,7 @@ _"make me a ~~sandwich~~ project!"_
 
 basic usage:
 ```
-    ./marihan.py --build <project>
+    ./marihanchan.py --build <project>
 ```
 
 
