@@ -38,10 +38,12 @@ def checkCircularDependencies( projectname, parentname, dependencies ):
             print 'you have declared ' + projectname + ' to require itself!'
         elif dependencies.get( projectname ) == 'project':
             print 'I hate you! >:('
-            print 'you\'ve said that ' + parentname + ' requires ' + projectname + ', but ' + projectname + ' is the project you\'re currently building!'
+            print 'you\'ve said that ' + parentname + ' requires ' + projectname + ', but ' \
+                + projectname + ' is the project you\'re currently building!'
         else:
             print 'I hate you! >:('
-            print 'you\'ve said that ' + parentname + ' requires ' + projectname + ', but that is already required by ' + dependencies.get( projectname )
+            print 'you\'ve said that ' + parentname + ' requires ' + projectname \
+                + ', but that is already required by ' + dependencies.get( projectname )
         sys.exit( -1 )
 
     # load the full project from the build-file so that we have its dependencies
@@ -50,7 +52,7 @@ def checkCircularDependencies( projectname, parentname, dependencies ):
     # recursively loop through this project's dependencies and check them
     if 'requires' in project:
         for dependency in project.get( 'requires' ):
-            # loop through this dependency's dependencies (WE NEED TO GO DEEPER BAAAAAAAAAAAAAAMMMMMM)
+            # loop through this dependency's dependencies (WE NEED TO GO DEEPER BAAAAAAAAAAAAMMMMMM)
             checkCircularDependencies( dependency, projectname, dependencies )
 
     return
@@ -63,8 +65,6 @@ def fetchModule( name, module ):
         print 'error: module doesn\'t have the \'repo\' key set'
         sys.exit( -1 )
 
-    print 'installPath: ' + installPath
-
     # get the relative destination for the module
     clonePath = ''
     if installPath != '':
@@ -75,8 +75,6 @@ def fetchModule( name, module ):
         clonePath += module.get( 'path' )
     else:
         print 'warning: module ' + name + ' doesn\'t have a path specified'
-
-    print 'clonePath: ' + clonePath
 
     # if there's a branch specified, use that - otherwise default to master
     branch = 'master'
@@ -115,18 +113,46 @@ def buildProject( project ):
     return
 
 
-def updateProject( project ):
+def findChangesInProject( project, projectName, buildDict, oldBuildDict ):
+    print 'finding changes in project ' + projectName
+    #print 'buildDict is ' + str( buildDict )
+    #print 'oldBuildDict is ' + str( oldBuildDict )
+
+    # get module info from this project
+    newModules = project.get( 'modules' )
+    oldModules = oldBuildDict.get( projectName ).get( 'modules' )
+
+    # get the added and removed modules
+    addedModules = newModules.viewkeys() - oldModules.viewkeys()
+    removedModules = oldModules.viewkeys() - newModules.viewkeys()
+
+    print 'added: ' + str( addedModules )
+    print 'removed: ' + str( removedModules )
+
+    """If there is a 'requires' section in the current project, investigate that as well"""
+    if 'requires' in project:
+        for requiredProjectName in project.get( 'requires' ):
+            requiredProject = buildDict.get( requiredProjectName )
+            findChangesInProject( requiredProject, requiredProjectName, buildDict, oldBuildDict )
+
+    return
+
+
+def updateProject( project, projectName ):
     global buildFileName, projects, installPath
 
-    # first, get the changes that have been done since the last used build file
+    # first, get the build file from the existing project
     if os.path.isfile( installPath + buildFileName ):
-        buildFile = open( installPath + buildFileName, 'r' )
-        installedProject = json.load( buildFile )
+        oldBuildFile = open( installPath + buildFileName, 'r' )
+        installedProjectDict = json.load( oldBuildFile )
     else:
         print 'error, no build file found at ' + installPath + buildFileName
         sys.exit( -1 )
 
-    print 'installed project: %s' % str( installedProject )
+    # then, sort out any updates / changes
+    findChangesInProject( project, projectName, projects, installedProjectDict )
+
+    return
 
 
 def main():
@@ -172,7 +198,7 @@ def main():
     print '*giggles* ok, checking dependencies...' 
     checkCircularDependencies( targetName, 'project', {} )
 
-    print '*giggles* dependencies ok! :)'
+    print '*giggles* dependencies looks ok! :)'
 
     # set root folder path
     if 'root' in targetProject:
@@ -183,15 +209,15 @@ def main():
     # build or update target accordingly
     if update:
         print 'ok, I\'m updating project ' + targetName + ' now :)'
-        updateProject( targetProject )
+        updateProject( targetProject, targetName )
     else:
         print 'ok, I\'m building project ' + targetName + ' now :)'
         buildProject( targetProject )
-
-    # save buildFile to install path
-    shutil.copyfile( buildFileName, installPath + buildFileName )
+        # save buildFile to install path
+        shutil.copyfile( buildFileName, installPath + buildFileName )
 
     print '*giggles* ok I\'m done! project ' + targetName + ' built :)'
+    return
 
 # after all the function declarations, call main so that the program starts
 main()
