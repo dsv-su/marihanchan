@@ -19,12 +19,17 @@ the marihan tool has two flags that can be set, one of which is required. the di
 flags that are recognized are:
 ```
     # the build flag (which is required)
-    ./marihan.py -b (--build) <project>
+    ./marihanchan.py -b (--build) <project>
 ```
 
 ```
     # the directory flag, which is optional
-    ./marihan.py -b (--build) <project> -d (--directory) /var/www
+    ./marihanchan.py -b (--build) <project> -d (--directory) /var/www
+```
+
+```
+    # the update flag, which also is optional
+    ./marihanchan.py -b (--build) <project> -d (--directory) /var/www -u (--update)
 ```
 
 the build-file

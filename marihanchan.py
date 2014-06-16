@@ -6,7 +6,7 @@ __copyright__ = 'Copyright 2014, Department of Computer and System Sciences, Sto
 
 __maintainer__ = 'Simon Jarbrant'
 __email__      = 'simon@dsv.su.se'
-__version__    = '0.0.4beta'
+__version__    = '0.0.4'
 
 import sys
 import os       # to check if files exists
@@ -113,10 +113,65 @@ def buildProject( project ):
     return
 
 
+def removeModule( name, module ):
+    global installPath
+
+    # remove module
+    removePath = installPath
+
+    if 'path' in module:
+        removePath += module.get( 'path' )
+
+    print 'removing module ' + name + ' from ' + removePath
+
+    shutil.rmtree( removePath )
+    return
+
+
+def updateModule( newModule, oldModule ):
+    global installPath
+
+    # get repo object
+    repoPath = installPath
+    if 'path' in newModule:
+        repoPath += '/' + newModule.get( 'path' )
+
+    repo = Repo( repoPath, odbt=GitCmdObjectDB )
+
+    # update branch
+    if 'branch' in newModule:
+        newBranch = newModule.get( 'branch' )
+        if 'branch' in oldModule:
+            oldBranch = oldModule.get( 'branch' )
+            if newBranch != oldBranch:
+                # git checkout new branch
+                print 'checking out new branch (' + newBranch + ')'
+                repo.git.checkout( newBranch )
+        else:
+            # git checkout new branch
+            print 'checking out new branch (' + newBranch + ')'
+            repo.git.checkout( newBranch )
+
+    # update tag
+    if 'tag' in newModule:
+        newTag = newModule.get( 'tag' )
+        if 'tag' in oldModule:
+            oldTag = oldModule.get( 'tag' )
+            if newTag != oldTag:
+                # git checkout new tag
+                print 'checking out new tag (' + newTag + ')'
+                repo.git.checkout( 'tags/' + newTag )
+        else:
+            # git checkout new tag
+            print 'checking out new tag (' + newTag + ')'
+            repo.git.checkout( 'tags/' + newTag )
+
+    # git pull!
+    repo.git.pull()
+
+
 def findChangesInProject( project, projectName, buildDict, oldBuildDict ):
     print 'finding changes in project ' + projectName
-    #print 'buildDict is ' + str( buildDict )
-    #print 'oldBuildDict is ' + str( oldBuildDict )
 
     # get module info from this project
     newModules = project.get( 'modules' )
@@ -126,10 +181,26 @@ def findChangesInProject( project, projectName, buildDict, oldBuildDict ):
     addedModules = newModules.viewkeys() - oldModules.viewkeys()
     removedModules = oldModules.viewkeys() - newModules.viewkeys()
 
-    print 'added: ' + str( addedModules )
-    print 'removed: ' + str( removedModules )
+    # add new modules
+    for moduleName in addedModules:
+        fetchModule( moduleName, newModules.get( moduleName ) )
 
-    """If there is a 'requires' section in the current project, investigate that as well"""
+    # remove removed modules
+    for moduleName in removedModules:
+        removeModule( moduleName, oldModules.get( moduleName ) )
+
+    # we don't want to check details for newly added modules
+    for key in addedModules:
+        del newModules[key]
+
+    # perform individual module updates
+    for moduleName in newModules:
+        newModule = newModules.get( moduleName )
+        oldModule = oldModules.get( moduleName )
+        print 'updating module: ' + moduleName
+        updateModule( newModule, oldModule )
+
+    # if there is a 'requires' section in the current project, investigate that as well
     if 'requires' in project:
         for requiredProjectName in project.get( 'requires' ):
             requiredProject = buildDict.get( requiredProjectName )
@@ -151,7 +222,6 @@ def updateProject( project, projectName ):
 
     # then, sort out any updates / changes
     findChangesInProject( project, projectName, projects, installedProjectDict )
-
     return
 
 
@@ -213,8 +283,9 @@ def main():
     else:
         print 'ok, I\'m building project ' + targetName + ' now :)'
         buildProject( targetProject )
-        # save buildFile to install path
-        shutil.copyfile( buildFileName, installPath + buildFileName )
+
+    # save buildFile to install path
+    shutil.copyfile( buildFileName, installPath + buildFileName )
 
     print '*giggles* ok I\'m done! project ' + targetName + ' built :)'
     return
