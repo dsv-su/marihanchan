@@ -6,7 +6,7 @@ __copyright__ = 'Copyright 2014, Department of Computer and System Sciences, Sto
 
 __maintainer__ = 'Simon Jarbrant'
 __email__      = 'simon@dsv.su.se'
-__version__    = '0.0.4'
+__version__    = '0.0.5'
 
 import sys
 import os       # to check if files exists
@@ -23,9 +23,10 @@ from git import *
 # Global variables used throughout the script
 # --------------------------------------------
 #
-buildFileName = 'build.json'
-projects      = ''
-installPath   = ''
+defaultBuildFileName = 'build.json'
+buildFileName        = ''
+projects             = ''
+installPath          = ''
 
 # Checks for circular dependencies within a build-file
 def checkCircularDependencies( projectname, parentname, dependencies ):
@@ -58,34 +59,34 @@ def checkCircularDependencies( projectname, parentname, dependencies ):
     return
 
 # This does the actual hard work, and fetches git repos
-def fetchModule( name, module ):
+def fetchComponent( name, component ):
     global installPath
 
-    if 'repo' not in module:
-        print 'error: module doesn\'t have the \'repo\' key set'
+    if 'repo' not in component:
+        print 'error: component doesn\'t have the \'repo\' key set'
         sys.exit( -1 )
 
-    # get the relative destination for the module
+    # get the relative destination for the component
     clonePath = ''
     if installPath != '':
         clonePath += installPath
 
-    # if the module has an explicit path specified, use that
-    if 'path' in module:
-        clonePath += module.get( 'path' )
+    # if the component has an explicit path specified, use that
+    if 'path' in component:
+        clonePath += component.get( 'path' )
     else:
-        print 'warning: module ' + name + ' doesn\'t have a path specified'
+        print 'warning: component ' + name + ' doesn\'t have a path specified'
 
     # if there's a branch specified, use that - otherwise default to master
     branch = 'master'
-    if 'branch' in module:
-        branch = module.get( 'branch' )
+    if 'branch' in component:
+        branch = component.get( 'branch' )
 
-    repo = Repo.clone_from( module.get('repo'), clonePath, branch=branch )
+    repo = Repo.clone_from( component.get('repo'), clonePath, branch=branch )
 
     # if there's a tag specified, try to checkout that
-    if 'tag' in module:
-        repo.git.checkout( 'tags/' + module.get('tag') )
+    if 'tag' in component:
+        repo.git.checkout( 'tags/' + component.get('tag') )
 
     return
 
@@ -104,45 +105,44 @@ def buildProject( project ):
             buildProject( projects.get(dependency) )
 
     # now proceed with building project
-    if 'modules' not in project:
-        print 'warning: project has no modules, skipping'
+    if 'components' not in project:
+        print 'warning: project has no components, skipping'
     else:
-        for name, module in project.get( 'modules' ).iteritems():
-            fetchModule( name, module )
+        for name, component in project.get( 'components' ).iteritems():
+            fetchComponent( name, component )
 
     return
 
 
-def removeModule( name, module ):
+def removeComponent( name, component ):
     global installPath
 
-    # remove module
+    # generate the path to the component that is to be removed
     removePath = installPath
+    if 'path' in component:
+        removePath += component.get( 'path' )
 
-    if 'path' in module:
-        removePath += module.get( 'path' )
-
-    print 'removing module ' + name + ' from ' + removePath
+    print 'removing component ' + name + ' from ' + removePath
 
     shutil.rmtree( removePath )
     return
 
 
-def updateModule( newModule, oldModule ):
+def updateComponent( newComponent, oldComponent ):
     global installPath
 
     # get repo object
     repoPath = installPath
-    if 'path' in newModule:
-        repoPath += '/' + newModule.get( 'path' )
+    if 'path' in newComponent:
+        repoPath += '/' + newComponent.get( 'path' )
 
     repo = Repo( repoPath, odbt=GitCmdObjectDB )
 
     # update branch
-    if 'branch' in newModule:
-        newBranch = newModule.get( 'branch' )
-        if 'branch' in oldModule:
-            oldBranch = oldModule.get( 'branch' )
+    if 'branch' in newComponent:
+        newBranch = newComponent.get( 'branch' )
+        if 'branch' in oldComponent:
+            oldBranch = oldComponent.get( 'branch' )
             if newBranch != oldBranch:
                 # git checkout new branch
                 print 'checking out new branch (' + newBranch + ')'
@@ -153,10 +153,10 @@ def updateModule( newModule, oldModule ):
             repo.git.checkout( newBranch )
 
     # update tag
-    if 'tag' in newModule:
-        newTag = newModule.get( 'tag' )
-        if 'tag' in oldModule:
-            oldTag = oldModule.get( 'tag' )
+    if 'tag' in newComponent:
+        newTag = newComponent.get( 'tag' )
+        if 'tag' in oldComponent:
+            oldTag = oldComponent.get( 'tag' )
             if newTag != oldTag:
                 # git checkout new tag
                 print 'checking out new tag (' + newTag + ')'
@@ -173,32 +173,32 @@ def updateModule( newModule, oldModule ):
 def findChangesInProject( project, projectName, buildDict, oldBuildDict ):
     print 'finding changes in project ' + projectName
 
-    # get module info from this project
-    newModules = project.get( 'modules' )
-    oldModules = oldBuildDict.get( projectName ).get( 'modules' )
+    # get component info from this project
+    newComponents = project.get( 'components' )
+    oldComponents = oldBuildDict.get( projectName ).get( 'components' )
 
-    # get the added and removed modules
-    addedModules = newModules.viewkeys() - oldModules.viewkeys()
-    removedModules = oldModules.viewkeys() - newModules.viewkeys()
+    # get the added and removed components
+    addedComponents = newComponents.viewkeys() - oldComponents.viewkeys()
+    removedComponents = oldComponents.viewkeys() - newComponents.viewkeys()
 
-    # add new modules
-    for moduleName in addedModules:
-        fetchModule( moduleName, newModules.get( moduleName ) )
+    # add new components
+    for componentName in addedComponents:
+        fetchComponent( componentName, newComponents.get( componentName ) )
 
-    # remove removed modules
-    for moduleName in removedModules:
-        removeModule( moduleName, oldModules.get( moduleName ) )
+    # remove removed components
+    for componentName in removedcomponents:
+        removecomponent( componentName, oldComponents.get( componentName ) )
 
-    # we don't want to check details for newly added modules
-    for key in addedModules:
-        del newModules[key]
+    # we don't want to check details for newly added components
+    for key in addedComponents:
+        del newComponents[key]
 
-    # perform individual module updates
-    for moduleName in newModules:
-        newModule = newModules.get( moduleName )
-        oldModule = oldModules.get( moduleName )
-        print 'updating module: ' + moduleName
-        updateModule( newModule, oldModule )
+    # perform individual component updates
+    for componentName in newComponents:
+        newComponent = newComponents.get( componentName )
+        oldComponent = oldComponents.get( componentName )
+        print 'updating component: ' + componentName
+        updatecomponent( newComponent, oldComponent )
 
     # if there is a 'requires' section in the current project, investigate that as well
     if 'requires' in project:
@@ -226,16 +226,24 @@ def updateProject( project, projectName ):
 
 
 def main():
-    global buildFileName, projects, installPath
+    global defaultBuildFileName, buildFileName, projects, installPath
 
     # parse cli arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument( '-b', '--build', help='Target build to make', required=True )
+    parser.add_argument( '-b', '--buildfile', help='Buildfile to read projects from', required=True)
+    parser.add_argument( '-p', '--project', help='Target build to make', required=True )
     parser.add_argument( '-u', '--update', help='Target build to update', action='store_true' )
-    parser.add_argument( '-d', '--directory', help='Directory to install to or update' )
+    parser.add_argument( '-d', '--directory', help='Directory of project to install or update\
+        (will override any \'root\' directive set in the buildfile!)' )
     args = parser.parse_args()
 
-    targetName  = args.build
+    if args.buildfile:
+        buildFileName = args.buildfile
+    else:
+        buildFileName = defaultBuildFileName
+
+    # extracts the target project name and update flag
+    targetName  = args.project
     update      = args.update
 
     # if directory argument is supplied, use that. otherwise install in current dir
@@ -253,7 +261,7 @@ def main():
         buildFile = open( buildFileName, 'r' )
         projects  = json.load( buildFile )
     else:
-        print 'You\'re so mean! you haven\'t put a buildfile in the folder where I am.. >:('
+        print 'You\'re so mean! you haven\'t supplied me with a buildfile.. >:('
         sys.exit( -1 )
 
     # only continue if we have a valid target
@@ -271,7 +279,7 @@ def main():
     print '*giggles* dependencies looks ok! :)'
 
     # set root folder path
-    if 'root' in targetProject:
+    if 'root' in targetProject and installPath == '':
         installPath += targetProject.get( 'root' ) + '/'
     else:
         print 'but... project ' + targetName + ' has no root folder specified :/'
