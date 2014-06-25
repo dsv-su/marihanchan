@@ -25,6 +25,7 @@ from git import *
 #
 defaultBuildFileName = 'build.json'
 buildFileName        = ''
+defaults             = ''
 projects             = ''
 installPath          = ''
 
@@ -58,6 +59,21 @@ def checkCircularDependencies( projectname, parentname, dependencies ):
 
     return
 
+
+def getDefaultPropertyForComponent( component, propertyName ):
+    global defaults
+
+    propertyValue = None
+
+    # get default value for property in component
+    if 'defaults' in component:
+        defaultName = component.get( 'defaults' )
+        componentDefaultProperties = defaults.get( defaultName )
+        if propertyName in componentDefaultProperties:
+            propertyValue += componentDefaultProperties.get( propertyName )
+
+    return propertyValue
+
 # This does the actual hard work, and fetches git repos
 def fetchComponent( name, component ):
     global installPath
@@ -71,17 +87,26 @@ def fetchComponent( name, component ):
     if installPath != '':
         clonePath += installPath
 
-    # if the component has an explicit path specified, use that
+    # load default path first (if any)
+    defaultPath = getDefaultPropertyForComponent( component, 'path' )
+    if defaultPath is not None:
+        clonePath += defaultPath
+
+    # if the component has path specified, use it
     if 'path' in component:
         clonePath += component.get( 'path' )
     else:
-        print 'warning: component ' + name + ' doesn\'t have a path specified'
+        # check if we should ignore empty path
+        ignoreEmptyPath = getDefaultPropertyForComponent( component, 'ignoreEmptyPath' )
+        if not ignoreEmptyPath:
+            print 'warning: component ' + name + ' doesn\'t have a path specified'
 
     # if there's a branch specified, use that - otherwise default to master
     branch = 'master'
     if 'branch' in component:
         branch = component.get( 'branch' )
 
+    print 'fetching component ' + name
     repo = Repo.clone_from( component.get('repo'), clonePath, branch=branch )
 
     # if there's a tag specified, try to checkout that
@@ -113,7 +138,7 @@ def buildProject( project ):
 
     return
 
-
+# Removes a component from a built project
 def removeComponent( name, component ):
     global installPath
 
@@ -142,6 +167,8 @@ def updateComponent( newComponent, oldComponent ):
     if 'branch' in newComponent:
         newBranch = newComponent.get( 'branch' )
         if 'branch' in oldComponent:
+            print 'currently active branch is ' + str( repo.active_branch() )
+
             oldBranch = oldComponent.get( 'branch' )
             if newBranch != oldBranch:
                 # git checkout new branch
@@ -169,7 +196,7 @@ def updateComponent( newComponent, oldComponent ):
     # git pull!
     repo.git.pull()
 
-
+# Does the actual dirty work for updateProject()
 def findChangesInProject( project, projectName, buildDict, oldBuildDict ):
     print 'finding changes in project ' + projectName
 
@@ -208,7 +235,7 @@ def findChangesInProject( project, projectName, buildDict, oldBuildDict ):
 
     return
 
-
+# Initiates the update process on a project
 def updateProject( project, projectName ):
     global buildFileName, projects, installPath
 
@@ -226,7 +253,7 @@ def updateProject( project, projectName ):
 
 
 def main():
-    global defaultBuildFileName, buildFileName, projects, installPath
+    global defaultBuildFileName, buildFileName, defaults, projects, installPath
 
     # parse cli arguments
     parser = argparse.ArgumentParser()
@@ -277,6 +304,11 @@ def main():
     checkCircularDependencies( targetName, 'project', {} )
 
     print '*giggles* dependencies looks ok! :)'
+
+    # load defaults if there are any
+    if 'defaults' in projects:
+        print 'loading defaults...'
+        defaults = projects.get( 'defaults' )
 
     # set root folder path
     if 'root' in targetProject and installPath == '':

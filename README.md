@@ -1,7 +1,7 @@
 marihanchan
 ===========
 
-_a git cloning utility for the DSVIT CMS deployment system_
+_a git cloning utility for deployment systems_
 
 _"make me a ~~sandwich~~ project!"_
 
@@ -22,27 +22,27 @@ usage
 the marihan tool has a couple flags that can be set, a few of which is required. the different
 flags that are recognized are:
 ```shell
-    # the build-file flag, tells marihanchan where to look up projects (this defaults to
-    # a file called 'build.json', located in the same folder as the running script)
-    ./marihanchan.py -b (--buildfile) <build-file>
+# the build-file flag, tells marihanchan where to look up projects (this defaults to
+# a file called 'build.json', located in the same folder as the running script)
+./marihanchan.py -b (--buildfile) <build-file>
 ```
 
 ```shell
-    # the project flag (which is required). this tells marihanchan what project it should
-    # build/update
-    ./marihanchan.py -p (--project) <project>
+# the project flag (which is required). this tells marihanchan what project it should
+# build/update
+./marihanchan.py -p (--project) <project>
 ```
 
 ```shell
-    # the directory flag. note that this will override any 'root' set in
-    # the target project
-    ./marihanchan.py -p (--project) <project> -d (--directory) /var/www/mysite
+# the directory flag. note that this will override any 'root' set in
+# the target project
+./marihanchan.py -p (--project) <project> -d (--directory) /var/www/mysite
 ```
 
 ```shell
-    # the update flag, which will make marihanchan try to go through an existing project and update
-    # it. 
-    ./marihanchan.py -p (--project) <project> -d (--directory) /var/www/mysite -u (--update)
+# the update flag, which will make marihanchan try to go through an existing project and update
+# it. 
+./marihanchan.py -p (--project) <project> -d (--directory) /var/www/mysite -u (--update)
 ```
 
 the build-file
@@ -156,7 +156,7 @@ finally, the "components" property declares what components a project has. pleas
 the section about component definitions below.
 
 components
--------
+----------
 
 within any of your projects, you'll most probably want to define at least one component.
 components define what is cloned as part of your project, and can have the following properties:
@@ -178,3 +178,79 @@ take a look in that project's only component, "webforms". it has its path set to
 "sites/all/components/contrib/webforms", which means that it will end up in
 "forms/sites/all/components/contrib/webforms".
 if you do not specify a path for a component, it will simply be cloned into the project root.
+
+component flags
+---------------
+
+currently the marihanchan script can understand the following component flags:
+
+ - __ignoreEmptyPath__ - ignores a missing path (issues no warning when building)
+
+defaults
+--------
+
+default declarations is a great way to save you time and minimize typo issues when making large
+build files. defaults allow you to declare - as the name implies - default values for components.
+an example default declaration can look like this:
+```json
+{
+  "defaults": {
+    "core": {
+      "ignoreEmptyPath": true
+    },
+    "module_contrib": {
+      "path": "sites/all/modules/contrib"
+    },
+    "module_custom": {
+      "path": "sites/all/modules/custom"
+    },
+    "theme_contrib": {
+      "path": "sites/all/themes/contrib"
+    },
+    "theme_custom": {
+      "path": "sites/all/themes/custom"
+    }
+  },
+
+  "drupal7": {
+    "root": "drupal",
+    "components": {
+      "core_drupal7": {
+        "defaults": "core",
+        "repo": "https://github.com/drupal/drupal.git",
+        "branch": "7.x",
+        "tag": "7.28"
+      }
+    }
+  },
+
+  "dsv_theme": {
+    "components": {
+      "jquery_update": {
+        "defaults": "module_contrib",
+        "repo": "git://git.drupal.org/project/jquery_update.git",
+        "branch": "7.x-2.x",
+        "tag": "7.x-2.4",
+        "path": "jquery_update"
+      },
+      "bootstrap": {
+        "defaults": "theme_contrib",
+        "repo": "git://git.drupal.org/project/bootstrap.git",
+        "branch": "7.x-3.x",
+        "tag": "7.x-3.0",
+        "path": "sites/all/themes/contrib/bootstrap"
+      },
+      "dsv_drupal_theme": {
+        "defaults": "theme_custom",
+        "repo": "https://github.com/dsv-su/dsv_drupal_theme.git",
+        "path": "sites/all/themes/custom/dsv_drupal_theme"
+      }
+    }
+  },
+
+  ...
+```
+
+notice how (for example) the component "jquery_update" in "dsv_theme" has its "defaults" property
+set to "module_contrib"? this makes the marihanchan script take the path property defined in that
+default and append the component's path when cloning. pretty nifty, right?
