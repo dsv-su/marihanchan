@@ -29,6 +29,35 @@ defaults             = ''
 projects             = ''
 installPath          = ''
 
+
+# Builds the specified project
+def buildProject( project ):
+    global projects, installPath
+
+    # build project dependencies first
+    if 'requires' in project:
+        for dependency in project.get( 'requires' ):
+            if dependency not in projects:
+                print 'error: cannot find build declaration for project ' + dependency
+                sys.exit( -1 )
+
+            # build dependency
+            buildProject( projects.get(dependency) )
+
+    # now proceed with building this project
+    if 'components' not in project:
+        print 'warning: project has no components, skipping'
+    else:
+        for name, component in project.get( 'components' ).iteritems():
+            fetchComponent( name, component )
+
+    # if there are any git patches specified in this project, apply them
+    if 'patches' in project:
+        for patch in project.get( 'patches' ):
+            applyGitPatch( patch, installPath )
+
+    return
+
 # Checks for circular dependencies within a build-file
 def checkCircularDependencies( projectname, parentname, dependencies ):
     # add the current projectname to the dependencies dict
@@ -59,9 +88,14 @@ def checkCircularDependencies( projectname, parentname, dependencies ):
 
     return
 
-
+# Enables support for the "Defaults" system. Checks (and returns) a default value for the given
+# property, if one exists
 def getDefaultPropertyForComponent( component, propertyName ):
     global defaults
+
+    # if there are no defaults, just return
+    if defaults == '':
+        return None
 
     propertyValue = None
 
@@ -92,13 +126,19 @@ def fetchComponent( name, component ):
     if defaultPath is not None:
         clonePath += defaultPath
 
-    # if the component has path specified, use it
+    # if the component has path specified, append it
     if 'path' in component:
         clonePath += component.get( 'path' )
     else:
         # check if we should ignore empty path
-        ignoreEmptyPath = getDefaultPropertyForComponent( component, 'ignoreEmptyPath' )
+        ignoreEmptyPath = False
+        if 'ignoreEmptyPath' in component:
+            ignoreEmptyPath = component.get( 'ignoreEmptyPath' )
+        else:
+            ignoreEmptyPath = getDefaultPropertyForComponent( component, 'ignoreEmptyPath' )
+
         if not ignoreEmptyPath:
+            # print warning if we shouldn't ignore that path is empty
             print 'warning: component ' + name + ' doesn\'t have a path specified'
 
     # if there's a branch specified, use that - otherwise default to master
@@ -115,44 +155,75 @@ def fetchComponent( name, component ):
 
     return
 
+# Applies the specified patch to the specified project
+def applyGitPatch( patchFileName, repoPath ):
+    print 'applying patch \"' + patchFileName + '\" to ' + repoPath + '...'
 
-def buildProject( project ):
-    global projects
+    # first, get a git object from the repoPath
+    git = Git( repoPath )
 
-    # build project requirements first
-    if 'requires' in project:
-        for dependency in project.get( 'requires' ):
-            if dependency not in projects:
-                print 'error: cannot find build declaration for project ' + dependency
-                sys.exit( -1 )
+    # then simply try to apply the patch! (assume that it's located at the current working dir)
+    patchLocation = str( os.getcwd() ) + '/' + patchFileName
+    git.apply( patchLocation )
 
-            # build dependency
-            buildProject( projects.get(dependency) )
+    return
 
-    # now proceed with building project
-    if 'components' not in project:
-        print 'warning: project has no components, skipping'
+# Initiates the update process on a project
+def updateProject( project, projectName ):
+    global buildFileName, projects, installPath
+
+    # first, get the build file from the existing project
+    if os.path.isfile( installPath + buildFileName ):
+        oldBuildFile = open( installPath + buildFileName, 'r' )
+        installedProjectDict = json.load( oldBuildFile )
     else:
-        for name, component in project.get( 'components' ).iteritems():
-            fetchComponent( name, component )
+        print 'error, no build file found at ' + installPath + buildFileName
+        sys.exit( -1 )
+
+    # then, sort out any updates / changes
+    findChangesInProject( project, projectName, projects, installedProjectDict )
+    return
+
+# Does the actual dirty work for updateProject()
+def findChangesInProject( project, projectName, buildDict, oldBuildDict ):
+    print 'finding changes in project ' + projectName
+
+    # get component info from this project
+    newComponents = project.get( 'components' )
+    oldComponents = oldBuildDict.get( projectName ).get( 'components' )
+
+    # get the added and removed components
+    addedComponents = newComponents.viewkeys() - oldComponents.viewkeys()
+    removedComponents = oldComponents.viewkeys() - newComponents.viewkeys()
+
+    # add new components
+    for componentName in addedComponents:
+        fetchComponent( componentName, newComponents.get( componentName ) )
+
+    # remove removed components
+    for componentName in removedcomponents:
+        removecomponent( componentName, oldComponents.get( componentName ) )
+
+    # we don't want to check details for newly added components
+    for key in addedComponents:
+        del newComponents[key]
+
+    # perform individual component updates
+    for componentName in newComponents:
+        newComponent = newComponents.get( componentName )
+        oldComponent = oldComponents.get( componentName )
+        print 'updating component: ' + componentName
+        updatecomponent( newComponent, oldComponent )
+
+    # if there is a 'requires' section in the current project, investigate that as well
+    if 'requires' in project:
+        for requiredProjectName in project.get( 'requires' ):
+            requiredProject = buildDict.get( requiredProjectName )
+            findChangesInProject( requiredProject, requiredProjectName, buildDict, oldBuildDict )
 
     return
 
-# Removes a component from a built project
-def removeComponent( name, component ):
-    global installPath
-
-    # generate the path to the component that is to be removed
-    removePath = installPath
-    if 'path' in component:
-        removePath += component.get( 'path' )
-
-    print 'removing component ' + name + ' from ' + removePath
-
-    shutil.rmtree( removePath )
-    return
-
-
+# Updates the given component (needs both new and old config specification)
 def updateComponent( newComponent, oldComponent ):
     global installPath
 
@@ -196,62 +267,21 @@ def updateComponent( newComponent, oldComponent ):
     # git pull!
     repo.git.pull()
 
-# Does the actual dirty work for updateProject()
-def findChangesInProject( project, projectName, buildDict, oldBuildDict ):
-    print 'finding changes in project ' + projectName
+# Removes a component from a built project
+def removeComponent( name, component ):
+    global installPath
 
-    # get component info from this project
-    newComponents = project.get( 'components' )
-    oldComponents = oldBuildDict.get( projectName ).get( 'components' )
+    # generate the path to the component that is to be removed
+    removePath = installPath
+    if 'path' in component:
+        removePath += component.get( 'path' )
 
-    # get the added and removed components
-    addedComponents = newComponents.viewkeys() - oldComponents.viewkeys()
-    removedComponents = oldComponents.viewkeys() - newComponents.viewkeys()
+    print 'removing component ' + name + ' from ' + removePath
 
-    # add new components
-    for componentName in addedComponents:
-        fetchComponent( componentName, newComponents.get( componentName ) )
-
-    # remove removed components
-    for componentName in removedcomponents:
-        removecomponent( componentName, oldComponents.get( componentName ) )
-
-    # we don't want to check details for newly added components
-    for key in addedComponents:
-        del newComponents[key]
-
-    # perform individual component updates
-    for componentName in newComponents:
-        newComponent = newComponents.get( componentName )
-        oldComponent = oldComponents.get( componentName )
-        print 'updating component: ' + componentName
-        updatecomponent( newComponent, oldComponent )
-
-    # if there is a 'requires' section in the current project, investigate that as well
-    if 'requires' in project:
-        for requiredProjectName in project.get( 'requires' ):
-            requiredProject = buildDict.get( requiredProjectName )
-            findChangesInProject( requiredProject, requiredProjectName, buildDict, oldBuildDict )
-
+    shutil.rmtree( removePath )
     return
 
-# Initiates the update process on a project
-def updateProject( project, projectName ):
-    global buildFileName, projects, installPath
-
-    # first, get the build file from the existing project
-    if os.path.isfile( installPath + buildFileName ):
-        oldBuildFile = open( installPath + buildFileName, 'r' )
-        installedProjectDict = json.load( oldBuildFile )
-    else:
-        print 'error, no build file found at ' + installPath + buildFileName
-        sys.exit( -1 )
-
-    # then, sort out any updates / changes
-    findChangesInProject( project, projectName, projects, installedProjectDict )
-    return
-
-
+# Main, will execute first when the script is run
 def main():
     global defaultBuildFileName, buildFileName, defaults, projects, installPath
 
@@ -261,7 +291,7 @@ def main():
     parser.add_argument( '-p', '--project', help='Target build to make', required=True )
     parser.add_argument( '-u', '--update', help='Target build to update', action='store_true' )
     parser.add_argument( '-d', '--directory', help='Directory of project to install or update\
-        (will override any \'root\' directive set in the buildfile!)' )
+        (will override any \'rootDir\' directive set in the buildfile!)' )
     args = parser.parse_args()
 
     if args.buildfile:
@@ -273,15 +303,9 @@ def main():
     targetName  = args.project
     update      = args.update
 
-    # if directory argument is supplied, use that. otherwise install in current dir
+    # if directory argument is supplied, use that
     if args.directory:
-        installPath = args.directory
-    else:
-        installPath = ''
-
-    # add trailing slash to installPath if needed
-    if installPath != '':
-        installPath += '/'
+        installPath = args.directory + '/'
 
     # open buildfile and parse contents
     if os.path.isfile( buildFileName ):
@@ -294,13 +318,14 @@ def main():
     # only continue if we have a valid target
     if targetName not in projects:
         print 'error: unknown build target \'' + targetName + '\''
+        print 'have you really defined it in ' + buildFileName + '?'
         sys.exit( -1 )
 
     # extract the buildtarget from the list of available projects
     targetProject = projects.get( targetName )
 
     # check dependencies
-    print '*giggles* ok, checking dependencies...' 
+    print '*giggles* ok, checking dependencies...'
     checkCircularDependencies( targetName, 'project', {} )
 
     print '*giggles* dependencies looks ok! :)'
@@ -310,19 +335,31 @@ def main():
         print 'loading defaults...'
         defaults = projects.get( 'defaults' )
 
-    # set root folder path
-    if 'root' in targetProject and installPath == '':
-        installPath += targetProject.get( 'root' ) + '/'
+    # set installPath if needed
+    if installPath == '':
+        print 'ok, so I didn\'t get an install directory from you as an argument...'
+        if 'rootDir' in targetProject:
+            installPath = targetProject.get( 'rootDir' ) + '/'
+            print 'but I\'ll install into ' + installPath + ' (read from project\'s rootDir)'
+        else:
+            print 'but... project ' + targetName + ' has no rootDir specified either :/'
+            print 'since I now have nothing to go on, I\'ll clone in the current dir'
     else:
-        print 'but... project ' + targetName + ' has no root folder specified :/'
+        print 'installing into ' + installPath
 
     # build or update target accordingly
     if update:
         print 'ok, I\'m updating project ' + targetName + ' now :)'
         updateProject( targetProject, targetName )
     else:
-        print 'ok, I\'m building project ' + targetName + ' now :)'
-        buildProject( targetProject )
+        # check that installPath doesn't already exist
+        if os.path.exists( installPath ):
+            print 'error: ' + installPath + ' already exists!'
+            print 'if you want to upgrade an existing project, add the --update cli argument'
+            sys.exit( -1 )
+        else:
+            print 'ok, I\'m building project ' + targetName + ' now :)'
+            buildProject( targetProject )
 
     # save buildFile to install path
     shutil.copyfile( buildFileName, installPath + buildFileName )

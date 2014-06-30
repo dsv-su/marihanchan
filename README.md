@@ -45,20 +45,22 @@ flags that are recognized are:
 ./marihanchan.py -p (--project) <project> -d (--directory) /var/www/mysite -u (--update)
 ```
 
+
 the build-file
 --------------
 
-marihan needs a build-file in order to function. this works sort of like a 'repository',
-in which the different projects that can be created are defined. a build-file is written
-in JSON, needs to reside in the same directory as the main 'marihan.py' script, and needs
-to be named 'build.json' (later versions of marihan might be able to do this part in a
-smarter way).
+marihanchan needs a build-file in order to function. this works sort of like a central library,
+in which the different projects that can be built are defined. a build-file is written
+in JSON, and either needs to be explicitly supplied via cli arguments when running the script
+or placed in the same directory as the main script. note that if you opt for the latter, then
+the build-file needs to also be named "build.json" (this might be handled nicer-ly in later
+versions of the script)
 
 a basic build-file example:
 ```json
 {
   "drupal_base": {
-    "root": "drupal",
+    "rootDir": "drupal",
     "components": {
       "drupal": {
         "repo": "https://github.com/drupal/drupal.git",
@@ -68,7 +70,7 @@ a basic build-file example:
   },
 
   "dsv_base": {
-    "root": "dsv_base",
+    "rootDir": "dsv_base",
     "requires": [ "drupal_base" ],
     "components": {
       "views": {
@@ -101,7 +103,7 @@ a basic build-file example:
   }
 
   "dsv_forms": {
-    "root": "forms",
+    "rootDir": "forms",
     "requires": [ "dsv_base", "dsv_theme" ],
     "components": {
       "webforms": {
@@ -115,6 +117,7 @@ a basic build-file example:
 }
 ```
 
+
 defining a project
 ------------------
 
@@ -122,7 +125,7 @@ in the example above, there are 3 projects: "drupal_base", "dsv_base", and "dsv_
 a project is defined by a key (the name of the project) and a JSON object (the properties
 of the project). projects can have 3 different properties:
 
- - 'root' = a simple string telling marihan if the project should be put in a specific
+ - 'rootDir' = a simple string telling marihan if the project should be put in a specific
     folder in the installation path
  - 'requires' = what other project(s) this project requires
  - 'components' = the different components of this project
@@ -140,11 +143,11 @@ the above project will (of course..) result in absolutely nothing being done. bu
 isn't very interesting, now is it? let's instead explain what marihan does with the
 information.
 
-the "root" of the project is the location of where marihan will put it. this could be
+the "rootDir" of the project is the location where marihan will put it. this could be
 either just nothing (would clone into the execution dir) or any absolute or relative
-url within the system. please note that marihan always uses the "root" of the top-most
-project only, so if you have a project with no root in it - none of the dependencies will
-change this fact.
+path within the system. please note that marihan always uses the rootDir of the top-most
+project only, so if you have a project with no rootDir in it - none of the dependencies will
+change this fact and the project will be cloned into the current working dir.
 
 the "rqeuires" property tells marihan what other projects this current one depends on. in
 the example above, the "dsv_forms" project depends on the "dsv_base", which in turn depends
@@ -154,6 +157,7 @@ jobs that contain them.
 
 finally, the "components" property declares what components a project has. please take a look at
 the section about component definitions below.
+
 
 components
 ----------
@@ -179,17 +183,11 @@ take a look in that project's only component, "webforms". it has its path set to
 "forms/sites/all/components/contrib/webforms".
 if you do not specify a path for a component, it will simply be cloned into the project root.
 
-component flags
----------------
-
-currently the marihanchan script can understand the following component flags:
-
- - __ignoreEmptyPath__ - ignores a missing path (issues no warning when building)
 
 defaults
 --------
 
-default declarations is a great way to save you time and minimize typo issues when making large
+default declarations are great ways to save you time and minimize typo issues when making large
 build files. defaults allow you to declare - as the name implies - default values for components.
 an example default declaration can look like this:
 ```json
@@ -213,7 +211,7 @@ an example default declaration can look like this:
   },
 
   "drupal7": {
-    "root": "drupal",
+    "rootDir": "drupal",
     "components": {
       "core_drupal7": {
         "defaults": "core",
@@ -254,3 +252,40 @@ an example default declaration can look like this:
 notice how (for example) the component "jquery_update" in "dsv_theme" has its "defaults" property
 set to "module_contrib"? this makes the marihanchan script take the path property defined in that
 default and append the component's path when cloning. pretty nifty, right?
+
+
+flags
+-----
+
+currently the marihanchan script can understand the following component flags:
+
+ - __ignoreEmptyPath__ - (boolean) ignores a missing path (issues no warning when building)
+
+
+git patches
+-----------
+
+___note: EXPERIMENTAL___
+___warning: updating is not yet supported when patches are in your project!___
+
+marihanchan has support for patching your projects, too! currently, only support for patching
+entire projects is built in - but patching for components is on its way. applying patches is very
+easy to accomplish - just add them to your project which needs patching up:
+```json
+{
+  "moodle26": {
+    "rootDir": "moodle",
+    "patches": [ "fixes.patch" ],
+    "components": {
+      "moodle_26_core": {
+        "repo": "https://github.com/moodle/moodle.git",
+        "branch": "MOODLE_26_STABLE",
+        "ignoreEmptyPath": true
+      }
+    }
+  }
+}
+```
+
+important to remember here is that currently all patches need to reside in the same folder as
+the base marihanchan script. a nicer solution to this is being worked on.
