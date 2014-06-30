@@ -31,8 +31,10 @@ installPath          = ''
 
 
 # Builds the specified project
-def buildProject( project ):
+def buildProject( projectName ):
     global projects, installPath
+
+    project = projects.get( projectName )
 
     # build project dependencies first
     if 'requires' in project:
@@ -42,7 +44,7 @@ def buildProject( project ):
                 sys.exit( -1 )
 
             # build dependency
-            buildProject( projects.get(dependency) )
+            buildProject( dependency )
 
     # now proceed with building this project
     if 'components' not in project:
@@ -59,32 +61,38 @@ def buildProject( project ):
     return
 
 # Checks for circular dependencies within a build-file
-def checkCircularDependencies( projectname, parentname, dependencies ):
-    # add the current projectname to the dependencies dict
-    if projectname not in dependencies:
-        dependencies[ projectname ] = parentname
-    else:
-        if parentname == projectname:
-            print 'You\'re so mean! >:('
-            print 'you have declared ' + projectname + ' to require itself!'
-        elif dependencies.get( projectname ) == 'project':
-            print 'I hate you! >:('
-            print 'you\'ve said that ' + parentname + ' requires ' + projectname + ', but ' \
-                + projectname + ' is the project you\'re currently building!'
-        else:
-            print 'I hate you! >:('
-            print 'you\'ve said that ' + parentname + ' requires ' + projectname \
-                + ', but that is already required by ' + dependencies.get( projectname )
-        sys.exit( -1 )
+def checkCircularDependencies( projectName, parentname, dependencies ):
+    global projects, buildFileName
 
     # load the full project from the build-file so that we have its dependencies
-    project = projects.get( projectname )
+    if projectName in projects:
+        project = projects.get( projectName )
+    else:
+        print 'error: project ' + projectName + ' isn\'t declared in ' + buildFileName
+        sys.exit( -1 )
+
+    # add the current projectname to the dependencies dict
+    if projectName not in dependencies:
+        dependencies[ projectName ] = parentname
+    else:
+        if parentname == projectName:
+            print 'You\'re so mean! >:('
+            print 'you have declared ' + projectName + ' to require itself!'
+        elif dependencies.get( projectName ) == 'project':
+            print 'I hate you! >:('
+            print 'you\'ve said that ' + parentname + ' requires ' + projectName + ', but ' \
+                + projectName + ' is the project you\'re currently building!'
+        else:
+            print 'I hate you! >:('
+            print 'you\'ve said that ' + parentname + ' requires ' + projectName \
+                + ', but that is already required by ' + dependencies.get( projectName )
+        sys.exit( -1 )
 
     # recursively loop through this project's dependencies and check them
     if 'requires' in project:
         for dependency in project.get( 'requires' ):
             # loop through this dependency's dependencies (WE NEED TO GO DEEPER BAAAAAAAAAAAAMMMMMM)
-            checkCircularDependencies( dependency, projectname, dependencies )
+            checkCircularDependencies( dependency, projectName, dependencies )
 
     return
 
@@ -174,7 +182,7 @@ def fetchComponent( name, component ):
     if 'branch' in component:
         branch = component.get( 'branch' )
 
-    print 'fetching component ' + name
+    print 'fetching component: ' + name
     repo = Repo.clone_from( component.get('repo'), clonePath, branch=branch )
 
     # if there's a tag specified, try to checkout that
@@ -183,7 +191,7 @@ def fetchComponent( name, component ):
 
     return
 
-# Applies the specified patch to the specified project
+# Applies the specified patch to the specified project. If it fails, it will revert
 def applyGitPatch( patchFileName, repoPath ):
     print 'applying patch \"' + patchFileName + '\" to ' + repoPath + '...'
 
@@ -191,14 +199,24 @@ def applyGitPatch( patchFileName, repoPath ):
     git = Git( repoPath )
 
     # then simply try to apply the patch! (assume that it's located at the current working dir)
-    patchLocation = str( os.getcwd() ) + '/' + patchFileName
-    git.am( patchLocation )
+    try:
+        patchLocation = str( os.getcwd() ) + '/' + patchFileName
+        git.am( patchLocation )
+    except GitCommandError:
+        print 'oh no! the patch doesn\'t apply cleanly :\'('
+        git.am( '--abort' )
+        resetGitRepo( repoPath )
 
     return
 
 # Initiates the update process on a project
-def updateProject( project, projectName ):
+def updateProject( projectName ):
     global buildFileName, projects, installPath
+
+    project = projects.get( projectName )
+
+    # reset the built project so we don't get any git issues
+    resetGitRepo( installPath )
 
     # first, get the build file from the existing project
     if os.path.isfile( installPath + buildFileName ):
@@ -208,13 +226,35 @@ def updateProject( project, projectName ):
         print 'error, no build file found at ' + installPath + buildFileName
         sys.exit( -1 )
 
-    # then, sort out any updates / changes
-    findChangesInProject( project, projectName, projects, installedProjectDict )
+    # then, sort out any updates / changes and apply them
+    findChangesInProject( projectName, installedProjectDict )
+
+    # apply any patches in the project
+    if 'patches' in project:
+        for patch in project.get( 'patches' ):
+            applyGitPatch( patch, installPath )
+
+    return
+
+# Forcefully reset a git repo to it's remote counterpart's HEAD
+def resetGitRepo( repoPath ):
+    repo = Repo( repoPath, odbt=GitCmdObjectDB )
+    branchName = str( repo.active_branch )
+
+    print 'resetting ' + repoPath + ' to remote HEAD...'
+
+    git = repo.git
+    git.reset( '--hard', 'origin/' + branchName )
+
     return
 
 # Does the actual dirty work for updateProject()
-def findChangesInProject( project, projectName, buildDict, oldBuildDict ):
+def findChangesInProject( projectName, oldBuildDict ):
+    global projects
+
     print 'finding changes in project ' + projectName
+
+    project = projects.get( projectName )
 
     # get component info from this project
     newComponents = project.get( 'components' )
@@ -229,8 +269,8 @@ def findChangesInProject( project, projectName, buildDict, oldBuildDict ):
         fetchComponent( componentName, newComponents.get( componentName ) )
 
     # remove removed components
-    for componentName in removedcomponents:
-        removecomponent( componentName, oldComponents.get( componentName ) )
+    for componentName in removedComponents:
+        removeComponent( componentName, oldComponents.get( componentName ) )
 
     # we don't want to check details for newly added components
     for key in addedComponents:
@@ -241,13 +281,13 @@ def findChangesInProject( project, projectName, buildDict, oldBuildDict ):
         newComponent = newComponents.get( componentName )
         oldComponent = oldComponents.get( componentName )
         print 'updating component: ' + componentName
-        updatecomponent( newComponent, oldComponent )
+        updateComponent( newComponent, oldComponent )
 
     # if there is a 'requires' section in the current project, investigate that as well
     if 'requires' in project:
         for requiredProjectName in project.get( 'requires' ):
-            requiredProject = buildDict.get( requiredProjectName )
-            findChangesInProject( requiredProject, requiredProjectName, buildDict, oldBuildDict )
+            requiredProject = projects.get( requiredProjectName )
+            findChangesInProject( requiredProjectName, oldBuildDict )
 
     return
 
@@ -266,8 +306,6 @@ def updateComponent( newComponent, oldComponent ):
     if 'branch' in newComponent:
         newBranch = newComponent.get( 'branch' )
         if 'branch' in oldComponent:
-            print 'currently active branch is ' + str( repo.active_branch() )
-
             oldBranch = oldComponent.get( 'branch' )
             if newBranch != oldBranch:
                 # git checkout new branch
@@ -353,15 +391,11 @@ def main():
     targetProject = projects.get( targetName )
 
     # check dependencies
-    print '*giggles* ok, checking dependencies...'
     checkCircularDependencies( targetName, 'project', {} )
-
     print '*giggles* dependencies looks ok! :)'
 
     # check required files
-    print '*giggles* now checking required files...'
     checkRequiredFiles( targetName )
-
     print '*giggles* and all the files required are here too! :D'
 
     # load defaults if there are any
@@ -371,7 +405,6 @@ def main():
 
     # set installPath if needed
     if installPath == '':
-        print 'ok, so I didn\'t get an install directory from you as an argument...'
         if 'rootDir' in targetProject:
             installPath = targetProject.get( 'rootDir' ) + '/'
             print 'but I\'ll install into ' + installPath + ' (read from project\'s rootDir)'
@@ -384,7 +417,7 @@ def main():
     # build or update target accordingly
     if update:
         print 'ok, I\'m updating project ' + targetName + ' now :)'
-        updateProject( targetProject, targetName )
+        updateProject( targetName )
     else:
         # check that installPath doesn't already exist
         if os.path.exists( installPath ):
@@ -393,7 +426,7 @@ def main():
             sys.exit( -1 )
         else:
             print 'ok, I\'m building project ' + targetName + ' now :)'
-            buildProject( targetProject )
+            buildProject( targetName )
 
     # save buildFile to install path
     shutil.copyfile( buildFileName, installPath + buildFileName )

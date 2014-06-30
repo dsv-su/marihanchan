@@ -15,6 +15,14 @@ most basic usage:
     ./marihanchan.py --project <project>
 ```
 
+requirements
+------------
+
+ - Python 2.7 or later (marihanchan was built and tested on 2.7, to be as broadly compatible as
+ possible)
+ - GitPython - a python library used to interact with git repositories
+(http://pythonhosted.org/GitPython, marihanchan was built on GitPython 0.3.2 RC1)
+
 
 usage
 -----
@@ -265,10 +273,6 @@ currently the marihanchan script can understand the following component flags:
 git patches
 -----------
 
-___note: EXPERIMENTAL___
-
-___warning: updating is not yet supported when patches are in your project!___
-
 marihanchan has support for patching your projects, too! currently, only support for patching
 entire projects is built in - but patching for components is on its way. applying patches is very
 easy to accomplish - just add them to your project which needs patching up:
@@ -290,3 +294,6 @@ easy to accomplish - just add them to your project which needs patching up:
 
 important to remember here is that currently all patches need to reside in the same folder as
 the base marihanchan script. a nicer solution to this is being worked on.
+
+__note:__ if a git patch cannot be applied cleanly, then marihanchan will roll back to the remote
+HEAD of the current branch (effectively reverting the patch)
