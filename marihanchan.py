@@ -6,7 +6,7 @@ __copyright__ = 'Copyright 2014, Department of Computer and System Sciences, Sto
 
 __maintainer__ = 'Simon Jarbrant'
 __email__      = 'simon@dsv.su.se'
-__version__    = '0.0.5'
+__version__    = '0.0.6'
 
 import sys
 import os       # to check if files exists
@@ -88,6 +88,34 @@ def checkCircularDependencies( projectname, parentname, dependencies ):
 
     return
 
+# Checks for the existence of files required to build the specified project
+def checkRequiredFiles( projectName ):
+    # check for any git patch files
+    checkRequiredPatchFiles( projectName )
+
+    return
+
+# Looks for any patchfiles that have been specified in the buildfile
+def checkRequiredPatchFiles( projectName ):
+    global projects
+
+    # fetch project dict
+    project = projects.get( projectName )
+
+    if 'patches' in project:
+        for patchFile in project.get( 'patches' ):
+            if not os.path.exists( patchFile ):
+                print 'error: couldn\'t find patchfile "' + patchFile + '" in the current' \
+                    + ' working dir'
+                sys.exit( -1 )
+
+    # now check dependencies (if any)
+    if 'requires' in project:
+        for dependency in project.get( 'requires' ):
+            checkRequiredPatchFiles( dependency )
+
+    return
+
 # Enables support for the "Defaults" system. Checks (and returns) a default value for the given
 # property, if one exists
 def getDefaultPropertyForComponent( component, propertyName ):
@@ -164,7 +192,7 @@ def applyGitPatch( patchFileName, repoPath ):
 
     # then simply try to apply the patch! (assume that it's located at the current working dir)
     patchLocation = str( os.getcwd() ) + '/' + patchFileName
-    git.apply( patchLocation )
+    git.am( patchLocation )
 
     return
 
@@ -329,6 +357,12 @@ def main():
     checkCircularDependencies( targetName, 'project', {} )
 
     print '*giggles* dependencies looks ok! :)'
+
+    # check required files
+    print '*giggles* now checking required files...'
+    checkRequiredFiles( targetName )
+
+    print '*giggles* and all the files required are here too! :D'
 
     # load defaults if there are any
     if 'defaults' in projects:

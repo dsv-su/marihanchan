@@ -266,6 +266,7 @@ git patches
 -----------
 
 ___note: EXPERIMENTAL___
+
 ___warning: updating is not yet supported when patches are in your project!___
 
 marihanchan has support for patching your projects, too! currently, only support for patching
