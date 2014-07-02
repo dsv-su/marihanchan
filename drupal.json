@@ -1,0 +1,350 @@
+{
+    "defaults": {
+        "core": {
+            "ignoreEmptyPath": true
+        },
+        "module_contrib": {
+            "path": "sites/all/modules/contrib"
+        },
+        "module_custom": {
+            "path": "sites/all/modules/custom"
+        },
+        "theme_contrib": {
+            "path": "sites/all/themes/contrib"
+        },
+        "theme_custom": {
+            "path": "sites/all/themes/custom"
+        },
+        "library": {
+            "path": "sites/all/libraries"
+        }
+    },
+
+    "drupal": {
+        "rootDir": "drupal",
+        "components": {
+            "drupal_core": {
+                "defaults": "core",
+                "repo": "https://github.com/drupal/drupal.git",
+                "branch": "7.x",
+                "tag": "7.28"
+            }
+        }
+    },
+
+    "dsv_base": {
+        "rootDir": "dsv_base",
+        "requires": [ "drupal" ],
+        "components": {
+            "ctools": {
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/ctools.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.4",
+                "path": "ctools"
+            },
+            "date": {
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/date.git",
+                "branch": "7.x-2.x",
+                "tag": "7.x-2.7",
+                "path": "date"
+            },
+            "entity": {
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/entity.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.5",
+                "path": "entity"
+            },
+            "libraries": {
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/libraries.git",
+                "branch": "7.x-2.x",
+                "tag": "7.x-2.2",
+                "path": "libraries"
+            },
+            "pathauto": {
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/pathauto.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.2",
+                "path": "pathauto"
+            },
+            "rules": {
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/rules.git",
+                "branch": "7.x-2.x",
+                "tag": "7.x-2.7",
+                "path": "rules"
+            },
+            "token": {
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/token.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.5",
+                "path": "token"
+            },
+            "views": {
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/views.git",
+                "branch": "7.x-3.x",
+                "tag": "7.x-3.8",
+                "path": "views"
+            }
+        }
+    },
+
+    "dsv_theme": {
+        "components": {
+            "jquery_update": {
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/jquery_update.git",
+                "branch": "7.x-2.x",
+                "tag": "7.x-2.4",
+                "path": "jquery_update"
+            },
+            "bootstrap": {
+                "defaults": "theme_contrib",
+                "repo": "git://git.drupal.org/project/bootstrap.git",
+                "branch": "7.x-3.x",
+                "tag": "7.x-3.0",
+                "path": "bootstrap"
+            },
+            "dsv_drupal_theme": {
+                "defaults": "theme_custom",
+                "repo": "https://github.com/dsv-su/dsv_drupal_theme.git",
+                "path": "dsv_drupal_theme"
+            }
+        }
+    },
+
+    "dsv_auth": {
+        "components": {
+            "shibboleth": {
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/shib_auth.git",
+                "branch": "7.x-4.x",
+                "tag": "7.x-4.0",
+                "path": "shib_auth"
+            },
+            "daisy_update_name": {
+                "defaults": "module_custom",
+                "repo": "https://github.com/dsv-su/drupal-daisy_update_name.git",
+                "path": "daisy_update_name"
+            }
+        }
+    },
+
+    "dsv_dev": {
+        "components": {
+            "devel": {
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/devel",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.5",
+                "path": "devel"
+            }
+        }
+    },
+
+    "dsv_stats": {
+        "components": {
+            "piwik": {
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/piwik",
+                "branch": "7.x-2.x",
+                "tag": "7.x-2.5",
+                "path": "piwik"
+            }
+        }
+    },
+
+    "dsv_wysiwyg": {
+        "components": {
+            "ckeditor": {
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/ckeditor",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.14",
+                "path": "ckeditor"
+            },
+            "ckeditor_library": {
+                "defaults": "library",
+                "repo": "git://github.com/ckeditor/ckeditor-releases.git",
+                "branch": "4.4.x",
+                "tag": "4.4.1",
+                "path": "sites/all/libraries/ckeditor"
+            },
+            "imce": {
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/imce",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.9",
+                "path": "imce"
+            }
+        }
+    },
+
+    "dsv_multilanguage": {
+        "components": {
+            "internationalization": {
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/i18n",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.11",
+                "path": "i18n"
+            },
+            "localization_update": {
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/l10n_update",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.0",
+                "path": "l10n_update"
+            }
+        }
+    },
+
+    "internt": {
+        "rootDir": "/var/www/internt",
+        "requires": [ "dsv_base", "dsv_theme", "dsv_auth", "dsv_wysiwyg", "dsv_multilanguage" ],
+        "components": {
+            "taxonomy_menu": {
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/taxonomy_menu.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.5",
+                "path": "taxonomy_menu"
+            },
+            "daisy_contact_list": {
+                "defaults": "module_custom",
+                "repo": "https://github.com/dsv-su/drupal-daisy_contact_list",
+                "path": "daisy_contact_list"
+            },
+            "dsv_bootstrap_panels": {
+                "defaults": "module_custom",
+                "repo": "https://github.com/dsv-su/dsv_bootstrap_panels.git",
+                "path": "dsv_bootstrap_panels"
+            },
+            "dsv_internal_theme": {
+                "defaults": "module_custom",
+                "repo": "https://github.com/dsv-su/dsv_internal_theme.git",
+                "path": "sites/all/themes/dsv_internal_theme"
+            },
+            "noderorder": {
+                "defaults": "module_custom",
+                "repo": "https://github.com/dsv-su/drupal-noderorder.git",
+                "path": "noderorder"
+            },
+            "menu_block": {
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/menu_block.git",
+                "branch": "7.x-2.x",
+                "tag": "7.x-2.4",
+                "path": "menu_block"
+            },
+            "panels": {
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/panels.git",
+                "branch": "7.x-3.x",
+                "tag": "7.x-3.4",
+                "path": "panels"
+            },
+            "redirect": {
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/redirect.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.0-rc1",
+                "path": "redirect"
+            },
+            "scheduler": {
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/scheduler.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.2",
+                "path": "scheduler"
+            },
+            "search_combine": {
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/search_combine.git",
+                "tag": "7.x-1.0",
+                "path": "search_combine"
+            },
+            "taxonomy_breadcrumb": {
+                "defaults": "module_custom",
+                "repo": "https://github.com/dsv-su/taxonomy_breadcrumb.git",
+                "branch": "intern_mod",
+                "path": "taxonomy_breadcrumb"
+            },
+            "taxonomy_menu": {
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/taxonomy_menu.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.5",
+                "path": "taxonomy_menu"
+            },
+            "taxonomy_menu_trails": {
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/taxonomy_menu_trails.git",
+                "branch": "7.x-2.x",
+                "tag": "7.x-2.5",
+                "path": "taxonomy_menu_trails"
+            },
+            "term_search": {
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/term_search.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.0-beta1",
+                "path": "term_search"
+            },
+            "term_reference_tree": {
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/term_reference_tree.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.10",
+                "path": "term_reference_tree"
+            },
+            "nodeaccess": {
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/nodeaccess.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.3",
+                "path": "nodeaccess"
+            }
+        }
+    },
+
+    "forms": {
+        "rootDir": "/var/www/forms",
+        "requires": [ "dsv_base", "dsv_theme", "dsv_auth" ],
+        "components": {
+            "webforms": {
+                "defaults": "module_contrib",
+                "repo": "http://git.drupal.org/project/webform.git",
+                "branch": "7.x-3.x",
+                "tag": "7.x-3.20",
+                "path": "webforms"
+            }
+        }
+    },
+
+    "project_proposals": {
+        "rootDir": "/var/www/project_proposals",
+        "requires": [ "dsv_base", "dsv_theme", "dsv_auth" ],
+        "modules": {}
+    },
+
+    "scipro": {
+        "rootDir": "/var/www/drupal7",
+        "requires": [ "dsv_base", "dsv_theme", "dsv_auth", "dsv_stats" ],
+        "modules": {
+            "webforms": {
+                "defaults": "module_contrib",
+                "repo": "http://git.drupal.org/project/webform.git",
+                "branch": "7.x-3.x",
+                "tag": "7.x-3.20",
+                "path": "webforms"
+            }
+        }
+    }
+}

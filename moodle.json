@@ -1,0 +1,65 @@
+{
+  "moodle": {
+    "rootDir": "moodle",
+    "components": {
+      "moodle_core": {
+        "repo": "https://github.com/moodle/moodle.git",
+        "branch": "MOODLE_27_STABLE",
+        "ignoreEmptyPath": true
+      }
+    }
+  },
+
+  "dsv_moodle_theme": {
+    "components": {
+      "dsv_theme_responsive": {
+        "repo": "https://github.com/dsv-su/moodle-dsv_theme_responsive.git",
+        "path": "theme/dsv_theme_responsive"
+      }
+    }
+  },
+ 
+  "ilearn2": {
+    "rootDir": "/var/www/ilearn2",
+    "requires": [ "moodle", "dsv_moodle_theme" ],
+    "components": {
+      "enrol_rest": {
+        "repo": "https://github.com/dsv-su/moodle-enrol_rest.git",
+        "path": "enrol/rest"
+      },
+      "mailsimulator": {
+        "repo": "https://github.com/dsv-su/moodle-assignsubmission_mailsimulator.git",
+        "path": "mod/assign/submission/mailsimulator"
+      },
+      "my_courses": {
+        "repo": "https://github.com/dsv-su/moodle-block_mycourses.git",
+        "branch": "MOODLE_26_STABLE",
+        "path": "blocks/my_courses"
+      },
+      "blog_menu_plus": {
+        "repo": "https://github.com/dsv-su/moodle-block_blog_menu_plus.git",
+        "path": "blocks/blog_menu_plus"
+      },
+      "choicegroup": {
+        "repo": "https://github.com/ndunand/moodle-mod_choicegroup.git",
+        "path": "mod/choicegroup"
+      },
+      "scheduler": {
+        "repo": "https://github.com/bostelm/moodle-mod_scheduler.git",
+        "path": "mod/scheduler"
+      },
+      "blog_assignment": {
+        "repo": "https://github.com/dsv-su/moodle-assignsubmission_blog.git",
+        "path": "mod/assign/submission/blog"
+      },
+      "reflection": {
+        "repo": "https://github.com/dsv-su/moodle-assignsubmission_blog.git",
+        "path": "mod/assign/submission/reflection"
+      },
+      "feedback_signature": {
+        "repo": "https://github.com/dsv-su/moodle-assignfeedback_signature.git",
+        "path": "mod/assign/feedback/signature"
+      }  
+    }
+  }
+}
