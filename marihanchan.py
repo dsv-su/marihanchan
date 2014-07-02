@@ -281,7 +281,14 @@ def findChangesInProject( projectName, oldBuildDict ):
         newComponent = newComponents.get( componentName )
         oldComponent = oldComponents.get( componentName )
         print 'updating component: ' + componentName
-        updateComponent( newComponent, oldComponent )
+        repoPath = installPath
+        if 'path' in newComponent:
+            repoPath += '/' + newComponent.get( 'path' )
+        if not os.path.exists( repoPath ):
+            print 'component not found, trying to fetch it'
+            fetchComponent ( componentName, newComponent )
+        else:
+            updateComponent( newComponent, oldComponent )
 
     # if there is a 'requires' section in the current project, investigate that as well
     if 'requires' in project:
@@ -429,6 +436,8 @@ def main():
             buildProject( targetName )
 
     # save buildFile to install path
+    if os.path.isfile( installPath + buildFileName ):
+        os.remove( installPath + buildFileName )
     shutil.copyfile( buildFileName, installPath + buildFileName )
 
     print '*giggles* ok I\'m done! project ' + targetName + ' built :)'
