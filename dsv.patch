@@ -1,0 +1,692 @@
+From d7de8e41a25a2462f53adcbefb030683b26581d4 Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Thu, 13 Jun 2013 19:19:39 +0200
+Subject: [PATCH 01/10] navigation
+
+---
+ mod/assign/lib.php | 34 ++++++++++++++++++++++++++++++++++
+ 1 file changed, 34 insertions(+)
+
+diff --git a/mod/assign/lib.php b/mod/assign/lib.php
+index 8e031ef..6c5eaf4 100644
+--- a/mod/assign/lib.php
++++ b/mod/assign/lib.php
+@@ -213,6 +213,40 @@ function assign_extend_settings_navigation(settings_navigation $settings, naviga
+     if (!$course) {
+         return;
+     }
++    
++    // Give the assign feedback and submission plugins a chance to include some navigation into settings block if they want.
++    global $CFG;
++    $plugins = get_plugin_list('assignsubmission');
++
++    foreach ($plugins as $name => $plugin) {
++        $disabled = get_config('assignsubmission_' . $name, 'disabled');
++        if (!$disabled) {
++            $function = 'assignsubmission_' . $name . '_extend_settings_navigation';
++            $file = $CFG->dirroot . '/mod/assign/submission/' . $name . '/lib.php';
++            if (file_exists($file)) {
++                require_once($file);
++            }
++            if (function_exists($function)) {
++                $function($settings, $navref);
++            }
++        }
++    }
++
++    $plugins = get_plugin_list('assignfeedback');
++
++    foreach ($plugins as $name => $plugin) {
++        $disabled = get_config('assignfeedback_' . $name, 'disabled');
++        if (!$disabled) {
++            $function = 'assignfeedback_' . $name . '_extend_settings_navigation';
++            $file = $CFG->dirroot . '/mod/assign/feedback/' . $name . '/lib.php';
++            if (file_exists($file)) {
++                require_once($file);
++            }
++            if (function_exists($function)) {
++                $function($settings, $navref);
++            }
++        }
++    }
+ 
+     // Link to gradebook.
+     if (has_capability('gradereport/grader:view', $cm->context) &&
+-- 
+1.8.5.2 (Apple Git-48)
+
+
+From e1352fd64e428ca55f74f5855d403cb0e7a60aaa Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Sat, 8 Jun 2013 21:54:51 +0200
+Subject: [PATCH 02/10] Hack for disabling buttons for reflection plugin
+
+---
+ mod/assign/renderer.php | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
+
+diff --git a/mod/assign/renderer.php b/mod/assign/renderer.php
+index 8633c81..1aa4c41 100644
+--- a/mod/assign/renderer.php
++++ b/mod/assign/renderer.php
+@@ -671,6 +671,22 @@ class mod_assign_renderer extends plugin_renderer_base {
+         $o .= html_writer::table($t);
+         $o .= $this->output->box_end();
+ 
++
++        // Hack for Reflection submission plugin.
++        if ($status->submission) {
++            global $CFG, $DB;
++            require_once($CFG->dirroot.'/group/lib.php');
++            $waitingid = $DB->get_field('assign_plugin_config', 'value', array('assignment' => $status->submission->assignment,
++                'plugin' => 'reflection', 'name' => 'waitingid'));
++            if ($waitingid) {
++                if (groups_is_member($waitingid, $status->submission->userid)) {
++                    $status->cansubmit = false;
++                    $status->canedit = false;
++                }
++            }
++        }
++
++
+         // Links.
+         if ($status->view == assign_submission_status::STUDENT_VIEW) {
+             if ($status->canedit) {
+-- 
+1.8.5.2 (Apple Git-48)
+
+
+From 60091506dcaac186ae404fc6680b9173627d3958 Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Thu, 26 Sep 2013 21:50:24 +0400
+Subject: [PATCH 03/10] Adding a better interface for blog association,
+ allowing users to change associations of a blog entry or to add an
+ association ofter initial submission.
+
+---
+ blog/edit.php      | 10 +++++++
+ blog/edit_form.php | 82 +++++++++++++++++++++++++++++++-----------------------
+ blog/locallib.php  |  5 ++++
+ 3 files changed, 62 insertions(+), 35 deletions(-)
+
+diff --git a/blog/edit.php b/blog/edit.php
+index fadc8ad..f6d13e5 100644
+--- a/blog/edit.php
++++ b/blog/edit.php
+@@ -185,6 +185,16 @@ if ($blogeditform->is_cancelled()) {
+     redirect($returnurl);
+ 
+ } else if ($data = $blogeditform->get_data()){
++    // Since a user can change the associated context: Update the return url with the current association.
++    if (!empty($data->modassoc)) {
++        $modulecontext = context::instance_by_id($data->modassoc);
++        $returnurl->param('modid', $modulecontext->instanceid);
++        $returnurl->remove_params('courseid');
++    } else if (!empty($data->courseassoc)) {
++        $coursecontext = context::instance_by_id($data->courseassoc);
++        $returnurl->param('courseid', $coursecontext->instanceid);
++        $returnurl->remove_params('modid');
++    }
+ 
+     switch ($action) {
+         case 'add':
+diff --git a/blog/edit_form.php b/blog/edit_form.php
+index 2b28a73..b20aa91 100644
+--- a/blog/edit_form.php
++++ b/blog/edit_form.php
+@@ -71,44 +71,39 @@ class blog_edit_form extends moodleform {
+         $allmodnames = array();
+ 
+         if (!empty($CFG->useblogassociations)) {
+-            if ((!empty($entry->courseassoc) || (!empty($courseid) && empty($modid)))) {
+-                if (!empty($courseid)) {
+-                    $course = $DB->get_record('course', array('id' => $courseid));
+-                    $context = context_course::instance($courseid);
+-                    $a = new stdClass();
+-                    $a->coursename = format_string($course->fullname, true, array('context' => $context));
+-                    $contextid = $context->id;
+-                } else {
+-                    $context = context::instance_by_id($entry->courseassoc);
+-                    $sql = 'SELECT fullname FROM {course} cr LEFT JOIN {context} ct ON ct.instanceid = cr.id WHERE ct.id = ?';
+-                    $a = new stdClass();
+-                    $a->coursename = $DB->get_field_sql($sql, array($entry->courseassoc));
+-                    $contextid = $entry->courseassoc;
+-                }
++            // Create a new array for all context where that the user is allowed to associate entries.
++            $permittedcontexts = array('' => '');
++
++            foreach (get_courses() as $course) {
++                $coursecontext = context_course::instance($course->id);
++                if (has_capability('moodle/blog:associatecourse', $coursecontext) && is_enrolled($coursecontext)) {
++                    $permittedcontexts[$coursecontext->id] = $course->fullname;
++                    foreach ($coursecontext->get_child_contexts() as $childcontext) {
++                        if ($childcontext->contextlevel == CONTEXT_MODULE
++                                && has_capability('moodle/blog:associatemodule', $childcontext)) {
++                            $cm = get_coursemodule_from_id(null, $childcontext->instanceid);
++                            $permittedcontexts[$childcontext->id] = '- '.$cm->name;
++                        }
++                    }
++                 }
++            }
+ 
++            // If there are any allowed contexts (more than the empty first option), show the select element and set the default option.
++            if (count($permittedcontexts) > 1) {
+                 $mform->addElement('header', 'assochdr', get_string('associations', 'blog'));
+-                $mform->addElement('advcheckbox', 'courseassoc', get_string('associatewithcourse', 'blog', $a), null, null, array(0, $contextid));
+-                $mform->setDefault('courseassoc', $contextid);
+-
+-            } else if ((!empty($entry->modassoc) || !empty($modid))) {
+-                if (!empty($modid)) {
+-                    $mod = get_coursemodule_from_id(false, $modid);
+-                    $a = new stdClass();
+-                    $a->modtype = get_string('modulename', $mod->modname);
+-                    $a->modname = $mod->name;
+-                    $context = context_module::instance($modid);
+-                } else {
+-                    $context = context::instance_by_id($entry->modassoc);
+-                    $cm = $DB->get_record('course_modules', array('id' => $context->instanceid));
+-                    $a = new stdClass();
+-                    $a->modtype = $DB->get_field('modules', 'name', array('id' => $cm->module));
+-                    $a->modname = $DB->get_field($a->modtype, 'name', array('id' => $cm->instance));
+-                    $modid = $context->instanceid;
++                $associationselect = $mform->addElement('select', 'assoc', get_string('association', 'blog'), $permittedcontexts);
++
++                if (!empty($entry->modassoc)) {
++                    $mform->setDefault('assoc', $entry->modassoc);
++                } else if (!empty($entry->courseassoc)) {
++                    $mform->setDefault('assoc', $entry->courseassoc);
++                } else if (!empty($modid)) {
++                    $modulecontext = context_module::instance($modid);
++                    $mform->setDefault('assoc', $modulecontext->id);
++                } else if (!empty($courseid)) {
++                    $coursecontext = context_course::instance($courseid);
++                    $mform->setDefault('assoc', $coursecontext->id);
+                 }
+-
+-                $mform->addElement('header', 'assochdr', get_string('associations', 'blog'));
+-                $mform->addElement('advcheckbox', 'modassoc', get_string('associatewithmodule', 'blog', $a), null, null, array(0, $context->id));
+-                $mform->setDefault('modassoc', $context->id);
+             }
+         }
+ 
+@@ -133,6 +128,23 @@ class blog_edit_form extends moodleform {
+     function validation($data, $files) {
+         global $CFG, $DB, $USER;
+ 
++        // Before validation starts: Change the name of the association element to either modassoc or courseassoc, depending on 
++        // what kind of context is chosen.
++        // This is not strictly validation, but needs to be performed before validation therefore
++        // definition_before_data() can't be used.
++
++        $mform =& $this->_form;
++        $associationselect = $mform->getElement('assoc');
++        $selectedvalue = $associationselect->getValue();
++        if ($selectedvalue[0] != '') {
++            $selectedcontext = context::instance_by_id($selectedvalue[0]);
++            if ($selectedcontext->contextlevel == CONTEXT_MODULE) {
++                $associationselect->setName('modassoc');
++            } else if ($selectedcontext->contextlevel == CONTEXT_COURSE) {
++                $associationselect->setName('courseassoc');
++            }
++        }
++
+         $errors = array();
+ 
+         // validate course association
+diff --git a/blog/locallib.php b/blog/locallib.php
+index 28010c7..0ac7570 100644
+--- a/blog/locallib.php
++++ b/blog/locallib.php
+@@ -287,6 +287,11 @@ class blog_entry implements renderable {
+         $sitecontext = context_system::instance();
+         $entry = $this;
+ 
++        // Unset the values for associations to avoid that an old association remains if the user changes the association from 
++        // module to course or vice versa.
++        unset($entry->modassoc);
++        unset($entry->courseassoc);
++
+         $this->form = $form;
+         foreach ($params as $var => $val) {
+             $entry->$var = $val;
+-- 
+1.8.5.2 (Apple Git-48)
+
+
+From d19ac89679ff943260be92b8f39f4ee9713daaa0 Mon Sep 17 00:00:00 2001
+From: Erik Lundberg <lundbergerik@gmail.com>
+Date: Wed, 11 Jul 2012 14:50:57 +0200
+Subject: [PATCH 04/10] Now the "Blog entries about course"-view will include
+ nested entries; i. e. entries associated with modules that belongs to the
+ course.
+
+---
+ blog/locallib.php | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
+
+diff --git a/blog/locallib.php b/blog/locallib.php
+index 0ac7570..6054d50 100644
+--- a/blog/locallib.php
++++ b/blog/locallib.php
+@@ -896,7 +896,18 @@ class blog_filter_context extends blog_filter {
+                     $context = context_course::instance($this->id);
+                     $this->tables['ba'] = 'blog_association';
+                     $this->conditions[] = 'p.id = ba.blogid';
+-                    $this->conditions[] = 'ba.contextid = '.$context->id;
++                    
++                    // Create a new array that will contain the context id for the course and all nested modules.
++                    $ids = array();
++                    $ids[] = $context->id;
++
++                    foreach ($context->get_child_contexts() as $childcontextid => $contextobject) {
++                        if (get_class($contextobject) == 'context_module') {
++                            $ids[] = $childcontextid;
++                        }
++                    }
++                    $ids_string = implode(',', $ids);
++                    $this->conditions[] = 'ba.contextid IN ('.$ids_string.')';
+                     break;
+                 } else {
+                     // We are dealing with the site course, do not break from the current case
+-- 
+1.8.5.2 (Apple Git-48)
+
+
+From fe02fc35540c044d7ad5722ebcad84128d6c6610 Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Wed, 20 Nov 2013 17:06:49 +0400
+Subject: [PATCH 05/10] Including all blog posts to view all posts link and
+ fixing bug when no posts are seen from assignment group view
+
+---
+ blog/locallib.php | 18 ++++++++++++++++--
+ 1 file changed, 16 insertions(+), 2 deletions(-)
+
+diff --git a/blog/locallib.php b/blog/locallib.php
+index 6054d50..37d0c0d 100644
+--- a/blog/locallib.php
++++ b/blog/locallib.php
+@@ -650,6 +650,10 @@ class blog_listing {
+             $conditions[] = $permissionsql;  //add permission constraints
+         }
+ 
++        if (!empty($this->filters['group']) && !empty($this->filters['module'])) {
++            $this->filters['group']->params[2] = $this->filters['module']->params[0];
++        }
++        
+         foreach ($this->filters as $type => $blogfilter) {
+             $conditions = array_merge($conditions, $blogfilter->conditions);
+             $params = array_merge($params, $blogfilter->params);
+@@ -973,10 +977,20 @@ class blog_filter_user extends blog_filter {
+                 $coursecontext     = context_course::instance($DB->get_field('groups', 'courseid', array('id' => $this->id)));
+                 $this->tables['ba'] = 'blog_association';
+                 $this->conditions[] = 'gm.groupid = ?';
+-                $this->conditions[] = 'ba.contextid = ?';
+                 $this->conditions[] = 'ba.blogid = p.id';
+                 $this->params[]     = $this->id;
+-                $this->params[]     = $coursecontext->id;
++
++                // Create a new array that will contain the context id for the course and all nested modules.
++                $ids = array();
++                $ids[] = $coursecontext->id;
++
++                foreach ($coursecontext->get_child_contexts() as $childcontextid => $contextobject) {
++                    if (get_class($contextobject) == 'context_module') {
++                        $ids[] = $childcontextid;
++                    }
++                }
++                $ids_string = implode(',', $ids);
++                $this->conditions[] = 'ba.contextid IN ('.$ids_string.')';
+             }
+         }
+ 
+-- 
+1.8.5.2 (Apple Git-48)
+
+
+From 6f0e37709e6012274dbcb5a9e9f6276bf420f011 Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Mon, 10 Mar 2014 09:46:23 +0100
+Subject: [PATCH 06/10] Fixing leading zeros when autocreating groups
+
+---
+ group/autogroup.php      | 2 +-
+ group/autogroup_form.php | 2 +-
+ group/lib.php            | 9 +++++++--
+ 3 files changed, 9 insertions(+), 4 deletions(-)
+
+diff --git a/group/autogroup.php b/group/autogroup.php
+index 0a4b562..5221258 100644
+--- a/group/autogroup.php
++++ b/group/autogroup.php
+@@ -118,7 +118,7 @@ if ($editform->is_cancelled()) {
+     // allocate the users - all groups equal count first
+     for ($i=0; $i<$numgrps; $i++) {
+         $groups[$i] = array();
+-        $groups[$i]['name']    = groups_parse_name(trim($data->namingscheme), $i);
++        $groups[$i]['name']    = groups_parse_name(trim($data->namingscheme), $i, $data->number);
+         $groups[$i]['members'] = array();
+         if ($data->allocateby == 'no') {
+             continue; // do not allocate users
+diff --git a/group/autogroup_form.php b/group/autogroup_form.php
+index c31ade1..5ece9cc 100644
+--- a/group/autogroup_form.php
++++ b/group/autogroup_form.php
+@@ -54,7 +54,7 @@ class autogroup_form extends moodleform {
+         $mform->setType('namingscheme', PARAM_TEXT);
+         // There must not be duplicate group names in course.
+         $template = get_string('grouptemplate', 'group');
+-        $gname = groups_parse_name($template, 0);
++        $gname = groups_parse_name($template, 0, 0);
+         if (!groups_get_group_by_name($COURSE->id, $gname)) {
+             $mform->setDefault('namingscheme', $template);
+         }
+diff --git a/group/lib.php b/group/lib.php
+index 970ce78..600f222 100644
+--- a/group/lib.php
++++ b/group/lib.php
+@@ -756,7 +756,7 @@ function groups_get_potential_members($courseid, $roleid = null, $cohortid = nul
+  * @param int $groupnumber The number of the group to be used in the parsed format string
+  * @return string the parsed format string
+  */
+-function groups_parse_name($format, $groupnumber) {
++function groups_parse_name($format, $groupnumber, $count = 0) {
+     if (strstr($format, '@') !== false) { // Convert $groupnumber to a character series
+         $letter = 'A';
+         for($i=0; $i<$groupnumber; $i++) {
+@@ -764,7 +764,12 @@ function groups_parse_name($format, $groupnumber) {
+         }
+         $str = str_replace('@', $letter, $format);
+     } else {
+-        $str = str_replace('#', $groupnumber+1, $format);
++        if ($count > 9) {
++            $num_length = strlen((string)$count);
++            $str = str_replace('#', str_pad($groupnumber+1, $num_length, '0', STR_PAD_LEFT), $format);
++        } else {
++            $str = str_replace('#', $groupnumber+1, $format);
++        }
+     }
+     return($str);
+ }
+-- 
+1.8.5.2 (Apple Git-48)
+
+
+From c3c7a2010a6e047e5d34fa61fd20351dbd0b88e7 Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Mon, 24 Mar 2014 17:49:36 +0400
+Subject: [PATCH 07/10] Temporary hack for disabling switching mode if any
+ submission is made @psokolov
+
+---
+ mod/assign/mod_form.php | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/mod/assign/mod_form.php b/mod/assign/mod_form.php
+index 1cd183c..0cf8832 100644
+--- a/mod/assign/mod_form.php
++++ b/mod/assign/mod_form.php
+@@ -130,6 +130,14 @@ class mod_assign_mod_form extends moodleform_mod {
+         $mform->addElement('selectyesno', 'teamsubmission', $name);
+         $mform->addHelpButton('teamsubmission', 'teamsubmission', 'assign');
+ 
++        // Temporary hack for disabling switching mode if any submission is made @psokolov
++        if ($this->current && $this->current->coursemodule) {
++            $submissionsexist = $DB->record_exists('assign_submission', array('assignment' => $assignment->get_instance()->id));
++            if ($submissionsexist) {
++                $mform->freeze('teamsubmission');
++            }
++        }  
++
+         $name = get_string('requireallteammemberssubmit', 'assign');
+         $mform->addElement('selectyesno', 'requireallteammemberssubmit', $name);
+         $mform->addHelpButton('requireallteammemberssubmit', 'requireallteammemberssubmit', 'assign');
+-- 
+1.8.5.2 (Apple Git-48)
+
+
+From 6d6df75e5f2683652cbb723a00b56cf8ce95f413 Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Thu, 6 Mar 2014 13:07:22 +0400
+Subject: [PATCH 08/10] MDL-44481 assign: add sorting of assign submissions by
+ a group name
+
+---
+ mod/assign/gradingtable.php | 24 +++++++++++++++++++++++-
+ 1 file changed, 23 insertions(+), 1 deletion(-)
+
+diff --git a/mod/assign/gradingtable.php b/mod/assign/gradingtable.php
+index 66976ce..64bd1a0 100644
+--- a/mod/assign/gradingtable.php
++++ b/mod/assign/gradingtable.php
+@@ -159,6 +159,27 @@ class assign_grading_table extends table_sql implements renderable {
+                             g.attemptnumber = gmx.maxattempt
+                          LEFT JOIN {assign_user_flags} uf ON u.id = uf.userid AND uf.assignment = :assignmentid3';
+ 
++        if ($this->assignment->get_instance()->teamsubmission) {
++            $groupingid = $assignment->get_instance()->teamsubmissiongroupingid;
++            if ($groupingid) {
++                $query = 'SELECT g.id FROM {groups} g JOIN {groupings_groups} gg ON gg.groupid = g.id WHERE gg.groupingid = '.$groupingid;
++                $teamsubmissiongroupinggroups = $DB->get_fieldset_sql($query);
++                $teamsubmissiongroupinggroups = '(' . join(',', $teamsubmissiongroupinggroups) . ')';
++                $groupingmodifier = ' AND gr.id IN '.$teamsubmissiongroupinggroups;
++            } else {
++                $groupingmodifier = '';
++            }
++
++            $usergroups = 'SELECT gms.userid, CASE WHEN COUNT(gr.id)=1 THEN gr.name ELSE "Default" END as team
++                            FROM {groups_members} gms 
++                            LEFT JOIN {groups} gr ON gms.groupid = gr.id 
++                            WHERE gr.courseid = '.$assignment->get_instance()->course.$groupingmodifier.' 
++                            GROUP BY gms.userid';
++
++            $fields .= ', CASE WHEN ugs.team is NULL THEN "Default" ELSE ugs.team END as team ';
++            $from .= ' LEFT JOIN ( ' . $usergroups . ' ) ugs ON u.id = ugs.userid';
++        }
++        
+         $userparams = array();
+         $userindex = 0;
+ 
+@@ -393,7 +414,8 @@ class assign_grading_table extends table_sql implements renderable {
+         $this->no_sorting('outcomes');
+ 
+         if ($assignment->get_instance()->teamsubmission) {
+-            $this->no_sorting('team');
++            //$this->no_sorting('team');
++            $this->sortable('team');
+             $this->no_sorting('teamstatus');
+         }
+ 
+-- 
+1.8.5.2 (Apple Git-48)
+
+
+From 56617759a92c9e01b91e04a5760a1ef7e0ae57aa Mon Sep 17 00:00:00 2001
+From: Simon Jarbrant <simonjarbrant@gmail.com>
+Date: Mon, 10 Mar 2014 20:18:11 +0100
+Subject: [PATCH 09/10] MDL-36151 assign: add option to download selected
+ assign submissions
+
+---
+ mod/assign/gradingbatchoperationsform.php |  1 +
+ mod/assign/lang/en/assign.php             |  2 ++
+ mod/assign/locallib.php                   | 37 +++++++++++++++++++++++++++----
+ mod/assign/module.js                      |  2 +-
+ 4 files changed, 37 insertions(+), 5 deletions(-)
+
+diff --git a/mod/assign/gradingbatchoperationsform.php b/mod/assign/gradingbatchoperationsform.php
+index 98e1681..5b3bda3 100644
+--- a/mod/assign/gradingbatchoperationsform.php
++++ b/mod/assign/gradingbatchoperationsform.php
+@@ -46,6 +46,7 @@ class mod_assign_grading_batch_operations_form extends moodleform {
+         $options = array();
+         $options['lock'] = get_string('locksubmissions', 'assign');
+         $options['unlock'] = get_string('unlocksubmissions', 'assign');
++        $options['download'] = get_string('downloadsubmissions', 'assign');
+         if ($instance['submissiondrafts']) {
+             $options['reverttodraft'] = get_string('reverttodraft', 'assign');
+         }
+diff --git a/mod/assign/lang/en/assign.php b/mod/assign/lang/en/assign.php
+index da515c0..9858a3b 100644
+--- a/mod/assign/lang/en/assign.php
++++ b/mod/assign/lang/en/assign.php
+@@ -82,6 +82,7 @@ $string['attemptreopenmethod_untilpass'] = 'Automatically until pass';
+ $string['availability'] = 'Availability';
+ $string['backtoassignment'] = 'Back to assignment';
+ $string['batchoperationsdescription'] = 'With selected...';
++$string['batchoperationconfirmdownload'] = 'Download selected submissions?';
+ $string['batchoperationconfirmlock'] = 'Lock all selected submissions?';
+ $string['batchoperationconfirmgrantextension'] = 'Grant an extension to all selected submissions?';
+ $string['batchoperationconfirmunlock'] = 'Unlock all selected submissions?';
+@@ -125,6 +126,7 @@ $string['deleteallsubmissions'] = 'Delete all submissions';
+ $string['description'] = 'Description';
+ $string['downloadall'] = 'Download all submissions';
+ $string['download all submissions'] = 'Download all submissions in a zip file.';
++$string['downloadsubmissions'] = 'Download submissions';
+ $string['duedate'] = 'Due date';
+ $string['duedate_help'] = 'This is when the assignment is due. Submissions will still be allowed after this date but any assignments submitted after this date are marked as late. To prevent submissions after a certain date - set the assignment cut off date.';
+ $string['duedateno'] = 'No due date';
+diff --git a/mod/assign/locallib.php b/mod/assign/locallib.php
+index 58e07d7..156b9c5 100644
+--- a/mod/assign/locallib.php
++++ b/mod/assign/locallib.php
+@@ -508,6 +508,8 @@ class assign {
+             $o .= $this->view_grading_page();
+         } else if ($action == 'downloadall') {
+             $o .= $this->download_submissions();
++        } else if ($action == 'downloadselectedsubmissions') {
++            $o .= $this->download_selected_submissions($mform);
+         } else if ($action == 'submit') {
+             $o .= $this->check_submit_for_grading($mform);
+         } else if ($action == 'grantextension') {
+@@ -2346,9 +2348,10 @@ class assign {
+     /**
+      * Download a zip file of all assignment submissions.
+      *
++     * @param array with $students objects
+      * @return string - If an error occurs, this will contain the error page.
+      */
+-    protected function download_submissions() {
++    protected function download_submissions($students=null) {
+         global $CFG, $DB;
+ 
+         // More efficient to load this here.
+@@ -2356,9 +2359,11 @@ class assign {
+ 
+         require_capability('mod/assign:grade', $this->context);
+ 
+-        // Load all users with submit.
+-        $students = get_enrolled_users($this->context, "mod/assign:submit", null, 'u.*', null, null, null,
+-                        $this->show_only_active_users());
++        if ($students == null) {
++            // Load all users with submit.
++            $students = get_enrolled_users($this->context, "mod/assign:submit", null, 'u.*', null, null, null,
++                            $this->show_only_active_users());
++        }
+ 
+         // Build a list of files to zip.
+         $filesforzipping = array();
+@@ -2457,6 +2462,28 @@ class assign {
+     }
+ 
+     /**
++     * Extracts selected users from the $mform and sends the user objects
++     * to the download_submissions function, which it then returns the result of
++     *
++     * @param moodleform $mform - Used for getting the selected users
++     * @return string - See return value of download_submissions
++     */
++    protected function download_selected_submissions($mform) {
++        global $DB;
++
++        // Get the list of users.
++        $data = $mform->get_data();
++        $users = $data->selectedusers;
++        $userlist = explode(',', $users);
++
++        // Load selected users
++        $sql = 'SELECT * FROM {user} WHERE id IN (' . implode(',', $userlist) . ')';
++        $students = $DB->get_records_sql($sql);
++
++        return $this->download_submissions($students);
++    }
++
++    /**
+      * Util function to add a message to the log.
+      *
+      * @param string $action The current action
+@@ -3338,6 +3365,8 @@ class assign {
+                 return 'viewbatchsetmarkingworkflowstate';
+             } else if ($data->operation == 'setmarkingallocation') {
+                 return 'viewbatchmarkingallocation';
++            } else if ($data->operation == 'download') {
++                return 'downloadselectedsubmissions';
+             } else if (strpos($data->operation, $prefix) === 0) {
+                 $tail = substr($data->operation, strlen($prefix));
+                 list($plugintype, $action) = explode('_', $tail, 2);
+diff --git a/mod/assign/module.js b/mod/assign/module.js
+index 2793bb0..4b2d699 100644
+--- a/mod/assign/module.js
++++ b/mod/assign/module.js
+@@ -90,7 +90,7 @@ M.mod_assign.init_grading_table = function(Y) {
+                         action = pluginaction.substr(plugin.length + 1);
+                         confirmmessage = eval('M.str.assignfeedback_' + plugin + '.batchoperationconfirm' + action);
+                     } else {
+-                        confirmmessage = eval('M.str.assign.batchoperationconfirm' + operation.get('value'));
++                        confirmmessage = eval('M.str.assign.batchoperationconfirm' + action);
+                     }
+                     if (!confirm(confirmmessage)) {
+                         e.preventDefault();
+-- 
+1.8.5.2 (Apple Git-48)
+
+
+From 1d51c3a219b7bf70bd4322c7bafa0477e8cf7a32 Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Tue, 11 Mar 2014 15:45:11 +0100
+Subject: [PATCH 10/10] Fixing assign notifications with workflowstate set up
+
+---
+ mod/assign/locallib.php | 19 ++++++++++++++++++-
+ 1 file changed, 18 insertions(+), 1 deletion(-)
+
+diff --git a/mod/assign/locallib.php b/mod/assign/locallib.php
+index 156b9c5..f4b8e0c 100644
+--- a/mod/assign/locallib.php
++++ b/mod/assign/locallib.php
+@@ -1566,7 +1566,7 @@ class assign {
+         global $DB;
+ 
+         // Only ever send a max of one days worth of updates.
+-        $yesterday = time() - (24 * 3600);
++        $yesterday = time() - (7 * 24 * 3600);
+         $timenow   = time();
+ 
+         // Collect all submissions from the past 24 hours that require mailing.
+@@ -1620,6 +1620,23 @@ class assign {
+ 
+             mtrace("Processing assignment submission $submission->id ...");
+ 
++            // Insert a check for markingguide status for this submission
++            $workflowstate = $DB->get_field('assign_user_flags', 'workflowstate', array(
++                'userid' => $submission->userid,
++                'assignment' => $submission->assignment
++                ));
++            if (isset($workflowstate) && ($workflowstate !== '')) {
++                if ($workflowstate !== 'released') {
++                    mtrace('Workflowstate is not set to release grade state for submission '.$submission->id);
++                    continue;
++                }
++            } else {
++                // Simulate the original 24h interval for sending out notifications if workflowstate is not used
++                if ($submission->lastmodified < (time()-24*3600)) {
++                    continue;
++                }
++            }
++
+             // Do not cache user lookups - could be too many.
+             if (!$user = $DB->get_record('user', array('id'=>$submission->userid))) {
+                 mtrace('Could not find user ' . $submission->userid);
+-- 
+1.8.5.2 (Apple Git-48)
+

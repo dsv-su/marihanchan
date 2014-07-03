@@ -201,7 +201,7 @@ def applyGitPatch( patchFileName, repoPath ):
     # then simply try to apply the patch! (assume that it's located at the current working dir)
     try:
         patchLocation = str( os.getcwd() ) + '/' + patchFileName
-        git.am( patchLocation )
+        git.am( patchLocation, "-3" )
     except GitCommandError:
         print 'oh no! the patch doesn\'t apply cleanly :\'('
         git.am( '--abort' )
