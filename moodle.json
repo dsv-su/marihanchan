@@ -58,7 +58,7 @@
         "path": "mod/assign/submission/blog"
       },
       "reflection": {
-        "repo": "https://github.com/dsv-su/moodle-assignsubmission_blog.git",
+        "repo": "https://github.com/dsv-su/moodle-assignsubmission_reflection.git",
         "path": "mod/assign/submission/reflection"
       },
       "feedback_signature": {
