@@ -209,7 +209,7 @@ index 2b28a73..b20aa91 100644
              }
          }
  
-@@ -133,6 +128,23 @@ class blog_edit_form extends moodleform {
+@@ -133,6 +128,25 @@ class blog_edit_form extends moodleform {
      function validation($data, $files) {
          global $CFG, $DB, $USER;
  
@@ -218,16 +218,18 @@ index 2b28a73..b20aa91 100644
 +        // This is not strictly validation, but needs to be performed before validation therefore
 +        // definition_before_data() can't be used.
 +
-+        $mform =& $this->_form;
-+        $associationselect = $mform->getElement('assoc');
-+        $selectedvalue = $associationselect->getValue();
-+        if ($selectedvalue[0] != '') {
-+            $selectedcontext = context::instance_by_id($selectedvalue[0]);
-+            if ($selectedcontext->contextlevel == CONTEXT_MODULE) {
-+                $associationselect->setName('modassoc');
-+            } else if ($selectedcontext->contextlevel == CONTEXT_COURSE) {
-+                $associationselect->setName('courseassoc');
-+            }
++        if (isset($mform->_elementIndex['assoc'])) {
++           $mform =& $this->_form;
++           $associationselect = $mform->getElement('assoc');
++           $selectedvalue = $associationselect->getValue();
++           if ($selectedvalue[0] != '') {
++               $selectedcontext = context::instance_by_id($selectedvalue[0]);
++               if ($selectedcontext->contextlevel == CONTEXT_MODULE) {
++                   $associationselect->setName('modassoc');
++               } else if ($selectedcontext->contextlevel == CONTEXT_COURSE) {
++                   $associationselect->setName('courseassoc');
++               }
++           }
 +        }
 +
          $errors = array();
