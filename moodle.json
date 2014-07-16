@@ -25,7 +25,7 @@
     "patches": [ "dsv.patch" ],
     "components": {
       "dsv_custom": {
-        "repo": "ssh://psokolov@git.dsv.su.se/git/moodle-dsv_custom",
+        "repo": "ssh://git.dsv.su.se/git/moodle-dsv_custom",
         "path": "dsv_custom"
       },
       "enrol_rest": {
