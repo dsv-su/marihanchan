@@ -1,19 +1,19 @@
 {
     "defaults": {
         "module_contrib": {
-            "path": "sites/all/modules/contrib"
+            "path": "sites/all/modules/contrib/"
         },
         "module_custom": {
-            "path": "sites/all/modules/custom"
+            "path": "sites/all/modules/custom/"
         },
         "theme_contrib": {
-            "path": "sites/all/themes/contrib"
+            "path": "sites/all/themes/contrib/"
         },
         "theme_custom": {
-            "path": "sites/all/themes/custom"
+            "path": "sites/all/themes/custom/"
         },
         "library": {
-            "path": "sites/all/libraries"
+            "path": "sites/all/libraries/"
         }
     },
 
@@ -203,94 +203,98 @@
     },
 
     "prim_base": {
-        "node_clone":{
-            "defaults": "module_contrib",
-            "repo": "git://git.drupal.org/project/node_clone",
-            "branch": "7.x-1.x",
-            "tag": "7.x-1.0-rc2",
-            "path": "node_clone"
-        },
-        "nodeaccess":{
-            "defaults": "module_contrib",
-            "repo": "git://git.drupal.org/project/nodeaccess",
-            "branch": "7.x-1.x",
-            "tag": "7.x-1.3",
-            "path": "nodeaccess"
-        },
-        "options_element":{
-            "defaults": "module_contrib",
-            "repo": "git://git.drupal.org/project/options_element",
-            "branch": "7.x-1.x",
-            "tag": "7.x-1.10",
-            "path": "options_element"
-        },
-        "print":{
-            "defaults": "module_contrib",
-            "repo": "git://git.drupal.org/project/print",
-            "branch": "7.x-1.x",
-            "tag": "7.x-1.2",
-            "path": "print"
-        },
-        "references":{
-            "defaults": "module_contrib",
-            "repo": "git://git.drupal.org/project/references",
-            "branch": "7.x-2.x",
-            "tag": "7.x-2.1",
-            "path": "references"
-        },
-        "uuid":{
-            "defaults": "module_contrib",
-            "repo": "git://git.drupal.org/project/uuid",
-            "branch": "7.x-2.x",
-            "tag": "7.x-2.1",
-            "path": "uuid"
-        },
-        "webform":{
-            "defaults": "module_contrib",
-            "repo": "git://git.drupal.org/project/webform",
-            "branch": "7.x-3.x",
-            "tag": "7.x-3.7",
-            "path": "webform"
-        },
-        "webform_conditional":{
-            "defaults": "module_contrib",
-            "repo": "git://git.drupal.org/project/webform_conditional",
-            "branch": "7.x-1.x",
-            "tag": "7.x-1.0-beta2",
-            "path": "webform_conditional"
+        "components": {
+            "node_clone":{
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/node_clone",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.0-rc2",
+                "path": "node_clone"
+            },
+            "nodeaccess":{
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/nodeaccess",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.3",
+                "path": "nodeaccess"
+            },
+            "options_element":{
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/options_element",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.10",
+                "path": "options_element"
+            },
+            "print":{
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/print",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.2",
+                "path": "print"
+            },
+            "references":{
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/references",
+                "branch": "7.x-2.x",
+                "tag": "7.x-2.1",
+                "path": "references"
+            },
+            "uuid":{
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/uuid",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.0-alpha5",
+                "path": "uuid"
+            },
+            "webform":{
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/webform",
+                "branch": "7.x-3.x",
+                "tag": "7.x-3.7",
+                "path": "webform"
+            },
+            "webform_conditional":{
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/webform_conditional",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.0-beta2",
+                "path": "webform_conditional"
+            }
         }
     },
 
     "prim_custom": {
-        "prim_options":{
-            "defaults": "module_custom",
-            "repo": "https://github.com/dsv-su/prim_options",
-            "path": "prim_options"
-        },
-        "prim_validate":{
-            "defaults": "module_custom",
-            "repo": "https://github.com/dsv-su/prim_validate",
-            "path": "prim_validate"
-        },
-        "prim_form":{
-            "defaults": "module_custom",
-            "repo": "https://github.com/dsv-su/prim_form",
-            "path": "prim_form"
-        },
-        "prim_teacher_result":{
-            "defaults": "module_custom",
-            "repo": "https://github.com/dsv-su/prim_teacher_result",
-            "path": "prim_teacher_result"
-        },
-        "prim_tweeks":{
-            "defaults": "module_custom",
-            "repo": "https://github.com/dsv-su/prim_tweeks",
-            "path": "prim_tweeks"
-        },
-        "remove_menu_path":{
-            "defaults": "module_custom",
-            "repo": "https://github.com/dsv-su/remove_menu_path",
-            "path": "remove_menu_path"
+        "components": {
+            "prim_options":{
+                "defaults": "module_custom",
+                "repo": "https://github.com/dsv-su/prim_options",
+                "path": "prim_options"
+            },
+            "prim_validate":{
+                "defaults": "module_custom",
+                "repo": "https://github.com/dsv-su/prim_validate",
+                "path": "prim_validate"
+            },
+            "prim_form":{
+                "defaults": "module_custom",
+                "repo": "https://github.com/dsv-su/prim_form",
+                "path": "prim_form"
+            },
+            "prim_teacher_result":{
+                "defaults": "module_custom",
+                "repo": "https://github.com/dsv-su/prim_teacher_result",
+                "path": "prim_teacher_result"
+            },
+            "prim_tweeks":{
+                "defaults": "module_custom",
+                "repo": "https://github.com/dsv-su/prim_tweeks",
+                "path": "prim_tweeks"
+            },
+            "remove_menu_path":{
+                "defaults": "module_custom",
+                "repo": "https://github.com/dsv-su/remove_menu_path",
+                "path": "remove_menu_path"
+            }
         }
     },
 
