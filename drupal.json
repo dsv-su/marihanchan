@@ -205,6 +205,98 @@
         }
     },
 
+    "prim_base": {
+        "node_clone":{
+            "defaults": "module_contrib",
+            "repo": "git://git.drupal.org/project/node_clone",
+            "branch": "7.x-1.x",
+            "tag": "7.x-1.0-rc2",
+            "path": "node_clone"
+        },
+        "nodeaccess":{
+            "defaults": "module_contrib",
+            "repo": "git://git.drupal.org/project/nodeaccess",
+            "branch": "7.x-1.x",
+            "tag": "7.x-1.3",
+            "path": "nodeaccess"
+        },
+        "options_element":{
+            "defaults": "module_contrib",
+            "repo": "git://git.drupal.org/project/options_element",
+            "branch": "7.x-1.x",
+            "tag": "7.x-1.10",
+            "path": "options_element"
+        },
+        "print":{
+            "defaults": "module_contrib",
+            "repo": "git://git.drupal.org/project/print",
+            "branch": "7.x-1.x",
+            "tag": "7.x-1.2",
+            "path": "print"
+        },
+        "references":{
+            "defaults": "module_contrib",
+            "repo": "git://git.drupal.org/project/references",
+            "branch": "7.x-2.x",
+            "tag": "7.x-2.1",
+            "path": "references"
+        },
+        "uuid":{
+            "defaults": "module_contrib",
+            "repo": "git://git.drupal.org/project/uuid",
+            "branch": "7.x-2.x",
+            "tag": "7.x-2.1",
+            "path": "uuid"
+        },
+        "webform":{
+            "defaults": "module_contrib",
+            "repo": "git://git.drupal.org/project/webform",
+            "branch": "7.x-3.x",
+            "tag": "7.x-3.7",
+            "path": "webform"
+        },
+        "webform_conditional":{
+            "defaults": "module_contrib",
+            "repo": "git://git.drupal.org/project/webform_conditional",
+            "branch": "7.x-1.x",
+            "tag": "7.x-1.0-beta2",
+            "path": "webform_conditional"
+        }
+    },
+
+    "prim_custom": {
+        "prim_options":{
+            "defaults": "module_custom",
+            "repo": "https://github.com/dsv-su/prim_options",
+            "path": "prim_options"
+        },
+        "prim_validate":{
+            "defaults": "module_custom",
+            "repo": "https://github.com/dsv-su/prim_validate",
+            "path": "prim_validate"
+        },
+        "prim_form":{
+            "defaults": "module_custom",
+            "repo": "https://github.com/dsv-su/prim_form",
+            "path": "prim_form"
+        },
+        "prim_teacher_result":{
+            "defaults": "module_custom",
+            "repo": "https://github.com/dsv-su/prim_teacher_result",
+            "path": "prim_teacher_result"
+        },
+        "prim_tweeks":{
+            "defaults": "module_custom",
+            "repo": "https://github.com/dsv-su/prim_tweeks",
+            "path": "prim_tweeks"
+        },
+        "remove_menu_path":{
+            "defaults": "module_custom",
+            "repo": "https://github.com/dsv-su/remove_menu_path",
+            "path": "remove_menu_path"
+        }
+    },
+
     "internt": {
         "rootDir": "/var/www/internt",
         "requires": [ "dsv_base", "dsv_theme", "dsv_auth", "dsv_wysiwyg", "dsv_multilanguage" ],
@@ -330,7 +422,37 @@
 
     "project_proposals": {
         "rootDir": "/var/www/project_proposals",
-        "requires": [ "dsv_base", "dsv_theme", "dsv_auth" ],
+        "requires": [ "dsv_base", "dsv_theme", "dsv_auth"],
+        "modules": {}
+    },
+
+    "kurs1": {
+        "rootDir": "/var/www/prim/kurs1",
+        "requires": [ "dsv_base", "prim_base", "prim_theme", "dsv_stats"  ],
+        "modules": {}
+    },
+
+    "ap3": {
+        "rootDir": "/var/www/prim/ap3",
+        "requires": [ "dsv_base", "prim_base", "prim_theme", "dsv_stats"  ],
+        "modules": {}
+    },
+
+    "ap6": {
+        "rootDir": "/var/www/prim/ap6",
+        "requires": [ "dsv_base", "prim_base", "prim_theme", "dsv_stats"  ],
+        "modules": {}
+    },
+
+    "ap9": {
+        "rootDir": "/var/www/prim/ap9",
+        "requires": [ "dsv_base", "prim_base", "prim_theme", "dsv_stats"  ],
+        "modules": {}
+    },
+
+    "uim": {
+        "rootDir": "/var/www/prim/uim",
+        "requires": [ "dsv_base", "prim_base", "prim_theme", "dsv_stats"  ],
         "modules": {}
     },
 
