@@ -133,7 +133,7 @@ def getDefaultPropertyForComponent( component, propertyName ):
     if defaults == '':
         return None
 
-    propertyValue = None
+    propertyValue = ''
 
     # get default value for property in component
     if 'defaults' in component:
