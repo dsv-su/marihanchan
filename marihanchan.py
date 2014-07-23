@@ -285,7 +285,11 @@ def findChangesInProject( projectName, oldBuildDict ):
         print 'updating component: ' + componentName
         repoPath = installPath
         if 'path' in newComponent:
-            repoPath += '/' + newComponent.get( 'path' )
+            # load default path first (if any)
+            defaultPath = getDefaultPropertyForComponent( newComponent, 'path' )
+            if defaultPath is not None:
+                repoPath += defaultPath
+            repoPath += newComponent.get( 'path' )
         if not os.path.exists( repoPath ):
             print 'component not found, trying to fetch it'
             fetchComponent ( componentName, newComponent )
@@ -306,9 +310,14 @@ def updateComponent( newComponent, oldComponent ):
 
     # get repo object
     repoPath = installPath
-    if 'path' in newComponent:
-        repoPath += '/' + newComponent.get( 'path' )
 
+    if 'path' in newComponent:
+        # load default path first (if any)
+        defaultPath = getDefaultPropertyForComponent( newComponent, 'path' )
+        if defaultPath is not None:
+            repoPath += defaultPath
+        repoPath += newComponent.get( 'path' )
+        print 'Actual path to repo: ' + repoPath
     repo = Repo( repoPath, odbt=GitCmdObjectDB )
 
     # update branch
