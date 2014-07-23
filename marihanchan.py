@@ -133,7 +133,7 @@ def getDefaultPropertyForComponent( component, propertyName ):
     if defaults == '':
         return None
 
-    propertyValue = None
+    propertyValue = ''
 
     # get default value for property in component
     if 'defaults' in component:
@@ -142,6 +142,8 @@ def getDefaultPropertyForComponent( component, propertyName ):
         if propertyName in componentDefaultProperties:
             propertyValue += componentDefaultProperties.get( propertyName )
 
+    if propertyValue is '':
+        return None
     return propertyValue
 
 # This does the actual hard work, and fetches git repos
