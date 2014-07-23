@@ -106,5 +106,16 @@
         "path": "mod/customcert"
       }
     }
+  },
+
+  "ocw": {
+    "rootDir": "/var/www/ocw",
+    "requires": [ "moodle", "dsv_moodle_theme" ],
+    "components": {
+      "dsv_custom": {
+        "repo": "ssh://git.dsv.su.se/git/moodle-dsv_custom",
+        "path": "dsv_custom"
+      }
+    }
   }
 }
