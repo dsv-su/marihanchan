@@ -297,6 +297,28 @@
         }
     },
 
+    "prim_theme": {
+        "components": {
+            "mothership": {
+                "defaults": "theme_contrib",
+                "repo": "git://git.drupal.org/project/mothership.git",
+                "branch": "7.x-2.x",
+                "tag": "7.x-2.10",
+                "path": "mothership"
+            },
+            "dsv_theme": {
+                "defaults": "theme_custom",
+                "repo": "https://github.com/dsv-su/dsv_theme.git",
+                "path": "dsv_theme"
+            },
+            "su_prim_theme": {
+                "defaults": "theme_custom",
+                "repo": "https://github.com/dsv-su/su_prim_theme.git",
+                "path": "su_prim_theme"
+            }
+        }
+    },
+
     "internt": {
         "rootDir": "/var/www/internt",
         "requires": [ "dsv_base", "dsv_theme", "dsv_auth", "dsv_wysiwyg", "dsv_multilanguage" ],
@@ -428,6 +450,12 @@
 
     "kurs1": {
         "rootDir": "/var/www/prim/kurs1",
+        "requires": [ "dsv_base", "prim_base", "prim_theme", "dsv_stats"  ],
+        "modules": {}
+    },
+
+    "kurs1_honeypot": {
+        "rootDir": "/var/www/prim-kurs1",
         "requires": [ "dsv_base", "prim_base", "prim_theme", "dsv_stats"  ],
         "modules": {}
     },
