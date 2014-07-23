@@ -22,7 +22,7 @@
   "ilearn2": {
     "rootDir": "/var/www/ilearn2",
     "requires": [ "moodle", "dsv_moodle_theme" ],
-    "patches": [ "dsv.patch" ],
+    "patches": [ "moodle.patch" ],
     "components": {
       "dsv_custom": {
         "repo": "ssh://git.dsv.su.se/git/moodle-dsv_custom",
@@ -71,7 +71,7 @@
   "open": {
     "rootDir": "/var/www/open",
     "requires": [ "moodle", "dsv_moodle_theme" ],
-    "patches": [ "dsv.patch" ],
+    "patches": [ "moodle.patch" ],
     "components": {
       "dsv_custom": {
         "repo": "ssh://git.dsv.su.se/git/moodle-dsv_custom",
@@ -87,7 +87,7 @@
   "turing": {
     "rootDir": "/var/www/turing",
     "requires": [ "moodle", "dsv_moodle_theme" ],
-    "patches": [ "dsv.patch" ],
+    "patches": [ "moodle.patch" ],
     "components": {
       "dsv_custom": {
         "repo": "ssh://git.dsv.su.se/git/moodle-dsv_custom",
