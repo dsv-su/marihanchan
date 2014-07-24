@@ -189,7 +189,7 @@ def fetchComponent( name, component ):
 
     # if there's a tag specified, try to checkout that
     if 'tag' in component:
-        repo.git.checkout( 'tags/' + component.get('tag') )
+        repo.git.checkout( 'tags/' + component.get('tag'), b = 'tag_' + component.get('tag') )
 
     return
 
@@ -246,7 +246,11 @@ def resetGitRepo( repoPath ):
     print 'resetting ' + repoPath + ' to remote HEAD...'
 
     git = repo.git
-    git.reset( '--hard', 'origin/' + branchName )
+    # If we checked out from a tag, branchName is a tag name in that case
+    if branchName[:4] == 'tag_':
+        git.reset( '--hard', branchName[4:] )
+    else:
+        git.reset( '--hard', 'origin/' + branchName)
 
     return
 
@@ -317,7 +321,6 @@ def updateComponent( newComponent, oldComponent ):
         if defaultPath is not None:
             repoPath += defaultPath
         repoPath += newComponent.get( 'path' )
-        print 'Actual path to repo: ' + repoPath
     repo = Repo( repoPath, odbt=GitCmdObjectDB )
 
     # update branch
@@ -340,16 +343,43 @@ def updateComponent( newComponent, oldComponent ):
         if 'tag' in oldComponent:
             oldTag = oldComponent.get( 'tag' )
             if newTag != oldTag:
-                # git checkout new tag
-                print 'checking out new tag (' + newTag + ')'
-                repo.git.checkout( 'tags/' + newTag )
+                try:
+                    # git checkout new tag
+                    print 'checking out tag (' + newTag + ')'
+                    repo.git.checkout( 'tags/' + newTag, b = 'tag_' + newTag )
+                except GitCommandError:
+                    # if a tagged branch is already there, just reset it to remote
+                    print 'tagged branch ' + newTag + ' already exists, checking it out and resetting it to remote'
+                    repo.git.checkout( 'tag_' + newTag)
+                    repo.git.reset( '--hard', newTag )
         else:
-            # git checkout new tag
-            print 'checking out new tag (' + newTag + ')'
-            repo.git.checkout( 'tags/' + newTag )
+            try:
+                # git checkout new tag
+                print 'checking out tag (' + newTag + ')'
+                repo.git.checkout( 'tags/' + newTag, b = 'tag_' + newTag )
+            except GitCommandError:
+                # if a tagged branch is already there, just reset it to remote
+                print 'tagged branch ' + newTag + ' already exists, checking it out and resetting it to remote'
+                repo.git.checkout( 'tag_' + newTag)
+                repo.git.reset( '--hard', newTag )
+    else:
+        # try to get active branch, in case of detached state checkout remote HEAD
+        branch = str( repo.active_branch )
+        print 'active branch: ' + branch
+        try:
+            # git pull in case it is a real branch, not tagged one
+            repo.git.pull()
+        except GitCommandError:
+            print 'Oh no! I couldn\'t pull. Probably we\'re at tagged branch and there is no tracking info. Will reset to remote then!'
+            tag = branch[4:]
+            print 'Resetting to remote tag ' + tag
+            try:
+                repo.git.reset( '--hard', tag )
+            except GitCommandError, e:
+                print 'No, we were not on a tagged branch. Please discard manual local changes you\'ve probably done to this project.'
+                raise e
 
-    # git pull!
-    repo.git.pull()
+
 
 # Removes a component from a built project
 def removeComponent( name, component ):
