@@ -1,7 +1,7 @@
-From 40923f26c11ea24ab904c29b6b043e8894f32ce4 Mon Sep 17 00:00:00 2001
+From f4d811db672264b64b9da2cb3f8e03943280283c Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
 Date: Thu, 13 Jun 2013 19:19:39 +0200
-Subject: [PATCH 01/10] navigation
+Subject: [PATCH 1/9] navigation
 
 ---
  mod/assign/lib.php | 34 ++++++++++++++++++++++++++++++++++
@@ -56,10 +56,10 @@ index d5ff98e..46f314a 100644
 1.8.5.2 (Apple Git-48)
 
 
-From a3bb4064ac0cdf860fb00736981081aa0d67f073 Mon Sep 17 00:00:00 2001
+From 4fdc2dfae1c3fbee154b63113756e20a83ca315c Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
 Date: Sat, 8 Jun 2013 21:54:51 +0200
-Subject: [PATCH 02/10] Hack for disabling buttons for reflection plugin
+Subject: [PATCH 2/9] Hack for disabling buttons for reflection plugin
 
 ---
  mod/assign/renderer.php | 16 ++++++++++++++++
@@ -96,12 +96,12 @@ index d371eb0..c70bd87 100644
 1.8.5.2 (Apple Git-48)
 
 
-From 0a616151cabd8e10352636be8610aca32dc93c28 Mon Sep 17 00:00:00 2001
+From 505cbabf00b1325cd96619182fbb945208db871e Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
 Date: Thu, 26 Sep 2013 21:50:24 +0400
-Subject: [PATCH 03/10] Adding a better interface for blog association,
- allowing users to change associations of a blog entry or to add an
- association ofter initial submission.
+Subject: [PATCH 3/9] Adding a better interface for blog association, allowing
+ users to change associations of a blog entry or to add an association ofter
+ initial submission.
 
 ---
  blog/edit.php      | 10 +++++++
@@ -255,10 +255,10 @@ index 5561050..5daf88a 100644
 1.8.5.2 (Apple Git-48)
 
 
-From d1db763dc685f20c11113da7a44d4b2902b06d7a Mon Sep 17 00:00:00 2001
+From d2f4042533e2772cfc56890253cd5f1b60bd854a Mon Sep 17 00:00:00 2001
 From: Erik Lundberg <lundbergerik@gmail.com>
 Date: Wed, 11 Jul 2012 14:50:57 +0200
-Subject: [PATCH 04/10] Now the "Blog entries about course"-view will include
+Subject: [PATCH 4/9] Now the "Blog entries about course"-view will include
  nested entries; i. e. entries associated with modules that belongs to the
  course.
 
@@ -294,10 +294,10 @@ index 5daf88a..cb1b148 100644
 1.8.5.2 (Apple Git-48)
 
 
-From 8a28c7e4ad2d2b272e0b368d302c54842dda1bfa Mon Sep 17 00:00:00 2001
+From 46a3811f9b6097fa01a3662b74450d41e196be86 Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
 Date: Wed, 20 Nov 2013 17:06:49 +0400
-Subject: [PATCH 05/10] Including all blog posts to view all posts link and
+Subject: [PATCH 5/9] Including all blog posts to view all posts link and
  fixing bug when no posts are seen from assignment group view
 
 ---
@@ -346,10 +346,10 @@ index cb1b148..bdab8a1 100644
 1.8.5.2 (Apple Git-48)
 
 
-From caf1ceb42c43a5b50bc2398038b2ad45b3034738 Mon Sep 17 00:00:00 2001
+From de490c5ef766721a67d304f1c1a7bd95da629af1 Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
 Date: Mon, 10 Mar 2014 09:46:23 +0100
-Subject: [PATCH 06/10] Fixing leading zeros when autocreating groups
+Subject: [PATCH 6/9] Fixing leading zeros when autocreating groups
 
 ---
  group/autogroup.php      | 2 +-
@@ -414,10 +414,10 @@ index 970ce78..600f222 100644
 1.8.5.2 (Apple Git-48)
 
 
-From 0a6de9afd7fed698af696a1747b96be823559610 Mon Sep 17 00:00:00 2001
+From 5b4dc7a0e74923eca0ae512a411920d66f731b4e Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
 Date: Mon, 24 Mar 2014 17:49:36 +0400
-Subject: [PATCH 07/10] Temporary hack for disabling switching mode if any
+Subject: [PATCH 7/9] Temporary hack for disabling switching mode if any
  submission is made @psokolov
 
 ---
@@ -447,11 +447,11 @@ index eead2ae..78c75ff 100644
 1.8.5.2 (Apple Git-48)
 
 
-From d3c779e256843972728049570f3903e8689593ae Mon Sep 17 00:00:00 2001
+From da00e049a2d984fc5102f834e2753b3d7d8a832c Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
 Date: Thu, 6 Mar 2014 13:07:22 +0400
-Subject: [PATCH 08/10] MDL-44481 assign: add sorting of assign submissions by
- a group name
+Subject: [PATCH 8/9] MDL-44481 assign: add sorting of assign submissions by a
+ group name
 
 ---
  mod/assign/gradingtable.php | 23 ++++++++++++++++++++++-
@@ -502,11 +502,11 @@ index 3bbbf32..24fe059 100644
 1.8.5.2 (Apple Git-48)
 
 
-From db01b15868a24b0315d3ff25fdb8817357ff2a26 Mon Sep 17 00:00:00 2001
+From 5d36eaa5955aaece0dc43063455387f755af60fe Mon Sep 17 00:00:00 2001
 From: Simon Jarbrant <simonjarbrant@gmail.com>
 Date: Mon, 10 Mar 2014 20:18:11 +0100
-Subject: [PATCH 09/10] MDL-36151 assign: add option to download selected
- assign submissions
+Subject: [PATCH 9/9] MDL-36151 assign: add option to download selected assign
+ submissions
 
 ---
  mod/assign/gradingbatchoperationsform.php |  1 +
@@ -638,56 +638,6 @@ index a2ab7ed..5e82029 100644
                      }
                      if (!confirm(confirmmessage)) {
                          e.preventDefault();
--- 
-1.8.5.2 (Apple Git-48)
-
-
-From 2ee180a239cbfe9ac093d6e17256079cc676f69e Mon Sep 17 00:00:00 2001
-From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
-Date: Tue, 11 Mar 2014 15:45:11 +0100
-Subject: [PATCH 10/10] Fixing assign notifications with workflowstate set up
-
----
- mod/assign/locallib.php | 19 ++++++++++++++++++-
- 1 file changed, 18 insertions(+), 1 deletion(-)
-
-diff --git a/mod/assign/locallib.php b/mod/assign/locallib.php
-index cf208f7..5ff8635 100644
---- a/mod/assign/locallib.php
-+++ b/mod/assign/locallib.php
-@@ -1588,7 +1588,7 @@ class assign {
-         global $DB;
- 
-         // Only ever send a max of one days worth of updates.
--        $yesterday = time() - (24 * 3600);
-+        $yesterday = time() - (7 * 24 * 3600);
-         $timenow   = time();
- 
-         // Collect all submissions from the past 24 hours that require mailing.
-@@ -1646,6 +1646,23 @@ class assign {
- 
-             mtrace("Processing assignment submission $submission->id ...");
- 
-+            // Insert a check for markingguide status for this submission
-+            $workflowstate = $DB->get_field('assign_user_flags', 'workflowstate', array(
-+                'userid' => $submission->userid,
-+                'assignment' => $submission->assignment
-+                ));
-+            if (isset($workflowstate) && ($workflowstate !== '')) {
-+                if ($workflowstate !== 'released') {
-+                    mtrace('Workflowstate is not set to release grade state for submission '.$submission->id);
-+                    continue;
-+                }
-+            } else {
-+                // Simulate the original 24h interval for sending out notifications if workflowstate is not used
-+                if ($submission->lastmodified < (time()-24*3600)) {
-+                    continue;
-+                }
-+            }
-+
-             // Do not cache user lookups - could be too many.
-             if (!$user = $DB->get_record('user', array('id'=>$submission->userid))) {
-                 mtrace('Could not find user ' . $submission->userid);
 -- 
 1.8.5.2 (Apple Git-48)
 
