@@ -1,0 +1,28 @@
+From e8df60f8a0e56fff40be6c35c7906c1cee2aa971 Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Fri, 25 Jul 2014 14:10:30 +0400
+Subject: [PATCH] Fixing removal of duplicated entries due to multi
+ categorisation
+
+---
+ modules/taxonomy/views_handler_argument_term_node_tid_depth.inc | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/modules/taxonomy/views_handler_argument_term_node_tid_depth.inc b/modules/taxonomy/views_handler_argument_term_node_tid_depth.inc
+index 116a4de..0cf8ee1 100644
+--- a/modules/taxonomy/views_handler_argument_term_node_tid_depth.inc
++++ b/modules/taxonomy/views_handler_argument_term_node_tid_depth.inc
+@@ -132,6 +132,10 @@ class views_handler_argument_term_node_tid_depth extends views_handler_argument
+ 
+     $subquery->condition($where);
+     $this->query->add_where(0, "$this->table_alias.$this->real_field", $subquery, 'IN');
++
++    // Fixing removal of duplicated entries due to multi categorisation. Pavel Sokolov.
++    $this->query->add_field('taxonomy_index', 'tid');
++    $this->query->add_where(0, 'taxonomy_index.tid', $tids, $operator);
+   }
+ 
+   function title() {
+-- 
+1.8.5.2 (Apple Git-48)
+

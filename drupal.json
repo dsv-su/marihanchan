@@ -87,7 +87,8 @@
                 "repo": "git://git.drupal.org/project/views.git",
                 "branch": "7.x-3.x",
                 "tag": "7.x-3.8",
-                "path": "views"
+                "path": "views",
+                "patch": "views.patch"
             }
         }
     },
@@ -329,6 +330,7 @@
                 "repo": "git://git.drupal.org/project/taxonomy_menu.git",
                 "branch": "7.x-1.x",
                 "tag": "7.x-1.5",
+                "patch": "taxonomy_menu.patch",
                 "path": "taxonomy_menu"
             },
             "daisy_contact_list": {
@@ -390,13 +392,6 @@
                 "repo": "https://github.com/dsv-su/taxonomy_breadcrumb.git",
                 "branch": "intern_mod",
                 "path": "taxonomy_breadcrumb"
-            },
-            "taxonomy_menu": {
-                "defaults": "module_contrib",
-                "repo": "git://git.drupal.org/project/taxonomy_menu.git",
-                "branch": "7.x-1.x",
-                "tag": "7.x-1.5",
-                "path": "taxonomy_menu"
             },
             "taxonomy_menu_trails": {
                 "defaults": "module_contrib",

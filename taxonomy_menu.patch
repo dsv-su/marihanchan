@@ -1,0 +1,30 @@
+From b4b80d7cd2867dbfe8b26b007c82dc38874d1513 Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Fri, 25 Jul 2014 12:55:52 +0400
+Subject: [PATCH] Taxonomy_menu fix to include childrennodes
+
+---
+ taxonomy_menu.module | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/sites/all/modules/contrib/taxonomy_menu/taxonomy_menu.module b/sites/all/modules/contrib/taxonomy_menu/taxonomy_menu.module
+index 7bcea71..3c13f2c 100644
+--- a/sites/all/modules/contrib/taxonomy_menu/taxonomy_menu.module
++++ b/sites/all/modules/contrib/taxonomy_menu/taxonomy_menu.module
+@@ -682,7 +682,12 @@ $item['vid']));
+   }
+   else {
+     $children = taxonomy_get_children($item['tid']);
+-    if (!empty($children)) {
++    // Pavel Sokolov fix
++    $childrennodes = db_select('taxonomy_index', 'ti')
++      ->condition('tid', $item['tid'], '=')
++      ->fields('ti', array('nid'))
++      ->execute()->fetchCol();
++    if (!empty($children) || !empty($childrennodes)) {
+       $link['has_children'] = 1;
+     }
+   }
+-- 
+1.8.5.2 (Apple Git-48)
+

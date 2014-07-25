@@ -191,6 +191,11 @@ def fetchComponent( name, component ):
     if 'tag' in component:
         repo.git.checkout( 'tags/' + component.get('tag'), b = 'tag_' + component.get('tag') )
 
+    # apply a patch to the component
+    if 'patch' in component:
+        patch = component.get( 'patch' )
+        applyGitPatch( patch, clonePath )
+
     return
 
 # Applies the specified patch to the specified project. If it fails, it will revert
@@ -379,6 +384,10 @@ def updateComponent( newComponent, oldComponent ):
                 print 'No, we were not on a tagged branch. Please discard manual local changes you\'ve probably done to this project.'
                 raise e
 
+    # apply a patch to the component
+    if 'patch' in newComponent:
+        patch = newComponent.get( 'patch' )
+        applyGitPatch( patch, repoPath )
 
 
 # Removes a component from a built project
