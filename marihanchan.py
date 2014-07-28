@@ -196,14 +196,6 @@ def fetchComponent( name, component ):
         patch = component.get( 'patch' )
         applyGitPatch( patch, clonePath )
 
-    project = component.get('path')
-    if  project is not None and os.path.exists( clonePath + '/' + project + '.info' ):
-        if (str( repo.active_branch ))[:4] == 'tag_':
-            tag = (str( repo.active_branch ))[4:]
-        else:
-            tag = ''
-        replaceInfofile(clonePath + '/' + project + '.info', tag, project)
-
     return
 
 # Applies the specified patch to the specified project. If it fails, it will revert
@@ -396,44 +388,6 @@ def updateComponent( newComponent, oldComponent ):
     if 'patch' in newComponent:
         patch = newComponent.get( 'patch' )
         applyGitPatch( patch, repoPath )
-
-    project = newComponent.get('path')
-    if  project is not None and os.path.exists( repoPath + '/' + project + '.info' ):
-        if (str( repo.active_branch ))[:4] == 'tag_':
-            tag = (str( repo.active_branch ))[4:]
-        else:
-            tag = ''
-        replaceInfofile(repoPath + '/' + project + '.info', tag, project)
-
-# Alters info file for drupal
-def replaceInfofile( path, tag, project ):
-    searchValue = "version = "
-
-    oldline = ''
-    newline = ''
-
-    f = open(path, 'r')
-    lines = f.readlines()
-    for line in lines:
-        if searchValue in line:
-            oldline = line
-            print 'old ' + line
-            try:
-                if tag != '':
-                    newline = searchValue + tag
-                else:
-                    newline = line
-                print 'new ' + newline
-            except NameError:
-                print 'name error' 
-    f.close()
-
-    lines[len(line):] = newline
-
-    f = open(path, 'w')
-    for line in lines:
-        if line != oldline:
-            f.write(line) 
 
 
 # Removes a component from a built project
