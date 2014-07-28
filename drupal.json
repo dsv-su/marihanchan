@@ -344,9 +344,9 @@
                 "path": "dsv_bootstrap_panels"
             },
             "dsv_internal_theme": {
-                "defaults": "module_custom",
+                "defaults": "theme_custom",
                 "repo": "https://github.com/dsv-su/dsv_internal_theme.git",
-                "path": "sites/all/themes/dsv_internal_theme"
+                "path": "dsv_internal_theme"
             },
             "noderorder": {
                 "defaults": "module_custom",
