@@ -348,10 +348,10 @@
                 "repo": "https://github.com/dsv-su/dsv_internal_theme.git",
                 "path": "dsv_internal_theme"
             },
-            "noderorder": {
+            "nodeorder": {
                 "defaults": "module_custom",
-                "repo": "https://github.com/dsv-su/drupal-noderorder.git",
-                "path": "noderorder"
+                "repo": "https://github.com/dsv-su/drupal-nodeorder.git",
+                "path": "nodeorder"
             },
             "menu_block": {
                 "defaults": "module_contrib",
