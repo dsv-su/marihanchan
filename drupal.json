@@ -32,7 +32,7 @@
                 "repo": "git://git.drupal.org/project/ctools.git",
                 "branch": "7.x-2.x",
                 "path": "git_deploy"
-            },
+            }
         }
     },
 
