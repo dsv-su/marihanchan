@@ -29,7 +29,7 @@
             },
             "git_deploy": {
                 "defaults": "module_contrib",
-                "repo": "git://git.drupal.org/project/ctools.git",
+                "repo": "git://git.drupal.org/project/git_deploy.git",
                 "branch": "7.x-2.x",
                 "path": "git_deploy"
             }
