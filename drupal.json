@@ -26,12 +26,6 @@
                 "tag": "7.28",
                 "patch": "core.patch",
                 "ignoreEmptyPath": true
-            },
-            "git_deploy": {
-                "defaults": "module_contrib",
-                "repo": "git://git.drupal.org/project/git_deploy.git",
-                "branch": "7.x-2.x",
-                "path": "git_deploy"
             }
         }
     },
@@ -46,6 +40,12 @@
                 "branch": "7.x-1.x",
                 "tag": "7.x-1.4",
                 "path": "ctools"
+            },
+            "git_deploy": {
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/git_deploy.git",
+                "branch": "7.x-2.x",
+                "path": "git_deploy"
             },
             "date": {
                 "defaults": "module_contrib",
