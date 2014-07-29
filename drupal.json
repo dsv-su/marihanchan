@@ -23,7 +23,7 @@
             "drupal_core": {
                 "repo": "https://github.com/drupal/drupal.git",
                 "branch": "7.x",
-                "tag": "7.28",
+                "tag": "7.30",
                 "patch": "core.patch",
                 "ignoreEmptyPath": true
             }
@@ -179,7 +179,7 @@
                 "repo": "git://github.com/ckeditor/ckeditor-releases.git",
                 "branch": "4.4.x",
                 "tag": "4.4.1",
-                "path": "sites/all/libraries/ckeditor"
+                "path": "ckeditor"
             },
             "imce": {
                 "defaults": "module_contrib",
