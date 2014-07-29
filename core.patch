@@ -1,0 +1,33 @@
+From 30fcdf144171f098f6d391369c57de96b342a2e4 Mon Sep 17 00:00:00 2001
+From: Darren Oh <darren@oh.name>
+Date: Tue, 24 Dec 2013 13:56:41 -0500
+Subject: [PATCH] Issue #2062763 by chx, Darren Oh: Added support for modules
+ which alter system information to update.php.
+
+---
+ update.php | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/update.php b/update.php
+index c3d4045..e679cc1 100644
+--- a/update.php
++++ b/update.php
+@@ -407,9 +407,13 @@ if (empty($op) && update_access_allowed()) {
+ 
+   // Load module basics.
+   include_once DRUPAL_ROOT . '/includes/module.inc';
++  // $module_list is not initialized to make it possible to add to settings.php:
++  // $GLOBALS['module_list']['foo']['filename'] = 'path/to/foo.module';
++  // to load modules like git deploy which alter system information.
+   $module_list['system']['filename'] = 'modules/system/system.module';
+-  module_list(TRUE, FALSE, FALSE, $module_list);
+-  drupal_load('module', 'system');
++  foreach (module_list(TRUE, FALSE, FALSE, $module_list) as $module) {
++    drupal_load('module', $module);
++  }
+ 
+   // Reset the module_implements() cache so that any new hook implementations
+   // in updated code are picked up.
+-- 
+1.8.2
+

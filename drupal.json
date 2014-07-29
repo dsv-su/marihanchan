@@ -24,8 +24,15 @@
                 "repo": "https://github.com/drupal/drupal.git",
                 "branch": "7.x",
                 "tag": "7.28",
-                 "ignoreEmptyPath": true
+                "patch": "core.patch",
+                "ignoreEmptyPath": true
             }
+            "git_deploy": {
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/ctools.git",
+                "branch": "7.x-2.x",
+                "path": "git_deploy"
+            },
         }
     },
 
