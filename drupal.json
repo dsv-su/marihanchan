@@ -161,7 +161,15 @@
                 "branch": "7.x-2.x",
                 "tag": "7.x-2.5",
                 "path": "piwik"
+            },
+            "google_analytics": {
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/google_analytics",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.4",
+                "path": "google_analytics"
             }
+
         }
     },
 
@@ -491,12 +499,96 @@
         "rootDir": "/var/www/drupal7",
         "requires": [ "dsv_base", "dsv_theme", "dsv_auth", "dsv_stats" ],
         "modules": {
-            "webforms": {
+            "block_term": {
                 "defaults": "module_contrib",
-                "repo": "http://git.drupal.org/project/webform.git",
+                "repo": "http://git.drupal.org/project/block_term.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.0-alpha1",
+                "path": "block_term"
+            },
+            "ckeditor_library": {
+                "defaults": "library",
+                "repo": "git://github.com/ckeditor/ckeditor-releases.git",
+                "branch": "4.4.x",
+                "tag": "4.4.1",
+                "path": "ckeditor"
+            },
+            "content_access": {
+                "defaults": "module_contrib",
+                "repo": "http://git.drupal.org/project/content_access.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.2-beta2",
+                "path": "content_access"
+            },
+            "find_content": {
+                "defaults": "module_contrib",
+                "repo": "http://git.drupal.org/project/find_content.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.2",
+                "path": "find_content"
+            },
+            "form_builder": {
+                "defaults": "module_contrib",
+                "repo": "http://git.drupal.org/project/form_builder.git",
+                "branch": "7.x-1.0",
+                "tag": "7.x-1.5",
+                "path": "form_builder"
+            },
+            "menu_trail_by_path": {
+                "defaults": "module_contrib",
+                "repo": "http://git.drupal.org/project/menu_trail_by_path.git",
+                "branch": "7.x-2.x",
+                "tag": "7.x-2.0+4-dev",
+                "path": "menu_trail_by_path"
+            },
+            "node_convert": {
+                "defaults": "module_contrib",
+                "repo": "http://git.drupal.org/project/node_convert.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.1",
+                "path": "node_convert"
+            },
+            "options_element":{
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/options_element",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.12",
+                "path": "options_element"
+            },
+            "scheduler": {
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/scheduler.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.2",
+                "path": "scheduler"
+            },
+            "search_autocomplete": {
+                "defaults": "module_contrib",
+                "repo": "http://git.drupal.org/project/search_autocomplete.git",
+                "branch": "7.x-3.x",
+                "tag": "7.x-3.3",
+                "path": "search_autocomplete"
+            },
+            "views_accordian": {
+                "defaults": "module_contrib",
+                "repo": "http://git.drupal.org/project/views_accordian.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.0",
+                "path": "views_accordian"
+            },
+            "webform":{
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/webform",
                 "branch": "7.x-3.x",
                 "tag": "7.x-3.20",
-                "path": "webforms"
+                "path": "webform"
+            },
+            "wysiwyg":{
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/wysiwyg",
+                "branch": "7.x-2.x",
+                "tag": "7.x-2.2",
+                "path": "wysiwyg"
             }
         }
     }
