@@ -115,7 +115,6 @@
                 "branch": "7.x-3.x",
                 "tag": "7.x-3.0",
                 "path": "bootstrap",
-                "patch": "bootstrap.patch"
             },
             "dsv_drupal_theme": {
                 "defaults": "theme_custom",
