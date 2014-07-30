@@ -538,7 +538,7 @@
                 "defaults": "module_contrib",
                 "repo": "http://git.drupal.org/project/menu_trail_by_path.git",
                 "branch": "7.x-2.x",
-                "tag": "7.x-2.0+4-dev",
+                "tag": "7.x-2.0",
                 "path": "menu_trail_by_path"
             },
             "node_convert": {
