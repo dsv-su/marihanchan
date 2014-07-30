@@ -569,12 +569,12 @@
                 "tag": "7.x-3.3",
                 "path": "search_autocomplete"
             },
-            "views_accordian": {
+            "views_accordion": {
                 "defaults": "module_contrib",
-                "repo": "http://git.drupal.org/project/views_accordian.git",
+                "repo": "http://git.drupal.org/project/views_accordion.git",
                 "branch": "7.x-1.x",
                 "tag": "7.x-1.0",
-                "path": "views_accordian"
+                "path": "views_accordion"
             },
             "webform":{
                 "defaults": "module_contrib",
