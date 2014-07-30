@@ -589,6 +589,11 @@
                 "branch": "7.x-2.x",
                 "tag": "7.x-2.2",
                 "path": "wysiwyg"
+            },
+            "thesis_theme": {
+                "defaults": "theme_custom",
+                "repo": "https://github.com/dsv-su/dsv_thesis_theme.git",
+                "path": "dsv_thesis_theme"
             }
         }
     }
