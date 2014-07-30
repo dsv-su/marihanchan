@@ -114,7 +114,8 @@
                 "repo": "git://git.drupal.org/project/bootstrap.git",
                 "branch": "7.x-3.x",
                 "tag": "7.x-3.0",
-                "path": "bootstrap"
+                "path": "bootstrap",
+                "patch": "bootstrap.patch"
             },
             "dsv_drupal_theme": {
                 "defaults": "theme_custom",

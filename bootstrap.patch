@@ -1,8 +1,8 @@
 diff --git a/theme/menu/menu-link.func.php b/theme/menu/menu-link.func.php
-index b277cd0..3a9a00a 100644
+index b277cd0..2cc0d69 100644
 --- a/theme/menu/menu-link.func.php
 +++ b/theme/menu/menu-link.func.php
-@@ -32,6 +32,21 @@ function bootstrap_menu_link(array $variables) {
+@@ -32,6 +32,22 @@ function bootstrap_menu_link(array $variables) {
        $element['#localized_options']['attributes']['class'][] = 'dropdown-toggle';
        $element['#localized_options']['attributes']['data-toggle'] = 'dropdown';
      }
@@ -21,6 +21,7 @@ index b277cd0..3a9a00a 100644
 +      $element['#localized_options']['attributes']['class'][] = 'dropdown-toggle';
 +      $element['#localized_options']['attributes']['data-toggle'] = 'dropdown';
 +    }
++
    }
    // On primary navigation menu, class 'active' is not set on active menu item.
    // @see https://drupal.org/node/1896674
