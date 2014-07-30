@@ -495,8 +495,8 @@
         "modules": {}
     },
 
-    "scipro": {
-        "rootDir": "/var/www/drupal7",
+    "thesis": {
+        "rootDir": "/var/www/thesis",
         "requires": [ "dsv_base", "dsv_theme", "dsv_auth", "dsv_stats" ],
         "modules": {
             "block_term": {
