@@ -523,7 +523,7 @@
             "find_content": {
                 "defaults": "module_contrib",
                 "repo": "http://git.drupal.org/project/find_content.git",
-                "branch": "7.x-1.x",
+                "branch": "7.x-1.0",
                 "tag": "7.x-1.2",
                 "path": "find_content"
             },
