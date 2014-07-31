@@ -1,12 +1,12 @@
-diff --git a/sites/all/themes/contrib/bootstrap/theme/menu/menu-link.func.php b/theme/menu/menu-link.func.php
-index b277cd0..2cc0d69 100644
---- a/sites/all/themes/contrib/bootstrap/theme/menu/menu-link.func.php
-+++ b/sites/all/themes/contrib/bootstrap/theme/menu/menu-link.func.php
+diff --git a/theme/menu/menu-link.func.php b/theme/menu/menu-link.func.php
+index b277cd0..23fa868 100644
+--- a/theme/menu/menu-link.func.php
++++ b/theme/menu/menu-link.func.php
 @@ -32,6 +32,22 @@ function bootstrap_menu_link(array $variables) {
        $element['#localized_options']['attributes']['class'][] = 'dropdown-toggle';
        $element['#localized_options']['attributes']['data-toggle'] = 'dropdown';
      }
-+    elseif ((!empty($element['#original_link']['depth'])) && ($element['#original_link']['depth'] == 2)) {
++   elseif ((!empty($element['#original_link']['depth'])) && ($element['#original_link']['depth'] == 2)) {
 +      // Add our own wrapper.
 +      unset($element['#below']['#theme_wrappers']);
 +      $sub_menu = '<ul class="dropdown-menu-2">' . drupal_render($element['#below']) . '</ul>';
