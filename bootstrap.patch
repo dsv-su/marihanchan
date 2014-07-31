@@ -1,4 +1,4 @@
-diff --git a/theme/menu/menu-link.func.php b/theme/menu/menu-link.func.php
+diff --git a/sites/all/themes/contrib/bootstrap/theme/menu/menu-link.func.php b/theme/menu/menu-link.func.php
 index b277cd0..2cc0d69 100644
 --- a/sites/all/themes/contrib/bootstrap/theme/menu/menu-link.func.php
 +++ b/sites/all/themes/contrib/bootstrap/theme/menu/menu-link.func.php
