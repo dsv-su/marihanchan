@@ -456,43 +456,101 @@
     "project_proposals": {
         "rootDir": "/var/www/project_proposals",
         "requires": [ "dsv_base", "dsv_theme", "dsv_auth"],
-        "modules": {}
+        "components": {
+            "currency": {
+                "defaults": "module_contrib",
+                "repo": "http://git.drupal.org/project/currency.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.4",
+                "path": "currency"
+            },
+            "disable_breadcrumbs": {
+                "defaults": "module_contrib",
+                "repo": "http://git.drupal.org/project/disable_breadcrumbs.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.3",
+                "path": "disable_breadcrumbs"
+            },
+            "empty_fields": {
+                "defaults": "module_contrib",
+                "repo": "http://git.drupal.org/project/empty_fields.git",
+                "branch": "7.x-2.x",
+                "tag": "7.x-2.0",
+                "path": "empty_fields"
+            },
+            "field_formatter_settings": {
+                "defaults": "module_contrib",
+                "repo": "http://git.drupal.org/project/field_formatter_settings.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.1",
+                "path": "field_formatter_settings"
+            },
+            "field_permissions": {
+                "defaults": "module_contrib",
+                "repo": "http://git.drupal.org/project/field_permissions.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.0-beta2",
+                "path": "field_permissions"
+            },
+            "panels": {
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/panels.git",
+                "branch": "7.x-3.x",
+                "tag": "7.x-3.4",
+                "path": "panels"
+            },
+            "real_name": {
+                "defaults": "module_contrib",
+                "repo": "http://git.drupal.org/project/real_name.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.2",
+                "path": "real_name"
+            },
+            "redirect": {
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/redirect.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.0-rc1",
+                "path": "redirect"
+            },
+            "references":{
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/references",
+                "branch": "7.x-2.x",
+                "tag": "7.x-2.1",
+                "path": "references"
+            }
+        }
     },
 
     "kurs1": {
         "rootDir": "/var/www/prim/kurs1",
         "requires": [ "dsv_base", "prim_base", "prim_custom", "prim_theme", "dsv_stats"  ],
-        "modules": {}
-    },
-
-    "kurs1_honeypot": {
-        "rootDir": "/var/www/prim-kurs1",
-        "requires": [ "dsv_base", "prim_base", "prim_custom", "prim_theme", "dsv_stats"  ],
-        "modules": {}
+        "components": {}
     },
 
     "ap3": {
         "rootDir": "/var/www/prim/ap3",
         "requires": [ "dsv_base", "prim_base", "prim_custom", "prim_theme", "dsv_stats"  ],
-        "modules": {}
+        "components": {}
     },
 
     "ap6": {
         "rootDir": "/var/www/prim/ap6",
         "requires": [ "dsv_base", "prim_base", "prim_custom", "prim_theme", "dsv_stats"  ],
-        "modules": {}
+        "components": {}
     },
 
     "ap9": {
         "rootDir": "/var/www/prim/ap9",
         "requires": [ "dsv_base", "prim_base", "prim_custom", "prim_theme", "dsv_stats"  ],
-        "modules": {}
+        "components": {}
     },
 
     "uim": {
         "rootDir": "/var/www/prim/uim",
         "requires": [ "dsv_base", "prim_base", "prim_custom", "prim_theme", "dsv_stats"  ],
-        "modules": {}
+        "components": {}
     },
 
     "thesisinfo": {
