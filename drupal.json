@@ -460,8 +460,8 @@
             "currency": {
                 "defaults": "module_contrib",
                 "repo": "http://git.drupal.org/project/currency.git",
-                "branch": "7.x-1.x",
-                "tag": "7.x-1.4",
+                "branch": "7.x-2.x",
+                "tag": "7.x-2.4",
                 "path": "currency"
             },
             "disable_breadcrumbs": {
