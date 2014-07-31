@@ -499,12 +499,12 @@
                 "tag": "7.x-3.4",
                 "path": "panels"
             },
-            "real_name": {
+            "realname": {
                 "defaults": "module_contrib",
-                "repo": "http://git.drupal.org/project/real_name.git",
+                "repo": "http://git.drupal.org/project/realname.git",
                 "branch": "7.x-1.x",
                 "tag": "7.x-1.2",
-                "path": "real_name"
+                "path": "realname"
             },
             "redirect": {
                 "defaults": "module_contrib",
