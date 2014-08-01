@@ -441,14 +441,56 @@
 
     "forms": {
         "rootDir": "/var/www/forms",
-        "requires": [ "dsv_base", "dsv_theme", "dsv_auth" ],
+        "requires": [ "dsv_base", "dsv_theme", "dsv_auth", "dsv_multilanguage" ],
         "components": {
-            "webforms": {
+            "captcha": {
+                "defaults": "module_contrib",
+                "repo": "http://git.drupal.org/project/captcha.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.0",
+                "path": "captcha"
+            },
+            "menu_block": {
+                "defaults": "module_contrib",
+                "repo": "http://git.drupal.org/project/menu_block.git",
+                "branch": "7.x-2.x",
+                "tag": "7.x-2.3",
+                "path": "menu_block"
+            },
+            "redirect": {
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/redirect.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.0-rc1",
+                "path": "redirect"
+            },
+            "view_unpublished": {
+                "defaults": "module_contrib",
+                "repo": "http://git.drupal.org/project/view_unpublished.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.1",
+                "path": "view_unpublished"
+            },
+            "webform": {
                 "defaults": "module_contrib",
                 "repo": "http://git.drupal.org/project/webform.git",
                 "branch": "7.x-3.x",
                 "tag": "7.x-3.20",
-                "path": "webforms"
+                "path": "webform"
+            },
+            "webform_conditional": {
+                "defaults": "module_contrib",
+                "repo": "http://git.drupal.org/project/webform_conditional.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.0-beta2",
+                "path": "webform_conditional"
+            },
+            "webform_validation": {
+                "defaults": "module_contrib",
+                "repo": "http://git.drupal.org/project/webform_validation.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.4",
+                "path": "webform_validation"
             }
         }
     },
