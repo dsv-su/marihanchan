@@ -23,7 +23,7 @@
     "prim_landing": {
         "rootDir": "prim",
         "components": {
-            "drupal_core": {
+            "prim_landing": {
                 "repo": "https://github.com/dsv-su/prim_landing.git",
                 "path":"/var/www/prim"
             }
@@ -38,7 +38,7 @@
                 "branch": "7.x",
                 "tag": "7.30",
                 "patch": "core.patch",
-                "ignoreEmptyPath": true
+                "ignoreEmptyPath": false
             }
         }
     },
