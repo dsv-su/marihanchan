@@ -32,6 +32,7 @@
 
     "drupal": {
         "rootDir": "drupal",
+        "requires": [ "prim_landing" ],
         "components": {
             "drupal_core": {
                 "repo": "https://github.com/drupal/drupal.git",
