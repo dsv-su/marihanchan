@@ -229,31 +229,31 @@
 
     "kurs1": {
         "rootDir": "/var/www/prim/kurs1",
-        "requires": [ "dsv_base", "prim_base", "prim_custom", "prim_theme", "dsv_stats"  ],
+        "requires": [ "prim_base", "prim_custom", "prim_theme"  ],
         "components": {}
     },
 
     "ap3": {
         "rootDir": "/var/www/prim/ap3",
-        "requires": [ "dsv_base", "prim_base", "prim_custom", "prim_theme", "dsv_stats"  ],
+        "requires": [ "prim_base", "prim_custom", "prim_theme" ],
         "components": {}
     },
 
     "ap6": {
         "rootDir": "/var/www/prim/ap6",
-        "requires": [ "dsv_base", "prim_base", "prim_custom", "prim_theme", "dsv_stats"  ],
+        "requires": [ "prim_base", "prim_custom", "prim_theme" ],
         "components": {}
     },
 
     "ap9": {
         "rootDir": "/var/www/prim/ap9",
-        "requires": [ "dsv_base", "prim_base", "prim_custom", "prim_theme", "dsv_stats"  ],
+        "requires": [ "prim_base", "prim_custom", "prim_theme"  ],
         "components": {}
     },
 
     "uim": {
         "rootDir": "/var/www/prim/uim",
-        "requires": [ "dsv_base", "prim_base", "prim_custom", "prim_theme", "dsv_stats"  ],
+        "requires": [ "prim_base", "prim_custom", "prim_theme" ],
         "components": {}
     },
 
