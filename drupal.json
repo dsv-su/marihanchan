@@ -220,10 +220,6 @@
 
     "prim_base": {
         "components": {
-            "prim_landing":{
-                "repo": "https://github.com/dsv-su/prim_landing",
-                "path": "../"
-            },
             "node_clone":{
                 "defaults": "module_contrib",
                 "repo": "git://git.drupal.org/project/node_clone",
