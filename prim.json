@@ -24,7 +24,7 @@
         "rootDir": "prim",
         "components": {
             "drupal_core": {
-                "repo": "https://github.com/drupal/drupal.git",
+                "repo": "https://github.com/dsv-su/prim_landing.git",
                 "path":"/var/www/prim"
             }
         }
@@ -32,7 +32,6 @@
 
     "drupal": {
         "rootDir": "drupal",
-        "requires": [ "prim_landing" ],
         "components": {
             "drupal_core": {
                 "repo": "https://github.com/drupal/drupal.git",
@@ -259,7 +258,7 @@
 
     "prim":{
         "rootDir": "/var/www/prim",
-        "requires": [ "prim_landing", "kurs1", "ap3", "ap6", "ap9", "uim"  ],
+        "requires": [ "prim_landing", "kurs1" ],
         "components": {}
     }
 }
