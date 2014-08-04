@@ -260,5 +260,6 @@
     "prim":{
         "rootDir": "/var/www/prim",
         "requires": [ "prim_landing", "kurs1", "ap3", "ap6", "ap9", "uim"  ],
+        "components": {}
     }
 }
