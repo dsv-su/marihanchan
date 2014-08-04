@@ -17,6 +17,16 @@
         }
     },
 
+    "prim_landing": {
+        "rootDir": "prim",
+        "components": {
+            "prim_landing": {
+                "repo": "https://github.com/dsv-su/prim_landing.git",
+                "ignoreEmptyPath": false
+            }
+        }
+    },
+
     "drupal": {
         "rootDir": "drupal",
         "components": {
