@@ -309,6 +309,7 @@
             "prim_teacher_result":{
                 "defaults": "module_custom",
                 "repo": "https://github.com/dsv-su/prim_teacher_result",
+                "branch": "master",
                 "path": "prim_teacher_result"
             },
             "prim_tweeks":{
