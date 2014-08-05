@@ -396,6 +396,7 @@ def removeComponent( name, component ):
 
     # generate the path to the component that is to be removed
     removePath = installPath
+	
 	if 'path' in component:
 		# load default path first (if any)
 		defaultPath = getDefaultPropertyForComponent( component, 'path' )
