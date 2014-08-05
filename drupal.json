@@ -129,6 +129,7 @@
             "dsv_drupal_theme": {
                 "defaults": "theme_custom",
                 "repo": "https://github.com/dsv-su/dsv_drupal_theme.git",
+                "branch": "master",
                 "path": "dsv_drupal_theme"
             }
         }
@@ -146,6 +147,7 @@
             "daisy_update_name": {
                 "defaults": "module_custom",
                 "repo": "https://github.com/dsv-su/drupal-daisy_update_name.git",
+                "branch": "master",
                 "path": "daisy_update_name"
             }
         }
@@ -294,16 +296,19 @@
             "prim_options":{
                 "defaults": "module_custom",
                 "repo": "https://github.com/dsv-su/prim_options",
+                "branch": "master",
                 "path": "prim_options"
             },
             "prim_validate":{
                 "defaults": "module_custom",
                 "repo": "https://github.com/dsv-su/prim_validate",
+                "branch": "master",
                 "path": "prim_validate"
             },
             "prim_form":{
                 "defaults": "module_custom",
                 "repo": "https://github.com/dsv-su/prim_form",
+                "branch": "master",
                 "path": "prim_form"
             },
             "prim_teacher_result":{
@@ -315,11 +320,13 @@
             "prim_tweeks":{
                 "defaults": "module_custom",
                 "repo": "https://github.com/dsv-su/prim_tweeks",
+                "branch": "master",
                 "path": "prim_tweeks"
             },
             "remove_menu_path":{
                 "defaults": "module_custom",
                 "repo": "https://github.com/dsv-su/remove_menu_path",
+                "branch": "master",
                 "path": "remove_menu_path"
             }
         }
@@ -337,11 +344,13 @@
             "dsv_theme": {
                 "defaults": "theme_custom",
                 "repo": "https://github.com/dsv-su/dsv_theme.git",
+                "branch": "master",
                 "path": "dsv_theme"
             },
             "su_prim_theme": {
                 "defaults": "theme_custom",
                 "repo": "https://github.com/dsv-su/su_prim_theme.git",
+                "branch": "master",
                 "path": "su_prim_theme"
             }
         }
@@ -362,21 +371,25 @@
             "daisy_contact_list": {
                 "defaults": "module_custom",
                 "repo": "https://github.com/dsv-su/drupal-daisy_contact_list",
+                "branch": "master",
                 "path": "daisy_contact_list"
             },
             "dsv_bootstrap_panels": {
                 "defaults": "module_custom",
                 "repo": "https://github.com/dsv-su/dsv_bootstrap_panels.git",
+                "branch": "master",
                 "path": "dsv_bootstrap_panels"
             },
             "dsv_internal_theme": {
                 "defaults": "theme_custom",
                 "repo": "https://github.com/dsv-su/dsv_internal_theme.git",
+                "branch": "master",
                 "path": "dsv_internal_theme"
             },
             "noderorder": {
                 "defaults": "module_custom",
                 "repo": "https://github.com/dsv-su/drupal-noderorder.git",
+                "branch": "master",
                 "path": "noderorder"
             },
             "menu_block": {
@@ -506,6 +519,7 @@
             "dsv_forms_theme": {
                 "defaults": "theme_custom",
                 "repo": "https://github.com/dsv-su/dsv_forms_theme.git",
+                "branch": "master",
                 "path": "dsv_forms_theme"
             }
         }
@@ -560,16 +574,19 @@
             "projprop_edit": {
                 "defaults": "module_custom",
                 "repo": "https://github.com/dsv-su/projprop_edit.git",
+                "branch": "master",
                 "path": "projprop_edit"
             },
             "projprop_proposalform": {
                 "defaults": "module_custom",
                 "repo": "https://github.com/dsv-su/projprop_proposalform.git",
+                "branch": "master",
                 "path": "proposalform"
             },
             "projectproposals_theme": {
                 "defaults": "theme_custom",
                 "repo": "https://github.com/dsv-su/projectproposals_theme.git",
+                "branch": "master",
                 "path": "projectproposals_theme"
             },
             "realname": {
@@ -710,6 +727,7 @@
             "thesis_theme": {
                 "defaults": "theme_custom",
                 "repo": "https://github.com/dsv-su/dsv_thesis_theme.git",
+                "branch": "master",
                 "path": "dsv_thesis_theme"
             }
         }
