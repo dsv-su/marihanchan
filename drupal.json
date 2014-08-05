@@ -657,13 +657,6 @@
                 "tag": "7.x-1.5",
                 "path": "form_builder"
             },
-             "linkchecker": {
-                "defaults": "module_contrib",
-                "repo": "http://git.drupal.org/project/linkchecker.git",
-                "branch": "7.x-1.0",
-                "tag": "7.x-1.2",
-                "path": "linkchecker"
-            },
             "menu_trail_by_path": {
                 "defaults": "module_contrib",
                 "repo": "http://git.drupal.org/project/menu_trail_by_path.git",
@@ -712,13 +705,6 @@
                 "branch": "7.x-3.x",
                 "tag": "7.x-3.20",
                 "path": "webform"
-            },
-            "wysiwyg":{
-                "defaults": "module_contrib",
-                "repo": "git://git.drupal.org/project/wysiwyg",
-                "branch": "7.x-2.x",
-                "tag": "7.x-2.2",
-                "path": "wysiwyg"
             },
             "thesis_theme": {
                 "defaults": "theme_custom",
