@@ -351,21 +351,21 @@ def updateComponent( newComponent, oldComponent ):
                 try:
                     # git checkout new tag
                     print 'checking out tag (' + newTag + ')'
-                    repo.git.checkout( 'tags/' + newTag, b = ' tag_' + newTag )
+                    repo.git.checkout( 'tags/' + newTag, b = 'tag_' + newTag )
                 except GitCommandError:
                     # if a tagged branch is already there, just reset it to remote
                     print 'tagged branch ' + newTag + ' already exists, checking it out and resetting it to remote'
-                    repo.git.checkout( 'tag_' + newTag, b = ' tag_' + newTag )
+                    repo.git.checkout( 'tag_' + oldTag)
                     repo.git.reset( '--hard', newTag )
         else:
             try:
                 # git checkout new tag
                 print 'checking out tag (' + newTag + ')'
-                repo.git.checkout( 'tags/' + newTag, b = ' tag_' + newTag )
+                repo.git.checkout( 'tags/' + newTag, b = 'tag_' + newTag )
             except GitCommandError:
                 # if a tagged branch is already there, just reset it to remote
                 print 'tagged branch ' + newTag + ' already exists, checking it out and resetting it to remote'
-                repo.git.checkout( 'tag_' + newTag, b = ' tag_' + newTag )
+                repo.git.checkout( 'tag_' + oldTag)
                 repo.git.reset( '--hard', newTag )
     else:
         # try to get active branch, in case of detached state checkout remote HEAD
