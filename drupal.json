@@ -33,7 +33,7 @@
             "drupal_core": {
                 "repo": "https://github.com/drupal/drupal.git",
                 "branch": "7.x",
-                "tag": "7.30",
+                "tag": "7.31",
                 "patch": "core.patch",
                 "ignoreEmptyPath": true
             }
@@ -257,7 +257,7 @@
                 "defaults": "module_contrib",
                 "repo": "git://git.drupal.org/project/print",
                 "branch": "7.x-1.x",
-                "tag": "7.x-1.2",
+                "tag": "7.x-1.3",
                 "path": "print"
             },
             "references":{
