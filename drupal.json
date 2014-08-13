@@ -233,7 +233,7 @@
     "prim_base": {
         "components": {
             "dompdf":{
-                "defaults": "libraries",
+                "defaults": "library",
                 "repo": "https://github.com/dompdf/dompdf.git",
                 "path": "dompdf"
             },
