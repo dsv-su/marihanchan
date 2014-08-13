@@ -355,7 +355,7 @@ def updateComponent( newComponent, oldComponent ):
                 except GitCommandError:
                     # if a tagged branch is already there, just reset it to remote
                     print 'tagged branch ' + newTag + ' already exists, checking it out and resetting it to remote'
-					repo.git.reset( '--hard', branch )
+                    repo.git.reset( '--hard', branch )
                     repo.git.checkout( 'tag_' + newTag)
                     repo.git.reset( '--hard', newTag )
         else:
@@ -366,7 +366,7 @@ def updateComponent( newComponent, oldComponent ):
             except GitCommandError:
                 # if a tagged branch is already there, just reset it to remote
                 print 'tagged branch ' + newTag + ' already exists, checking it out and resetting it to remote'
-				repo.git.reset( '--hard', branch )
+                repo.git.reset( '--hard', branch )
                 repo.git.checkout( 'tag_' + newTag)
                 repo.git.reset( '--hard', newTag )
     else:
