@@ -362,6 +362,7 @@ def updateComponent( newComponent, oldComponent ):
             try:
                 # git checkout new tag
                 print 'checking out tag (' + newTag + ')'
+				repo.git.fetch()
                 repo.git.checkout( 'tags/' + newTag, b = 'tag_' + newTag )
             except GitCommandError:
                 # if a tagged branch is already there, just reset it to remote
