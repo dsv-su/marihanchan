@@ -189,7 +189,7 @@ def fetchComponent( name, component ):
 
     # if there's a tag specified, try to checkout that
     if 'tag' in component:
-        repo.git.checkout( 'tags/' + component.get('tag'), b = 'tag_' + component.get('tag') )
+        repo.git.checkout( 'tags/' + component.get('tag'), b = '' + component.get('tag') )
 
     # apply a patch to the component
     if 'patch' in component:
