@@ -31,7 +31,7 @@
         "rootDir": "drupal",
         "components": {
             "drupal_core": {
-                "repo": "https://github.com/drupal/drupal.git",
+                "repo": "http://git.drupal.org/project/drupal.git",
                 "branch": "7.x",
                 "tag": "7.31",
                 "patch": "core.patch",
