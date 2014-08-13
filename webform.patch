@@ -1,0 +1,38 @@
+diff --git a/webform_conditional.module b/webform_conditional.module
+index a4b9d15..ba40154 100644
+--- a/webform_conditional.module
++++ b/webform_conditional.module
+@@ -252,7 +252,32 @@ function _webform_conditional_get_css_id($nid, $cid) {
+     $css_id = str_replace("_", "-", $components[$parent_cid]['form_key']) . "--" . $css_id;
+     $parent_cid = $components[$parent_cid]['pid'];
+   }
+-  return "webform-component-$css_id";
++  $css_id = 'webform-component-' . $css_id;
++  // As of Webform 7.x-3.20 we need to mimic drupal_html_id()'s output for
++  // fieldset IDs.
++  // @see webform_fieldset_prerender()
++  if ($components[$cid]['type'] == 'fieldset') {
++    // Initialize Drupal's drupal_html_id()'s static caches.
++    drupal_html_id('');
++    // Borrow a copy of drupal_html_id()'s $seen_ids to get us started. This
++    // accounts for AJAX'd form values, etc.
++    // @see drupal_html_id()
++    $drupal_html_id_seen_ids = &drupal_static('drupal_html_id', array());
++    // We'll handle our own version of $seen_ids, as this function is called
++    // before the webform_fieldset_prerender() call, so we have to increment
++    // our counter before drupal_html_id()'s counter.
++    $seen_ids = &drupal_static(__FUNCTION__, $drupal_html_id_seen_ids);
++    // Collapse "--" to "-", which drupal_html_id() also does.
++    $css_id = preg_replace('/\-+/', '-', $css_id);
++    // Borrow drupal_html_id()'s logic for determining the counter suffix.
++    if (isset($seen_ids[$css_id])) {
++      $css_id = $css_id . '--' . ++$seen_ids[$css_id];
++    }
++    else {
++      $seen_ids[$css_id] = 1;
++    }
++  }
++  return $css_id;
+ }
+ 
+ /**
