@@ -232,6 +232,11 @@
 
     "prim_base": {
         "components": {
+            "dompdf":{
+                "defaults": "libraries",
+                "repo": "https://github.com/dompdf/dompdf.git",
+                "path": "dompdf"
+            },
             "node_clone":{
                 "defaults": "module_contrib",
                 "repo": "git://git.drupal.org/project/node_clone",
