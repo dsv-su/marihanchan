@@ -226,6 +226,13 @@
                 "branch": "7.x-1.x",
                 "tag": "7.x-1.0",
                 "path": "l10n_update"
+            },
+            "variable": {
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/variable",
+                "branch": "7.x-2.x",
+                "tag": "7.x-2.5",
+                "path": "variable"
             }
         }
     },
