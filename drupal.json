@@ -213,6 +213,13 @@
 
     "dsv_multilanguage": {
         "components": {
+            "entity_translation": {
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/entity_translation",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.0-beta3",
+                "path": "entity_translation"
+            },
             "internationalization": {
                 "defaults": "module_contrib",
                 "repo": "git://git.drupal.org/project/i18n",
@@ -220,12 +227,33 @@
                 "tag": "7.x-1.11",
                 "path": "i18n"
             },
+            "languageicons": {
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/languageicons",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.1",
+                "path": "languageicons"
+            },
+            "language_switcher": {
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/language_switcher",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.0-beta2",
+                "path": "language_switcher"
+            },
             "localization_update": {
                 "defaults": "module_contrib",
                 "repo": "git://git.drupal.org/project/l10n_update",
                 "branch": "7.x-1.x",
                 "tag": "7.x-1.0",
                 "path": "l10n_update"
+            },
+            "title": {
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/title",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.0-alpha7",
+                "path": "title"
             },
             "variable": {
                 "defaults": "module_contrib",
