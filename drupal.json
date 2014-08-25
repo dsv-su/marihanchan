@@ -217,7 +217,6 @@
                 "defaults": "module_contrib",
                 "repo": "git://git.drupal.org/project/entity_translation",
                 "branch": "7.x-1.x",
-                "tag": "7.x-1.0-beta3",
                 "path": "entity_translation"
             },
             "internationalization": {
