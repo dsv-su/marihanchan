@@ -64,7 +64,15 @@
       "feedback_signature": {
         "repo": "https://github.com/dsv-su/moodle-assignfeedback_signature.git",
         "path": "mod/assign/feedback/signature"
-      }  
+      },
+      "mod_attendance": {
+        "repo": "https://github.com/danmarsden/moodle-mod_attendance.git",
+        "path": "mod/attendance"
+      },
+      "block_attendance": {
+        "repo": "https://github.com/danmarsden/moodle-block_attendance.git",
+        "path": "blocks/attendance"
+      }
     }
   },
 
