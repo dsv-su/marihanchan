@@ -227,6 +227,12 @@
                 "tag": "7.x-1.11",
                 "path": "i18n"
             },
+            "internationalization_views": {
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/i18nviews",
+                "branch": "7.x-3.x",
+                "path": "i18nviews"
+            },
             "languageicons": {
                 "defaults": "module_contrib",
                 "repo": "git://git.drupal.org/project/languageicons",
