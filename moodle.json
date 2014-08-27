@@ -72,6 +72,10 @@
       "block_attendance": {
         "repo": "https://github.com/danmarsden/moodle-block_attendance.git",
         "path": "blocks/attendance"
+      },
+      "progressbar": {
+        "repo": "https://github.com/deraadt/Moodle-block_progress.git",
+        "path": "blocks/progress"
       }
     }
   },
@@ -112,6 +116,10 @@
       "custom_certificate": {
         "repo": "https://github.com/markn86/moodle-mod_customcert.git",
         "path": "mod/customcert"
+      },
+      "progressbar": {
+        "repo": "https://github.com/deraadt/Moodle-block_progress.git",
+        "path": "blocks/progress"
       }
     }
   },
