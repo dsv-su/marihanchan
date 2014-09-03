@@ -466,9 +466,10 @@
                 "path": "search_combine"
             },
             "taxonomy_breadcrumb": {
-                "defaults": "module_custom",
-                "repo": "https://github.com/dsv-su/taxonomy_breadcrumb.git",
-                "branch": "intern_mod",
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/taxonomy_breadcrumb.git",
+                "patch": "taxonomy_breadcrumb.patch",
+                "branch": "7.x-1.x",
                 "path": "taxonomy_breadcrumb"
             },
             "taxonomy_menu_trails": {

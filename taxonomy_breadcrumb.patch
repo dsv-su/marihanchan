@@ -1,0 +1,472 @@
+From 5b63e8655f6dd6f6f300f114256244297c24feb9 Mon Sep 17 00:00:00 2001
+From: Nicolas Meyer <nicolas@commerceguys.com>
+Date: Wed, 17 Apr 2013 14:35:29 +0200
+Subject: [PATCH 1/7] Massive cleanup and tweaks.
+
+---
+ README.txt                    |  2 +-
+ taxonomy_breadcrumb.admin.inc | 16 +++-----
+ taxonomy_breadcrumb.inc       | 11 +-----
+ taxonomy_breadcrumb.info      |  5 ---
+ taxonomy_breadcrumb.install   |  6 +--
+ taxonomy_breadcrumb.module    | 88 +++++++++++++++++++++++++------------------
+ 6 files changed, 61 insertions(+), 67 deletions(-)
+
+diff --git a/README.txt b/README.txt
+index 7bc3c99..aa47d3d 100644
+--- a/README.txt
++++ b/README.txt
+@@ -27,7 +27,7 @@ Taxonomy Breadcrumb
+    vocabulary >> term >> term
+ 
+ * Enable the module and any option submodules (see below for details)
+-* Configure taxonomy breadcrumb settngs at admin/config/user-interface/taxonomy-breadcrumb
++* Configure taxonomy breadcrumb settings at admin/config/user-interface/taxonomy-breadcrumb
+   - set the home breadcrumb text, if desired.
+   - under the advanced settings fieldset, select the node types to either include or
+     exclude when applying taxonomy-based breadcrumbs.
+diff --git a/taxonomy_breadcrumb.admin.inc b/taxonomy_breadcrumb.admin.inc
+index 73eedd4..31629cf 100644
+--- a/taxonomy_breadcrumb.admin.inc
++++ b/taxonomy_breadcrumb.admin.inc
+@@ -22,17 +22,6 @@ function taxonomy_breadcrumb_admin_settings($form, &$form_state) {
+     '#description' => t('Text to display at top of breadcrumb trail. Typically home or your site name. Leave blank to have no home breadcrumb.'),
+   );
+ 
+-/*
+-  // TODO - this functionality has been removed from DRUPAL 7.
+-  // TODO - is there still a way to do this?
+-  $form['settings']['taxonomy_breadcrumb_use_synonym'] = array(
+-    '#type' => 'checkbox',
+-    '#title' => t('Use the first term synonym instead of term name'),
+-    '#default_value' => variable_get('taxonomy_breadcrumb_use_synonym', FALSE),
+-    '#description' => t("If enabled and if viewing a node, the term's first synonym will be used in the breadcrumb, instead of the term name."),
+-  );
+-*/
+-
+   $form['settings']['taxonomy_breadcrumb_page_title'] = array(
+     '#type' => 'checkbox',
+     '#title' => t('Show current page title in breadcrumb trail'),
+@@ -76,6 +65,11 @@ function taxonomy_breadcrumb_admin_settings($form, &$form_state) {
+     '#options' => array_map('check_plain', node_type_get_names()),
+     '#description' => t('A list of node types to include or exclude when applying taxonomy-based breadcrumbs.'),
+     '#weight' => 20,
++    '#states' => array(
++      'invisible' => array(
++        'input[name="taxonomy_breadcrumb_include_nodes"]' => array('checked' => FALSE),
++      ),
++    ),
+   );
+ 
+   return system_settings_form($form);
+diff --git a/taxonomy_breadcrumb.inc b/taxonomy_breadcrumb.inc
+index f5a74d2..f0157a6 100644
+--- a/taxonomy_breadcrumb.inc
++++ b/taxonomy_breadcrumb.inc
+@@ -100,7 +100,7 @@ function _taxonomy_breadcrumb_generate_breadcrumb($tid, $is_term_page = FALSE) {
+   foreach ($parent_terms as $parent_term) {
+     $term_path = _taxonomy_breadcrumb_get_term_path($parent_term->tid);
+     if ($term_path == NULL) {
+-      $uri =  taxonomy_term_uri($parent_term);
++      $uri = taxonomy_term_uri($parent_term);
+       $term_path = $uri['path'];
+     }
+     if ($term_path == '<none>') {
+@@ -109,15 +109,6 @@ function _taxonomy_breadcrumb_generate_breadcrumb($tid, $is_term_page = FALSE) {
+ 
+     $term_title = $parent_term->name;
+ 
+-    // Use the SYNONYM instead of TERM, if we want to.
+-    // if (variable_get('taxonomy_breadcrumb_use_synonym', FALSE)) {
+-    // TODO The taxonomy synonym functionality has been removed.
+-    // TODO Is there a way to do this?
+-    //  $synonyms = array() /*taxonomy_get_synonyms($parent_term->tid)*/;
+-    //  if (!empty($synonyms)) {
+-    //    $term_title = $synonyms[0];
+-    //  }
+-    // }
+     // Do not create links to own self if we are on a taxonomy/term page.
+     if ($is_term_page && $parent_term->tid == $tid) {
+       $breadcrumb[] = check_plain(_taxonomy_breadcrumb_tt("taxonomy:term:$parent_term->tid:name", $term_title));
+diff --git a/taxonomy_breadcrumb.info b/taxonomy_breadcrumb.info
+index b894adf..791a144 100644
+--- a/taxonomy_breadcrumb.info
++++ b/taxonomy_breadcrumb.info
+@@ -3,8 +3,3 @@ description = "Enables taxonomy based breadcrumbs and allows for node associatio
+ dependencies[] = taxonomy
+ core = 7.x
+ configure = admin/config/user-interface/taxonomy-breadcrumb
+-
+-files[] = taxonomy_breadcrumb.admin.inc
+-files[] = taxonomy_breadcrumb.inc
+-files[] = taxonomy_breadcrumb.install
+-files[] = taxonomy_breadcrumb.module
+diff --git a/taxonomy_breadcrumb.install b/taxonomy_breadcrumb.install
+index af4a2e5..30ab6fb 100644
+--- a/taxonomy_breadcrumb.install
++++ b/taxonomy_breadcrumb.install
+@@ -9,8 +9,7 @@
+  * Implements hook_install().
+  */
+ function taxonomy_breadcrumb_install() {
+-  // Create tables.
+-
++  // Alter tables' weight.
+   $weight = (int) db_query("SELECT weight FROM {system} WHERE name = :name", array(':name' => 'taxonomy'))->fetchField();
+   db_update('system')
+     ->fields(array(
+@@ -19,7 +18,8 @@ function taxonomy_breadcrumb_install() {
+     ->condition('name', 'taxonomy_breadcrumb')
+     ->execute();
+ 
+-  drupal_set_message('Taxonomy breadcrumb: Taxonomy-based breadcrumbs can now be configured for node pages and taxonomy/term pages on the ' . l('administration page', 'admin/config/user-interface/taxonomy-breadcrumb') . '.');
++  $t = get_t();
++  drupal_set_message($t('Taxonomy breadcrumb: Taxonomy-based breadcrumbs can now be configured for node pages and taxonomy/term pages on the !admin_page.', array('!admin_page' => l($t('administration page'), 'admin/config/user-interface/taxonomy-breadcrumb'))));
+ }
+ 
+ /**
+diff --git a/taxonomy_breadcrumb.module b/taxonomy_breadcrumb.module
+index a92ddaa..1dd3ece 100644
+--- a/taxonomy_breadcrumb.module
++++ b/taxonomy_breadcrumb.module
+@@ -31,6 +31,31 @@
+ define('TAXONOMY_BREADCRUMB_NODE_TYPES_DEFAULT', 'book');
+ 
+ /**
++ * Implements hook_help().
++ */
++function taxonomy_breadcrumb_help($path, $arg) {
++  switch ($path) {
++    case 'admin/help#taxonomy_breadcrumb':
++      $output = '<p>' . t('The taxonomy_breadcrumb module generates taxonomy based breadcrumbs on node pages and taxonomy/term pages. The breadcrumb trail takes on the form:') . '</p>';
++      $output .= '<p>' . t('[HOME] >> [VOCABULARY] >> TERM >> [TERM] ...') . '</p>';
++      $output .= '<ul>';
++      $output .= '<li>' . t('The text displayed for HOME is configurable below. The <em>HOME</em> breadcrumb (if present) links to the homepage. The text displayed for HOME is configurable by an administrator. If the HOME breadcrumb is not defined by the administrator, it will not appear in the breadcrumb trail.') . '</li>';
++      $output .= '<li>' . t('The <em>VOCABULARY</em> breadcrumb (if present) will link to an administrator defined page. If the VOCABULARY does not have an administrator defined page, it will not appear in the breadcrumb trail. This can be configured on the add/edit vocabulary pages within <a href="@taxonomy">Structure >> Taxonomy</a>', array('@taxonomy' => url('admin/structure/taxonomy'))) . '</li>';
++      $output .= '<li>' . t('Each <em>TERM</em> breadcrumb will link to either (1) taxonomy/term/tid by default, or (2) an administrator defined page if one is defined for the term. This can be configured on the add/edit term pages within <a href="@taxonomy">Structure >> Taxonomy</a>', array('@taxonomy' => url('admin/structure/taxonomy'))) . '</li>';
++      $output .= '</ul>';
++      $output .= '<h3>' . t('Examples:') . '</h3>';
++      $output .= '<ul>';
++      $output .= '<li>' . t('home >> term >> term') . '</li>';
++      $output .= '<li>' . t('mysite >> term >> term') . '</li>';
++      $output .= '<li>' . t('home >> vocabulary >> term >> term') . '</li>';
++      $output .= '<li>' . t('vocabulary >> term >> term') . '</li>';
++      $output .= '</ul>';
++
++      return $output;
++  }
++}
++
++/**
+  * Implements hook_menu().
+  */
+ function taxonomy_breadcrumb_menu() {
+@@ -52,8 +77,9 @@ function taxonomy_breadcrumb_menu() {
+  * Implements hook_node_view().
+  */
+ function taxonomy_breadcrumb_node_view($node, $view_mode = 'full') {
++  // @TODO : Let user choose the view mode.
+   if ($view_mode == 'full' && !drupal_is_front_page()) {
+-    // Include the .inc file with all helper functions
++    // Include the .inc file with all helper functions.
+     module_load_include('inc', 'taxonomy_breadcrumb');
+ 
+     // See if the node type of the current node is part of the node types listed on the advanced settings page.
+@@ -82,48 +108,35 @@ function taxonomy_breadcrumb_node_view($node, $view_mode = 'full') {
+ }
+ 
+ /**
+- * Implements hook_help().
++ * Implements hook_page_alter().
+  */
+-function taxonomy_breadcrumb_help($path, $arg) {
+-  switch ($path) {
+-    case 'admin/help#taxonomy_breadcrumb':
+-      $output = '<p>' . t('The taxonomy_breadcrumb module generates taxonomy based breadcrumbs on node pages and taxonomy/term pages. The breadcrumb trail takes on the form:') . '</p>';
+-      $output .= '<p>' . t('[HOME] >> [VOCABULARY] >> TERM >> [TERM] ...') . '</p>';
+-      $output .= '<ul>';
+-      $output .= '<li>' . t('The text displayed for HOME is configurable below. The <em>HOME</em> breadcrumb (if present) links to the homepage. The text displayed for HOME is configurable by an administrator. If the HOME breadcrumb is not defined by the administrator, it will not appear in the breadcrumb trail.') . '</li>';
+-      $output .= '<li>' . t('The <em>VOCABULARY</em> breadcrumb (if present) will link to an administrator defined page. If the VOCABULARY does not have an administrator defined page, it will not appear in the breadcrumb trail. This can be configured on the add/edit vocabulary pages within <a href="@taxonomy">Structure >> Taxonomy</a>', array('@taxonomy' => url('admin/structure/taxonomy'))) . '</li>';
+-      $output .= '<li>' . t('Each <em>TERM</em> breadcrumb will link to either (1) taxonomy/term/tid by default, or (2) an administrator defined page if one is defined for the term. This can be configured on the add/edit term pages within <a href="@taxonomy">Structure >> Taxonomy</a>', array('@taxonomy' => url('admin/structure/taxonomy'))) . '</li>';
+-      $output .= '</ul>';
+-      $output .= '<h3>' . t('Examples:') . '</h3>';
+-      $output .= '<ul>';
+-      $output .= '<li>' . t('home >> term >> term') . '</li>';
+-      $output .= '<li>' . t('mysite >> term >> term') . '</li>';
+-      $output .= '<li>' . t('home >> vocabulary >> term >> term') . '</li>';
+-      $output .= '<li>' . t('vocabulary >> term >> term') . '</li>';
+-      $output .= '</ul>';
+-
+-      return $output;
++function taxonomy_breadcrumb_page_alter(&$page) {
++  // Set the breadcrumb on taxonomy term pages.
++  if ($term = menu_get_object('taxonomy_term', 2)) {
++    _taxonomy_breadcrumb_set_taxonomy_page_breadcrumb($term);
++    return;
++  }
++  if (module_exists('views') && $term = taxonomy_term_load(menu_get_object('views_arg', 2))) {
++    _taxonomy_breadcrumb_set_taxonomy_page_breadcrumb($term);
+   }
+ }
+ 
+-
+ /**
+- * Implements hook_page_alter().
++ * Sets the breadcrumbs on the taxonomy term pages.
++ *
++ * @param object $term
++ *  The taxonomy term object.
+  */
+-function taxonomy_breadcrumb_page_alter(&$page) {
+-  // Set the breadcrumb on taxonomy term pages.
+-  if (arg(0) == 'taxonomy' && arg(1) == 'term' && is_numeric(arg(2))) {
+-    module_load_include('inc', 'taxonomy_breadcrumb');
+-    $breadcrumb = _taxonomy_breadcrumb_generate_breadcrumb(arg(2), TRUE);
+-
+-    // Add the page title.
+-    if (variable_get('taxonomy_breadcrumb_page_title', FALSE)) {
+-      $term = taxonomy_term_load(arg(2));
+-      $breadcrumb[] = check_plain($term->name);
+-    }
++function _taxonomy_breadcrumb_set_taxonomy_page_breadcrumb($term) {
++  module_load_include('inc', 'taxonomy_breadcrumb');
++  $breadcrumb = _taxonomy_breadcrumb_generate_breadcrumb($term->tid, TRUE);
+ 
+-    drupal_set_breadcrumb($breadcrumb);
++  // Add the page title.
++  if (variable_get('taxonomy_breadcrumb_page_title', FALSE)) {
++    $breadcrumb[] = check_plain($term->name);
+   }
++
++  drupal_set_breadcrumb($breadcrumb);
+ }
+ 
+ /**
+@@ -153,6 +166,7 @@ function taxonomy_breadcrumb_form_taxonomy_form_vocabulary_alter(&$form, &$form_
+  * Implements hook_form_FORM_ID_alter().
+  */
+ function taxonomy_breadcrumb_form_taxonomy_form_term_alter(&$form, &$form_state) {
++  // @TODO remove post :)
+   if (!(isset($_POST['op']) && $_POST['op'] == t('Delete')) || isset($_POST['confirm'])) {
+     // Include the .inc file with all helper functions.
+     module_load_include('inc', 'taxonomy_breadcrumb');
+@@ -236,7 +250,7 @@ function taxonomy_breadcrumb_taxonomy_vocabulary_update($vocabulary) {
+  * Implements hook_taxonomy_vocabulary_insert().
+  */
+ function _taxonomy_breadcrumb_vocabulary_insert($vid, $path) {
+-  taxonomy_breadcrumb_taxonomy('insert', 'taxonomy_vocabulary', $vocabulary);
++  taxonomy_breadcrumb_taxonomy('insert', 'taxonomy_vocabulary', $vid);
+ }
+ 
+ /**
+@@ -265,4 +279,4 @@ function taxonomy_breadcrumb_taxonomy_term_insert($term) {
+  */
+ function taxonomy_breadcrumb_taxonomy_term_delete($term) {
+   taxonomy_breadcrumb_taxonomy('delete', 'term', $term);
+-}
+\ No newline at end of file
++}
+-- 
+1.8.5.2 (Apple Git-48)
+
+
+From 5481776e1e7d1284c0d873a12742c60ee8c65dd0 Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Thu, 9 Jan 2014 14:43:21 +0400
+Subject: [PATCH 2/7] add full taxonomy paths
+
+---
+ taxonomy_breadcrumb.inc    |  6 ++++--
+ taxonomy_breadcrumb.module | 13 +++++++------
+ 2 files changed, 11 insertions(+), 8 deletions(-)
+
+diff --git a/taxonomy_breadcrumb.inc b/taxonomy_breadcrumb.inc
+index f0157a6..a91eada 100644
+--- a/taxonomy_breadcrumb.inc
++++ b/taxonomy_breadcrumb.inc
+@@ -48,12 +48,14 @@ function _taxonomy_breadcrumb_node_get_lightest_term($nid) {
+     else {
+       // Get the vocabulary tree.
+       $vtree = taxonomy_get_tree($vid);
+-      // Return the first associated term found.
++      $termids = array();
++      // Return all associated terms found.
+       foreach ($vtree as $term) {
+         if (in_array($term->tid, $tids)) {
+-          return $term->tid;
++          $termids[] = $term->tid;
+         }
+       }
++      return $termids;
+     }
+   }
+ }
+diff --git a/taxonomy_breadcrumb.module b/taxonomy_breadcrumb.module
+index 1dd3ece..3e00c68 100644
+--- a/taxonomy_breadcrumb.module
++++ b/taxonomy_breadcrumb.module
+@@ -93,14 +93,15 @@ function taxonomy_breadcrumb_node_view($node, $view_mode = 'full') {
+       $breadcrumb = array();
+ 
+       // Only take over breadcrumbs if terms are associated with the node.
+-      if ($tid = _taxonomy_breadcrumb_node_get_lightest_term($node->nid)) {
+-        // Generate the breadcrumb using the lightest vocabulary/term found.
+-        $breadcrumb = _taxonomy_breadcrumb_generate_breadcrumb($tid);
++      if ($termids = _taxonomy_breadcrumb_node_get_lightest_term($node->nid)) {
+ 
+-        if (variable_get('taxonomy_breadcrumb_page_title', FALSE)) {
+-          $breadcrumb[] = check_plain($node->title);
++        // Generate the breadcrumb using the whole list of top level vocabulary/term found.
++        foreach ($termids as $key => $tid) {
++          $breadcrumb = _taxonomy_breadcrumb_generate_breadcrumb($tid);
++          if (variable_get('taxonomy_breadcrumb_page_title', FALSE)) {
++            $breadcrumb[] = check_plain($node->title);
++          }
+         }
+-
+         drupal_set_breadcrumb($breadcrumb);
+       }
+     }
+-- 
+1.8.5.2 (Apple Git-48)
+
+
+From 5e78bb42fbc22733230fa9c8e5369eeaa90beff2 Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Thu, 16 Jan 2014 12:58:06 +0400
+Subject: [PATCH 3/7] Fixes the problem with Panels
+
+---
+ taxonomy_breadcrumb.module | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/taxonomy_breadcrumb.module b/taxonomy_breadcrumb.module
+index 3e00c68..bb70c48 100644
+--- a/taxonomy_breadcrumb.module
++++ b/taxonomy_breadcrumb.module
+@@ -74,6 +74,16 @@ function taxonomy_breadcrumb_menu() {
+ }
+ 
+ /**
++ * Implementats hook_ctools_render_alter(). Used to forcely call hook_node_view.
++ */
++function taxonomy_breadcrumb_ctools_render_alter(&$info, &$page, &$context) {
++   $data = array_values($context['contexts']);
++   // Below is nothing but to call hook_node_view which force to pass the
++   // node object.
++   taxonomy_breadcrumb_node_view($data[0]->data, 'full', '');
++}
++
++/**
+  * Implements hook_node_view().
+  */
+ function taxonomy_breadcrumb_node_view($node, $view_mode = 'full') {
+-- 
+1.8.5.2 (Apple Git-48)
+
+
+From a2658eb57d01cdaf35b53b538014c674d24ab4bf Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Thu, 16 Jan 2014 18:00:48 +0400
+Subject: [PATCH 4/7] Fixing empty nodes problem
+
+---
+ taxonomy_breadcrumb.module | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/taxonomy_breadcrumb.module b/taxonomy_breadcrumb.module
+index bb70c48..e975466 100644
+--- a/taxonomy_breadcrumb.module
++++ b/taxonomy_breadcrumb.module
+@@ -80,7 +80,9 @@ function taxonomy_breadcrumb_ctools_render_alter(&$info, &$page, &$context) {
+    $data = array_values($context['contexts']);
+    // Below is nothing but to call hook_node_view which force to pass the
+    // node object.
+-   taxonomy_breadcrumb_node_view($data[0]->data, 'full', '');
++   if (isset($data[0])) {
++    taxonomy_breadcrumb_node_view($data[0]->data, 'full', '');
++  }
+ }
+ 
+ /**
+-- 
+1.8.5.2 (Apple Git-48)
+
+
+From 89fda43339b90cfdf431873ae69dc994f08873ce Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Fri, 17 Jan 2014 18:08:26 +0400
+Subject: [PATCH 5/7] fixing errors
+
+---
+ taxonomy_breadcrumb.module | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/taxonomy_breadcrumb.module b/taxonomy_breadcrumb.module
+index e975466..f85dafe 100644
+--- a/taxonomy_breadcrumb.module
++++ b/taxonomy_breadcrumb.module
+@@ -90,7 +90,7 @@ function taxonomy_breadcrumb_ctools_render_alter(&$info, &$page, &$context) {
+  */
+ function taxonomy_breadcrumb_node_view($node, $view_mode = 'full') {
+   // @TODO : Let user choose the view mode.
+-  if ($view_mode == 'full' && !drupal_is_front_page()) {
++  if ($view_mode == 'full' && !drupal_is_front_page() && isset($node->type)) {
+     // Include the .inc file with all helper functions.
+     module_load_include('inc', 'taxonomy_breadcrumb');
+ 
+-- 
+1.8.5.2 (Apple Git-48)
+
+
+From 92622215e5d23a8951150a21c8eae6ba8cf56de4 Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Fri, 17 Jan 2014 19:41:33 +0400
+Subject: [PATCH 6/7] fixing errors with single crumb
+
+---
+ taxonomy_breadcrumb.inc | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/taxonomy_breadcrumb.inc b/taxonomy_breadcrumb.inc
+index a91eada..20f0333 100644
+--- a/taxonomy_breadcrumb.inc
++++ b/taxonomy_breadcrumb.inc
+@@ -43,7 +43,7 @@ function _taxonomy_breadcrumb_node_get_lightest_term($nid) {
+ 
+     // If only a single term is associated with this node.
+     if (count($tids) == 1) {
+-      return $tids[0];
++      return array('0' => $tids[0]);
+     }
+     else {
+       // Get the vocabulary tree.
+-- 
+1.8.5.2 (Apple Git-48)
+
+
+From 0779a94bbec8789fa800865a2bc493f6829f9d14 Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Fri, 29 Aug 2014 09:40:26 +0200
+Subject: [PATCH 7/7] Fixing translation of parent terms in breadcrumbs
+
+---
+ taxonomy_breadcrumb.inc | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/taxonomy_breadcrumb.inc b/taxonomy_breadcrumb.inc
+index 20f0333..5f12898 100644
+--- a/taxonomy_breadcrumb.inc
++++ b/taxonomy_breadcrumb.inc
+@@ -132,5 +132,7 @@ function _taxonomy_breadcrumb_generate_breadcrumb($tid, $is_term_page = FALSE) {
+  * Helper function for when i18ntaxonomy module is not installed.
+  */
+ function _taxonomy_breadcrumb_tt($string_id, $default, $language = NULL) {
+-  return function_exists('tt') ? tt($string_id, $default, $language) : $default;
++  global $language ;
++  $langcode = $language->language;
++  return function_exists('i18n_string_translate') ? i18n_string_translate($string_id, $default, array('langcode' => $langcode)) : $default;
+ }
+-- 
+1.8.5.2 (Apple Git-48)
+
