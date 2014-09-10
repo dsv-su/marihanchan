@@ -425,7 +425,7 @@ def main():
     args = parser.parse_args()
 
     if args.buildfile:
-        buildFilePath = os.path.dirname(args.buildfile + '/')
+        buildFilePath = os.path.dirname(args.buildfile) + '/'
         buildFileName = os.path.basename(args.buildfile)
     else:
         buildFileName = defaultBuildFileName
