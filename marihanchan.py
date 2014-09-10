@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 
-__author__    = 'Simon Jarbrant'
+__author__    = 'Simon Jarbrant, Dane Cavanagh, Pavel Sokolov'
 __copyright__ = 'Copyright 2014, Department of Computer and System Sciences, Stockholm University'
 
 __maintainer__ = 'Simon Jarbrant'
