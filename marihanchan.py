@@ -25,6 +25,7 @@ from git import *
 #
 defaultBuildFileName = 'build.json'
 buildFileName        = ''
+buildFilePath        = ''
 defaults             = ''
 projects             = ''
 installPath          = ''
@@ -412,7 +413,7 @@ def removeComponent( name, component ):
 
 # Main, will execute first when the script is run
 def main():
-    global defaultBuildFileName, buildFileName, defaults, projects, installPath
+    global defaultBuildFileName, buildFileName, buildFilePath, defaults, projects, installPath
 
     # parse cli arguments
     parser = argparse.ArgumentParser()
@@ -424,7 +425,8 @@ def main():
     args = parser.parse_args()
 
     if args.buildfile:
-        buildFileName = args.buildfile
+        buildFilePath = os.path.dirname(args.buildfile + '/')
+        buildFileName = os.path.basename(args.buildfile)
     else:
         buildFileName = defaultBuildFileName
 
@@ -437,8 +439,8 @@ def main():
         installPath = args.directory + '/'
 
     # open buildfile and parse contents
-    if os.path.isfile( buildFileName ):
-        buildFile = open( buildFileName, 'r' )
+    if os.path.isfile( buildFilePath + buildFileName ):
+        buildFile = open( buildFilePath + buildFileName , 'r' )
         projects  = json.load( buildFile )
     else:
         print 'You\'re so mean! you haven\'t supplied me with a buildfile.. >:('
@@ -494,7 +496,7 @@ def main():
     # save buildFile to install path
     if os.path.isfile( installPath + buildFileName ):
         os.remove( installPath + buildFileName )
-    shutil.copyfile( buildFileName, installPath + buildFileName )
+    shutil.copyfile( buildFilePath + buildFileName , installPath + buildFileName )
 
     print '*giggles* ok I\'m done! project ' + targetName + ' built :)'
     return
