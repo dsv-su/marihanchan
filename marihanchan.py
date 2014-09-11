@@ -4,9 +4,9 @@
 __author__    = 'Simon Jarbrant, Dane Cavanagh, Pavel Sokolov'
 __copyright__ = 'Copyright 2014, Department of Computer and System Sciences, Stockholm University'
 
-__maintainer__ = 'Simon Jarbrant'
-__email__      = 'simon@dsv.su.se'
-__version__    = '0.0.6'
+__maintainer__ = 'Pavel Sokolov'
+__email__      = 'paveldsv.su.se'
+__version__    = '0.0.8'
 
 import sys
 import os       # to check if files exists
