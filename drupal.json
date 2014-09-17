@@ -330,7 +330,7 @@
             "webform_conditional":{
                 "defaults": "module_contrib",
                 "repo": "git://git.drupal.org/project/webform_conditional",
-                "branch": "7.x-1.x",
+                "branch": "7.x-2.x",
                 "path": "webform_conditional"
             }
         }
