@@ -51,7 +51,8 @@
       },
       "scheduler": {
         "repo": "https://github.com/bostelm/moodle-mod_scheduler.git",
-        "path": "mod/scheduler"
+        "path": "mod/scheduler",
+        "branch": "MOODLE_27_STABLE"
       },
       "blog_assignment": {
         "repo": "https://github.com/dsv-su/moodle-assignsubmission_blog.git",
@@ -111,7 +112,8 @@
       },
       "scheduler": {
         "repo": "https://github.com/bostelm/moodle-mod_scheduler.git",
-        "path": "mod/scheduler"
+        "path": "mod/scheduler",
+        "branch": "MOODLE_27_STABLE"
       },
       "custom_certificate": {
         "repo": "https://github.com/markn86/moodle-mod_customcert.git",
