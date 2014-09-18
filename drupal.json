@@ -278,6 +278,11 @@
                 "repo": "https://github.com/dompdf/dompdf.git",
                 "path": "dompdf"
             },
+            "phpfontlib":{
+                "defaults": "library",
+                "repo": "https://github.com/PhenX/php-font-lib.git",
+                "path": "dompdf/lib/php-font-lib"
+            },
             "node_clone":{
                 "defaults": "module_contrib",
                 "repo": "git://git.drupal.org/project/node_clone",
