@@ -281,6 +281,8 @@
             "phpfontlib":{
                 "defaults": "library",
                 "repo": "https://github.com/PhenX/php-font-lib.git",
+                "branch": "master",
+                "tag": "0.2.2",
                 "path": "dompdf/lib/php-font-lib"
             },
             "node_clone":{
