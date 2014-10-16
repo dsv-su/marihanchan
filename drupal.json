@@ -33,7 +33,7 @@
             "drupal_core": {
                 "repo": "http://git.drupal.org/project/drupal.git",
                 "branch": "7.x",
-                "tag": "7.31",
+                "tag": "7.32",
                 "patch": "core.patch",
                 "ignoreEmptyPath": true
             }
@@ -551,15 +551,14 @@
             "webform": {
                 "defaults": "module_contrib",
                 "repo": "http://git.drupal.org/project/webform.git",
-                "branch": "7.x-3.x",
-                "tag": "7.x-3.20",
+                "branch": "7.x-4.x",
+                "tag": "7.x-4.0",
                 "path": "webform"
             },
             "webform_conditional": {
                 "defaults": "module_contrib",
                 "repo": "http://git.drupal.org/project/webform_conditional.git",
-                "branch": "7.x-1.x",
-                "tag": "7.x-1.0-beta2",
+                "branch": "7.x-2.x",
                 "path": "webform_conditional"
             },
             "webform_validation": {
@@ -568,6 +567,13 @@
                 "branch": "7.x-1.x",
                 "tag": "7.x-1.4",
                 "path": "webform_validation"
+            },
+            "webform_report": {
+                "defaults": "module_contrib",
+                "repo": "http://git.drupal.org/project/webform_report.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.0",
+                "path": "webform_report"
             },
             "dsv_forms_theme": {
                 "defaults": "theme_custom",

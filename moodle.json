@@ -119,6 +119,10 @@
         "repo": "https://github.com/markn86/moodle-mod_customcert.git",
         "path": "mod/customcert"
       },
+      "mailsimulator": {
+        "repo": "https://github.com/dsv-su/moodle-assignsubmission_mailsimulator.git",
+        "path": "mod/assign/submission/mailsimulator"
+      },
       "progressbar": {
         "repo": "https://github.com/deraadt/Moodle-block_progress.git",
         "path": "blocks/progress"
