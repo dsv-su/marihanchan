@@ -1,4 +1,4 @@
-From f4d811db672264b64b9da2cb3f8e03943280283c Mon Sep 17 00:00:00 2001
+From 765f9184f93eb7677dc9e1af8f6919de9f443769 Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
 Date: Thu, 13 Jun 2013 19:19:39 +0200
 Subject: [PATCH 1/9] navigation
@@ -8,10 +8,10 @@ Subject: [PATCH 1/9] navigation
  1 file changed, 34 insertions(+)
 
 diff --git a/mod/assign/lib.php b/mod/assign/lib.php
-index d5ff98e..46f314a 100644
+index d79fbce..4229887 100644
 --- a/mod/assign/lib.php
 +++ b/mod/assign/lib.php
-@@ -213,6 +213,40 @@ function assign_extend_settings_navigation(settings_navigation $settings, naviga
+@@ -211,6 +211,40 @@ function assign_extend_settings_navigation(settings_navigation $settings, naviga
      if (!$course) {
          return;
      }
@@ -53,10 +53,10 @@ index d5ff98e..46f314a 100644
      // Link to gradebook.
      if (has_capability('gradereport/grader:view', $cm->context) &&
 -- 
-1.8.5.2 (Apple Git-48)
+1.9.3 (Apple Git-50)
 
 
-From 4fdc2dfae1c3fbee154b63113756e20a83ca315c Mon Sep 17 00:00:00 2001
+From 992bb61fc49fe09605417bdb08723f813da18d29 Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
 Date: Sat, 8 Jun 2013 21:54:51 +0200
 Subject: [PATCH 2/9] Hack for disabling buttons for reflection plugin
@@ -66,10 +66,10 @@ Subject: [PATCH 2/9] Hack for disabling buttons for reflection plugin
  1 file changed, 16 insertions(+)
 
 diff --git a/mod/assign/renderer.php b/mod/assign/renderer.php
-index d371eb0..c70bd87 100644
+index 5a6ce92..559f7e5 100644
 --- a/mod/assign/renderer.php
 +++ b/mod/assign/renderer.php
-@@ -682,6 +682,22 @@ class mod_assign_renderer extends plugin_renderer_base {
+@@ -687,6 +687,22 @@ class mod_assign_renderer extends plugin_renderer_base {
          $o .= html_writer::table($t);
          $o .= $this->output->box_end();
  
@@ -93,30 +93,33 @@ index d371eb0..c70bd87 100644
          if ($status->view == assign_submission_status::STUDENT_VIEW) {
              if ($status->canedit) {
 -- 
-1.8.5.2 (Apple Git-48)
+1.9.3 (Apple Git-50)
 
 
-From 505cbabf00b1325cd96619182fbb945208db871e Mon Sep 17 00:00:00 2001
+From 3d8fe5df24d6f0ae7506dfc597dde7a786cf7c0a Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
 Date: Thu, 26 Sep 2013 21:50:24 +0400
 Subject: [PATCH 3/9] Adding a better interface for blog association, allowing
  users to change associations of a blog entry or to add an association ofter
  initial submission.
 
+Conflicts:
+	blog/edit.php
+	blog/edit_form.php
 ---
- blog/edit.php      | 10 +++++++
- blog/edit_form.php | 84 +++++++++++++++++++++++++++++++-----------------------
- blog/locallib.php  |  5 ++++
- 3 files changed, 64 insertions(+), 35 deletions(-)
+ blog/edit.php      | 10 ++++++
+ blog/edit_form.php | 96 ++++++++++++++++++++++++++++--------------------------
+ blog/locallib.php  |  5 +++
+ 3 files changed, 65 insertions(+), 46 deletions(-)
 
 diff --git a/blog/edit.php b/blog/edit.php
-index ebf4c96..f6b539d 100644
+index c3052f7..7f1eb64 100644
 --- a/blog/edit.php
 +++ b/blog/edit.php
-@@ -184,6 +184,16 @@ if ($blogeditform->is_cancelled()) {
+@@ -200,6 +200,16 @@ if ($blogeditform->is_cancelled()) {
      redirect($returnurl);
  
- } else if ($data = $blogeditform->get_data()){
+ } else if ($data = $blogeditform->get_data()) {
 +    // Since a user can change the associated context: Update the return url with the current association.
 +    if (!empty($data->modassoc)) {
 +        $modulecontext = context::instance_by_id($data->modassoc);
@@ -131,10 +134,10 @@ index ebf4c96..f6b539d 100644
      switch ($action) {
          case 'add':
 diff --git a/blog/edit_form.php b/blog/edit_form.php
-index 2b28a73..8d2dfb5 100644
+index 805bf79..98ceb07 100644
 --- a/blog/edit_form.php
 +++ b/blog/edit_form.php
-@@ -71,44 +71,39 @@ class blog_edit_form extends moodleform {
+@@ -73,55 +73,40 @@ class blog_edit_form extends moodleform {
          $allmodnames = array();
  
          if (!empty($CFG->useblogassociations)) {
@@ -172,7 +175,12 @@ index 2b28a73..8d2dfb5 100644
 +            // If there are any allowed contexts (more than the empty first option), show the select element and set the default option.
 +            if (count($permittedcontexts) > 1) {
                  $mform->addElement('header', 'assochdr', get_string('associations', 'blog'));
--                $mform->addElement('advcheckbox', 'courseassoc', get_string('associatewithcourse', 'blog', $a), null, null, array(0, $contextid));
+-                $mform->addElement('advcheckbox',
+-                                   'courseassoc',
+-                                   get_string('associatewithcourse', 'blog', $a),
+-                                   null,
+-                                   null,
+-                                   array(0, $contextid));
 -                $mform->setDefault('courseassoc', $contextid);
 -
 -            } else if ((!empty($entry->modassoc) || !empty($modid))) {
@@ -204,13 +212,20 @@ index 2b28a73..8d2dfb5 100644
                  }
 -
 -                $mform->addElement('header', 'assochdr', get_string('associations', 'blog'));
--                $mform->addElement('advcheckbox', 'modassoc', get_string('associatewithmodule', 'blog', $a), null, null, array(0, $context->id));
+-                $mform->addElement('advcheckbox',
+-                                   'modassoc',
+-                                   get_string('associatewithmodule', 'blog', $a),
+-                                   null,
+-                                   null,
+-                                   array(0, $context->id));
 -                $mform->setDefault('modassoc', $context->id);
-             }
+-            }
++           }
          }
  
-@@ -133,6 +128,25 @@ class blog_edit_form extends moodleform {
-     function validation($data, $files) {
+         $this->add_action_buttons();
+@@ -151,6 +136,25 @@ class blog_edit_form extends moodleform {
+     public function validation($data, $files) {
          global $CFG, $DB, $USER;
  
 +        // Before validation starts: Change the name of the association element to either modassoc or courseassoc, depending on 
@@ -234,12 +249,12 @@ index 2b28a73..8d2dfb5 100644
 +
          $errors = array();
  
-         // validate course association
+         // Validate course association.
 diff --git a/blog/locallib.php b/blog/locallib.php
-index 5561050..5daf88a 100644
+index 5df39ad..ad49fe3 100644
 --- a/blog/locallib.php
 +++ b/blog/locallib.php
-@@ -287,6 +287,11 @@ class blog_entry implements renderable {
+@@ -290,6 +290,11 @@ class blog_entry implements renderable {
          $sitecontext = context_system::instance();
          $entry = $this;
  
@@ -252,10 +267,10 @@ index 5561050..5daf88a 100644
          foreach ($params as $var => $val) {
              $entry->$var = $val;
 -- 
-1.8.5.2 (Apple Git-48)
+1.9.3 (Apple Git-50)
 
 
-From d2f4042533e2772cfc56890253cd5f1b60bd854a Mon Sep 17 00:00:00 2001
+From 157e479fef4e3ca8cb90a0a45d0805f552bc5046 Mon Sep 17 00:00:00 2001
 From: Erik Lundberg <lundbergerik@gmail.com>
 Date: Wed, 11 Jul 2012 14:50:57 +0200
 Subject: [PATCH 4/9] Now the "Blog entries about course"-view will include
@@ -267,10 +282,10 @@ Subject: [PATCH 4/9] Now the "Blog entries about course"-view will include
  1 file changed, 12 insertions(+), 1 deletion(-)
 
 diff --git a/blog/locallib.php b/blog/locallib.php
-index 5daf88a..cb1b148 100644
+index ad49fe3..a85f66a 100644
 --- a/blog/locallib.php
 +++ b/blog/locallib.php
-@@ -912,7 +912,18 @@ class blog_filter_context extends blog_filter {
+@@ -926,7 +926,18 @@ class blog_filter_context extends blog_filter {
                      $context = context_course::instance($this->id);
                      $this->tables['ba'] = 'blog_association';
                      $this->conditions[] = 'p.id = ba.blogid';
@@ -289,12 +304,12 @@ index 5daf88a..cb1b148 100644
 +                    $this->conditions[] = 'ba.contextid IN ('.$ids_string.')';
                      break;
                  } else {
-                     // We are dealing with the site course, do not break from the current case
+                     // We are dealing with the site course, do not break from the current case.
 -- 
-1.8.5.2 (Apple Git-48)
+1.9.3 (Apple Git-50)
 
 
-From 46a3811f9b6097fa01a3662b74450d41e196be86 Mon Sep 17 00:00:00 2001
+From 4169095d6886de17a963356df007c5e167845e29 Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
 Date: Wed, 20 Nov 2013 17:06:49 +0400
 Subject: [PATCH 5/9] Including all blog posts to view all posts link and
@@ -305,11 +320,11 @@ Subject: [PATCH 5/9] Including all blog posts to view all posts link and
  1 file changed, 16 insertions(+), 2 deletions(-)
 
 diff --git a/blog/locallib.php b/blog/locallib.php
-index cb1b148..bdab8a1 100644
+index a85f66a..543fade 100644
 --- a/blog/locallib.php
 +++ b/blog/locallib.php
-@@ -666,6 +666,10 @@ class blog_listing {
-             $conditions[] = $permissionsql;  //add permission constraints
+@@ -678,6 +678,10 @@ class blog_listing {
+             $conditions[] = $permissionsql;  // Add permission constraints.
          }
  
 +        if (!empty($this->filters['group']) && !empty($this->filters['module'])) {
@@ -319,7 +334,7 @@ index cb1b148..bdab8a1 100644
          foreach ($this->filters as $type => $blogfilter) {
              $conditions = array_merge($conditions, $blogfilter->conditions);
              $params = array_merge($params, $blogfilter->params);
-@@ -989,10 +993,20 @@ class blog_filter_user extends blog_filter {
+@@ -1003,10 +1007,20 @@ class blog_filter_user extends blog_filter {
                  $coursecontext     = context_course::instance($DB->get_field('groups', 'courseid', array('id' => $this->id)));
                  $this->tables['ba'] = 'blog_association';
                  $this->conditions[] = 'gm.groupid = ?';
@@ -343,10 +358,10 @@ index cb1b148..bdab8a1 100644
          }
  
 -- 
-1.8.5.2 (Apple Git-48)
+1.9.3 (Apple Git-50)
 
 
-From de490c5ef766721a67d304f1c1a7bd95da629af1 Mon Sep 17 00:00:00 2001
+From e10e77f1c353c8fea3021869c43b68b0840ae903 Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
 Date: Mon, 10 Mar 2014 09:46:23 +0100
 Subject: [PATCH 6/9] Fixing leading zeros when autocreating groups
@@ -358,10 +373,10 @@ Subject: [PATCH 6/9] Fixing leading zeros when autocreating groups
  3 files changed, 9 insertions(+), 4 deletions(-)
 
 diff --git a/group/autogroup.php b/group/autogroup.php
-index 0a4b562..5221258 100644
+index 8270ff3..ebec4c5 100644
 --- a/group/autogroup.php
 +++ b/group/autogroup.php
-@@ -118,7 +118,7 @@ if ($editform->is_cancelled()) {
+@@ -128,7 +128,7 @@ if ($editform->is_cancelled()) {
      // allocate the users - all groups equal count first
      for ($i=0; $i<$numgrps; $i++) {
          $groups[$i] = array();
@@ -371,7 +386,7 @@ index 0a4b562..5221258 100644
          if ($data->allocateby == 'no') {
              continue; // do not allocate users
 diff --git a/group/autogroup_form.php b/group/autogroup_form.php
-index c62c390..13cca62 100644
+index df43b4f..f436e10 100644
 --- a/group/autogroup_form.php
 +++ b/group/autogroup_form.php
 @@ -54,7 +54,7 @@ class autogroup_form extends moodleform {
@@ -384,10 +399,10 @@ index c62c390..13cca62 100644
              $mform->setDefault('namingscheme', $template);
          }
 diff --git a/group/lib.php b/group/lib.php
-index 970ce78..600f222 100644
+index c338911..5c99d77 100644
 --- a/group/lib.php
 +++ b/group/lib.php
-@@ -756,7 +756,7 @@ function groups_get_potential_members($courseid, $roleid = null, $cohortid = nul
+@@ -795,7 +795,7 @@ function groups_get_potential_members($courseid, $roleid = null, $source = null,
   * @param int $groupnumber The number of the group to be used in the parsed format string
   * @return string the parsed format string
   */
@@ -396,7 +411,7 @@ index 970ce78..600f222 100644
      if (strstr($format, '@') !== false) { // Convert $groupnumber to a character series
          $letter = 'A';
          for($i=0; $i<$groupnumber; $i++) {
-@@ -764,7 +764,12 @@ function groups_parse_name($format, $groupnumber) {
+@@ -803,7 +803,12 @@ function groups_parse_name($format, $groupnumber) {
          }
          $str = str_replace('@', $letter, $format);
      } else {
@@ -411,10 +426,10 @@ index 970ce78..600f222 100644
      return($str);
  }
 -- 
-1.8.5.2 (Apple Git-48)
+1.9.3 (Apple Git-50)
 
 
-From 5b4dc7a0e74923eca0ae512a411920d66f731b4e Mon Sep 17 00:00:00 2001
+From 95c05a7c4a27d6ee65ab7e9c5e8995472f1ba4fe Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
 Date: Mon, 24 Mar 2014 17:49:36 +0400
 Subject: [PATCH 7/9] Temporary hack for disabling switching mode if any
@@ -425,12 +440,12 @@ Subject: [PATCH 7/9] Temporary hack for disabling switching mode if any
  1 file changed, 8 insertions(+)
 
 diff --git a/mod/assign/mod_form.php b/mod/assign/mod_form.php
-index eead2ae..78c75ff 100644
+index d60896b..de55fd6 100644
 --- a/mod/assign/mod_form.php
 +++ b/mod/assign/mod_form.php
-@@ -130,6 +130,14 @@ class mod_assign_mod_form extends moodleform_mod {
-         $mform->addElement('selectyesno', 'teamsubmission', $name);
-         $mform->addHelpButton('teamsubmission', 'teamsubmission', 'assign');
+@@ -138,6 +138,14 @@ class mod_assign_mod_form extends moodleform_mod {
+             $mform->freeze('teamsubmission');
+         }
  
 +        // Temporary hack for disabling switching mode if any submission is made @psokolov
 +        if ($this->current && $this->current->coursemodule) {
@@ -444,10 +459,10 @@ index eead2ae..78c75ff 100644
          $mform->addElement('selectyesno', 'requireallteammemberssubmit', $name);
          $mform->addHelpButton('requireallteammemberssubmit', 'requireallteammemberssubmit', 'assign');
 -- 
-1.8.5.2 (Apple Git-48)
+1.9.3 (Apple Git-50)
 
 
-From da00e049a2d984fc5102f834e2753b3d7d8a832c Mon Sep 17 00:00:00 2001
+From 9a06b2a4ead9f5514407a506ad2a521ff5a73200 Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
 Date: Thu, 6 Mar 2014 13:07:22 +0400
 Subject: [PATCH 8/9] MDL-44481 assign: add sorting of assign submissions by a
@@ -458,11 +473,11 @@ Subject: [PATCH 8/9] MDL-44481 assign: add sorting of assign submissions by a
  1 file changed, 22 insertions(+), 1 deletion(-)
 
 diff --git a/mod/assign/gradingtable.php b/mod/assign/gradingtable.php
-index 3bbbf32..24fe059 100644
+index 08552f2..3625b1b 100644
 --- a/mod/assign/gradingtable.php
 +++ b/mod/assign/gradingtable.php
-@@ -166,6 +166,27 @@ class assign_grading_table extends table_sql implements renderable {
-                             g.attemptnumber = gmx.maxattempt
+@@ -160,6 +160,27 @@ class assign_grading_table extends table_sql implements renderable {
+                             g.attemptnumber = s.attemptnumber
                           LEFT JOIN {assign_user_flags} uf ON u.id = uf.userid AND uf.assignment = :assignmentid3';
  
 +        if ($this->assignment->get_instance()->teamsubmission) {
@@ -489,7 +504,7 @@ index 3bbbf32..24fe059 100644
          $userparams = array();
          $userindex = 0;
  
-@@ -404,7 +425,7 @@ class assign_grading_table extends table_sql implements renderable {
+@@ -398,7 +419,7 @@ class assign_grading_table extends table_sql implements renderable {
          $this->no_sorting('outcomes');
  
          if ($assignment->get_instance()->teamsubmission) {
@@ -499,10 +514,10 @@ index 3bbbf32..24fe059 100644
  
          $plugincolumnindex = 0;
 -- 
-1.8.5.2 (Apple Git-48)
+1.9.3 (Apple Git-50)
 
 
-From 5d36eaa5955aaece0dc43063455387f755af60fe Mon Sep 17 00:00:00 2001
+From 9fcf46841799b4c7433ec2d09eea4b8f6444f2ed Mon Sep 17 00:00:00 2001
 From: Simon Jarbrant <simonjarbrant@gmail.com>
 Date: Mon, 10 Mar 2014 20:18:11 +0100
 Subject: [PATCH 9/9] MDL-36151 assign: add option to download selected assign
@@ -528,10 +543,10 @@ index 98e1681..5b3bda3 100644
              $options['reverttodraft'] = get_string('reverttodraft', 'assign');
          }
 diff --git a/mod/assign/lang/en/assign.php b/mod/assign/lang/en/assign.php
-index 82f1f05..d9053b9 100644
+index 6652b18..9d031fb 100644
 --- a/mod/assign/lang/en/assign.php
 +++ b/mod/assign/lang/en/assign.php
-@@ -84,6 +84,7 @@ $string['attemptreopenmethod_untilpass'] = 'Automatically until pass';
+@@ -86,6 +86,7 @@ $string['attemptreopenmethod_untilpass'] = 'Automatically until pass';
  $string['availability'] = 'Availability';
  $string['backtoassignment'] = 'Back to assignment';
  $string['batchoperationsdescription'] = 'With selected...';
@@ -539,7 +554,7 @@ index 82f1f05..d9053b9 100644
  $string['batchoperationconfirmlock'] = 'Lock all selected submissions?';
  $string['batchoperationconfirmgrantextension'] = 'Grant an extension to all selected submissions?';
  $string['batchoperationconfirmunlock'] = 'Unlock all selected submissions?';
-@@ -127,6 +128,7 @@ $string['deleteallsubmissions'] = 'Delete all submissions';
+@@ -129,6 +130,7 @@ $string['deleteallsubmissions'] = 'Delete all submissions';
  $string['description'] = 'Description';
  $string['downloadall'] = 'Download all submissions';
  $string['download all submissions'] = 'Download all submissions in a zip file.';
@@ -548,10 +563,10 @@ index 82f1f05..d9053b9 100644
  $string['duedate_help'] = 'This is when the assignment is due. Submissions will still be allowed after this date but any assignments submitted after this date are marked as late. To prevent submissions after a certain date - set the assignment cut off date.';
  $string['duedateno'] = 'No due date';
 diff --git a/mod/assign/locallib.php b/mod/assign/locallib.php
-index 42fe95c..cf208f7 100644
+index 2e3fec6..0573644 100644
 --- a/mod/assign/locallib.php
 +++ b/mod/assign/locallib.php
-@@ -518,6 +518,8 @@ class assign {
+@@ -527,6 +527,8 @@ class assign {
              $o .= $this->view_grading_page();
          } else if ($action == 'downloadall') {
              $o .= $this->download_submissions();
@@ -560,7 +575,7 @@ index 42fe95c..cf208f7 100644
          } else if ($action == 'submit') {
              $o .= $this->check_submit_for_grading($mform);
          } else if ($action == 'grantextension') {
-@@ -2412,9 +2414,10 @@ class assign {
+@@ -2492,9 +2494,10 @@ class assign {
      /**
       * Download a zip file of all assignment submissions.
       *
@@ -572,7 +587,7 @@ index 42fe95c..cf208f7 100644
          global $CFG, $DB;
  
          // More efficient to load this here.
-@@ -2422,9 +2425,11 @@ class assign {
+@@ -2502,9 +2505,11 @@ class assign {
  
          $this->require_view_grades();
  
@@ -587,7 +602,7 @@ index 42fe95c..cf208f7 100644
  
          // Build a list of files to zip.
          $filesforzipping = array();
-@@ -2516,6 +2521,28 @@ class assign {
+@@ -2596,6 +2601,28 @@ class assign {
      }
  
      /**
@@ -616,7 +631,7 @@ index 42fe95c..cf208f7 100644
       * Util function to add a message to the log.
       *
       * @deprecated since 2.7 - Use new events system instead.
-@@ -3441,6 +3468,8 @@ class assign {
+@@ -3551,6 +3578,8 @@ class assign {
                  return 'viewbatchsetmarkingworkflowstate';
              } else if ($data->operation == 'setmarkingallocation') {
                  return 'viewbatchmarkingallocation';
@@ -639,5 +654,5 @@ index a2ab7ed..5e82029 100644
                      if (!confirm(confirmmessage)) {
                          e.preventDefault();
 -- 
-1.8.5.2 (Apple Git-48)
+1.9.3 (Apple Git-50)
 

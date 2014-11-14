@@ -33,7 +33,7 @@
             "drupal_core": {
                 "repo": "http://git.drupal.org/project/drupal.git",
                 "branch": "7.x",
-                "tag": "7.32",
+                "tag": "7.33",
                 "patch": "core.patch",
                 "ignoreEmptyPath": true
             }
@@ -469,7 +469,7 @@
                 "defaults": "module_contrib",
                 "repo": "git://git.drupal.org/project/scheduler.git",
                 "branch": "7.x-1.x",
-                "tag": "7.x-1.2",
+                "tag": "7.x-1.3",
                 "path": "scheduler"
             },
             "search_combine": {
@@ -759,7 +759,7 @@
                 "defaults": "module_contrib",
                 "repo": "git://git.drupal.org/project/scheduler.git",
                 "branch": "7.x-1.x",
-                "tag": "7.x-1.2",
+                "tag": "7.x-1.3",
                 "path": "scheduler"
             },
             "search_autocomplete": {
