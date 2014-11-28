@@ -233,8 +233,8 @@ index 805bf79..98ceb07 100644
 +        // This is not strictly validation, but needs to be performed before validation therefore
 +        // definition_before_data() can't be used.
 +
++        $mform =& $this->_form;
 +        if (isset($mform->_elementIndex['assoc'])) {
-+            $mform =& $this->_form;
 +            $associationselect = $mform->getElement('assoc');
 +            $selectedvalue = $associationselect->getValue();
 +            if ($selectedvalue[0] != '') {
