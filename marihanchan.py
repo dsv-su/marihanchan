@@ -337,6 +337,7 @@ def updateComponent( newComponent, oldComponent ):
             if newBranch != oldBranch:
                 # git checkout new branch
                 print 'checking out new branch (' + newBranch + ')'
+                repo.git.fetch()
                 repo.git.checkout( newBranch )
         else:
             # git checkout new branch

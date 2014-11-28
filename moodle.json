@@ -139,5 +139,16 @@
         "path": "dsv_custom"
       }
     }
+  },
+
+  "natgeo": {
+    "rootDir": "/var/www/natgeo",
+    "requires": [ "moodle", "dsv_moodle_theme" ],
+    "components": {
+      "progressbar": {
+        "repo": "https://github.com/deraadt/Moodle-block_progress.git",
+        "path": "blocks/progress"
+      }
+    }
   }
 }
