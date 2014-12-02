@@ -303,7 +303,7 @@
                 "defaults": "module_contrib",
                 "repo": "git://git.drupal.org/project/options_element",
                 "branch": "7.x-1.x",
-                "tag": "7.x-1.10",
+                "tag": "7.x-1.12",
                 "path": "options_element"
             },
             "print":{

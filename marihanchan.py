@@ -5,7 +5,7 @@ __author__    = 'Simon Jarbrant, Dane Cavanagh, Pavel Sokolov'
 __copyright__ = 'Copyright 2014, Department of Computer and System Sciences, Stockholm University'
 
 __maintainer__ = 'Pavel Sokolov'
-__email__      = 'paveldsv.su.se'
+__email__      = 'psokolov@dsv.su.se'
 __version__    = '0.0.8'
 
 import sys
@@ -350,10 +350,10 @@ def updateComponent( newComponent, oldComponent ):
         if 'tag' in oldComponent:
             oldTag = oldComponent.get( 'tag' )
             if newTag != oldTag:
+                repo.git.fetch()
                 try:
                     # git checkout new tag
                     print 'checking out tag (' + newTag + ')'
-                    repo.git.fetch()
                     repo.git.checkout( 'tags/' + newTag, b = 'tag_' + newTag )
                 except GitCommandError:
                     # if a tagged branch is already there, just reset it to remote
@@ -361,10 +361,10 @@ def updateComponent( newComponent, oldComponent ):
                     repo.git.checkout( 'tag_' + newTag)
                     repo.git.reset( '--hard', newTag )
         else:
+            repo.git.fetch()
             try:
                 # git checkout new tag
                 print 'checking out tag (' + newTag + ')'
-                repo.git.fetch()
                 repo.git.checkout( 'tags/' + newTag, b = 'tag_' + newTag )
             except GitCommandError:
                 # if a tagged branch is already there, just reset it to remote
