@@ -83,8 +83,7 @@
 
   "ilearn2test": {
     "rootDir": "/var/www/ilearn2test",
-    "requires": [ "moodle", "dsv_moodle_theme", "ilearn2" ],
-    "patches": [ "moodle.patch" ],
+    "requires": [ "ilearn2" ],
     "components": {
       "mod_advmindmap": {
         "repo": "https://github.com/ctchanandy/moodle-mod_advmindmap.git",
