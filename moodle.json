@@ -128,24 +128,24 @@
       },
       "block_attendance": {
         "repo": "https://github.com/danmarsden/moodle-block_attendance.git",
-        "path": "block/attendance"
+        "path": "blocks/attendance"
       },
       "block_engagement": {
         "repo": "https://github.com/netspotau/moodle-block_engagement.git",
-        "path": "block/engagement"
+        "path": "blocks/engagement"
       },
       "block_gismo": {
         "repo": "git://git.code.sf.net/p/gismo/code",
-        "path": "block/gismo"
+        "path": "blocks/gismo"
       },
       "block_grade_me": {
         "repo": "https://github.com/remotelearner/moodle-block_grade_me.git",
-        "path": "block/grade_me",
+        "path": "blocks/grade_me",
         "branch": "MOODLE_28_STABLE"
       },
       "block_xp": {
         "repo": "https://github.com/FMCorz/moodle-block_xp.git",
-        "path": "block/xp"
+        "path": "blocks/xp"
       },
       "filter_geshi": {
         "repo": "https://github.com/moodlehq/moodle-filter_geshi.git",
