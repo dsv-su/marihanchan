@@ -38,7 +38,7 @@
       },
       "block_my_courses": {
         "repo": "https://github.com/dsv-su/moodle-block_mycourses.git",
-        "branch": "MOODLE_26_STABLE",
+        "branch": "master",
         "path": "blocks/my_courses"
       },
       "block_blog_menu_plus": {
