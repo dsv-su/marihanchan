@@ -74,6 +74,10 @@
         "repo": "https://github.com/danmarsden/moodle-block_attendance.git",
         "path": "blocks/attendance"
       },
+      "mod_subpage": {
+        "repo": "https://github.com/moodleou/moodle-mod_subpage.git",
+        "path": "mod/subpage"
+      },
       "block_progressbar": {
         "repo": "https://github.com/deraadt/Moodle-block_progress.git",
         "path": "blocks/progress"
@@ -101,10 +105,6 @@
       "mod_stampcoll": {
         "repo": "https://github.com/mudrd8mz/moodle-mod_stampcoll.git",
         "path": "mod/stampcoll"
-      },
-      "mod_subpage": {
-        "repo": "https://github.com/moodleou/moodle-mod_subpage.git",
-        "path": "mod/subpage"
       },
       "mod_taskchain": {
         "repo": "https://github.com/gbateson/moodle-mod_taskchain.git",
