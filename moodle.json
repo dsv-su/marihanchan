@@ -220,6 +220,11 @@
         "repo": "https://github.com/dsv-su/moodle-assignsubmission_mailsimulator.git",
         "path": "mod/assign/submission/mailsimulator"
       },
+      "format_grid": {
+        "repo": "https://github.com/gjb2048/moodle-courseformat_grid.git",
+        "path": "course/format/grid",
+        "branch": "MOODLE_28"
+      },
       "progressbar": {
         "repo": "https://github.com/deraadt/Moodle-block_progress.git",
         "path": "blocks/progress"
