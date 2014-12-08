@@ -1,4 +1,4 @@
-From 765f9184f93eb7677dc9e1af8f6919de9f443769 Mon Sep 17 00:00:00 2001
+From 4ae77f2599aebff5e63b9602678ed94be180566d Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
 Date: Thu, 13 Jun 2013 19:19:39 +0200
 Subject: [PATCH 1/9] navigation
@@ -56,7 +56,7 @@ index d79fbce..4229887 100644
 1.9.3 (Apple Git-50)
 
 
-From 992bb61fc49fe09605417bdb08723f813da18d29 Mon Sep 17 00:00:00 2001
+From 287b3b57ad972f5b04abe5737d7cde8776e77ca4 Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
 Date: Sat, 8 Jun 2013 21:54:51 +0200
 Subject: [PATCH 2/9] Hack for disabling buttons for reflection plugin
@@ -96,7 +96,7 @@ index 5a6ce92..559f7e5 100644
 1.9.3 (Apple Git-50)
 
 
-From 3d8fe5df24d6f0ae7506dfc597dde7a786cf7c0a Mon Sep 17 00:00:00 2001
+From 81b4c43b0751d676652a107fca9da28fba8b22ba Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
 Date: Thu, 26 Sep 2013 21:50:24 +0400
 Subject: [PATCH 3/9] Adding a better interface for blog association, allowing
@@ -134,7 +134,7 @@ index c3052f7..7f1eb64 100644
      switch ($action) {
          case 'add':
 diff --git a/blog/edit_form.php b/blog/edit_form.php
-index 805bf79..98ceb07 100644
+index 805bf79..c1bcda6 100644
 --- a/blog/edit_form.php
 +++ b/blog/edit_form.php
 @@ -73,55 +73,40 @@ class blog_edit_form extends moodleform {
@@ -270,7 +270,7 @@ index 5df39ad..ad49fe3 100644
 1.9.3 (Apple Git-50)
 
 
-From 157e479fef4e3ca8cb90a0a45d0805f552bc5046 Mon Sep 17 00:00:00 2001
+From 4006f885ed53792a74d763ae4440d1a767852e7d Mon Sep 17 00:00:00 2001
 From: Erik Lundberg <lundbergerik@gmail.com>
 Date: Wed, 11 Jul 2012 14:50:57 +0200
 Subject: [PATCH 4/9] Now the "Blog entries about course"-view will include
@@ -309,7 +309,7 @@ index ad49fe3..a85f66a 100644
 1.9.3 (Apple Git-50)
 
 
-From 4169095d6886de17a963356df007c5e167845e29 Mon Sep 17 00:00:00 2001
+From 48d6b5b8d98bd766b49939ddde0b6577ad41fa77 Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
 Date: Wed, 20 Nov 2013 17:06:49 +0400
 Subject: [PATCH 5/9] Including all blog posts to view all posts link and
@@ -361,7 +361,7 @@ index a85f66a..543fade 100644
 1.9.3 (Apple Git-50)
 
 
-From e10e77f1c353c8fea3021869c43b68b0840ae903 Mon Sep 17 00:00:00 2001
+From 251996dbaf7cad7727b9d5da2a7fc5623529b892 Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
 Date: Mon, 10 Mar 2014 09:46:23 +0100
 Subject: [PATCH 6/9] Fixing leading zeros when autocreating groups
@@ -399,7 +399,7 @@ index df43b4f..f436e10 100644
              $mform->setDefault('namingscheme', $template);
          }
 diff --git a/group/lib.php b/group/lib.php
-index c338911..5c99d77 100644
+index e1645b9..2ebc006 100644
 --- a/group/lib.php
 +++ b/group/lib.php
 @@ -795,7 +795,7 @@ function groups_get_potential_members($courseid, $roleid = null, $source = null,
@@ -429,98 +429,10 @@ index c338911..5c99d77 100644
 1.9.3 (Apple Git-50)
 
 
-From 95c05a7c4a27d6ee65ab7e9c5e8995472f1ba4fe Mon Sep 17 00:00:00 2001
-From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
-Date: Mon, 24 Mar 2014 17:49:36 +0400
-Subject: [PATCH 7/9] Temporary hack for disabling switching mode if any
- submission is made @psokolov
-
----
- mod/assign/mod_form.php | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/mod/assign/mod_form.php b/mod/assign/mod_form.php
-index d60896b..de55fd6 100644
---- a/mod/assign/mod_form.php
-+++ b/mod/assign/mod_form.php
-@@ -138,6 +138,14 @@ class mod_assign_mod_form extends moodleform_mod {
-             $mform->freeze('teamsubmission');
-         }
- 
-+        // Temporary hack for disabling switching mode if any submission is made @psokolov
-+        if ($this->current && $this->current->coursemodule) {
-+            $submissionsexist = $DB->record_exists('assign_submission', array('assignment' => $assignment->get_instance()->id));
-+            if ($submissionsexist) {
-+                $mform->freeze('teamsubmission');
-+            }
-+        }  
-+
-         $name = get_string('requireallteammemberssubmit', 'assign');
-         $mform->addElement('selectyesno', 'requireallteammemberssubmit', $name);
-         $mform->addHelpButton('requireallteammemberssubmit', 'requireallteammemberssubmit', 'assign');
--- 
-1.9.3 (Apple Git-50)
-
-
-From 9a06b2a4ead9f5514407a506ad2a521ff5a73200 Mon Sep 17 00:00:00 2001
-From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
-Date: Thu, 6 Mar 2014 13:07:22 +0400
-Subject: [PATCH 8/9] MDL-44481 assign: add sorting of assign submissions by a
- group name
-
----
- mod/assign/gradingtable.php | 23 ++++++++++++++++++++++-
- 1 file changed, 22 insertions(+), 1 deletion(-)
-
-diff --git a/mod/assign/gradingtable.php b/mod/assign/gradingtable.php
-index 08552f2..3625b1b 100644
---- a/mod/assign/gradingtable.php
-+++ b/mod/assign/gradingtable.php
-@@ -160,6 +160,27 @@ class assign_grading_table extends table_sql implements renderable {
-                             g.attemptnumber = s.attemptnumber
-                          LEFT JOIN {assign_user_flags} uf ON u.id = uf.userid AND uf.assignment = :assignmentid3';
- 
-+        if ($this->assignment->get_instance()->teamsubmission) {
-+            $groupingid = $assignment->get_instance()->teamsubmissiongroupingid;
-+            if ($groupingid) {
-+                $query = 'SELECT g.id FROM {groups} g JOIN {groupings_groups} gg ON gg.groupid = g.id WHERE gg.groupingid = '.$groupingid;
-+                $teamsubmissiongroupinggroups = $DB->get_fieldset_sql($query);
-+                $teamsubmissiongroupinggroups = '(' . join(',', $teamsubmissiongroupinggroups) . ')';
-+                $groupingmodifier = ' AND gr.id IN '.$teamsubmissiongroupinggroups;
-+            } else {
-+                $groupingmodifier = '';
-+            }
-+
-+            $usergroups = 'SELECT gms.userid, CASE WHEN COUNT(gr.id)=1 THEN gr.name ELSE "Default" END as team
-+                            FROM {groups_members} gms 
-+                            LEFT JOIN {groups} gr ON gms.groupid = gr.id 
-+                            WHERE gr.courseid = '.$assignment->get_instance()->course.$groupingmodifier.' 
-+                            GROUP BY gms.userid';
-+
-+            $fields .= ', CASE WHEN ugs.team is NULL THEN "Default" ELSE ugs.team END as team ';
-+            $from .= ' LEFT JOIN ( ' . $usergroups . ' ) ugs ON u.id = ugs.userid';
-+        }
-+        
-         $userparams = array();
-         $userindex = 0;
- 
-@@ -398,7 +419,7 @@ class assign_grading_table extends table_sql implements renderable {
-         $this->no_sorting('outcomes');
- 
-         if ($assignment->get_instance()->teamsubmission) {
--            $this->no_sorting('team');
-+            $this->sortable('team');
-         }
- 
-         $plugincolumnindex = 0;
--- 
-1.9.3 (Apple Git-50)
-
-
-From 9fcf46841799b4c7433ec2d09eea4b8f6444f2ed Mon Sep 17 00:00:00 2001
+From 27153aa53e2ef229f563609ed9350c30f289e858 Mon Sep 17 00:00:00 2001
 From: Simon Jarbrant <simonjarbrant@gmail.com>
 Date: Mon, 10 Mar 2014 20:18:11 +0100
-Subject: [PATCH 9/9] MDL-36151 assign: add option to download selected assign
+Subject: [PATCH 7/9] MDL-36151 assign: add option to download selected assign
  submissions
 
 ---
@@ -563,7 +475,7 @@ index 6652b18..9d031fb 100644
  $string['duedate_help'] = 'This is when the assignment is due. Submissions will still be allowed after this date but any assignments submitted after this date are marked as late. To prevent submissions after a certain date - set the assignment cut off date.';
  $string['duedateno'] = 'No due date';
 diff --git a/mod/assign/locallib.php b/mod/assign/locallib.php
-index 2e3fec6..0573644 100644
+index 16eae89..847b8cc 100644
 --- a/mod/assign/locallib.php
 +++ b/mod/assign/locallib.php
 @@ -527,6 +527,8 @@ class assign {
@@ -575,7 +487,7 @@ index 2e3fec6..0573644 100644
          } else if ($action == 'submit') {
              $o .= $this->check_submit_for_grading($mform);
          } else if ($action == 'grantextension') {
-@@ -2492,9 +2494,10 @@ class assign {
+@@ -2502,9 +2504,10 @@ class assign {
      /**
       * Download a zip file of all assignment submissions.
       *
@@ -587,7 +499,7 @@ index 2e3fec6..0573644 100644
          global $CFG, $DB;
  
          // More efficient to load this here.
-@@ -2502,9 +2505,11 @@ class assign {
+@@ -2512,9 +2515,11 @@ class assign {
  
          $this->require_view_grades();
  
@@ -602,7 +514,7 @@ index 2e3fec6..0573644 100644
  
          // Build a list of files to zip.
          $filesforzipping = array();
-@@ -2596,6 +2601,28 @@ class assign {
+@@ -2606,6 +2611,28 @@ class assign {
      }
  
      /**
@@ -631,7 +543,7 @@ index 2e3fec6..0573644 100644
       * Util function to add a message to the log.
       *
       * @deprecated since 2.7 - Use new events system instead.
-@@ -3551,6 +3578,8 @@ class assign {
+@@ -3561,6 +3588,8 @@ class assign {
                  return 'viewbatchsetmarkingworkflowstate';
              } else if ($data->operation == 'setmarkingallocation') {
                  return 'viewbatchmarkingallocation';
@@ -653,6 +565,95 @@ index a2ab7ed..5e82029 100644
                      }
                      if (!confirm(confirmmessage)) {
                          e.preventDefault();
+-- 
+1.9.3 (Apple Git-50)
+
+
+From f894ade22b53857b893631ce6c53675883ce0f0f Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Thu, 6 Mar 2014 13:07:22 +0400
+Subject: [PATCH 8/9] MDL-44481 assign: add sorting of assign submissions by a
+ group name
+
+---
+ mod/assign/gradingtable.php | 24 +++++++++++++++++++++++-
+ 1 file changed, 23 insertions(+), 1 deletion(-)
+
+diff --git a/mod/assign/gradingtable.php b/mod/assign/gradingtable.php
+index 08552f2..3f9816f 100644
+--- a/mod/assign/gradingtable.php
++++ b/mod/assign/gradingtable.php
+@@ -160,6 +160,27 @@ class assign_grading_table extends table_sql implements renderable {
+                             g.attemptnumber = s.attemptnumber
+                          LEFT JOIN {assign_user_flags} uf ON u.id = uf.userid AND uf.assignment = :assignmentid3';
+ 
++        if ($this->assignment->get_instance()->teamsubmission) {
++            $groupingid = $assignment->get_instance()->teamsubmissiongroupingid;
++            if ($groupingid) {
++                $query = 'SELECT g.id FROM {groups} g JOIN {groupings_groups} gg ON gg.groupid = g.id WHERE gg.groupingid = '.$groupingid;
++                $teamsubmissiongroupinggroups = $DB->get_fieldset_sql($query);
++                $teamsubmissiongroupinggroups = '(' . join(',', $teamsubmissiongroupinggroups) . ')';
++                $groupingmodifier = ' AND gr.id IN '.$teamsubmissiongroupinggroups;
++            } else {
++                $groupingmodifier = '';
++            }
++
++            $usergroups = 'SELECT gms.userid, CASE WHEN COUNT(gr.id)=1 THEN gr.name ELSE "Default" END as team
++                            FROM {groups_members} gms 
++                            LEFT JOIN {groups} gr ON gms.groupid = gr.id 
++                            WHERE gr.courseid = '.$assignment->get_instance()->course.$groupingmodifier.' 
++                            GROUP BY gms.userid';
++
++            $fields .= ', CASE WHEN ugs.team is NULL THEN "Default" ELSE ugs.team END as team ';
++            $from .= ' LEFT JOIN ( ' . $usergroups . ' ) ugs ON u.id = ugs.userid';
++        }
++        
+         $userparams = array();
+         $userindex = 0;
+ 
+@@ -398,7 +419,8 @@ class assign_grading_table extends table_sql implements renderable {
+         $this->no_sorting('outcomes');
+ 
+         if ($assignment->get_instance()->teamsubmission) {
+-            $this->no_sorting('team');
++            $this->sortable('team');
++            $this->no_sorting('teamstatus');
+         }
+ 
+         $plugincolumnindex = 0;
+-- 
+1.9.3 (Apple Git-50)
+
+
+From d49b97389bde3f45ed7574a2b52dc656ade4dd8b Mon Sep 17 00:00:00 2001
+From: Dan Wheeler - Colgate <DWheeler@Colgate.Edu>
+Date: Thu, 26 Jun 2014 13:23:01 -0700
+Subject: [PATCH 9/9] MDL-44481 assign: Added checking for no groups in
+ selected Grouping
+
+---
+ mod/assign/gradingtable.php | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/mod/assign/gradingtable.php b/mod/assign/gradingtable.php
+index 3f9816f..d39cc80 100644
+--- a/mod/assign/gradingtable.php
++++ b/mod/assign/gradingtable.php
+@@ -165,8 +165,12 @@ class assign_grading_table extends table_sql implements renderable {
+             if ($groupingid) {
+                 $query = 'SELECT g.id FROM {groups} g JOIN {groupings_groups} gg ON gg.groupid = g.id WHERE gg.groupingid = '.$groupingid;
+                 $teamsubmissiongroupinggroups = $DB->get_fieldset_sql($query);
+-                $teamsubmissiongroupinggroups = '(' . join(',', $teamsubmissiongroupinggroups) . ')';
+-                $groupingmodifier = ' AND gr.id IN '.$teamsubmissiongroupinggroups;
++				if ($teamsubmissiongroupinggroups) {
++                   $teamsubmissiongroupinggroups = '(' . join(',', $teamsubmissiongroupinggroups) . ')';
++                   $groupingmodifier = ' AND gr.id IN '.$teamsubmissiongroupinggroups;
++				} else {
++				  $groupingmodifier = '';
++				}
+             } else {
+                 $groupingmodifier = '';
+             }
 -- 
 1.9.3 (Apple Git-50)
 
