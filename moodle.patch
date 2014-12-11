@@ -1,7 +1,7 @@
-From 4ae77f2599aebff5e63b9602678ed94be180566d Mon Sep 17 00:00:00 2001
+From 1eeefe029067b93c07d7a7a0259b8d41d57c1e33 Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
 Date: Thu, 13 Jun 2013 19:19:39 +0200
-Subject: [PATCH 1/9] navigation
+Subject: [PATCH 01/10] navigation
 
 ---
  mod/assign/lib.php | 34 ++++++++++++++++++++++++++++++++++
@@ -56,10 +56,10 @@ index d79fbce..4229887 100644
 1.9.3 (Apple Git-50)
 
 
-From 287b3b57ad972f5b04abe5737d7cde8776e77ca4 Mon Sep 17 00:00:00 2001
+From e43442c7f480322be8a5ce8b9743d4ed1816de40 Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
 Date: Sat, 8 Jun 2013 21:54:51 +0200
-Subject: [PATCH 2/9] Hack for disabling buttons for reflection plugin
+Subject: [PATCH 02/10] Hack for disabling buttons for reflection plugin
 
 ---
  mod/assign/renderer.php | 16 ++++++++++++++++
@@ -96,12 +96,12 @@ index 5a6ce92..559f7e5 100644
 1.9.3 (Apple Git-50)
 
 
-From 81b4c43b0751d676652a107fca9da28fba8b22ba Mon Sep 17 00:00:00 2001
+From d51f0a888c7cd12058eb9ec961a6bbd46cb6dc2b Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
 Date: Thu, 26 Sep 2013 21:50:24 +0400
-Subject: [PATCH 3/9] Adding a better interface for blog association, allowing
- users to change associations of a blog entry or to add an association ofter
- initial submission.
+Subject: [PATCH 03/10] Adding a better interface for blog association,
+ allowing users to change associations of a blog entry or to add an
+ association ofter initial submission.
 
 Conflicts:
 	blog/edit.php
@@ -270,10 +270,10 @@ index 5df39ad..ad49fe3 100644
 1.9.3 (Apple Git-50)
 
 
-From 4006f885ed53792a74d763ae4440d1a767852e7d Mon Sep 17 00:00:00 2001
+From a5c2ed8cdb5ca4c67669d5b13adb68a8ea65d115 Mon Sep 17 00:00:00 2001
 From: Erik Lundberg <lundbergerik@gmail.com>
 Date: Wed, 11 Jul 2012 14:50:57 +0200
-Subject: [PATCH 4/9] Now the "Blog entries about course"-view will include
+Subject: [PATCH 04/10] Now the "Blog entries about course"-view will include
  nested entries; i. e. entries associated with modules that belongs to the
  course.
 
@@ -309,10 +309,10 @@ index ad49fe3..a85f66a 100644
 1.9.3 (Apple Git-50)
 
 
-From 48d6b5b8d98bd766b49939ddde0b6577ad41fa77 Mon Sep 17 00:00:00 2001
+From e14ca3d419dd5e7e644e0e89e3ce7ee787d9e8fa Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
 Date: Wed, 20 Nov 2013 17:06:49 +0400
-Subject: [PATCH 5/9] Including all blog posts to view all posts link and
+Subject: [PATCH 05/10] Including all blog posts to view all posts link and
  fixing bug when no posts are seen from assignment group view
 
 ---
@@ -361,10 +361,10 @@ index a85f66a..543fade 100644
 1.9.3 (Apple Git-50)
 
 
-From 251996dbaf7cad7727b9d5da2a7fc5623529b892 Mon Sep 17 00:00:00 2001
+From 01f0d59bd7c7f1403b72dcdb44e365feefa57135 Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
 Date: Mon, 10 Mar 2014 09:46:23 +0100
-Subject: [PATCH 6/9] Fixing leading zeros when autocreating groups
+Subject: [PATCH 06/10] Fixing leading zeros when autocreating groups
 
 ---
  group/autogroup.php      | 2 +-
@@ -429,11 +429,11 @@ index e1645b9..2ebc006 100644
 1.9.3 (Apple Git-50)
 
 
-From 27153aa53e2ef229f563609ed9350c30f289e858 Mon Sep 17 00:00:00 2001
+From 1003409101cc7bd2cb3f37714b37f400c3026900 Mon Sep 17 00:00:00 2001
 From: Simon Jarbrant <simonjarbrant@gmail.com>
 Date: Mon, 10 Mar 2014 20:18:11 +0100
-Subject: [PATCH 7/9] MDL-36151 assign: add option to download selected assign
- submissions
+Subject: [PATCH 07/10] MDL-36151 assign: add option to download selected
+ assign submissions
 
 ---
  mod/assign/gradingbatchoperationsform.php |  1 +
@@ -569,11 +569,11 @@ index a2ab7ed..5e82029 100644
 1.9.3 (Apple Git-50)
 
 
-From f894ade22b53857b893631ce6c53675883ce0f0f Mon Sep 17 00:00:00 2001
+From 0bb00af8e71d65ade9ff30e385bac7ea245d4be6 Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
 Date: Thu, 6 Mar 2014 13:07:22 +0400
-Subject: [PATCH 8/9] MDL-44481 assign: add sorting of assign submissions by a
- group name
+Subject: [PATCH 08/10] MDL-44481 assign: add sorting of assign submissions by
+ a group name
 
 ---
  mod/assign/gradingtable.php | 24 +++++++++++++++++++++++-
@@ -625,10 +625,10 @@ index 08552f2..3f9816f 100644
 1.9.3 (Apple Git-50)
 
 
-From d49b97389bde3f45ed7574a2b52dc656ade4dd8b Mon Sep 17 00:00:00 2001
+From e4ab634c0afa18f5b3fe0a3f0a363aec46d814dd Mon Sep 17 00:00:00 2001
 From: Dan Wheeler - Colgate <DWheeler@Colgate.Edu>
 Date: Thu, 26 Jun 2014 13:23:01 -0700
-Subject: [PATCH 9/9] MDL-44481 assign: Added checking for no groups in
+Subject: [PATCH 09/10] MDL-44481 assign: Added checking for no groups in
  selected Grouping
 
 ---
@@ -654,6 +654,102 @@ index 3f9816f..d39cc80 100644
              } else {
                  $groupingmodifier = '';
              }
+-- 
+1.9.3 (Apple Git-50)
+
+
+From 7520eab4b0a712133ca8b989e4db8e062c84c3f3 Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Thu, 11 Dec 2014 12:07:53 +0300
+Subject: [PATCH 10/10] Rework of login page
+
+---
+ login/index.php       |  1 +
+ login/index_form.html | 37 ++++++++++++++++++++++++++++++++-----
+ 2 files changed, 33 insertions(+), 5 deletions(-)
+
+diff --git a/login/index.php b/login/index.php
+index 587eb0e..c8bb96c 100644
+--- a/login/index.php
++++ b/login/index.php
+@@ -44,6 +44,7 @@ if ($cancel) {
+ 
+ //HTTPS is required in this page when $CFG->loginhttps enabled
+ $PAGE->https_required();
++$PAGE->requires->jquery();
+ 
+ $context = context_system::instance();
+ $PAGE->set_url("$CFG->httpswwwroot/login/index.php");
+diff --git a/login/index_form.html b/login/index_form.html
+index 7f212c3..2e9d45d 100644
+--- a/login/index_form.html
++++ b/login/index_form.html
+@@ -1,9 +1,10 @@
+ <?php
+-if ($show_instructions) {
++//if ($show_instructions) {
+     $columns = 'twocolumns';
+-} else {
++//} else {
+     $columns = 'onecolumn';
+-}
++//}
++
+ 
+ if (!empty($CFG->loginpasswordautocomplete)) {
+     $autocomplete = 'autocomplete="off"';
+@@ -15,15 +16,41 @@ if (empty($CFG->authloginviaemail)) {
+ } else {
+     $strusername = get_string('usernameemail');
+ }
++
+ ?>
++
++<script type="text/javascript" >
++$(document).ready(function()
++{
++  $(".subcontent").hide();
++
++  $(".expand").click(function() {
++    var X = $(this).attr('id');
++    if (X == 1) {
++      $(this).parent().find(".subcontent").hide();
++      $(this).find("h2").attr('class', 'collapsed');
++      $(this).attr('id', '0'); 
++    } else {
++      $(".subcontent").hide();
++      $(".subcontent").parent().find("a").attr('id', '0'); 
++      $(this).find("h2").attr('class', 'collapsed');
++      $(this).parent().find(".subcontent").show();
++      $(this).find("h2").attr('class', 'expanded');
++      $(this).attr('id', '1');
++    }
++  })
++})
++</script>
++
+ <div class="loginbox clearfix <?php echo $columns ?>">
+   <div class="loginpanel">
++  <a class="directlink" href = "https://<?php echo($CFG->chat_serverhost) ?>/auth/shibboleth"><div><h2 class ="collapsed">Login with your DSV or University account</h2></div></a>
+ <?php
+   if (($CFG->registerauth == 'email') || !empty($CFG->registerauth)) { ?>
+       <div class="skiplinks"><a class="skip" href="signup.php"><?php print_string("tocreatenewaccount"); ?></a></div>
+ <?php
+   } ?>
+-    <h2><?php print_string("login") ?></h2>
++    <a class="expand"><div><h2 class ="collapsed">Login with another account</h2></div></a>
+       <div class="subcontent loginsub">
+         <?php
+           if (!empty($errormsg)) {
+@@ -81,7 +108,7 @@ if (empty($CFG->authloginviaemail)) {
+      </div>
+ <?php if ($show_instructions) { ?>
+     <div class="signuppanel">
+-      <h2><?php print_string("firsttime") ?></h2>
++      <a class="expand"><div><h2 class ="collapsed">Create an account</h2></div></a>
+       <div class="subcontent">
+ <?php     if (is_enabled_auth('none')) { // instructions override the rest for security reasons
+               print_string("loginstepsnone");
 -- 
 1.9.3 (Apple Git-50)
 
