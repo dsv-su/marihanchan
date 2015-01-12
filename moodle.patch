@@ -1,4 +1,4 @@
-From 1eeefe029067b93c07d7a7a0259b8d41d57c1e33 Mon Sep 17 00:00:00 2001
+From c7698424c91ca89599040a8359c63d822f9c1121 Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
 Date: Thu, 13 Jun 2013 19:19:39 +0200
 Subject: [PATCH 01/10] navigation
@@ -8,7 +8,7 @@ Subject: [PATCH 01/10] navigation
  1 file changed, 34 insertions(+)
 
 diff --git a/mod/assign/lib.php b/mod/assign/lib.php
-index d79fbce..4229887 100644
+index 56887bf..a2d2b8f 100644
 --- a/mod/assign/lib.php
 +++ b/mod/assign/lib.php
 @@ -211,6 +211,40 @@ function assign_extend_settings_navigation(settings_navigation $settings, naviga
@@ -56,7 +56,7 @@ index d79fbce..4229887 100644
 1.9.3 (Apple Git-50)
 
 
-From e43442c7f480322be8a5ce8b9743d4ed1816de40 Mon Sep 17 00:00:00 2001
+From 21c612e373479cabc899bdb4dae198978fbd321f Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
 Date: Sat, 8 Jun 2013 21:54:51 +0200
 Subject: [PATCH 02/10] Hack for disabling buttons for reflection plugin
@@ -66,10 +66,10 @@ Subject: [PATCH 02/10] Hack for disabling buttons for reflection plugin
  1 file changed, 16 insertions(+)
 
 diff --git a/mod/assign/renderer.php b/mod/assign/renderer.php
-index 5a6ce92..559f7e5 100644
+index 6296980..7af0f73 100644
 --- a/mod/assign/renderer.php
 +++ b/mod/assign/renderer.php
-@@ -687,6 +687,22 @@ class mod_assign_renderer extends plugin_renderer_base {
+@@ -693,6 +693,22 @@ class mod_assign_renderer extends plugin_renderer_base {
          $o .= html_writer::table($t);
          $o .= $this->output->box_end();
  
@@ -96,7 +96,7 @@ index 5a6ce92..559f7e5 100644
 1.9.3 (Apple Git-50)
 
 
-From d51f0a888c7cd12058eb9ec961a6bbd46cb6dc2b Mon Sep 17 00:00:00 2001
+From 8895bfa27fe14c847da868b828694cecc9fc518f Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
 Date: Thu, 26 Sep 2013 21:50:24 +0400
 Subject: [PATCH 03/10] Adding a better interface for blog association,
@@ -270,7 +270,7 @@ index 5df39ad..ad49fe3 100644
 1.9.3 (Apple Git-50)
 
 
-From a5c2ed8cdb5ca4c67669d5b13adb68a8ea65d115 Mon Sep 17 00:00:00 2001
+From a6ce863409beb2282852798604dd782720a2a0a1 Mon Sep 17 00:00:00 2001
 From: Erik Lundberg <lundbergerik@gmail.com>
 Date: Wed, 11 Jul 2012 14:50:57 +0200
 Subject: [PATCH 04/10] Now the "Blog entries about course"-view will include
@@ -309,7 +309,7 @@ index ad49fe3..a85f66a 100644
 1.9.3 (Apple Git-50)
 
 
-From e14ca3d419dd5e7e644e0e89e3ce7ee787d9e8fa Mon Sep 17 00:00:00 2001
+From 939eec95b05dca5c9642d6f4b3cafa8db213b48b Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
 Date: Wed, 20 Nov 2013 17:06:49 +0400
 Subject: [PATCH 05/10] Including all blog posts to view all posts link and
@@ -361,7 +361,7 @@ index a85f66a..543fade 100644
 1.9.3 (Apple Git-50)
 
 
-From 01f0d59bd7c7f1403b72dcdb44e365feefa57135 Mon Sep 17 00:00:00 2001
+From 5bba648de7bda586ee4ee659243ad1d3720649b1 Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
 Date: Mon, 10 Mar 2014 09:46:23 +0100
 Subject: [PATCH 06/10] Fixing leading zeros when autocreating groups
@@ -386,7 +386,7 @@ index 8270ff3..ebec4c5 100644
          if ($data->allocateby == 'no') {
              continue; // do not allocate users
 diff --git a/group/autogroup_form.php b/group/autogroup_form.php
-index df43b4f..f436e10 100644
+index a04da01..d84fb27 100644
 --- a/group/autogroup_form.php
 +++ b/group/autogroup_form.php
 @@ -54,7 +54,7 @@ class autogroup_form extends moodleform {
@@ -429,7 +429,7 @@ index e1645b9..2ebc006 100644
 1.9.3 (Apple Git-50)
 
 
-From 1003409101cc7bd2cb3f37714b37f400c3026900 Mon Sep 17 00:00:00 2001
+From 4fbb7eb568d4b21d56fd7de96f454bc95d23ffcd Mon Sep 17 00:00:00 2001
 From: Simon Jarbrant <simonjarbrant@gmail.com>
 Date: Mon, 10 Mar 2014 20:18:11 +0100
 Subject: [PATCH 07/10] MDL-36151 assign: add option to download selected
@@ -439,8 +439,7 @@ Subject: [PATCH 07/10] MDL-36151 assign: add option to download selected
  mod/assign/gradingbatchoperationsform.php |  1 +
  mod/assign/lang/en/assign.php             |  2 ++
  mod/assign/locallib.php                   | 37 +++++++++++++++++++++++++++----
- mod/assign/module.js                      |  2 +-
- 4 files changed, 37 insertions(+), 5 deletions(-)
+ 3 files changed, 36 insertions(+), 4 deletions(-)
 
 diff --git a/mod/assign/gradingbatchoperationsform.php b/mod/assign/gradingbatchoperationsform.php
 index 98e1681..5b3bda3 100644
@@ -455,7 +454,7 @@ index 98e1681..5b3bda3 100644
              $options['reverttodraft'] = get_string('reverttodraft', 'assign');
          }
 diff --git a/mod/assign/lang/en/assign.php b/mod/assign/lang/en/assign.php
-index 6652b18..9d031fb 100644
+index 89fb2da..d232e6f 100644
 --- a/mod/assign/lang/en/assign.php
 +++ b/mod/assign/lang/en/assign.php
 @@ -86,6 +86,7 @@ $string['attemptreopenmethod_untilpass'] = 'Automatically until pass';
@@ -475,10 +474,10 @@ index 6652b18..9d031fb 100644
  $string['duedate_help'] = 'This is when the assignment is due. Submissions will still be allowed after this date but any assignments submitted after this date are marked as late. To prevent submissions after a certain date - set the assignment cut off date.';
  $string['duedateno'] = 'No due date';
 diff --git a/mod/assign/locallib.php b/mod/assign/locallib.php
-index 16eae89..847b8cc 100644
+index ea781b6..5eab782 100644
 --- a/mod/assign/locallib.php
 +++ b/mod/assign/locallib.php
-@@ -527,6 +527,8 @@ class assign {
+@@ -534,6 +534,8 @@ class assign {
              $o .= $this->view_grading_page();
          } else if ($action == 'downloadall') {
              $o .= $this->download_submissions();
@@ -487,7 +486,7 @@ index 16eae89..847b8cc 100644
          } else if ($action == 'submit') {
              $o .= $this->check_submit_for_grading($mform);
          } else if ($action == 'grantextension') {
-@@ -2502,9 +2504,10 @@ class assign {
+@@ -2582,9 +2584,10 @@ class assign {
      /**
       * Download a zip file of all assignment submissions.
       *
@@ -499,7 +498,7 @@ index 16eae89..847b8cc 100644
          global $CFG, $DB;
  
          // More efficient to load this here.
-@@ -2512,9 +2515,11 @@ class assign {
+@@ -2592,9 +2595,11 @@ class assign {
  
          $this->require_view_grades();
  
@@ -514,7 +513,7 @@ index 16eae89..847b8cc 100644
  
          // Build a list of files to zip.
          $filesforzipping = array();
-@@ -2606,6 +2611,28 @@ class assign {
+@@ -2686,6 +2691,28 @@ class assign {
      }
  
      /**
@@ -543,7 +542,7 @@ index 16eae89..847b8cc 100644
       * Util function to add a message to the log.
       *
       * @deprecated since 2.7 - Use new events system instead.
-@@ -3561,6 +3588,8 @@ class assign {
+@@ -3643,6 +3670,8 @@ class assign {
                  return 'viewbatchsetmarkingworkflowstate';
              } else if ($data->operation == 'setmarkingallocation') {
                  return 'viewbatchmarkingallocation';
@@ -552,24 +551,11 @@ index 16eae89..847b8cc 100644
              } else if (strpos($data->operation, $prefix) === 0) {
                  $tail = substr($data->operation, strlen($prefix));
                  list($plugintype, $action) = explode('_', $tail, 2);
-diff --git a/mod/assign/module.js b/mod/assign/module.js
-index a2ab7ed..5e82029 100644
---- a/mod/assign/module.js
-+++ b/mod/assign/module.js
-@@ -90,7 +90,7 @@ M.mod_assign.init_grading_table = function(Y) {
-                         action = pluginaction.substr(plugin.length + 1);
-                         confirmmessage = eval('M.str.assignfeedback_' + plugin + '.batchoperationconfirm' + action);
-                     } else {
--                        confirmmessage = eval('M.str.assign.batchoperationconfirm' + operation.get('value'));
-+                        confirmmessage = eval('M.str.assign.batchoperationconfirm' + action);
-                     }
-                     if (!confirm(confirmmessage)) {
-                         e.preventDefault();
 -- 
 1.9.3 (Apple Git-50)
 
 
-From 0bb00af8e71d65ade9ff30e385bac7ea245d4be6 Mon Sep 17 00:00:00 2001
+From be900e2c80a81a7af36b9f713ee4c98d9c86c239 Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
 Date: Thu, 6 Mar 2014 13:07:22 +0400
 Subject: [PATCH 08/10] MDL-44481 assign: add sorting of assign submissions by
@@ -625,7 +611,7 @@ index 08552f2..3f9816f 100644
 1.9.3 (Apple Git-50)
 
 
-From e4ab634c0afa18f5b3fe0a3f0a363aec46d814dd Mon Sep 17 00:00:00 2001
+From 28e7d34b8ce1c72e4b13bc376bb48710ae018d82 Mon Sep 17 00:00:00 2001
 From: Dan Wheeler - Colgate <DWheeler@Colgate.Edu>
 Date: Thu, 26 Jun 2014 13:23:01 -0700
 Subject: [PATCH 09/10] MDL-44481 assign: Added checking for no groups in
@@ -658,7 +644,7 @@ index 3f9816f..d39cc80 100644
 1.9.3 (Apple Git-50)
 
 
-From 7520eab4b0a712133ca8b989e4db8e062c84c3f3 Mon Sep 17 00:00:00 2001
+From 9ed9bb76851af20633013b561f1e742d65d6d669 Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
 Date: Thu, 11 Dec 2014 12:07:53 +0300
 Subject: [PATCH 10/10] Rework of login page
