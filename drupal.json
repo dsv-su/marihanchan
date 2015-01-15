@@ -156,6 +156,12 @@
                 "repo": "https://github.com/dsv-su/drupal-daisy_update_name.git",
                 "branch": "master",
                 "path": "daisy_update_name"
+            },
+            "shib_update_name": {
+                "defaults": "module_custom",
+                "repo": "https://github.com/dsv-su/drupal-shib_update_name.git",
+                "branch": "master",
+                "path": "shib_update_name"
             }
         }
     },
