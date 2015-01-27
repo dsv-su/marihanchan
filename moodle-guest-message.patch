@@ -1,0 +1,31 @@
+From e914d706141137ccb2969cfc930af395dbca71c4 Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Tue, 27 Jan 2015 14:04:48 +0300
+Subject: [PATCH] Warning message for guest students displayed on a course page
+
+---
+ course/view.php | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/course/view.php b/course/view.php
+index 6acd0f8..840513d 100644
+--- a/course/view.php
++++ b/course/view.php
+@@ -260,6 +260,14 @@
+     // Course wrapper start.
+     echo html_writer::start_tag('div', array('class'=>'course-content'));
+ 
++    // Show warning notice for guests
++    if (is_guest($context)) {
++        echo html_writer::start_tag('div', array('class' => 'alert alert-error'));
++        echo html_writer::tag('p', html_writer::tag('h4','Attention!'));
++        echo html_writer::tag('p', 'You are viewing this course in read only mode since you are not registered for it.');
++        echo html_writer::end_tag('div');
++    }
++
+     // make sure that section 0 exists (this function will create one if it is missing)
+     course_create_sections_if_missing($course, 0);
+ 
+-- 
+1.9.3 (Apple Git-50)
+

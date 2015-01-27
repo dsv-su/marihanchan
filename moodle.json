@@ -22,7 +22,7 @@
   "ilearn2": {
     "rootDir": "/var/www/ilearn2",
     "requires": [ "moodle", "dsv_moodle_theme" ],
-    "patches": [ "moodle.patch" ],
+    "patches": [ "moodle.patch", "moodle-guest-message.patch" ],
     "components": {
       "dsv_custom": {
         "repo": "ssh://git.dsv.su.se/git/moodle-dsv_custom",
