@@ -81,6 +81,10 @@
       "block_progressbar": {
         "repo": "https://github.com/deraadt/Moodle-block_progress.git",
         "path": "blocks/progress"
+      },
+      "mod_booking": {
+        "repo": "https://github.com/dasistwas/moodle-mod_booking.git",
+        "path": "mod/booking"
       }
     }
   },
@@ -88,7 +92,7 @@
   "ilearn2test": {
     "rootDir": "/var/www/ilearn2test",
     "requires": [ "ilearn2" ],
-    "patches": [ "moodle.patch" ],
+    "patches": [ "moodle.patch", "moodle-guest-message.patch" ],
     "components": {
       "mod_advmindmap": {
         "repo": "https://github.com/ctchanandy/moodle-mod_advmindmap.git",
@@ -252,5 +256,35 @@
         "path": "blocks/progress"
       }
     }
+  },
+
+ "addisco": {
+    "rootDir": "/var/www/addisco",
+    "requires": [ "moodle" ],
+    "patches": [ "addisco.patch" ],
+    "components": {
+      "format_topcoll": {
+        "repo": "https://github.com/gjb2048/moodle-format_topcoll.git",
+        "path": "course/format/topcoll",
+        "branch": "MOODLE_28"
+      },
+      "format_onetopic": {
+        "repo": "https://github.com/davidherney/moodle-format_onetopic.git",
+        "path": "course/format/onetopic"
+      },
+      "mod_labelcollapsed": {
+        "repo": "https://github.com/dsv-su/moodle-mod_labelcollapsed",
+        "path": "mod/labelcollapsed"
+      },
+      "assignsubmission_mailsimulator": {
+        "repo": "https://github.com/dsv-su/moodle-assignsubmission_mailsimulator.git",
+        "path": "mod/assign/submission/mailsimulator"
+      },
+      "assignsubmission_reflection": {
+        "repo": "https://github.com/dsv-su/moodle-assignsubmission_reflection.git",
+        "path": "mod/assign/submission/reflection"
+      }
+    }
   }
+
 }
