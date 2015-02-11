@@ -1,0 +1,46 @@
+From a1866419c5eedbbf8d4db0717463dfda197b232f Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Wed, 11 Feb 2015 09:46:35 +0100
+Subject: [PATCH] new style of version specifying
+
+---
+ git_deploy.module | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
+
+diff --git a/git_deploy.module b/git_deploy.module
+index e35ff7c..64ad5ec 100644
+--- a/git_deploy.module
++++ b/git_deploy.module
+@@ -83,5 +83,29 @@ function git_deploy_system_info_alter(&$info, $file, $type = NULL) {
+         }
+       }
+     }
++  } else if (strlen($info['version']) > 14) {
++    $directory = dirname($file->uri);
++    if (substr($directory, 0, strlen($type)) != $type) {
++      while ($directory && !file_exists("$directory/.git")) {
++        $directory = substr($directory, 0,  strrpos($directory, '/'));
++      }
++      $git_dir = "$directory/.git";
++      // Theoretically /.git could exist.
++      if ($directory && file_exists($git_dir)) {
++        $git = "git --git-dir $git_dir";
++        // Find first the project name based on fetch URL.
++        // Eat error messages. >& is valid on Windows, too. Also, $output does
++        // not need initialization because it's taken by reference.
++        exec("$git remote show -n origin 2>&1", $output);
++        if ($fetch_url = preg_grep('/^\s*Fetch URL:/', $output)) {
++          $fetch_url = current($fetch_url);
++          $project_name = substr($fetch_url, strrpos($fetch_url, '/') + 1);
++          if (substr($project_name, -4) == '.git') {
++            $project_name = substr($project_name, 0, -4);
++          }
++          include($directory.'/'.$project_name.'.module');
++        }
++      }
++    }
+   }
+ }
+-- 
+1.9.3 (Apple Git-50)
+
