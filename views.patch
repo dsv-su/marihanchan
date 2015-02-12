@@ -1,8 +1,8 @@
-From e8df60f8a0e56fff40be6c35c7906c1cee2aa971 Mon Sep 17 00:00:00 2001
+From 1cd00c0a3a1b36e134772db3356c37b714aa3822 Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
-Date: Fri, 25 Jul 2014 14:10:30 +0400
-Subject: [PATCH] Fixing removal of duplicated entries due to multi
- categorisation
+Date: Thu, 12 Feb 2015 14:00:01 +0100
+Subject: [PATCH] Fixing removal of duplicated entries due to
+ multicategorization
 
 ---
  modules/taxonomy/views_handler_argument_term_node_tid_depth.inc | 4 ++++
@@ -24,5 +24,5 @@ index 116a4de..0cf8ee1 100644
  
    function title() {
 -- 
-1.8.5.2 (Apple Git-48)
+1.9.3 (Apple Git-50)
 
