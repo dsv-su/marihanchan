@@ -518,7 +518,8 @@
                 "repo": "git://git.drupal.org/project/term_reference_tree.git",
                 "branch": "7.x-1.x",
                 "tag": "7.x-1.10",
-                "path": "term_reference_tree"
+                "path": "term_reference_tree",
+                "patch": "drupal-term_reference.patch"
             },
             "nodeaccess": {
                 "defaults": "module_contrib",
