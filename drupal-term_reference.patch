@@ -1,3 +1,13 @@
+From bb897118bb0dcb0317cf606e3822b5906ad91113 Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Fri, 13 Feb 2015 17:47:51 +0100
+Subject: [PATCH] Fixing undefined problems with translations
+
+---
+ term_reference_tree.module     | 12 +++++++++---
+ term_reference_tree.widget.inc |  3 ++-
+ 2 files changed, 11 insertions(+), 4 deletions(-)
+
 diff --git a/term_reference_tree.module b/term_reference_tree.module
 index 7dbcf84..8f8c58b 100644
 --- a/term_reference_tree.module
@@ -44,3 +54,6 @@ index 1685a43..0aa3e72 100644
          ));
        }
        $element['#options'] = _term_reference_tree_get_options($element['#options_tree'], $allowed, $element['#filter_view']);
+-- 
+1.9.3 (Apple Git-50)
+
