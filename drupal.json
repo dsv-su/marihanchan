@@ -457,7 +457,7 @@
                 "branch": "7.x-1.x",
                 "tag": "7.x-1.4",
                 "path": "noderorder",
-                "patch": "drupal-noderorder.patch"
+                "patch": "drupal-nodeorder.patch"
             },
             "menu_block": {
                 "defaults": "module_contrib",
