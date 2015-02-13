@@ -264,7 +264,7 @@
                 "defaults": "module_contrib",
                 "repo": "git://git.drupal.org/project/l10n_update",
                 "branch": "7.x-1.x",
-                "tag": "7.x-1.1",
+                "tag": "7.x-2.0",
                 "path": "l10n_update"
             },
             "title": {
@@ -455,6 +455,7 @@
                 "defaults": "module_custom",
                 "repo": "git://git.drupal.org/project/nodeorder.git",
                 "branch": "7.x-1.x",
+                "tag": "7.x-1.4",
                 "path": "noderorder"
             },
             "menu_block": {
@@ -507,7 +508,7 @@
             },
             "term_search": {
                 "defaults": "module_contrib",
-                "repo": "git://git.drupal.org/primoject/term_search.git",
+                "repo": "git://git.drupal.org/project/term_search.git",
                 "branch": "7.x-1.x",
                 "tag": "7.x-1.0",
                 "path": "term_search"
