@@ -1,0 +1,26 @@
+From be9397b742fbb05e7579e4cf985ae18ed124cce0 Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Fri, 13 Feb 2015 17:28:10 +0100
+Subject: [PATCH] Hide move up down links in nodes
+
+---
+ nodeorder.module | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/nodeorder.module b/nodeorder.module
+index c432678..be0644b 100755
+--- a/nodeorder.module
++++ b/nodeorder.module
+@@ -249,6 +249,9 @@ function nodeorder_node_view($node, $view_mode, $langcode) {
+  * @see http://drupal.org/node/1354
+  */
+ function nodeorder_add_links(&$node, $term) {
++  // We do not want to display these links.
++  return;
++
+   $weights = nodeorder_get_term_min_max($term->tid);
+ 
+   $weight = db_select('taxonomy_index', 'ti')
+-- 
+1.9.3 (Apple Git-50)
+

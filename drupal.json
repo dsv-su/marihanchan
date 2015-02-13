@@ -456,7 +456,8 @@
                 "repo": "git://git.drupal.org/project/nodeorder.git",
                 "branch": "7.x-1.x",
                 "tag": "7.x-1.4",
-                "path": "noderorder"
+                "path": "noderorder",
+                "patch": "drupal-noderorder.patch"
             },
             "menu_block": {
                 "defaults": "module_contrib",
