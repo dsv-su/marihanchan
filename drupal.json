@@ -97,7 +97,7 @@
                 "defaults": "module_contrib",
                 "repo": "git://git.drupal.org/project/token.git",
                 "branch": "7.x-1.x",
-                "tag": "7.x-1.5",
+                "tag": "7.x-1.6",
                 "path": "token"
             },
             "views": {
@@ -761,7 +761,7 @@
                 "defaults": "module_contrib",
                 "repo": "http://git.drupal.org/project/find_content.git",
                 "branch": "7.x-1.0",
-                "tag": "7.x-1.4",
+                "tag": "7.x-1.6",
                 "path": "find_content"
             },
             "form_builder": {
