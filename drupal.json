@@ -149,7 +149,6 @@
                 "defaults": "module_contrib",
                 "repo": "git://git.drupal.org/project/shib_auth.git",
                 "branch": "7.x-4.x",
-                "tag": "7.x-4.1",
                 "path": "shib_auth"
             },
             "daisy_update_name": {
