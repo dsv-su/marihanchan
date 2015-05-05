@@ -149,6 +149,7 @@
                 "defaults": "module_contrib",
                 "repo": "git://git.drupal.org/project/shib_auth.git",
                 "branch": "7.x-4.x",
+                "tag": "7.x-4.1",
                 "path": "shib_auth"
             },
             "daisy_update_name": {
@@ -536,6 +537,13 @@
                 "tag": "7.x-1.0-beta3",
                 "path": "mimemail"
             },
+            "realname": {
+                "defaults": "module_contrib",
+                "repo": "http://git.drupal.org/project/realname.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.2",
+                "path": "realname"
+            },
             "mailsystem": {
                 "defaults": "module_contrib",
                 "repo": "git://git.drupal.org/project/mailsystem.git",
@@ -812,6 +820,13 @@
                 "branch": "7.x-4.x",
                 "tag": "7.x-4.8",
                 "path": "webform"
+            },
+            "realname": {
+                "defaults": "module_contrib",
+                "repo": "http://git.drupal.org/project/realname.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.2",
+                "path": "realname"
             },
             "thesis_theme": {
                 "defaults": "theme_custom",
