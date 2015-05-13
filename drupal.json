@@ -592,12 +592,6 @@
                 "tag": "7.x-4.8",
                 "path": "webform"
             },
-            "webform_conditional": {
-                "defaults": "module_contrib",
-                "repo": "http://git.drupal.org/project/webform_conditional.git",
-                "branch": "7.x-2.x",
-                "path": "webform_conditional"
-            },
             "webform_validation": {
                 "defaults": "module_contrib",
                 "repo": "http://git.drupal.org/project/webform_validation.git",
@@ -832,6 +826,111 @@
                 "repo": "https://github.com/dsv-su/dsv_thesis_theme.git",
                 "branch": "master",
                 "path": "dsv_thesis_theme"
+            }
+        }
+    },
+
+    "utbytes": {
+        "rootDir": "/var/www/utbytes",
+        "requires": [ "dsv_base", "dsv_theme", "dsv_auth" ],
+        "components": {
+            "webform": {
+                "defaults": "module_contrib",
+                "repo": "http://git.drupal.org/project/webform.git",
+                "branch": "7.x-4.x",
+                "tag": "7.x-4.8",
+                "path": "webform"
+            },
+            "webform_validation": {
+                "defaults": "module_contrib",
+                "repo": "http://git.drupal.org/project/webform_validation.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.9",
+                "path": "webform_validation"
+            },
+            "webform_report": {
+                "defaults": "module_contrib",
+                "repo": "http://git.drupal.org/project/webform_report.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.0",
+                "path": "webform_report"
+            },
+            "views_aggregator": {
+                "defaults": "module_contrib",
+                "repo": "http://git.drupal.org/project/views_aggregator.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.4",
+                "path": "views_aggregator"
+            },
+            "views_autocomplete_filters": {
+                "defaults": "module_contrib",
+                "repo": "http://git.drupal.org/project/views_autocomplete_filters.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.2",
+                "path": "views_autocomplete_filters"
+            },
+            "editableviews": {
+                "defaults": "module_contrib",
+                "repo": "http://git.drupal.org/project/editableviews.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.0-beta9",
+                "path": "editableviews"
+            },
+            "views_data_export": {
+                "defaults": "module_contrib",
+                "repo": "http://git.drupal.org/project/views_data_export.git",
+                "branch": "7.x-3.x",
+                "tag": "7.x-3.0-beta8",
+                "path": "views_data_export"
+            },
+            "search_autocomplete": {
+                "defaults": "module_contrib",
+                "repo": "http://git.drupal.org/project/search_autocomplete.git",
+                "branch": "7.x-4.x",
+                "tag": "7.x-4.6",
+                "path": "search_autocomplete"
+            },
+            "job_scheduler": {
+                "defaults": "module_contrib",
+                "repo": "http://git.drupal.org/project/job_scheduler.git",
+                "branch": "7.x-2.x",
+                "tag": "7.x-2.0-alpha3",
+                "path": "job_scheduler"
+            },
+            "auto_nodetitle": {
+                "defaults": "module_contrib",
+                "repo": "http://git.drupal.org/project/auto_nodetitle.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.0",
+                "path": "auto_nodetitle"
+            },
+            "multiupload_filefield_widget": {
+                "defaults": "module_contrib",
+                "repo": "http://git.drupal.org/project/multiupload_filefield_widget.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.13",
+                "path": "multiupload_filefield_widget"
+            },
+            "email": {
+                "defaults": "module_contrib",
+                "repo": "http://git.drupal.org/project/email.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.3",
+                "path": "email"
+            },
+            "feeds": {
+                "defaults": "module_contrib",
+                "repo": "http://git.drupal.org/project/feeds.git",
+                "branch": "7.x-2.x",
+                "tag": "7.x-2.0-alpha8",
+                "path": "feeds"
+            },
+            "admin_menu": {
+                "defaults": "module_contrib",
+                "repo": "http://git.drupal.org/project/admin_menu.git",
+                "branch": "7.x-3.x",
+                "tag": "7.x-3.0-rc5",
+                "path": "admin_menu"
             }
         }
     }
