@@ -1,13 +1,26 @@
-From 4143455a22becdc2427a4f582b8958b14f622326 Mon Sep 17 00:00:00 2001
+From fe7459fbcebba9167cc521e09ce1e03b9b661423 Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
-Date: Tue, 5 May 2015 16:01:41 +0300
-Subject: [PATCH] Fixing removal of duplicated entries due to
- multicategorization
+Date: Mon, 18 May 2015 13:47:15 +0300
+Subject: [PATCH] Fixing removal of duplicate entires and link title
 
 ---
+ handlers/views_handler_field.inc                                | 2 +-
  modules/taxonomy/views_handler_argument_term_node_tid_depth.inc | 4 ++++
- 1 file changed, 4 insertions(+)
+ 2 files changed, 5 insertions(+), 1 deletion(-)
 
+diff --git a/handlers/views_handler_field.inc b/handlers/views_handler_field.inc
+index 65210d9..60fea68 100644
+--- a/handlers/views_handler_field.inc
++++ b/handlers/views_handler_field.inc
+@@ -1176,7 +1176,7 @@ If you would like to have the characters \'[\' and \']\' please use the html ent
+           $more_link_path = drupal_substr($more_link_path, drupal_strlen($base_path));
+         }
+ 
+-        $more_link = l($more_link_text, $more_link_path, array('attributes' => array('class' => array('views-more-link'))));
++        $more_link = l($more_link_text, $more_link_path, array('attributes' => array('class' => array('views-more-link'), 'title' => $more_link_text)));
+ 
+         $suffix .= " " . $more_link;
+       }
 diff --git a/modules/taxonomy/views_handler_argument_term_node_tid_depth.inc b/modules/taxonomy/views_handler_argument_term_node_tid_depth.inc
 index 116a4de..0cf8ee1 100644
 --- a/modules/taxonomy/views_handler_argument_term_node_tid_depth.inc
