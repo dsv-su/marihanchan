@@ -185,7 +185,7 @@
   "open": {
     "rootDir": "/var/www/open",
     "requires": [ "moodle", "dsv_moodle_theme" ],
-    "patches": [ "moodle.patch" ],
+    "patches": [ "moodle.patch", "login.patch" ],
     "components": {
       "dsv_custom": {
         "repo": "ssh://git.dsv.su.se/git/moodle-dsv_custom",
