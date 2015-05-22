@@ -270,7 +270,8 @@
       },
       "format_onetopic": {
         "repo": "https://github.com/davidherney/moodle-format_onetopic.git",
-        "path": "course/format/onetopic"
+        "path": "course/format/onetopic",
+        "branch": "MOODLE_29"
       },
       "mod_labelcollapsed": {
         "repo": "https://github.com/dsv-su/moodle-mod_labelcollapsed",
