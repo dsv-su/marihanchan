@@ -1,0 +1,150 @@
+From 1207f8ac5be42d23c4b881ba4e393330b1a267b7 Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Thu, 11 Dec 2014 12:07:53 +0300
+Subject: [PATCH 1/2] Rework of login page
+
+---
+ login/index.php       |    1 +
+ login/index_form.html |   37 ++++++++++++++++++++++++++++++++-----
+ 2 files changed, 33 insertions(+), 5 deletions(-)
+
+diff --git a/login/index.php b/login/index.php
+index 587eb0e..c8bb96c 100644
+--- a/login/index.php
++++ b/login/index.php
+@@ -44,6 +44,7 @@ if ($cancel) {
+ 
+ //HTTPS is required in this page when $CFG->loginhttps enabled
+ $PAGE->https_required();
++$PAGE->requires->jquery();
+ 
+ $context = context_system::instance();
+ $PAGE->set_url("$CFG->httpswwwroot/login/index.php");
+diff --git a/login/index_form.html b/login/index_form.html
+index 7f212c3..2e9d45d 100644
+--- a/login/index_form.html
++++ b/login/index_form.html
+@@ -1,9 +1,10 @@
+ <?php
+-if ($show_instructions) {
++//if ($show_instructions) {
+     $columns = 'twocolumns';
+-} else {
++//} else {
+     $columns = 'onecolumn';
+-}
++//}
++
+ 
+ if (!empty($CFG->loginpasswordautocomplete)) {
+     $autocomplete = 'autocomplete="off"';
+@@ -15,15 +16,41 @@ if (empty($CFG->authloginviaemail)) {
+ } else {
+     $strusername = get_string('usernameemail');
+ }
++
+ ?>
++
++<script type="text/javascript" >
++$(document).ready(function()
++{
++  $(".subcontent").hide();
++
++  $(".expand").click(function() {
++    var X = $(this).attr('id');
++    if (X == 1) {
++      $(this).parent().find(".subcontent").hide();
++      $(this).find("h2").attr('class', 'collapsed');
++      $(this).attr('id', '0'); 
++    } else {
++      $(".subcontent").hide();
++      $(".subcontent").parent().find("a").attr('id', '0'); 
++      $(this).find("h2").attr('class', 'collapsed');
++      $(this).parent().find(".subcontent").show();
++      $(this).find("h2").attr('class', 'expanded');
++      $(this).attr('id', '1');
++    }
++  })
++})
++</script>
++
+ <div class="loginbox clearfix <?php echo $columns ?>">
+   <div class="loginpanel">
++  <a class="directlink" href = "https://<?php echo($CFG->chat_serverhost) ?>/auth/shibboleth"><div><h2 class ="collapsed">Login with your DSV or University account</h2></div></a>
+ <?php
+   if (($CFG->registerauth == 'email') || !empty($CFG->registerauth)) { ?>
+       <div class="skiplinks"><a class="skip" href="signup.php"><?php print_string("tocreatenewaccount"); ?></a></div>
+ <?php
+   } ?>
+-    <h2><?php print_string("login") ?></h2>
++    <a class="expand"><div><h2 class ="collapsed">Login with another account</h2></div></a>
+       <div class="subcontent loginsub">
+         <?php
+           if (!empty($errormsg)) {
+@@ -81,7 +108,7 @@ if (empty($CFG->authloginviaemail)) {
+      </div>
+ <?php if ($show_instructions) { ?>
+     <div class="signuppanel">
+-      <h2><?php print_string("firsttime") ?></h2>
++      <a class="expand"><div><h2 class ="collapsed">Create an account</h2></div></a>
+       <div class="subcontent">
+ <?php     if (is_enabled_auth('none')) { // instructions override the rest for security reasons
+               print_string("loginstepsnone");
+-- 
+1.7.10.4
+
+
+From 391c67946e7c72eebd5cdfcfb0e9c6eb9fbeb782 Mon Sep 17 00:00:00 2001
+From: root <root@dsv.su.se>
+Date: Sun, 12 Apr 2015 20:50:46 +0200
+Subject: [PATCH 2/2] login page changes
+
+---
+ login/index_form.html |   11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
+
+diff --git a/login/index_form.html b/login/index_form.html
+index 2e9d45d..c5cf054 100644
+--- a/login/index_form.html
++++ b/login/index_form.html
+@@ -44,13 +44,13 @@ $(document).ready(function()
+ 
+ <div class="loginbox clearfix <?php echo $columns ?>">
+   <div class="loginpanel">
+-  <a class="directlink" href = "https://<?php echo($CFG->chat_serverhost) ?>/auth/shibboleth"><div><h2 class ="collapsed">Login with your DSV or University account</h2></div></a>
++  <a class="directlink" href = "https://<?php echo($CFG->chat_serverhost) ?>/auth/shibboleth"><div><h2 class ="collapsed">Log in with your Stockholm University account</h2></div></a>
+ <?php
+   if (($CFG->registerauth == 'email') || !empty($CFG->registerauth)) { ?>
+       <div class="skiplinks"><a class="skip" href="signup.php"><?php print_string("tocreatenewaccount"); ?></a></div>
+ <?php
+   } ?>
+-    <a class="expand"><div><h2 class ="collapsed">Login with another account</h2></div></a>
++    <a class="expand"><div><h2 class ="collapsed">Log in with another account</h2></div></a>
+       <div class="subcontent loginsub">
+         <?php
+           if (!empty($errormsg)) {
+@@ -105,7 +105,12 @@ $(document).ready(function()
+         </form>
+       </div>
+ <?php } ?>
++</div>
++<div class="stork">
++<a class="expand"><div><h2 class ="collapsed">Log in with STORK 2.0</h2></div></a>
++<div class="subcontent"><?php echo $CFG->auth_instructions; ?>
+      </div>
++</div>
+ <?php if ($show_instructions) { ?>
+     <div class="signuppanel">
+       <a class="expand"><div><h2 class ="collapsed">Create an account</h2></div></a>
+@@ -114,7 +119,7 @@ $(document).ready(function()
+               print_string("loginstepsnone");
+           } else if ($CFG->registerauth == 'email') {
+               if (!empty($CFG->auth_instructions)) {
+-                  echo format_text($CFG->auth_instructions);
++		print_string("loginsteps", "", "signup.php");
+               } else {
+                   print_string("loginsteps", "", "signup.php");
+               } ?>
+-- 
+1.7.10.4
+
