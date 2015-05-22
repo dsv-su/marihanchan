@@ -931,6 +931,12 @@
                 "branch": "7.x-3.x",
                 "tag": "7.x-3.0-rc5",
                 "path": "admin_menu"
+            },
+            "dsv_forms_theme": {
+                "defaults": "theme_custom",
+                "repo": "https://github.com/dsv-su/dsv_forms_theme.git",
+                "branch": "master",
+                "path": "dsv_forms_theme"
             }
         }
     }
