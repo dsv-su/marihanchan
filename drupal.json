@@ -922,7 +922,7 @@
                 "defaults": "module_contrib",
                 "repo": "http://git.drupal.org/project/feeds.git",
                 "branch": "7.x-2.x",
-                "tag": "7.x-2.0-alpha8",
+                "tag": "7.x-2.0-alpha9",
                 "path": "feeds"
             },
             "admin_menu": {
