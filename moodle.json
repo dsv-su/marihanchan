@@ -259,6 +259,11 @@
     }
   },
 
+  "forum": {
+    "rootDir": "/var/www/forum",
+    "requires": [ "moodle", "dsv_moodle_theme" ]
+  },
+
  "addisco": {
     "rootDir": "/var/www/addisco",
     "requires": [ "moodle" ],
