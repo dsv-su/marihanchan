@@ -33,7 +33,7 @@
             "drupal_core": {
                 "repo": "http://git.drupal.org/project/drupal.git",
                 "branch": "7.x",
-                "tag": "7.37",
+                "tag": "7.38",
                 "patch": "core.patch",
                 "ignoreEmptyPath": true
             }
@@ -112,7 +112,7 @@
                 "defaults": "module_contrib",
                 "repo": "git://git.drupal.org/project/content_type_extras.git",
                 "branch": "7.x-1.x",
-                "tag": "7.x-1.9",
+                "tag": "7.x-1.10",
                 "path": "content_type_extras"
             }
         }
@@ -124,7 +124,7 @@
                 "defaults": "module_contrib",
                 "repo": "git://git.drupal.org/project/jquery_update.git",
                 "branch": "7.x-2.x",
-                "tag": "7.x-2.5",
+                "tag": "7.x-2.6",
                 "path": "jquery_update"
             },
             "bootstrap": {
@@ -237,7 +237,7 @@
                 "defaults": "module_contrib",
                 "repo": "git://git.drupal.org/project/i18n",
                 "branch": "7.x-1.x",
-                "tag": "7.x-1.12",
+                "tag": "7.x-1.13",
                 "path": "i18n"
             },
             "internationalization_views": {
@@ -463,7 +463,7 @@
                 "defaults": "module_contrib",
                 "repo": "git://git.drupal.org/project/menu_block.git",
                 "branch": "7.x-2.x",
-                "tag": "7.x-2.5",
+                "tag": "7.x-2.6",
                 "path": "menu_block"
             },
             "panels": {
@@ -568,7 +568,7 @@
                 "defaults": "module_contrib",
                 "repo": "http://git.drupal.org/project/menu_block.git",
                 "branch": "7.x-2.x",
-                "tag": "7.x-2.5",
+                "tag": "7.x-2.6",
                 "path": "menu_block"
             },
             "redirect": {
@@ -762,7 +762,7 @@
                 "defaults": "module_contrib",
                 "repo": "http://git.drupal.org/project/form_builder.git",
                 "branch": "7.x-1.0",
-                "tag": "7.x-1.7",
+                "tag": "7.x-1.9",
                 "path": "form_builder"
             },
             "menu_trail_by_path": {

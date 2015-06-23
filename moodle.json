@@ -172,7 +172,8 @@
       },
       "theme_bootstrap": {
         "repo": "https://github.com/bmbrands/theme_bootstrap.git",
-        "path": "theme/bootstrap"
+        "path": "theme/bootstrap",
+        "branch": "MOODLE_29_STABLE"
       },
       "local_mobile": {
         "repo": "https://github.com/jleyva/moodle-local_mobile.git",
