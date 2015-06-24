@@ -486,7 +486,7 @@ def main():
         updateProject( targetName )
     else:
         # check that installPath doesn't already exist
-        if os.path.exists( installPath ):
+        if os.path.exists( installPath ) and os.listdir( installPath ):
             print 'error: ' + installPath + ' already exists!'
             print 'if you want to upgrade an existing project, add the --update cli argument'
             sys.exit( -1 )
