@@ -344,7 +344,7 @@
                 "defaults": "module_contrib",
                 "repo": "git://git.drupal.org/project/webform",
                 "branch": "7.x-4.x",
-                "tag": "7.x-4.2",
+                "tag": "7.x-4.9",
                 "path": "webform"
             },
             "webform_conditional":{
