@@ -149,6 +149,7 @@
                 "defaults": "module_contrib",
                 "repo": "git://git.drupal.org/project/shib_auth.git",
                 "branch": "7.x-4.x",
+                "tag": "7.x-4.3",
                 "path": "shib_auth"
             },
             "daisy_update_name": {
@@ -323,7 +324,7 @@
                 "defaults": "module_contrib",
                 "repo": "git://git.drupal.org/project/print",
                 "branch": "7.x-1.x",
-                "tag": "7.x-1.3",
+                "tag": "7.x-2.0",
                 "path": "print"
             },
             "references":{
@@ -337,7 +338,7 @@
                 "defaults": "module_contrib",
                 "repo": "git://git.drupal.org/project/uuid",
                 "branch": "7.x-1.x",
-                "tag": "7.x-1.0-alpha5",
+                "tag": "7.x-1.0-alpha6",
                 "path": "uuid"
             },
             "webform":{
