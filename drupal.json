@@ -624,7 +624,7 @@
                 "defaults": "module_contrib",
                 "repo": "http://git.drupal.org/project/currency.git",
                 "branch": "7.x-2.x",
-                "tag": "7.x-2.4",
+                "tag": "7.x-2.5",
                 "path": "currency"
             },
             "disable_breadcrumbs": {
@@ -691,7 +691,7 @@
                 "defaults": "module_contrib",
                 "repo": "git://git.drupal.org/project/redirect.git",
                 "branch": "7.x-1.x",
-                "tag": "7.x-1.0-rc1",
+                "tag": "7.x-1.0-rc2",
                 "path": "redirect"
             },
             "references":{
