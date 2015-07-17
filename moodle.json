@@ -140,7 +140,7 @@
         "path": "blocks/engagement"
       },
       "block_gismo": {
-        "repo": "git://git.code.sf.net/p/gismo/code",
+        "repo": "https://bitbucket.org/steveorulez/block_gismo.git",
         "path": "blocks/gismo"
       },
       "block_grade_me": {
