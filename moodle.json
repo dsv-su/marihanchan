@@ -262,6 +262,7 @@
   "forum": {
     "rootDir": "/var/www/forum",
     "requires": [ "moodle", "dsv_moodle_theme" ],
+    "patches": [ "0001-Patching-course_overview-block-to-make-it-fit-Forum-.patch" ],
     "components": {
       "dsv_custom": {
         "repo": "ssh://git.dsv.su.se/git/moodle-dsv_custom",

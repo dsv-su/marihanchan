@@ -1,0 +1,49 @@
+From 06878fe883e19f4ceda1d29d524a9d27d1cd65da Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Tue, 21 Jul 2015 12:31:03 +0300
+Subject: [PATCH 1/1] Patching course_overview block to make it fit Forum
+ instance
+
+---
+ blocks/course_overview/block_course_overview.php | 4 ++--
+ blocks/moodleblock.class.php                     | 2 +-
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/blocks/course_overview/block_course_overview.php b/blocks/course_overview/block_course_overview.php
+index ae244ef..046b7e3 100644
+--- a/blocks/course_overview/block_course_overview.php
++++ b/blocks/course_overview/block_course_overview.php
+@@ -39,7 +39,7 @@ class block_course_overview extends block_base {
+      * Block initialization
+      */
+     public function init() {
+-        $this->title   = get_string('pluginname', 'block_course_overview');
++        $this->title = get_string('modulenameplural', 'mod_forum');
+     }
+ 
+     /**
+@@ -83,7 +83,7 @@ class block_course_overview extends block_base {
+ 
+         // Number of sites to display.
+         if ($this->page->user_is_editing() && empty($config->forcedefaultmaxcourses)) {
+-            $this->content->text .= $renderer->editing_bar_head($totalcourses);
++            //$this->content->text .= $renderer->editing_bar_head($totalcourses);
+         }
+ 
+         if (empty($sortedcourses)) {
+diff --git a/blocks/moodleblock.class.php b/blocks/moodleblock.class.php
+index f16b0bc..ec820ad 100644
+--- a/blocks/moodleblock.class.php
++++ b/blocks/moodleblock.class.php
+@@ -244,7 +244,7 @@ class block_base {
+             $this->arialabel = $bc->arialabel;
+         }
+ 
+-        if ($this->page->user_is_editing()) {
++        if ($this->page->user_is_editing() && $this->name() !== 'course_overview') {
+             $bc->controls = $this->page->blocks->edit_controls($this);
+         } else {
+             // we must not use is_empty on hidden blocks
+-- 
+2.3.2 (Apple Git-55)
+
