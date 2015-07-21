@@ -1,16 +1,16 @@
-From 06878fe883e19f4ceda1d29d524a9d27d1cd65da Mon Sep 17 00:00:00 2001
+From ebb4de75447826aa307d6b4e5d6f9f2745091b95 Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
-Date: Tue, 21 Jul 2015 12:31:03 +0300
+Date: Tue, 21 Jul 2015 12:37:57 +0300
 Subject: [PATCH 1/1] Patching course_overview block to make it fit Forum
  instance
 
 ---
- blocks/course_overview/block_course_overview.php | 4 ++--
+ blocks/course_overview/block_course_overview.php | 8 ++++++--
  blocks/moodleblock.class.php                     | 2 +-
- 2 files changed, 3 insertions(+), 3 deletions(-)
+ 2 files changed, 7 insertions(+), 3 deletions(-)
 
 diff --git a/blocks/course_overview/block_course_overview.php b/blocks/course_overview/block_course_overview.php
-index ae244ef..046b7e3 100644
+index ae244ef..c56af4f 100644
 --- a/blocks/course_overview/block_course_overview.php
 +++ b/blocks/course_overview/block_course_overview.php
 @@ -39,7 +39,7 @@ class block_course_overview extends block_base {
@@ -31,6 +31,15 @@ index ae244ef..046b7e3 100644
          }
  
          if (empty($sortedcourses)) {
+@@ -125,4 +125,8 @@ class block_course_overview extends block_base {
+         $config = get_config('block_course_overview');
+         return !empty($config->showwelcomearea);
+     }
++
++    public function instance_can_be_collapsed() {
++        return false;
++    }
+ }
 diff --git a/blocks/moodleblock.class.php b/blocks/moodleblock.class.php
 index f16b0bc..ec820ad 100644
 --- a/blocks/moodleblock.class.php
