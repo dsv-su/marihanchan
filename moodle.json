@@ -115,9 +115,9 @@
         "path": "mod/taskchain"
       },
       "mod_turnitintooltwo": {
-        "repo": "https://github.com/unikent/moodle-mod_turnitintooltwo.git",
+        "repo": "https://github.com/jmcgettrick/moodle-mod_turnitintooltwo.git",
         "path": "mod/turnitintooltwo",
-        "branch": "STABLE"
+        "branch": "master"
       },
       "mod_vpl": {
         "repo": "https://github.com/jcrodriguez-dis/moodle-mod_vpl.git",
@@ -166,9 +166,9 @@
         "path": "report/engagement"
       },
       "plagiarism_turnitin": {
-        "repo": "https://github.com/unikent/moodle-plagiarism_turnitin.git",
+        "repo": "https://github.com/jmcgettrick/moodle-plagiarism_turnitin.git",
         "path": "plagiarism/turnitin",
-        "branch": "STABLE"
+        "branch": "master"
       },
       "theme_bootstrap": {
         "repo": "https://github.com/bmbrands/theme_bootstrap.git",
