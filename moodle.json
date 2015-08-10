@@ -267,6 +267,10 @@
       "dsv_custom": {
         "repo": "ssh://git.dsv.su.se/git/moodle-dsv_custom",
         "path": "dsv_custom"
+      },
+      "dsv_organization": {
+        "repo": "https://github.com/dsv-su/moodle-local_dsv_organization.git",
+        "path": "local/dsv_organization"
       }
     }
   },
