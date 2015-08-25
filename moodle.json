@@ -85,6 +85,11 @@
       "mod_booking": {
         "repo": "https://github.com/dasistwas/moodle-mod_booking.git",
         "path": "mod/booking"
+      },
+      "block_forum_aggregator": {
+        "repo": "https://github.com/t6nis/moodle-block_forum_aggregator.git",
+        "path": "blocks/forum_aggregator",
+        "patches": "forum_aggregator.patch"
       }
     }
   },

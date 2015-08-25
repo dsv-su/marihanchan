@@ -1,0 +1,118 @@
+From 7f3ecbecf8cb828c74531791e826bba68f1e67c6 Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Tue, 25 Aug 2015 13:29:47 +0300
+Subject: [PATCH] Manual fixes
+
+---
+ block_forum_aggregator.php | 32 +++++++++++++++++++++++++++-----
+ styles.css                 | 20 ++++++++++++++------
+ 2 files changed, 41 insertions(+), 11 deletions(-)
+
+diff --git a/block_forum_aggregator.php b/block_forum_aggregator.php
+index 9c6cadb..959c812 100644
+--- a/block_forum_aggregator.php
++++ b/block_forum_aggregator.php
+@@ -126,19 +126,25 @@ class block_forum_aggregator extends block_base {
+                                 }
+                                 
+                                 $post->message = format_string($post->message, true, $COURSE->id);                        
+-                                $post->message = shorten_text($post->message, 80, true, '');
++                                $post->message = shorten_text($post->message, 120, true, '');
+ 
+                                 $user = $DB->get_record('user', array('id'=>$post->userid), '*', MUST_EXIST);
+                                 
++                                $fullname = !empty($user->department) ? $user->department : fullname($user);
++                                $by = new stdClass();
++                                $by->name = $fullname;
++                                $by->date = userdate($post->modified, '', core_date::get_user_timezone($user));
++                                $posted = get_string('bynameondate', 'forum', $by);
++
+                                 $text .= html_writer::start_tag('li', $post_style).
+                                          html_writer::start_tag('div', array('class' => 'head')).
+                                          html_writer::tag('div', $post->subject, array('class' => 'subject')).
+-                                         html_writer::tag('div', $OUTPUT->user_picture($user, array('size'=>21, 'class'=>'userpostpic')), array('class' => 'userpic')).
+-                                         html_writer::tag('div', fullname($post), array('class' => 'name')).
+-                                         html_writer::tag('div', get_string('posted', 'block_forum_aggregator').userdate($post->modified, $strftimerecent), array('class' => 'date')).
++                                         //html_writer::tag('div', $OUTPUT->user_picture($user, array('size'=>21, 'class'=>'userpostpic')), array('class' => 'userpic')).
++                                         //html_writer::tag('div', $user->department, array('class' => 'name')).
++                                         html_writer::tag('div', $posted, array('class' => 'date')).
+                                          html_writer::end_tag('div').
+                                          html_writer::start_tag('div').
+-                                         $post->message.' '.
++                                         $post->message.'...</br>'.
+                                          html_writer::link(new moodle_url('/mod/forum/discuss.php?d='.$post->discussion.'#p'.$post->id), $strmore.'...' , array('class' => 'postreadmore')).
+                                          html_writer::end_tag('div').
+                                          html_writer::end_tag('li');
+@@ -168,6 +174,22 @@ class block_forum_aggregator extends block_base {
+ 
+         return parent::instance_config_save($data, $nolongerused);
+     }
++
++    public function instance_can_be_collapsed() {
++        return false;
++    }
++
++    public function instance_can_be_hidden() {
++        return false;
++    }
++
++    public function instance_can_be_docked() {
++        return false;
++    }
++
++    public function user_can_edit() {
++        return false;
++    }
+ }
+ 
+ ?>
+diff --git a/styles.css b/styles.css
+index ac7de2d..db7f28c 100644
+--- a/styles.css
++++ b/styles.css
+@@ -1,13 +1,14 @@
+ .block_forum_aggregator .forum_title {
+-    text-align:center;
++    text-align:left;
+     font-weight:bold;
+     margin-top:3px;
+     padding: 3px 0px 3px 0px;
+-    border-top: 2px solid #ddd;
+-    border-bottom: 2px solid #ddd;
++    background-color: 666;
++    /*border-top: 2px solid #ddd;
++    border-bottom: 2px solid #ddd;*/
+ }
+ .block_forum_aggregator .post {
+-    border-bottom: 1px solid #ddd;
++    /*border-bottom: 1px solid #ddd;*/
+     padding-bottom: 3px;
+ }
+ .block_forum_aggregator .post .postreadmore {
+@@ -21,8 +22,9 @@
+     margin-right:3px;
+ }
+ .block_forum_aggregator .post div.head {
+-    font-size:10px;
+-    font-style:italic;
++    font-size:12px;
++    /*font-style:italic;*/
++    margin-bottom: 10px;
+ }
+ .block_forum_aggregator .post div.head .subject {
+     font-weight:bold;
+@@ -38,4 +40,10 @@
+ }
+ .block_forum_aggregator .forums .header {
+     font-weight:bold;
++}
++.block_forum_aggregator .unlist {
++    border-bottom: 3px dashed #ddd;
++}
++.block_forum_aggregator .unlist:last-child {
++    border: none;
+ }
+\ No newline at end of file
+-- 
+2.3.2 (Apple Git-55)
+
