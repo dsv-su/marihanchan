@@ -557,6 +557,13 @@
                 "branch": "7.x-1.x",
                 "tag": "7.x-1.0",
                 "path": "views_between_dates_filter"
+            },
+            "timefield": {
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/timefield.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.0-alpha2",
+                "path": "timefield"
             }
         }
     },
