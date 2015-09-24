@@ -550,6 +550,13 @@
                 "branch": "7.x-2.x",
                 "tag": "7.x-2.34",
                 "path": "mailsystem"
+            },
+            "views_between_dates_filter": {
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/views_between_dates_filter.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.0",
+                "path": "views_between_dates_filter"
             }
         }
     },
