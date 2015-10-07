@@ -1,17 +1,26 @@
-From 5e262022d6f2a1084d318171689a07506afc120f Mon Sep 17 00:00:00 2001
+From d414b562e2e2592d1e44c4ab7acb534088ecb284 Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
-Date: Wed, 7 Oct 2015 14:37:53 +0300
+Date: Wed, 7 Oct 2015 14:48:50 +0300
 Subject: [PATCH] Forum mods
 
 ---
- mod/forum/lib.php       | 7 ++++++-
+ mod/forum/lib.php       | 9 +++++++--
  mod/forum/subscribe.php | 9 +++++++--
- 2 files changed, 13 insertions(+), 3 deletions(-)
+ 2 files changed, 14 insertions(+), 4 deletions(-)
 
 diff --git a/mod/forum/lib.php b/mod/forum/lib.php
-index 5f4d874..4deee9b 100644
+index 5f4d874..4d268bb 100644
 --- a/mod/forum/lib.php
 +++ b/mod/forum/lib.php
+@@ -830,7 +830,7 @@ function forum_cron() {
+             }
+ 
+             // Mark processed posts as read.
+-            forum_tp_mark_posts_read($userto, $userto->markposts);
++            // forum_tp_mark_posts_read($userto, $userto->markposts);
+             unset($userto);
+         }
+     }
 @@ -7124,7 +7124,12 @@ function forum_extend_settings_navigation(settings_navigation $settingsnav, navi
          } else {
              $linktext = get_string('subscribe', 'forum');
