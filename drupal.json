@@ -564,6 +564,13 @@
                 "branch": "7.x-1.x",
                 "tag": "7.x-1.0-alpha2",
                 "path": "timefield"
+            },
+            "tvi": {
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/tvi.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.0-beta5",
+                "path": "tvi"
             }
         }
     },

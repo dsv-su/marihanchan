@@ -1,0 +1,51 @@
+From 5e262022d6f2a1084d318171689a07506afc120f Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Wed, 7 Oct 2015 14:37:53 +0300
+Subject: [PATCH] Forum mods
+
+---
+ mod/forum/lib.php       | 7 ++++++-
+ mod/forum/subscribe.php | 9 +++++++--
+ 2 files changed, 13 insertions(+), 3 deletions(-)
+
+diff --git a/mod/forum/lib.php b/mod/forum/lib.php
+index 5f4d874..4deee9b 100644
+--- a/mod/forum/lib.php
++++ b/mod/forum/lib.php
+@@ -7124,7 +7124,12 @@ function forum_extend_settings_navigation(settings_navigation $settingsnav, navi
+         } else {
+             $linktext = get_string('subscribe', 'forum');
+         }
+-        $url = new moodle_url('/mod/forum/subscribe.php', array('id'=>$forumobject->id, 'sesskey'=>sesskey()));
++        $categoryid = $DB->get_field('course', 'category', array('id' => $forumobject->course));
++        if ($categoryid == 16) {
++            $url = new moodle_url('/mod/forum/subscribe.php', array('id'=>$forumobject->id));
++        } else {
++            $url = new moodle_url('/mod/forum/subscribe.php', array('id'=>$forumobject->id, 'sesskey'=>sesskey()));
++        }
+         $forumnode->add($linktext, $url, navigation_node::TYPE_SETTING);
+ 
+         if (isset($discussionid)) {
+diff --git a/mod/forum/subscribe.php b/mod/forum/subscribe.php
+index 7bd8414..0e3cabe 100644
+--- a/mod/forum/subscribe.php
++++ b/mod/forum/subscribe.php
+@@ -165,8 +165,13 @@ if ($issubscribed) {
+             echo $OUTPUT->confirm(get_string('confirmunsubscribediscussion', 'forum', $a),
+                     $PAGE->url, $viewurl);
+         } else {
+-            echo $OUTPUT->confirm(get_string('confirmunsubscribe', 'forum', format_string($forum->name)),
+-                    $PAGE->url, $viewurl);
++            if ($course->category == 16) {
++                echo $OUTPUT->confirm(get_string('confirmunsubscribe', 'enrol_rest', format_string($forum->name)),
++                        $PAGE->url, $viewurl);
++            } else {
++                echo $OUTPUT->confirm(get_string('confirmunsubscribe', 'forum', format_string($forum->name)),
++                        $PAGE->url, $viewurl);
++            }
+         }
+         echo $OUTPUT->footer();
+         exit;
+-- 
+2.3.8 (Apple Git-58)
+
