@@ -33,7 +33,7 @@
             "drupal_core": {
                 "repo": "http://git.drupal.org/project/drupal.git",
                 "branch": "7.x",
-                "tag": "7.39",
+                "tag": "7.41",
                 "patch": "core.patch",
                 "ignoreEmptyPath": true
             }
@@ -79,11 +79,11 @@
                 "tag": "7.x-2.2",
                 "path": "libraries"
             },
-            "pathauto": {
+            "pathuto": {
                 "defaults": "module_contrib",
                 "repo": "git://git.drupal.org/project/pathauto.git",
                 "branch": "7.x-1.x",
-                "tag": "7.x-1.2",
+                "tag": "7.x-1.3",
                 "path": "pathauto"
             },
             "rules": {
@@ -124,7 +124,7 @@
                 "defaults": "module_contrib",
                 "repo": "git://git.drupal.org/project/jquery_update.git",
                 "branch": "7.x-2.x",
-                "tag": "7.x-2.6",
+                "tag": "7.x-2.7",
                 "path": "jquery_update"
             },
             "bootstrap": {
@@ -345,7 +345,7 @@
                 "defaults": "module_contrib",
                 "repo": "git://git.drupal.org/project/webform",
                 "branch": "7.x-4.x",
-                "tag": "7.x-4.10",
+                "tag": "7.x-4.12",
                 "path": "webform"
             },
             "webform_conditional":{
@@ -611,7 +611,7 @@
                 "defaults": "module_contrib",
                 "repo": "http://git.drupal.org/project/webform.git",
                 "branch": "7.x-4.x",
-                "tag": "7.x-4.10",
+                "tag": "7.x-4.12",
                 "path": "webform"
             },
             "webform_validation": {
@@ -819,7 +819,7 @@
                 "defaults": "module_contrib",
                 "repo": "http://git.drupal.org/project/search_autocomplete.git",
                 "branch": "7.x-4.x",
-                "tag": "7.x-4.6",
+                "tag": "7.x-4.7",
                 "path": "search_autocomplete"
             },
             "views_accordion": {
@@ -833,7 +833,7 @@
                 "defaults": "module_contrib",
                 "repo": "git://git.drupal.org/project/webform",
                 "branch": "7.x-4.x",
-                "tag": "7.x-4.10",
+                "tag": "7.x-4.12",
                 "path": "webform"
             },
             "realname": {
@@ -860,7 +860,7 @@
                 "defaults": "module_contrib",
                 "repo": "http://git.drupal.org/project/webform.git",
                 "branch": "7.x-4.x",
-                "tag": "7.x-4.10",
+                "tag": "7.x-4.12",
                 "path": "webform"
             },
             "webform_validation": {
@@ -909,7 +909,7 @@
                 "defaults": "module_contrib",
                 "repo": "http://git.drupal.org/project/search_autocomplete.git",
                 "branch": "7.x-4.x",
-                "tag": "7.x-4.6",
+                "tag": "7.x-4.7",
                 "path": "search_autocomplete"
             },
             "job_scheduler": {
