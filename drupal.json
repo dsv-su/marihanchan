@@ -954,6 +954,48 @@
                 "tag": "7.x-3.0-rc5",
                 "path": "admin_menu"
             },
+            "flag": {
+                "defaults": "module_contrib",
+                "repo": "http://git.drupal.org/project/flag.git",
+                "branch": "7.x-3.x",
+                "tag": "7.x-3.7",
+                "path": "flag"
+            },
+            "todo_filter": {
+                "defaults": "module_contrib",
+                "repo": "http://git.drupal.org/project/todo_filter.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.1",
+                "path": "todo_filter"
+            },
+            "better_exposed_filters": {
+                "defaults": "module_contrib",
+                "repo": "http://git.drupal.org/project/better_exposed_filters.git",
+                "branch": "7.x-3.x",
+                "tag": "7.x-3.2",
+                "path": "better_exposed_filters"
+            },
+            "views_accordion": {
+                "defaults": "module_contrib",
+                "repo": "http://git.drupal.org/project/views_accordion.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.1",
+                "path": "views_accordion"
+            },
+            "mytinytodo": {
+                "defaults": "module_contrib",
+                "repo": "http://git.drupal.org/project/mytinytodo.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.1",
+                "path": "mytinytodo"
+            },
+            "hierarchical_select": {
+                "defaults": "module_contrib",
+                "repo": "http://git.drupal.org/project/hierarchical_select.git",
+                "branch": "7.x-3.x",
+                "tag": "7.x-3.0-beta2",
+                "path": "hierarchical_select"
+            },
             "dsv_forms_theme": {
                 "defaults": "theme_custom",
                 "repo": "https://github.com/dsv-su/dsv_forms_theme.git",
