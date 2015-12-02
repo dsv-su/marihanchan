@@ -4,7 +4,7 @@
     "components": {
       "moodle_core": {
         "repo": "https://github.com/moodle/moodle.git",
-        "branch": "MOODLE_29_STABLE",
+        "branch": "MOODLE_30_STABLE",
         "ignoreEmptyPath": true
       }
     }
@@ -84,12 +84,13 @@
       },
       "mod_booking": {
         "repo": "https://github.com/dasistwas/moodle-mod_booking.git",
-        "path": "mod/booking"
+        "path": "mod/booking",
+        "patch": "moodle-booking.patch"
       },
       "block_forum_aggregator": {
         "repo": "https://github.com/t6nis/moodle-block_forum_aggregator.git",
         "path": "blocks/forum_aggregator",
-        "patches": "forum_aggregator.patch"
+        "patch": "moodle-forum-aggregator.patch"
       }
     }
   },
@@ -97,7 +98,7 @@
   "ilearn2test": {
     "rootDir": "/var/www/ilearn2test",
     "requires": [ "ilearn2" ],
-    "patches": [ "moodle.patch", "moodle-guest.patch" ],
+    "patches": [ "moodle.patch", "moodle-guest.patch", "moodle-forum.patch" ],
     "components": {
       "mod_advmindmap": {
         "repo": "https://github.com/ctchanandy/moodle-mod_advmindmap.git",
@@ -164,7 +165,7 @@
       "format_grid": {
         "repo": "https://github.com/gjb2048/moodle-courseformat_grid.git",
         "path": "course/format/grid",
-        "branch": "MOODLE_28"
+        "branch": "MOODLE_29"
       },
       "report_engagement": {
         "repo": "https://github.com/netspotau/moodle-report_engagement.git",
@@ -183,7 +184,7 @@
       "local_mobile": {
         "repo": "https://github.com/jleyva/moodle-local_mobile.git",
         "path": "local/mobile",
-        "branch": "MOODLE_29_STABLE"
+        "branch": "MOODLE_30_STABLE"
       }
     }
   },
@@ -233,7 +234,7 @@
       "format_grid": {
         "repo": "https://github.com/gjb2048/moodle-courseformat_grid.git",
         "path": "course/format/grid",
-        "branch": "MOODLE_28"
+        "branch": "MOODLE_29"
       },
       "progressbar": {
         "repo": "https://github.com/deraadt/Moodle-block_progress.git",
@@ -288,7 +289,7 @@
       "format_topcoll": {
         "repo": "https://github.com/gjb2048/moodle-format_topcoll.git",
         "path": "course/format/topcoll",
-        "branch": "MOODLE_28"
+        "branch": "MOODLE_29"
       },
       "format_onetopic": {
         "repo": "https://github.com/davidherney/moodle-format_onetopic.git",

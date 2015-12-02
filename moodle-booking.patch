@@ -1,0 +1,22 @@
+From 2ec1b46b84b36e19cf4a0668915c8322ccc64535 Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Wed, 2 Dec 2015 15:13:24 +0300
+Subject: [PATCH] Add component declaration
+
+---
+ version.php | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/version.php b/version.php
+index a08eea5..69f7fa0 100755
+--- a/version.php
++++ b/version.php
+@@ -15,3 +15,4 @@ $plugin->requires = 2013111800;  // Requires this Moodle 2.X version
+ $plugin->release = '2.7';
+ $plugin->maturity = MATURITY_STABLE;
+ $plugin->cron = 5;
++$plugin->component = 'mod_booking';
+\ No newline at end of file
+-- 
+2.4.9 (Apple Git-60)
+
