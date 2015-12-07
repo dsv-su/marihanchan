@@ -1,0 +1,29 @@
+From 28597ae54fff2fa7c265e7b94d675a82574c9cdb Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Mon, 30 Nov 2015 10:58:00 +0300
+Subject: [PATCH] Fixes #3 to add $plugin->component required in Moodle 3.0
+
+---
+ version.php | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
+
+diff --git a/version.php b/version.php
+index 835dbfd..baf0539 100644
+--- a/version.php
++++ b/version.php
+@@ -5,7 +5,8 @@
+ //  This fragment is called by /admin/index.php
+ ////////////////////////////////////////////////////////////////////////////////
+ 
+-$module->version  = 2014052200;
+-$module->release  = 2.0;
+-$module->requires = 2013111801;  // Requires this Moodle version
+-$module->cron     = 60;
++$plugin->version  = 2014052200;
++$plugin->release  = 2.0;
++$plugin->requires = 2013111801;  // Requires this Moodle version
++$plugin->cron     = 60;
++$plugin->component = 'mod_webinar';
+-- 
+2.4.9 (Apple Git-60)
+

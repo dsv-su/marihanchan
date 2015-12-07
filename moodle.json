@@ -131,11 +131,8 @@
       },
       "mod_webinar": {
         "repo": "https://github.com/epicopensource/webinar.git",
-        "path": "mod/webinar"
-      },
-      "mod_webinar": {
-        "repo": "https://github.com/epicopensource/webinar.git",
-        "path": "mod/webinar"
+        "path": "mod/webinar",
+        "patch": "moodle-webinar.patch"
       },
       "block_attendance": {
         "repo": "https://github.com/danmarsden/moodle-block_attendance.git",
