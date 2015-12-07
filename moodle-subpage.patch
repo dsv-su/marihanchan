@@ -1,0 +1,23 @@
+From a0c460c79c6f8cecfe68b7a1729f3f2e539e081b Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Mon, 30 Nov 2015 10:40:11 +0300
+Subject: [PATCH] Fixes #14 to add $plugin->component required in Moodle 3.0
+
+---
+ version.php | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/version.php b/version.php
+index 291aad6..a37b655 100644
+--- a/version.php
++++ b/version.php
+@@ -25,5 +25,5 @@
+ $plugin->version = 2015081800;
+ $plugin->requires = 2011120100;
+ $plugin->cron = 60*60*4; // 4 hours.
+-
++$plugin->component = 'mod_subpage';
+ $plugin->outestssufficient = true;
+-- 
+2.4.9 (Apple Git-60)
+

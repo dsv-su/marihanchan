@@ -76,7 +76,8 @@
       },
       "mod_subpage": {
         "repo": "https://github.com/moodleou/moodle-mod_subpage.git",
-        "path": "mod/subpage"
+        "path": "mod/subpage",
+        "patch": "moodle-subpage.patch"
       },
       "block_progressbar": {
         "repo": "https://github.com/deraadt/Moodle-block_progress.git",
@@ -84,8 +85,7 @@
       },
       "mod_booking": {
         "repo": "https://github.com/dasistwas/moodle-mod_booking.git",
-        "path": "mod/booking",
-        "patch": "moodle-booking.patch"
+        "path": "mod/booking"
       },
       "block_forum_aggregator": {
         "repo": "https://github.com/t6nis/moodle-block_forum_aggregator.git",
@@ -235,6 +235,11 @@
         "repo": "https://github.com/gjb2048/moodle-courseformat_grid.git",
         "path": "course/format/grid",
         "branch": "MOODLE_29"
+      },
+      "mod_subpage": {
+        "repo": "https://github.com/moodleou/moodle-mod_subpage.git",
+        "path": "mod/subpage",
+        "patch": "moodle-subpage.patch"
       },
       "progressbar": {
         "repo": "https://github.com/deraadt/Moodle-block_progress.git",
