@@ -108,7 +108,7 @@ a basic build-file example:
         "path": "sites/all/themes/custom/drupal_theme_next"
       }
     }
-  }
+  },
 
   "dsv_forms": {
     "rootDir": "forms",
