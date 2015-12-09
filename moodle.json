@@ -286,7 +286,7 @@
  "addisco": {
     "rootDir": "/var/www/addisco",
     "requires": [ "moodle" ],
-    "patches": [ "addisco.patch" ],
+    "patches": [ "addisco.patch", "moodle-addisco.patch" ],
     "components": {
       "format_topcoll": {
         "repo": "https://github.com/gjb2048/moodle-format_topcoll.git",
