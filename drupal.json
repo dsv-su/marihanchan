@@ -1001,6 +1001,55 @@
                 "repo": "https://github.com/dsv-su/dsv_forms_theme.git",
                 "branch": "master",
                 "path": "dsv_forms_theme"
+            },
+            "link": {
+                "defaults": "module_contrib",
+                "repo": "http://git.drupal.org/project/link.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.4",
+                "path": "link"
+            },
+            "calendar": {
+                "defaults": "module_contrib",
+                "repo": "http://git.drupal.org/project/calendar.git",
+                "branch": "7.x-3.x",
+                "tag": "7.x-3.5",
+                "path": "calendar"
+            },
+            "privatemsg": {
+                "defaults": "module_contrib",
+                "repo": "http://git.drupal.org/project/privatemsg.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.4",
+                "path": "privatemsg"
+            },
+            "countries": {
+                "defaults": "module_contrib",
+                "repo": "http://git.drupal.org/project/countries.git",
+                "branch": "7.x-2.x",
+                "tag": "7.x-2.3",
+                "path": "countries"
+            },
+            "ds": {
+                "defaults": "module_contrib",
+                "repo": "http://git.drupal.org/project/ds.git",
+                "branch": "7.x-2.x",
+                "tag": "7.x-2.12",
+                "path": "ds"
+            },
+            "superfish": {
+                "defaults": "module_contrib",
+                "repo": "http://git.drupal.org/project/superfish.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.9",
+                "path": "superfish"
+            },
+            "views_export_xls": {
+                "defaults": "module_contrib",
+                "repo": "http://git.drupal.org/project/views_export_xls.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.0",
+                "path": "views_export_xls"
             }
         }
     }
