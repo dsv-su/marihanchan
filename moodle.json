@@ -187,6 +187,14 @@
         "repo": "https://github.com/bmbrands/theme_bootstrap.git",
         "path": "theme/bootstrap",
         "branch": "MOODLE_29_STABLE"
+      },
+      "assignsubmission_esign": {
+        "repo": "https://github.com/dsv-su/moodle-assignsubmission_esign.git",
+        "path": "mod/assign/submission/esign"
+      },
+      "assignfeedback_esign": {
+        "repo": "https://github.com/dsv-su/moodle-assignfeedback_esign.git",
+        "path": "mod/assign/feedback/esign"
       }
     }
   },
