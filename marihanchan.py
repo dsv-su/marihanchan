@@ -186,7 +186,13 @@ def fetchComponent( name, component ):
         branch = component.get( 'branch' )
 
     print 'fetching component: ' + name
-    repo = Repo.clone_from( component.get('repo'), clonePath, branch=branch )
+    try:
+        repo = Repo.clone_from( component.get('repo'), clonePath, branch=branch )
+    except GitCommandError:
+        print 'ooops, cannot clone, most likely the component exists because you manually cloned it ;O('
+        updateComponent( component, component )
+        return
+
 
     # if there's a tag specified, try to checkout that
     if 'tag' in component:
