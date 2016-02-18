@@ -572,26 +572,12 @@
                 "tag": "7.x-1.0-beta5",
                 "path": "tvi"
             },
-            "colorbox": {
+            "image_url_formatter": {
                 "defaults": "module_contrib",
-                "repo": "git://git.drupal.org/project/colorbox.git",
-                "branch": "7.x-2.x",
-                "tag": "7.x-2.10",
-                "path": "colorbox"
-            },
-            "multiupload_imagefield_widget": {
-                "defaults": "module_contrib",
-                "repo": "git://git.drupal.org/project/multiupload_imagefield_widget.git",
+                "repo": "git://git.drupal.org/project/image_url_formatter.git",
                 "branch": "7.x-1.x",
-                "tag": "7.x-1.3",
-                "path": "multiupload_imagefield_widget"
-            },
-            "multiupload_filefield_widget": {
-                "defaults": "module_contrib",
-                "repo": "git://git.drupal.org/project/multiupload_filefield_widget.git",
-                "branch": "7.x-1.x",
-                "tag": "7.x-1.13",
-                "path": "multiupload_filefield_widget"
+                "tag": "7.x-1.4",
+                "path": "image_url_formatter"
             }
         }
     },
