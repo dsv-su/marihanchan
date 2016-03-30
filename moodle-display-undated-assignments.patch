@@ -1,0 +1,27 @@
+From 794ad38e43e3a9be25546c8d5091173de5f97de1 Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <psokolov@dsv.su.se>
+Date: Wed, 30 Mar 2016 11:25:21 +0200
+Subject: [PATCH] Display assignments with no end date on course overview
+
+---
+ mod/assign/lib.php | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/mod/assign/lib.php b/mod/assign/lib.php
+index e6b41d6..7e999e7 100644
+--- a/mod/assign/lib.php
++++ b/mod/assign/lib.php
+@@ -406,7 +406,9 @@ function assign_print_overview($courses, &$htmlarray) {
+             } else {
+                 $isopen = ($assignment->allowsubmissionsfromdate <= $time);
+             }
+-        }
++        } else {
++		$isopen = true;
++	}
+         if ($isopen) {
+             $assignmentids[] = $assignment->id;
+         }
+-- 
+2.1.4
+
