@@ -15,12 +15,7 @@
       "dsv_theme_responsive": {
         "repo": "https://github.com/dsv-su/moodle-dsv_theme_responsive.git",
         "path": "theme/dsv_theme_responsive"
-      }
-    }
-  },
-
-  "mobile": {
-    "components": {
+      },
       "local_mobile": {
         "repo": "https://github.com/jleyva/moodle-local_mobile.git",
         "path": "local/mobile",
@@ -31,7 +26,7 @@
 
   "ilearn2": {
     "rootDir": "/var/www/ilearn2",
-    "requires": [ "moodle", "dsv_moodle_theme", "mobile" ],
+    "requires": [ "moodle", "dsv_moodle_theme" ],
     "patches": [ "moodle.patch", "moodle-guest.patch", "moodle-forum.patch" ],
     "components": {
       "dsv_custom": {
@@ -159,7 +154,7 @@
       "block_grade_me": {
         "repo": "https://github.com/remotelearner/moodle-block_grade_me.git",
         "path": "blocks/grade_me",
-        "branch": "MOODLE_29_STABLE"
+        "branch": "MOODLE_30_STABLE"
       },
       "block_xp": {
         "repo": "https://github.com/FMCorz/moodle-block_xp.git",
@@ -186,7 +181,7 @@
       "theme_bootstrap": {
         "repo": "https://github.com/bmbrands/theme_bootstrap.git",
         "path": "theme/bootstrap",
-        "branch": "MOODLE_29_STABLE"
+        "branch": "MOODLE_30_STABLE"
       },
       "assignsubmission_esign": {
         "repo": "https://github.com/dsv-su/moodle-assignsubmission_esign.git",
@@ -201,7 +196,7 @@
 
   "open": {
     "rootDir": "/var/www/open",
-    "requires": [ "moodle", "dsv_moodle_theme", "mobile" ],
+    "requires": [ "moodle", "dsv_moodle_theme" ],
     "patches": [ "moodle.patch", "login.patch" ],
     "components": {
       "dsv_custom": {
@@ -217,7 +212,7 @@
 
   "turing": {
     "rootDir": "/var/www/turing",
-    "requires": [ "moodle", "dsv_moodle_theme", "mobile" ],
+    "requires": [ "moodle", "dsv_moodle_theme" ],
     "patches": [ "moodle.patch", "login.patch" ],
     "components": {
       "dsv_custom": {
@@ -260,7 +255,7 @@
 
   "ocw": {
     "rootDir": "/var/www/ocw",
-    "requires": [ "moodle", "dsv_moodle_theme", "mobile" ],
+    "requires": [ "moodle", "dsv_moodle_theme" ],
     "components": {
       "dsv_custom": {
         "repo": "ssh://git.dsv.su.se/git/moodle-dsv_custom",
@@ -271,7 +266,7 @@
 
   "natgeo": {
     "rootDir": "/var/www/natgeo",
-    "requires": [ "moodle", "dsv_moodle_theme", "mobile" ],
+    "requires": [ "moodle", "dsv_moodle_theme" ],
     "components": {
       "progressbar": {
         "repo": "https://github.com/deraadt/Moodle-block_progress.git",
@@ -282,7 +277,7 @@
 
   "forum": {
     "rootDir": "/var/www/forum",
-    "requires": [ "moodle", "dsv_moodle_theme", "mobile" ],
+    "requires": [ "moodle", "dsv_moodle_theme" ],
     "patches": [ "0001-Patching-course_overview-block-to-make-it-fit-Forum-.patch" ],
     "components": {
       "dsv_custom": {
@@ -299,7 +294,7 @@
  "addisco": {
     "rootDir": "/var/www/addisco",
     "requires": [ "moodle" ],
-    "patches": [ "addisco.patch", "moodle-addisco.patch", "mobile" ],
+    "patches": [ "addisco.patch", "moodle-addisco.patch" ],
     "components": {
       "format_topcoll": {
         "repo": "https://github.com/gjb2048/moodle-format_topcoll.git",
@@ -330,5 +325,4 @@
       }
     }
   }
-
 }
