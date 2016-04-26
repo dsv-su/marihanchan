@@ -1,0 +1,62 @@
+From 1e8b09f1724a27d266e276424bd5e1d1e36a8254 Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <psokolov@dsv.su.se>
+Date: Tue, 26 Apr 2016 08:45:58 +0200
+Subject: [PATCH] display if an user is logged in via eID
+
+---
+ enrol/manual/yui/quickenrolment/quickenrolment.js | 8 +++++++-
+ enrol/users.php                                   | 6 +++++-
+ 2 files changed, 12 insertions(+), 2 deletions(-)
+
+diff --git a/enrol/manual/yui/quickenrolment/quickenrolment.js b/enrol/manual/yui/quickenrolment/quickenrolment.js
+index d05b1cb..a648b61 100644
+--- a/enrol/manual/yui/quickenrolment/quickenrolment.js
++++ b/enrol/manual/yui/quickenrolment/quickenrolment.js
+@@ -392,13 +392,19 @@ YUI.add('moodle-enrol_manual-quickenrolment', function(Y) {
+             for (var i in result.response.users) {
+                 count++;
+                 var user = result.response.users[i];
++                var username = user.username;
++                if (username.indexOf('/se') > -1) {
++                    var eid = ' (eID auth)';
++                } else {
++                    var eid = '';
++                }
+                 users.append(create('<div class="'+CSS.USER+' clearfix" rel="'+user.id+'"></div>')
+                     .addClass((count%2)?CSS.ODD:CSS.EVEN)
+                     .append(create('<div class="'+CSS.COUNT+'">'+count+'</div>'))
+                     .append(create('<div class="'+CSS.PICTURE+'"></div>')
+                         .append(create(user.picture)))
+                     .append(create('<div class="'+CSS.DETAILS+'"></div>')
+-                        .append(create('<div class="'+CSS.FULLNAME+'">'+user.fullname+'</div>'))
++                        .append(create('<div class="'+CSS.FULLNAME+'">'+user.fullname+eid+'</div>'))
+                         .append(create('<div class="'+CSS.EXTRAFIELDS+'">'+user.extrafields+'</div>')))
+                     .append(create('<div class="'+CSS.OPTIONS+'"></div>')
+                         .append(create('<input type="button" class="'+CSS.ENROL+'" value="'+M.util.get_string('enrol', 'enrol')+'" />')))
+diff --git a/enrol/users.php b/enrol/users.php
+index 403121d..0c46cc4 100644
+--- a/enrol/users.php
++++ b/enrol/users.php
+@@ -180,7 +180,7 @@ if ($action) {
+ 
+ 
+ $renderer = $PAGE->get_renderer('core_enrol');
+-$userdetails = array('picture' => false, 'userfullnamedisplay' => false);
++$userdetails = array('picture' => false, 'userfullnamedisplay' => false, 'username' => false);
+ // Get all the user names in a reasonable default order.
+ $allusernames = get_all_user_name_fields(false, null, null, null, true);
+ // Initialise the variable for the user's names in the table header.
+@@ -238,6 +238,10 @@ $table->set_fields($fields, $renderer);
+ $canassign = has_capability('moodle/role:assign', $manager->get_context());
+ $users = $manager->get_users_for_display($manager, $table->sort, $table->sortdirection, $table->page, $table->perpage);
+ foreach ($users as $userid=>&$user) {
++    $username = $DB->get_field('user', 'username', array('id' => $user['userid']));
++    if (strpos($username, '/se') !== FALSE) {
++        $user['userfullnamedisplay'] .= ' (eID auth)';
++    }
+     $user['picture'] = $OUTPUT->render($user['picture']);
+     $user['role'] = $renderer->user_roles_and_actions($userid, $user['roles'], $manager->get_assignable_roles(), $canassign, $PAGE->url);
+     $user['group'] = $renderer->user_groups_and_actions($userid, $user['groups'], $manager->get_all_groups(), has_capability('moodle/course:managegroups', $manager->get_context()), $PAGE->url);
+-- 
+2.1.4
+
