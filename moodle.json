@@ -197,7 +197,7 @@
   "turing": {
     "rootDir": "/var/www/turing",
     "requires": [ "moodle", "dsv_moodle_theme" ],
-    "patches": [ "moodle.patch", "login.patch" ],
+    "patches": [ "moodle.patch", "login.patch", "moodle-display_eid_users.patch" ],
     "components": {
       "dsv_custom": {
         "repo": "ssh://git.dsv.su.se/git/moodle-dsv_custom",
@@ -219,6 +219,14 @@
       "mailsimulator": {
         "repo": "https://github.com/dsv-su/moodle-assignsubmission_mailsimulator.git",
         "path": "mod/assign/submission/mailsimulator"
+      },
+      "assignsubmission_esign": {
+        "repo": "https://github.com/dsv-su/moodle-assignsubmission_esign.git",
+        "path": "mod/assign/submission/esign"
+      },
+      "assingfeedback_esign": {
+        "repo": "https://github.com/dsv-su/moodle-assignfeedback_esign.git",
+        "path": "mod/assign/feedback/esign"
       },
       "format_grid": {
         "repo": "https://github.com/gjb2048/moodle-courseformat_grid.git",
