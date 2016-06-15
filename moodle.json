@@ -252,6 +252,7 @@
   "natgeo": {
     "rootDir": "/var/www/natgeo",
     "requires": [ "moodle", "dsv_moodle_theme" ],
+    "patches": [ "natgeo-login.patch" ],
     "components": {
       "progressbar": {
         "repo": "https://github.com/deraadt/Moodle-block_progress.git",
