@@ -95,6 +95,11 @@
         "repo": "https://github.com/t6nis/moodle-block_forum_aggregator.git",
         "path": "blocks/forum_aggregator",
         "patch": "moodle-forum-aggregator.patch"
+      },
+      "plagiarism_urkund": {
+        "repo": "https://github.com/danmarsden/moodle-plagiarism_urkund.git",
+        "path": "plagiarism/urkund",
+        "branch": "MOODLE_30_STABLE"
       }
     }
   },
