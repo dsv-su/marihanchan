@@ -735,6 +735,12 @@
                 "branch": "7.x-2.x",
                 "tag": "7.x-2.1",
                 "path": "references"
+            },
+            "views_contextual_filters_or": {
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/views_contextual_filters_or",
+                "branch": "7.x-1.x",
+                "path": "views_contextual_filters_or"
             }
         }
     },
