@@ -20,6 +20,10 @@
         "repo": "https://github.com/jleyva/moodle-local_mobile.git",
         "path": "local/mobile",
         "branch": "MOODLE_31_STABLE"
+      },
+      "local_analytics": {
+        "repo": "https://github.com/bmbrands/moodle-local_analytics.git",
+        "path": "local/analytics"
       }
     }
   },
@@ -99,8 +103,7 @@
       },
       "plagiarism_urkund": {
         "repo": "https://github.com/danmarsden/moodle-plagiarism_urkund.git",
-        "path": "plagiarism/urkund",
-        "branch": "MOODLE_30_STABLE"
+        "path": "plagiarism/urkund"
       }
     }
   },
