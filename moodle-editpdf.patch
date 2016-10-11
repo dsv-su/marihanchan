@@ -1,0 +1,64 @@
+From 2b9455823bbbcc574e28b009f9fd0f88380ba8dc Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Tue, 11 Oct 2016 16:52:18 +0300
+Subject: [PATCH] Make PDF feedback not mandatory so anyone can turn it off for
+ the assignment
+
+---
+ mod/assign/feedback/editpdf/locallib.php | 18 +++++++++++++++++-
+ 1 file changed, 17 insertions(+), 1 deletion(-)
+
+diff --git a/mod/assign/feedback/editpdf/locallib.php b/mod/assign/feedback/editpdf/locallib.php
+index c92f7ee..51c9416 100644
+--- a/mod/assign/feedback/editpdf/locallib.php
++++ b/mod/assign/feedback/editpdf/locallib.php
+@@ -58,7 +58,7 @@ class assign_feedback_editpdf extends assign_feedback_plugin {
+      */
+     public function get_widget($userid, $grade, $readonly) {
+         $attempt = -1;
+-        if ($grade) {
++        if ($grade && $grade->attemptnumber) {
+             $attempt = $grade->attemptnumber;
+         } else {
+             $grade = $this->assignment->get_user_grade($userid, true);
+@@ -343,6 +343,7 @@ class assign_feedback_editpdf extends assign_feedback_plugin {
+      *
+      * @return bool
+      */
++    /*
+     public function is_enabled() {
+         if ($this->enabledcache === null) {
+             $testpath = assignfeedback_editpdf\pdf::test_gs_path(false);
+@@ -350,14 +351,29 @@ class assign_feedback_editpdf extends assign_feedback_plugin {
+         }
+         return $this->enabledcache;
+     }
++    */
+     /**
+      * Automatically hide the setting for the editpdf feedback plugin.
+      *
+      * @return bool false
+      */
++    /*
+     public function is_configurable() {
+         return false;
+     }
++    */
++
++    /**
++     * Get the default setting for editpdf feedback plugin
++     *
++     * @param MoodleQuickForm $mform The form to add elements to
++     * @return void
++     */
++    public function get_settings(MoodleQuickForm $mform) {
++        if ($this->get_config('enabled') === false) {
++            $mform->setDefault('assignfeedback_editpdf_enabled', 1);
++        }
++    }
+ 
+     /**
+      * Get file areas returns a list of areas this plugin stores files.
+-- 
+2.8.4 (Apple Git-73)
+

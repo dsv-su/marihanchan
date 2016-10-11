@@ -31,7 +31,7 @@
   "ilearn2": {
     "rootDir": "/var/www/ilearn2",
     "requires": [ "moodle", "dsv_moodle_theme" ],
-    "patches": [ "moodle.patch", "moodle-guest.patch", "moodle-forum.patch", "moodle-display-undated-assignments.patch" ],
+    "patches": [ "moodle.patch", "moodle-guest.patch", "moodle-forum.patch", "moodle-display-undated-assignments.patch", "moodle-editpdf.patch" ],
     "components": {
       "dsv_custom": {
         "repo": "ssh://git.dsv.su.se/git/moodle-dsv_custom",
