@@ -111,7 +111,7 @@
   "ilearn2test": {
     "rootDir": "/var/www/ilearn2test",
     "requires": [ "ilearn2" ],
-    "patches": [ "moodle.patch", "moodle-guest.patch", "moodle-forum.patch" ],
+    "patches": [ "moodle.patch", "moodle-guest.patch", "moodle-forum.patch", "moodle-editpdf.patch" ],
     "components": {
       "mod_advmindmap": {
         "repo": "https://github.com/ctchanandy/moodle-mod_advmindmap.git",
@@ -211,7 +211,7 @@
   "turing": {
     "rootDir": "/var/www/turing",
     "requires": [ "moodle", "dsv_moodle_theme" ],
-    "patches": [ "moodle.patch", "login.patch", "moodle-display_eid_users.patch" ],
+    "patches": [ "moodle.patch", "login.patch", "moodle-display_eid_users.patch", "moodle-editpdf.patch" ],
     "components": {
       "dsv_custom": {
         "repo": "ssh://git.dsv.su.se/git/moodle-dsv_custom",
@@ -270,7 +270,7 @@
 
   "ocw": {
     "rootDir": "/var/www/ocw",
-    "requires": [ "moodle", "dsv_moodle_theme" ],
+    "requires": [ "moodle", "dsv_moodle_theme", "moodle-editpdf.patch" ],
     "components": {
       "dsv_custom": {
         "repo": "ssh://git.dsv.su.se/git/moodle-dsv_custom",
@@ -281,7 +281,7 @@
 
   "natgeo": {
     "rootDir": "/var/www/natgeo",
-    "requires": [ "moodle", "dsv_moodle_theme" ],
+    "requires": [ "moodle", "dsv_moodle_theme", "moodle-editpdf.patch" ],
     "patches": [ "natgeo-login.patch" ],
     "components": {
       "progressbar": {
@@ -319,7 +319,7 @@
  "addisco": {
     "rootDir": "/var/www/addisco",
     "requires": [ "moodle" ],
-    "patches": [ "addisco.patch", "moodle-addisco.patch" ],
+    "patches": [ "addisco.patch", "moodle-addisco.patch", "moodle-editpdf.patch" ],
     "components": {
       "format_topcoll": {
         "repo": "https://github.com/gjb2048/moodle-format_topcoll.git",
