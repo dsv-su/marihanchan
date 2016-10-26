@@ -61,7 +61,7 @@
       "mod_scheduler": {
         "repo": "https://github.com/bostelm/moodle-mod_scheduler.git",
         "path": "mod/scheduler",
-        "branch": "master"
+        "branch": "MOODLE_31_STABLE"
       },
       "assignsubmission_blog": {
         "repo": "https://github.com/dsv-su/moodle-assignsubmission_blog.git",
@@ -136,7 +136,8 @@
       },
       "mod_vpl": {
         "repo": "https://github.com/jcrodriguez-dis/moodle-mod_vpl.git",
-        "path": "mod/vpl"
+        "path": "mod/vpl",
+        "branch": "v3.2"
       },
       "mod_webinar": {
         "repo": "https://github.com/epicopensource/webinar.git",
@@ -158,7 +159,7 @@
       "block_grade_me": {
         "repo": "https://github.com/remotelearner/moodle-block_grade_me.git",
         "path": "blocks/grade_me",
-        "branch": "MOODLE_30_STABLE"
+        "branch": "MOODLE_31_STABLE"
       },
       "block_xp": {
         "repo": "https://github.com/FMCorz/moodle-block_xp.git",
@@ -223,7 +224,7 @@
       "scheduler": {
         "repo": "https://github.com/bostelm/moodle-mod_scheduler.git",
         "path": "mod/scheduler",
-        "branch": "master"
+        "branch": "MOODLE_31_STABLE"
       },
       "custom_certificate": {
         "repo": "https://github.com/markn86/moodle-mod_customcert.git",
@@ -248,7 +249,8 @@
       },
       "mod_subpage": {
         "repo": "https://github.com/moodleou/moodle-mod_subpage.git",
-        "path": "mod/subpage"
+        "path": "mod/subpage",
+        "branch": "MOODLE_30_STABLE"
       },
       "filter_collapsible": {
         "repo": "https://github.com/eberhardt/moodle-filter_collapsible.git",
@@ -300,7 +302,8 @@
       },
       "mod_subpage": {
         "repo": "https://github.com/moodleou/moodle-mod_subpage.git",
-        "path": "mod/subpage"
+        "path": "mod/subpage",
+        "branch": "MOODLE_30_STABLE"
       },
       "mod_choicegroup": {
         "repo": "https://github.com/ndunand/moodle-mod_choicegroup.git",
@@ -326,7 +329,7 @@
       "format_onetopic": {
         "repo": "https://github.com/davidherney/moodle-format_onetopic.git",
         "path": "course/format/onetopic",
-        "branch": "MOODLE_30"
+        "branch": "MOODLE_31"
       },
       "mod_labelcollapsed": {
         "repo": "https://github.com/dsv-su/moodle-mod_labelcollapsed",
@@ -335,7 +338,7 @@
       "mod_scheduler": {
         "repo": "https://github.com/bostelm/moodle-mod_scheduler.git",
         "path": "mod/scheduler",
-        "branch": "master"
+        "branch": "MOODLE_31_STABLE"
       },
       "assignsubmission_mailsimulator": {
         "repo": "https://github.com/dsv-su/moodle-assignsubmission_mailsimulator.git",
