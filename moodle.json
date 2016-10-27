@@ -264,6 +264,10 @@
       "progressbar": {
         "repo": "https://github.com/deraadt/Moodle-block_progress.git",
         "path": "blocks/progress"
+      },
+      "plagiarism_urkund": {
+        "repo": "https://github.com/danmarsden/moodle-plagiarism_urkund.git",
+        "path": "plagiarism/urkund"
       }
     }
   },
@@ -287,6 +291,10 @@
       "progressbar": {
         "repo": "https://github.com/deraadt/Moodle-block_progress.git",
         "path": "blocks/progress"
+      },
+      "plagiarism_urkund": {
+        "repo": "https://github.com/danmarsden/moodle-plagiarism_urkund.git",
+        "path": "plagiarism/urkund"
       }
     }
   },
