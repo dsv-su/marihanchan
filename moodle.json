@@ -274,7 +274,7 @@
 
   "ocw": {
     "rootDir": "/var/www/ocw",
-    "requires": [ "moodle", "dsv_moodle_theme", "moodle-editpdf.patch" ],
+    "requires": [ "moodle", "dsv_moodle_theme" ],
     "components": {
       "dsv_custom": {
         "repo": "ssh://git.dsv.su.se/git/moodle-dsv_custom",
@@ -285,8 +285,8 @@
 
   "natgeo": {
     "rootDir": "/var/www/natgeo",
-    "requires": [ "moodle", "dsv_moodle_theme", "moodle-editpdf.patch" ],
-    "patches": [ "natgeo-login.patch" ],
+    "requires": [ "moodle", "dsv_moodle_theme" ],
+    "patches": [ "natgeo-login.patch", "moodle-editpdf.patch" ],
     "components": {
       "progressbar": {
         "repo": "https://github.com/deraadt/Moodle-block_progress.git",
