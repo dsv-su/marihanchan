@@ -1,37 +1,34 @@
-From 6bf7c07bce3defc7e752110a0cdecf4da92b8e52 Mon Sep 17 00:00:00 2001
+From cc84e7040e0737f1bb3cec6d44f82e8a3be10d23 Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
-Date: Mon, 31 Oct 2016 12:15:42 +0100
-Subject: [PATCH] Fixing dates display to respect both user and site settings
- calendar timeformats
+Date: Mon, 31 Oct 2016 13:47:08 +0100
+Subject: [PATCH] add moodle patch
 
 ---
- calendar/type/gregorian/classes/structure.php | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+ calendar/type/gregorian/classes/structure.php | 10 ++--------
+ 1 file changed, 2 insertions(+), 8 deletions(-)
 
 diff --git a/calendar/type/gregorian/classes/structure.php b/calendar/type/gregorian/classes/structure.php
-index cfcabe9..11aec8d 100644
+index 11aec8d..17cf948 100644
 --- a/calendar/type/gregorian/classes/structure.php
 +++ b/calendar/type/gregorian/classes/structure.php
-@@ -311,6 +311,19 @@ class structure extends type_base {
-             $format = $formatnoday;
+@@ -313,15 +313,9 @@ class structure extends type_base {
+ 
+         global $USER;
+         if (!empty($USER->preference['calendar_timeformat'])) {
+-            $format = explode(', ', $format);
+-            array_pop($format);
+-            $format = implode(', ', $format);
+-            $format .= ', '.$USER->preference['calendar_timeformat'];
++            $format = str_replace('%I:%M %p', $USER->preference['calendar_timeformat'], $format);
+         } else if (!empty($CFG->calendar_site_timeformat)) {
+-            $format = explode(', ', $format);
+-            array_pop($format);
+-            $format = implode(', ', $format);
+-            $format .= ', '.$CFG->calendar_site_timeformat;
++            $format = str_replace('%I:%M %p', $CFG->calendar_site_timeformat, $format);
          }
  
-+        global $USER;
-+        if (!empty($USER->preference['calendar_timeformat'])) {
-+            $format = explode(', ', $format);
-+            array_pop($format);
-+            $format = implode(', ', $format);
-+            $format .= ', '.$USER->preference['calendar_timeformat'];
-+        } else if (!empty($CFG->calendar_site_timeformat)) {
-+            $format = explode(', ', $format);
-+            array_pop($format);
-+            $format = implode(', ', $format);
-+            $format .= ', '.$CFG->calendar_site_timeformat;
-+        }
-+
          // Note: This logic about fixing 12-hour time to remove unnecessary leading
-         // zero is required because on Windows, PHP strftime function does not
-         // support the correct 'hour without leading zero' parameter (%l).
 -- 
 2.8.4 (Apple Git-73)
 
