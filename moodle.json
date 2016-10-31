@@ -31,7 +31,7 @@
   "ilearn2": {
     "rootDir": "/var/www/ilearn2",
     "requires": [ "moodle", "dsv_moodle_theme" ],
-    "patches": [ "moodle.patch", "moodle-guest.patch", "moodle-forum.patch", "moodle-display-undated-assignments.patch", "moodle-editpdf.patch" ],
+    "patches": [ "moodle.patch", "moodle-guest.patch", "moodle-forum.patch", "moodle-display-undated-assignments.patch", "moodle-editpdf.patch", "moodle-fix_calendar_timeformat.patch" ],
     "components": {
       "dsv_custom": {
         "repo": "ssh://git.dsv.su.se/git/moodle-dsv_custom",
@@ -111,7 +111,7 @@
   "ilearn2test": {
     "rootDir": "/var/www/ilearn2test",
     "requires": [ "ilearn2" ],
-    "patches": [ "moodle.patch", "moodle-guest.patch", "moodle-forum.patch", "moodle-editpdf.patch" ],
+    "patches": [ "moodle.patch", "moodle-guest.patch", "moodle-forum.patch", "moodle-editpdf.patch", "moodle-fix_calendar_timeformat.patch" ],
     "components": {
       "mod_advmindmap": {
         "repo": "https://github.com/ctchanandy/moodle-mod_advmindmap.git",
@@ -211,7 +211,7 @@
   "turing": {
     "rootDir": "/var/www/turing",
     "requires": [ "moodle", "dsv_moodle_theme" ],
-    "patches": [ "moodle.patch", "login.patch", "moodle-display_eid_users.patch", "moodle-editpdf.patch" ],
+    "patches": [ "moodle.patch", "login.patch", "moodle-display_eid_users.patch", "moodle-editpdf.patch", "moodle-fix_calendar_timeformat.patch" ],
     "components": {
       "dsv_custom": {
         "repo": "ssh://git.dsv.su.se/git/moodle-dsv_custom",
@@ -275,6 +275,7 @@
   "ocw": {
     "rootDir": "/var/www/ocw",
     "requires": [ "moodle", "dsv_moodle_theme" ],
+    "patches": [ "moodle-fix_calendar_timeformat.patch" ],
     "components": {
       "dsv_custom": {
         "repo": "ssh://git.dsv.su.se/git/moodle-dsv_custom",
@@ -286,7 +287,7 @@
   "natgeo": {
     "rootDir": "/var/www/natgeo",
     "requires": [ "moodle", "dsv_moodle_theme" ],
-    "patches": [ "natgeo-login.patch", "moodle-editpdf.patch" ],
+    "patches": [ "natgeo-login.patch", "moodle-editpdf.patch", "moodle-fix_calendar_timeformat.patch" ],
     "components": {
       "progressbar": {
         "repo": "https://github.com/deraadt/Moodle-block_progress.git",
@@ -302,7 +303,7 @@
   "forum": {
     "rootDir": "/var/www/forum",
     "requires": [ "moodle", "dsv_moodle_theme" ],
-    "patches": [ "0001-Patching-course_overview-block-to-make-it-fit-Forum-.patch" ],
+    "patches": [ "0001-Patching-course_overview-block-to-make-it-fit-Forum-.patch", "moodle-fix_calendar_timeformat.patch" ],
     "components": {
       "dsv_custom": {
         "repo": "ssh://git.dsv.su.se/git/moodle-dsv_custom",
@@ -327,7 +328,7 @@
  "addisco": {
     "rootDir": "/var/www/addisco",
     "requires": [ "moodle" ],
-    "patches": [ "addisco.patch", "moodle-addisco.patch", "moodle-editpdf.patch" ],
+    "patches": [ "addisco.patch", "moodle-addisco.patch", "moodle-editpdf.patch", "moodle-fix_calendar_timeformat.patch" ],
     "components": {
       "format_topcoll": {
         "repo": "https://github.com/gjb2048/moodle-format_topcoll.git",
