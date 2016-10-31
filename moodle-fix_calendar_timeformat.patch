@@ -1,0 +1,37 @@
+From 6bf7c07bce3defc7e752110a0cdecf4da92b8e52 Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Mon, 31 Oct 2016 12:15:42 +0100
+Subject: [PATCH] Fixing dates display to respect both user and site settings
+ calendar timeformats
+
+---
+ calendar/type/gregorian/classes/structure.php | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
+
+diff --git a/calendar/type/gregorian/classes/structure.php b/calendar/type/gregorian/classes/structure.php
+index cfcabe9..11aec8d 100644
+--- a/calendar/type/gregorian/classes/structure.php
++++ b/calendar/type/gregorian/classes/structure.php
+@@ -311,6 +311,19 @@ class structure extends type_base {
+             $format = $formatnoday;
+         }
+ 
++        global $USER;
++        if (!empty($USER->preference['calendar_timeformat'])) {
++            $format = explode(', ', $format);
++            array_pop($format);
++            $format = implode(', ', $format);
++            $format .= ', '.$USER->preference['calendar_timeformat'];
++        } else if (!empty($CFG->calendar_site_timeformat)) {
++            $format = explode(', ', $format);
++            array_pop($format);
++            $format = implode(', ', $format);
++            $format .= ', '.$CFG->calendar_site_timeformat;
++        }
++
+         // Note: This logic about fixing 12-hour time to remove unnecessary leading
+         // zero is required because on Windows, PHP strftime function does not
+         // support the correct 'hour without leading zero' parameter (%l).
+-- 
+2.8.4 (Apple Git-73)
+
