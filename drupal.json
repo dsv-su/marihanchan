@@ -33,7 +33,7 @@
             "drupal_core": {
                 "repo": "http://git.drupal.org/project/drupal.git",
                 "branch": "7.x",
-                "tag": "7.51",
+                "tag": "7.52",
                 "patch": "core.patch",
                 "ignoreEmptyPath": true
             }
@@ -798,7 +798,7 @@
                 "defaults": "module_contrib",
                 "repo": "http://git.drupal.org/project/find_content.git",
                 "branch": "7.x-1.0",
-                "tag": "7.x-1.7",
+                "tag": "7.x-1.6",
                 "path": "find_content"
             },
             "form_builder": {
