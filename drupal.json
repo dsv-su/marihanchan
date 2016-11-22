@@ -48,7 +48,7 @@
                 "defaults": "module_contrib",
                 "repo": "git://git.drupal.org/project/ctools.git",
                 "branch": "7.x-1.x",
-                "tag": "7.x-1.11",
+                "tag": "7.x-1.12",
                 "path": "ctools"
             },
             "git_deploy": {
@@ -339,7 +339,7 @@
                 "defaults": "module_contrib",
                 "repo": "git://git.drupal.org/project/uuid",
                 "branch": "7.x-1.x",
-                "tag": "7.x-1.0-alpha6",
+                "tag": "7.x-1.0-beta2",
                 "path": "uuid"
             },
             "webform":{
