@@ -654,7 +654,7 @@
 
     "project_proposals": {
         "rootDir": "/var/www/project_proposals",
-        "requires": [ "dsv_base", "dsv_theme", "dsv_auth"],
+        "requires": [ "dsv_base", "dsv_theme", "dsv_auth", "dsv_dev"],
         "components": {
             "conditional_fields": {
                 "defaults": "module_contrib",
