@@ -4,7 +4,7 @@
     "components": {
       "moodle_core": {
         "repo": "https://github.com/moodle/moodle.git",
-        "branch": "MOODLE_31_STABLE",
+        "branch": "MOODLE_32_STABLE",
         "ignoreEmptyPath": true
       }
     }
