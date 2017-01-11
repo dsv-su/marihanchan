@@ -19,7 +19,7 @@
       "local_mobile": {
         "repo": "https://github.com/jleyva/moodle-local_mobile.git",
         "path": "local/mobile",
-        "branch": "MOODLE_31_STABLE"
+        "branch": "MOODLE_32_STABLE"
       },
       "local_analytics": {
         "repo": "https://github.com/bmbrands/moodle-local_analytics.git",
@@ -86,7 +86,7 @@
       "mod_subpage": {
         "repo": "https://github.com/moodleou/moodle-mod_subpage.git",
         "path": "mod/subpage",
-        "branch": "MOODLE_30_STABLE"
+        "branch": "MOODLE_31_STABLE"
       },
       "block_progressbar": {
         "repo": "https://github.com/deraadt/Moodle-block_progress.git",
@@ -120,7 +120,7 @@
       "mod_customcert": {
         "repo": "https://github.com/markn86/moodle-mod_customcert.git",
         "path": "mod/customcert",
-        "branch": "MOODLE_31_STABLE"
+        "branch": "MOODLE_32_STABLE"
       },
       "mod_engagement": {
         "repo": "https://github.com/netspotau/moodle-mod_engagement.git",
@@ -137,7 +137,7 @@
       "mod_vpl": {
         "repo": "https://github.com/jcrodriguez-dis/moodle-mod_vpl.git",
         "path": "mod/vpl",
-        "branch": "v3.2"
+        "branch": "v3.2.4"
       },
       "mod_webinar": {
         "repo": "https://github.com/epicopensource/webinar.git",
@@ -228,7 +228,8 @@
       },
       "custom_certificate": {
         "repo": "https://github.com/markn86/moodle-mod_customcert.git",
-        "path": "mod/customcert"
+        "path": "mod/customcert",
+        "branch": "MOODLE_32_STABLE"
       },
       "mailsimulator": {
         "repo": "https://github.com/dsv-su/moodle-assignsubmission_mailsimulator.git",
@@ -250,7 +251,7 @@
       "mod_subpage": {
         "repo": "https://github.com/moodleou/moodle-mod_subpage.git",
         "path": "mod/subpage",
-        "branch": "MOODLE_30_STABLE"
+        "branch": "MOODLE_31_STABLE"
       },
       "filter_collapsible": {
         "repo": "https://github.com/eberhardt/moodle-filter_collapsible.git",
@@ -259,7 +260,7 @@
       "format_topcoll": {
         "repo": "https://github.com/gjb2048/moodle-format_topcoll.git",
         "path": "course/format/topcoll",
-        "branch": "MOODLE_30"
+        "branch": "MOODLE_31"
       },
       "format_flexsections": {
         "repo": "https://github.com/marinaglancy/moodle-format_flexsections",
@@ -317,7 +318,7 @@
       "mod_subpage": {
         "repo": "https://github.com/moodleou/moodle-mod_subpage.git",
         "path": "mod/subpage",
-        "branch": "MOODLE_30_STABLE"
+        "branch": "MOODLE_31_STABLE"
       },
       "mod_choicegroup": {
         "repo": "https://github.com/ndunand/moodle-mod_choicegroup.git",
@@ -338,7 +339,7 @@
       "format_topcoll": {
         "repo": "https://github.com/gjb2048/moodle-format_topcoll.git",
         "path": "course/format/topcoll",
-        "branch": "MOODLE_30"
+        "branch": "MOODLE_31"
       },
       "format_onetopic": {
         "repo": "https://github.com/davidherney/moodle-format_onetopic.git",
