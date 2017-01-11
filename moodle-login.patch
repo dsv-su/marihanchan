@@ -1,0 +1,40 @@
+From 9210336f5ca7a1e3b98d4afbfc91e929f0660197 Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Wed, 11 Jan 2017 21:11:44 +0300
+Subject: [PATCH] Fix login functions to introduce needed variables for new
+ login page
+
+---
+ auth/classes/output/login.php | 2 ++
+ login/index.php               | 1 +
+ 2 files changed, 3 insertions(+)
+
+diff --git a/auth/classes/output/login.php b/auth/classes/output/login.php
+index 5b924bb..d2050e1 100644
+--- a/auth/classes/output/login.php
++++ b/auth/classes/output/login.php
+@@ -150,7 +150,9 @@ class login implements renderable, templatable {
+         $data->loginurl = $this->loginurl->out(false);
+         $data->rememberusername = $this->rememberusername;
+         $data->passwordautocomplete = $this->passwordautocomplete;
++        $data->shibbolethauth = new moodle_url($CFG->httpswwwroot . '/auth/shibboleth');
+         $data->signupurl = $this->signupurl->out(false);
++        $data->stork_instructions = $this->instructions;
+         $data->username = $this->username;
+ 
+         return $data;
+diff --git a/login/index.php b/login/index.php
+index e461234..d27e74e 100644
+--- a/login/index.php
++++ b/login/index.php
+@@ -45,6 +45,7 @@ if ($cancel) {
+ 
+ //HTTPS is required in this page when $CFG->loginhttps enabled
+ $PAGE->https_required();
++$PAGE->requires->jquery();
+ 
+ $context = context_system::instance();
+ $PAGE->set_url("$CFG->httpswwwroot/login/index.php");
+-- 
+2.10.1 (Apple Git-78)
+

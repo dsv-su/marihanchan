@@ -1,14 +1,14 @@
-From ce348041f3b13ac53df8727644859811b7320343 Mon Sep 17 00:00:00 2001
+From 5474e486db4f33e23c8680b911663f9b33a356e3 Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
 Date: Thu, 13 Jun 2013 19:19:39 +0200
-Subject: [PATCH 1/9] navigation
+Subject: [PATCH 1/8] navigation
 
 ---
  mod/assign/lib.php | 34 ++++++++++++++++++++++++++++++++++
  1 file changed, 34 insertions(+)
 
 diff --git a/mod/assign/lib.php b/mod/assign/lib.php
-index 497c8f4..4112371 100644
+index 750404c..922d0d7 100644
 --- a/mod/assign/lib.php
 +++ b/mod/assign/lib.php
 @@ -260,6 +260,40 @@ function assign_extend_settings_navigation(settings_navigation $settings, naviga
@@ -53,23 +53,23 @@ index 497c8f4..4112371 100644
      // Link to gradebook.
      if (has_capability('gradereport/grader:view', $cm->context) &&
 -- 
-2.7.4 (Apple Git-66)
+2.10.1 (Apple Git-78)
 
 
-From a1e16bae0038dfe4e6f0abf0029a230a89848c2a Mon Sep 17 00:00:00 2001
+From 774f8a61844f478efc2fa9ddec42e38e19131b41 Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
 Date: Sat, 8 Jun 2013 21:54:51 +0200
-Subject: [PATCH 2/9] Hack for disabling buttons for reflection plugin
+Subject: [PATCH 2/8] Hack for disabling buttons for reflection plugin
 
 ---
  mod/assign/renderer.php | 16 ++++++++++++++++
  1 file changed, 16 insertions(+)
 
 diff --git a/mod/assign/renderer.php b/mod/assign/renderer.php
-index f6838e0..a35779f 100644
+index 665a0d3..00b615d 100644
 --- a/mod/assign/renderer.php
 +++ b/mod/assign/renderer.php
-@@ -719,6 +719,22 @@ class mod_assign_renderer extends plugin_renderer_base {
+@@ -909,6 +909,22 @@ class mod_assign_renderer extends plugin_renderer_base {
          $o .= html_writer::table($t);
          $o .= $this->output->box_end();
  
@@ -93,13 +93,13 @@ index f6838e0..a35779f 100644
          if ($status->view == assign_submission_status::STUDENT_VIEW) {
              if ($status->canedit) {
 -- 
-2.7.4 (Apple Git-66)
+2.10.1 (Apple Git-78)
 
 
-From 0a2cde30e9b3eaada19a6f61576dd7909e661630 Mon Sep 17 00:00:00 2001
+From 1adc9035c6ca033156f216d7f9d66490e351c303 Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
 Date: Thu, 26 Sep 2013 21:50:24 +0400
-Subject: [PATCH 3/9] Adding a better interface for blog association, allowing
+Subject: [PATCH 3/8] Adding a better interface for blog association, allowing
  users to change associations of a blog entry or to add an association ofter
  initial submission.
 
@@ -113,10 +113,10 @@ Conflicts:
  3 files changed, 65 insertions(+), 46 deletions(-)
 
 diff --git a/blog/edit.php b/blog/edit.php
-index 27c412f..959a211 100644
+index d732236..2c9a0f8 100644
 --- a/blog/edit.php
 +++ b/blog/edit.php
-@@ -219,6 +219,16 @@ if ($blogeditform->is_cancelled()) {
+@@ -222,6 +222,16 @@ if ($blogeditform->is_cancelled()) {
      redirect($returnurl);
  
  } else if ($data = $blogeditform->get_data()) {
@@ -134,10 +134,10 @@ index 27c412f..959a211 100644
      switch ($action) {
          case 'add':
 diff --git a/blog/edit_form.php b/blog/edit_form.php
-index 805bf79..c1bcda6 100644
+index 7060c93..128bf64 100644
 --- a/blog/edit_form.php
 +++ b/blog/edit_form.php
-@@ -73,55 +73,40 @@ class blog_edit_form extends moodleform {
+@@ -74,55 +74,40 @@ class blog_edit_form extends moodleform {
          $allmodnames = array();
  
          if (!empty($CFG->useblogassociations)) {
@@ -224,7 +224,7 @@ index 805bf79..c1bcda6 100644
          }
  
          $this->add_action_buttons();
-@@ -151,6 +136,25 @@ class blog_edit_form extends moodleform {
+@@ -152,6 +137,25 @@ class blog_edit_form extends moodleform {
      public function validation($data, $files) {
          global $CFG, $DB, $USER;
  
@@ -251,10 +251,10 @@ index 805bf79..c1bcda6 100644
  
          // Validate course association.
 diff --git a/blog/locallib.php b/blog/locallib.php
-index 114e38e..a1cd4b7 100644
+index af1b72e..458ad77 100644
 --- a/blog/locallib.php
 +++ b/blog/locallib.php
-@@ -290,6 +290,11 @@ class blog_entry implements renderable {
+@@ -287,6 +287,11 @@ class blog_entry implements renderable {
          $sitecontext = context_system::instance();
          $entry = $this;
  
@@ -267,13 +267,13 @@ index 114e38e..a1cd4b7 100644
          foreach ($params as $var => $val) {
              $entry->$var = $val;
 -- 
-2.7.4 (Apple Git-66)
+2.10.1 (Apple Git-78)
 
 
-From bb8c33751b663ca554d5915cefe934d86fa8d5b2 Mon Sep 17 00:00:00 2001
+From 4151a1ce74aa44a9996af031a5880b6806e55322 Mon Sep 17 00:00:00 2001
 From: Erik Lundberg <lundbergerik@gmail.com>
 Date: Wed, 11 Jul 2012 14:50:57 +0200
-Subject: [PATCH 4/9] Now the "Blog entries about course"-view will include
+Subject: [PATCH 4/8] Now the "Blog entries about course"-view will include
  nested entries; i. e. entries associated with modules that belongs to the
  course.
 
@@ -282,10 +282,10 @@ Subject: [PATCH 4/9] Now the "Blog entries about course"-view will include
  1 file changed, 12 insertions(+), 1 deletion(-)
 
 diff --git a/blog/locallib.php b/blog/locallib.php
-index a1cd4b7..295411c 100644
+index 458ad77..d5a856c 100644
 --- a/blog/locallib.php
 +++ b/blog/locallib.php
-@@ -924,7 +924,18 @@ class blog_filter_context extends blog_filter {
+@@ -923,7 +923,18 @@ class blog_filter_context extends blog_filter {
                      $context = context_course::instance($this->id);
                      $this->tables['ba'] = 'blog_association';
                      $this->conditions[] = 'p.id = ba.blogid';
@@ -306,13 +306,13 @@ index a1cd4b7..295411c 100644
                  } else {
                      // We are dealing with the site course, do not break from the current case.
 -- 
-2.7.4 (Apple Git-66)
+2.10.1 (Apple Git-78)
 
 
-From a16fee8dcc8962be29416364de2cf30ffd0cf7a7 Mon Sep 17 00:00:00 2001
+From d84488e681b7c8752ff36e129e70c5330ed922ff Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
 Date: Wed, 20 Nov 2013 17:06:49 +0400
-Subject: [PATCH 5/9] Including all blog posts to view all posts link and
+Subject: [PATCH 5/8] Including all blog posts to view all posts link and
  fixing bug when no posts are seen from assignment group view
 
 ---
@@ -320,10 +320,10 @@ Subject: [PATCH 5/9] Including all blog posts to view all posts link and
  1 file changed, 16 insertions(+), 2 deletions(-)
 
 diff --git a/blog/locallib.php b/blog/locallib.php
-index 295411c..996e4c4 100644
+index d5a856c..41431a1 100644
 --- a/blog/locallib.php
 +++ b/blog/locallib.php
-@@ -676,6 +676,10 @@ class blog_listing {
+@@ -679,6 +679,10 @@ class blog_listing {
              $conditions[] = $permissionsql;  // Add permission constraints.
          }
  
@@ -334,7 +334,7 @@ index 295411c..996e4c4 100644
          foreach ($this->filters as $type => $blogfilter) {
              $conditions = array_merge($conditions, $blogfilter->conditions);
              $params = array_merge($params, $blogfilter->params);
-@@ -1001,10 +1005,20 @@ class blog_filter_user extends blog_filter {
+@@ -1013,10 +1017,20 @@ class blog_filter_user extends blog_filter {
                  $coursecontext     = context_course::instance($DB->get_field('groups', 'courseid', array('id' => $this->id)));
                  $this->tables['ba'] = 'blog_association';
                  $this->conditions[] = 'gm.groupid = ?';
@@ -358,13 +358,13 @@ index 295411c..996e4c4 100644
          }
  
 -- 
-2.7.4 (Apple Git-66)
+2.10.1 (Apple Git-78)
 
 
-From 2bf8034c071f73604c1b1eeb41a4798058d51305 Mon Sep 17 00:00:00 2001
+From 353cc4fc5e19fcbf12ba3000849710f22583419d Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
 Date: Mon, 10 Mar 2014 09:46:23 +0100
-Subject: [PATCH 6/9] Fixing leading zeros when autocreating groups
+Subject: [PATCH 6/8] Fixing leading zeros when autocreating groups
 
 ---
  group/autogroup.php      | 2 +-
@@ -373,10 +373,10 @@ Subject: [PATCH 6/9] Fixing leading zeros when autocreating groups
  3 files changed, 9 insertions(+), 4 deletions(-)
 
 diff --git a/group/autogroup.php b/group/autogroup.php
-index 8270ff3..ebec4c5 100644
+index 0c1bb5d..986aacb 100644
 --- a/group/autogroup.php
 +++ b/group/autogroup.php
-@@ -128,7 +128,7 @@ if ($editform->is_cancelled()) {
+@@ -133,7 +133,7 @@ if ($editform->is_cancelled()) {
      // allocate the users - all groups equal count first
      for ($i=0; $i<$numgrps; $i++) {
          $groups[$i] = array();
@@ -386,7 +386,7 @@ index 8270ff3..ebec4c5 100644
          if ($data->allocateby == 'no') {
              continue; // do not allocate users
 diff --git a/group/autogroup_form.php b/group/autogroup_form.php
-index a04da01..d84fb27 100644
+index 8e17c17..0fcdace 100644
 --- a/group/autogroup_form.php
 +++ b/group/autogroup_form.php
 @@ -54,7 +54,7 @@ class autogroup_form extends moodleform {
@@ -399,10 +399,10 @@ index a04da01..d84fb27 100644
              $mform->setDefault('namingscheme', $template);
          }
 diff --git a/group/lib.php b/group/lib.php
-index 8853d42..b228c04 100644
+index 3f8de4e..19107f5 100644
 --- a/group/lib.php
 +++ b/group/lib.php
-@@ -802,7 +802,7 @@ function groups_get_potential_members($courseid, $roleid = null, $source = null,
+@@ -799,7 +799,7 @@ function groups_get_potential_members($courseid, $roleid = null, $source = null,
   * @param int $groupnumber The number of the group to be used in the parsed format string
   * @return string the parsed format string
   */
@@ -411,7 +411,7 @@ index 8853d42..b228c04 100644
      if (strstr($format, '@') !== false) { // Convert $groupnumber to a character series
          $letter = 'A';
          for($i=0; $i<$groupnumber; $i++) {
-@@ -810,7 +810,12 @@ function groups_parse_name($format, $groupnumber) {
+@@ -807,7 +807,12 @@ function groups_parse_name($format, $groupnumber) {
          }
          $str = str_replace('@', $letter, $format);
      } else {
@@ -426,13 +426,13 @@ index 8853d42..b228c04 100644
      return($str);
  }
 -- 
-2.7.4 (Apple Git-66)
+2.10.1 (Apple Git-78)
 
 
-From 4ad45cc7afc83099a74610594ce9e1b7480c12e2 Mon Sep 17 00:00:00 2001
+From 0058a95e8543b779df6035f5ed681a1258d7ca8c Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
 Date: Thu, 6 Mar 2014 13:07:22 +0400
-Subject: [PATCH 7/9] MDL-44481 assign: add sorting of assign submissions by a
+Subject: [PATCH 7/8] MDL-44481 assign: add sorting of assign submissions by a
  group name
 
 ---
@@ -440,12 +440,12 @@ Subject: [PATCH 7/9] MDL-44481 assign: add sorting of assign submissions by a
  1 file changed, 23 insertions(+), 1 deletion(-)
 
 diff --git a/mod/assign/gradingtable.php b/mod/assign/gradingtable.php
-index eec9214..a204711 100644
+index 867ac14..46fc783 100644
 --- a/mod/assign/gradingtable.php
 +++ b/mod/assign/gradingtable.php
-@@ -178,6 +178,27 @@ class assign_grading_table extends table_sql implements renderable {
-                          ON u.id = uf.userid
-                         AND uf.assignment = :assignmentid3';
+@@ -186,6 +186,27 @@ class assign_grading_table extends table_sql implements renderable {
+             $fields .= ', um.id as recordid ';
+         }
  
 +        if ($this->assignment->get_instance()->teamsubmission) {
 +            $groupingid = $assignment->get_instance()->teamsubmissiongroupingid;
@@ -471,7 +471,7 @@ index eec9214..a204711 100644
          $userparams = array();
          $userindex = 0;
  
-@@ -417,7 +438,8 @@ class assign_grading_table extends table_sql implements renderable {
+@@ -425,7 +446,8 @@ class assign_grading_table extends table_sql implements renderable {
          $this->no_sorting('outcomes');
  
          if ($assignment->get_instance()->teamsubmission) {
@@ -482,13 +482,13 @@ index eec9214..a204711 100644
  
          $plugincolumnindex = 0;
 -- 
-2.7.4 (Apple Git-66)
+2.10.1 (Apple Git-78)
 
 
-From 63fa92408183482552889802e3de5cb487fc2461 Mon Sep 17 00:00:00 2001
+From db11a1f94b47013dec2d30e6e38e0f88ff20b8f9 Mon Sep 17 00:00:00 2001
 From: Dan Wheeler - Colgate <DWheeler@Colgate.Edu>
 Date: Thu, 26 Jun 2014 13:23:01 -0700
-Subject: [PATCH 8/9] MDL-44481 assign: Added checking for no groups in
+Subject: [PATCH 8/8] MDL-44481 assign: Added checking for no groups in
  selected Grouping
 
 ---
@@ -496,10 +496,10 @@ Subject: [PATCH 8/9] MDL-44481 assign: Added checking for no groups in
  1 file changed, 6 insertions(+), 2 deletions(-)
 
 diff --git a/mod/assign/gradingtable.php b/mod/assign/gradingtable.php
-index a204711..9c62b1b 100644
+index 46fc783..5025060 100644
 --- a/mod/assign/gradingtable.php
 +++ b/mod/assign/gradingtable.php
-@@ -183,8 +183,12 @@ class assign_grading_table extends table_sql implements renderable {
+@@ -191,8 +191,12 @@ class assign_grading_table extends table_sql implements renderable {
              if ($groupingid) {
                  $query = 'SELECT g.id FROM {groups} g JOIN {groupings_groups} gg ON gg.groupid = g.id WHERE gg.groupingid = '.$groupingid;
                  $teamsubmissiongroupinggroups = $DB->get_fieldset_sql($query);
@@ -515,101 +515,5 @@ index a204711..9c62b1b 100644
                  $groupingmodifier = '';
              }
 -- 
-2.7.4 (Apple Git-66)
-
-
-From d690ff452ab0e567e0224e443b55016a9c63b232 Mon Sep 17 00:00:00 2001
-From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
-Date: Thu, 11 Dec 2014 12:07:53 +0300
-Subject: [PATCH 9/9] Rework of login page
-
----
- login/index.php       |  1 +
- login/index_form.html | 37 ++++++++++++++++++++++++++++++++-----
- 2 files changed, 33 insertions(+), 5 deletions(-)
-
-diff --git a/login/index.php b/login/index.php
-index 3ea0675..2f0ab2c 100644
---- a/login/index.php
-+++ b/login/index.php
-@@ -45,6 +45,7 @@ if ($cancel) {
- 
- //HTTPS is required in this page when $CFG->loginhttps enabled
- $PAGE->https_required();
-+$PAGE->requires->jquery();
- 
- $context = context_system::instance();
- $PAGE->set_url("$CFG->httpswwwroot/login/index.php");
-diff --git a/login/index_form.html b/login/index_form.html
-index 3b8ae58..53ce86c 100644
---- a/login/index_form.html
-+++ b/login/index_form.html
-@@ -1,9 +1,10 @@
- <?php
--if ($show_instructions) {
-+//if ($show_instructions) {
-     $columns = 'twocolumns';
--} else {
-+//} else {
-     $columns = 'onecolumn';
--}
-+//}
-+
- 
- if (!empty($CFG->loginpasswordautocomplete)) {
-     $autocomplete = 'autocomplete="off"';
-@@ -15,15 +16,41 @@ if (empty($CFG->authloginviaemail)) {
- } else {
-     $strusername = get_string('usernameemail');
- }
-+
- ?>
-+
-+<script type="text/javascript" >
-+$(document).ready(function()
-+{
-+  $(".subcontent").hide();
-+
-+  $(".expand").click(function() {
-+    var X = $(this).attr('id');
-+    if (X == 1) {
-+      $(this).parent().find(".subcontent").hide();
-+      $(this).find("h2").attr('class', 'collapsed');
-+      $(this).attr('id', '0'); 
-+    } else {
-+      $(".subcontent").hide();
-+      $(".subcontent").parent().find("a").attr('id', '0'); 
-+      $(this).find("h2").attr('class', 'collapsed');
-+      $(this).parent().find(".subcontent").show();
-+      $(this).find("h2").attr('class', 'expanded');
-+      $(this).attr('id', '1');
-+    }
-+  })
-+})
-+</script>
-+
- <div class="loginbox clearfix <?php echo $columns ?>">
-   <div class="loginpanel">
-+  <a class="directlink" href = "https://<?php echo($CFG->chat_serverhost) ?>/auth/shibboleth"><div><h2 class ="collapsed">Login with your DSV or University account</h2></div></a>
- <?php
-   if (($CFG->registerauth == 'email') || !empty($CFG->registerauth)) { ?>
-       <div class="skiplinks"><a class="skip" href="signup.php"><?php print_string("tocreatenewaccount"); ?></a></div>
- <?php
-   } ?>
--    <h2><?php print_string("login") ?></h2>
-+    <a class="expand"><div><h2 class ="collapsed">Login with another account</h2></div></a>
-       <div class="subcontent loginsub">
-         <?php
-           if (!empty($errormsg)) {
-@@ -83,7 +110,7 @@ if (empty($CFG->authloginviaemail)) {
-      </div>
- <?php if ($show_instructions) { ?>
-     <div class="signuppanel">
--      <h2><?php print_string("firsttime") ?></h2>
-+      <a class="expand"><div><h2 class ="collapsed">Create an account</h2></div></a>
-       <div class="subcontent">
- <?php     if (is_enabled_auth('none')) { // instructions override the rest for security reasons
-               print_string("loginstepsnone");
--- 
-2.7.4 (Apple Git-66)
+2.10.1 (Apple Git-78)
 
