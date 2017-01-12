@@ -211,7 +211,7 @@
   "turing": {
     "rootDir": "/var/www/turing",
     "requires": [ "moodle", "dsv_moodle_theme" ],
-    "patches": [ "moodle.patch", "login.patch", "moodle-login.patch", "moodle-display_eid_users.patch", "moodle-editpdf.patch", "moodle-fix_calendar_timeformat.patch" ],
+    "patches": [ "moodle.patch", "moodle-login.patch", "moodle-display_eid_users.patch", "moodle-editpdf.patch", "moodle-fix_calendar_timeformat.patch" ],
     "components": {
       "dsv_custom": {
         "repo": "ssh://git.dsv.su.se/git/moodle-dsv_custom",
