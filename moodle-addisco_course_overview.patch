@@ -1,0 +1,28 @@
+From cf3470db1f2aa6f16707094c6ee8e96bae5c9bf2 Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <psokolov@dsv.su.se>
+Date: Tue, 31 Jan 2017 17:53:57 +0100
+Subject: [PATCH] Style addisco course overview block
+
+---
+ blocks/course_overview/styles.css | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/blocks/course_overview/styles.css b/blocks/course_overview/styles.css
+index 2aab2a3..40a197a 100644
+--- a/blocks/course_overview/styles.css
++++ b/blocks/course_overview/styles.css
+@@ -7,9 +7,11 @@
+     text-align: right;
+ }
+ 
++/*
+ .block_course_overview .content {
+     margin: 0 20px;
+ }
++*/
+ 
+ .block_course_overview .content .notice {
+     margin: 5px 0;
+-- 
+2.1.4
+
