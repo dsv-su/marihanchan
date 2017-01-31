@@ -343,7 +343,7 @@
  "addisco": {
     "rootDir": "/var/www/addisco",
     "requires": [ "moodle" ],
-    "patches": [ "addisco.patch", "moodle-addisco.patch", "moodle-editpdf.patch", "moodle-fix_calendar_timeformat.patch", "moodle-mailsimulator_js.patch" ],
+    "patches": [ "addisco.patch", "moodle-addisco_overview.patch", "moodle-editpdf.patch", "moodle-fix_calendar_timeformat.patch", "moodle-mailsimulator_js.patch" ],
     "components": {
       "format_topcoll": {
         "repo": "https://github.com/gjb2048/moodle-format_topcoll.git",
@@ -371,6 +371,14 @@
       "assignsubmission_reflection": {
         "repo": "https://github.com/dsv-su/moodle-assignsubmission_reflection.git",
         "path": "mod/assign/submission/reflection"
+      },
+      "theme_canvas": {
+        "repo": "https://github.com/lazydaisy/moodle-theme_canvas.git",
+        "path": "theme/canvas"
+      },
+      "theme_base": {
+        "repo": "https://github.com/lazydaisy/moodle-theme_base.git",
+        "path": "theme/base"
       }
     }
   }
