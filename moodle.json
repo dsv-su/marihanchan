@@ -92,6 +92,10 @@
         "repo": "https://github.com/deraadt/Moodle-block_progress.git",
         "path": "blocks/progress"
       },
+      "block_completion_progress": {
+        "repo": "https://github.com/deraadt/moodle-block_completion_progress.git",
+        "path": "blocks/completion_progress"
+      },
       "mod_booking": {
         "repo": "https://github.com/dasistwas/moodle-mod_booking.git",
         "path": "mod/booking"
@@ -204,7 +208,6 @@
         "path": "blocks/configurable_reports",
         "branch": "MOODLE_30_STABLE"
       },
-
       "ltiprovider": {
         "repo": "https://github.com/jleyva/moodle-local_ltiprovider.git",
         "path": "local/ltiprovider",
