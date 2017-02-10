@@ -1,18 +1,18 @@
-From 4228debf69c32265d613a4ee2129a505d7fea0da Mon Sep 17 00:00:00 2001
+From 632104bc4dbd6a9ba844746672b8ed3f51a8949b Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
-Date: Wed, 2 Dec 2015 14:53:59 +0300
-Subject: [PATCH] Manual fixes
+Date: Fri, 10 Feb 2017 17:50:58 +0300
+Subject: [PATCH] Forum aggregator patch
 
 ---
- block_forum_aggregator.php         | 44 +++++++++++++++++++++++++++--------
+ block_forum_aggregator.php         | 46 +++++++++++++++++++++++++++++--------
  lang/en/block_forum_aggregator.php |  4 +++-
- lang/sv/block_forum_aggregator.php |  1 +
+ lang/sv/block_forum_aggregator.php | 24 +++++++++++++++++++
  styles.css                         | 47 +++++++++++++++++++++++++++++++-------
- 4 files changed, 78 insertions(+), 18 deletions(-)
+ 4 files changed, 102 insertions(+), 19 deletions(-)
  create mode 100644 lang/sv/block_forum_aggregator.php
 
 diff --git a/block_forum_aggregator.php b/block_forum_aggregator.php
-index 9c6cadb..449d3b4 100644
+index 45f0c0c..4cdfc85 100644
 --- a/block_forum_aggregator.php
 +++ b/block_forum_aggregator.php
 @@ -96,7 +96,7 @@ class block_forum_aggregator extends block_base {
@@ -24,7 +24,7 @@ index 9c6cadb..449d3b4 100644
                          
                          if (! $forum = $DB->get_record("forum", array("id" => $key))) {
                              print_error('invalidforumid', 'forum');
-@@ -104,7 +104,7 @@ class block_forum_aggregator extends block_base {
+@@ -104,14 +104,14 @@ class block_forum_aggregator extends block_base {
  
                          //show list                        
                          $text .= html_writer::start_tag('ul', array('class'=> 'unlist'));
@@ -33,6 +33,14 @@ index 9c6cadb..449d3b4 100644
                          
                          $allnames = get_all_user_name_fields(true, 'u');
                          $posts = $DB->get_records_sql('SELECT d.id, p.*, '.$allnames.', u.email, u.picture, u.imagealt
+                                             FROM {forum_discussions} d
+                                             LEFT JOIN {forum_posts} p ON p.discussion = d.id
+                                             LEFT JOIN {user} u ON p.userid = u.id
+-                                            WHERE d.forum = \''.$key.'\'
++                                            WHERE d.forum = \''.$key.'\' AND parent = 0
+                                             ORDER BY p.modified DESC ', null, 0, $max_posts);
+                         
+                         if (!empty($posts)) {
 @@ -126,26 +126,35 @@ class block_forum_aggregator extends block_base {
                                  }
                                  
@@ -66,13 +74,13 @@ index 9c6cadb..449d3b4 100644
 +                                         $post->message.'...</br>'.
                                           html_writer::link(new moodle_url('/mod/forum/discuss.php?d='.$post->discussion.'#p'.$post->id), $strmore.'...' , array('class' => 'postreadmore')).
 -                                         html_writer::end_tag('div').
-+					html_writer::end_tag('div').
++					                     html_writer::end_tag('div').
                                           html_writer::end_tag('li');
                              }
                          } else {
                              $text .= html_writer::tag('li', '('.get_string('noposts', 'block_forum_aggregator').')', array('class' => 'no_posts'));
                          }
-+$text .= html_writer::link(new moodle_url('/mod/forum/view.php?id='.$cm->id), $strold , array('class' => 'postreadold'));
++                        $text .= html_writer::link(new moodle_url('/mod/forum/view.php?id='.$cm->id), $strold , array('class' => 'postreadold'));
                          $text .= html_writer::end_tag('ul');
                      }
              }
@@ -122,11 +130,34 @@ index 1acda56..3edc42e 100644
 +$string['unread_post_color_description'] = 'Define the color background of unread posts.';
 diff --git a/lang/sv/block_forum_aggregator.php b/lang/sv/block_forum_aggregator.php
 new file mode 100644
-index 0000000..00041ac
+index 0000000..aa4519f
 --- /dev/null
 +++ b/lang/sv/block_forum_aggregator.php
-@@ -0,0 +1 @@
-+$string['viewoldertopics'] = 'View older topics';
+@@ -0,0 +1,24 @@
++<?php
++// This file is part of Moodle - http://moodle.org/
++//
++// Moodle is free software: you can redistribute it and/or modify
++// it under the terms of the GNU General Public License as published by
++// the Free Software Foundation, either version 3 of the License, or
++// (at your option) any later version.
++//
++// Moodle is distributed in the hope that it will be useful,
++// but WITHOUT ANY WARRANTY; without even the implied warranty of
++// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++// GNU General Public License for more details.
++//
++// You should have received a copy of the GNU General Public License
++// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
++/*
++ * @package    block
++ * @subpackage forum_aggregator
++ * @author     Tõnis Tartes <t6nis20@gmail.com>
++ * @copyright  1999 onwards Martin Dougiamas  {@link http://moodle.com}
++ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
++ */
++
++$string['viewoldertopics'] = 'Visa fler nyheter';
 diff --git a/styles.css b/styles.css
 index ac7de2d..f5a4a2a 100644
 --- a/styles.css
@@ -207,5 +238,5 @@ index ac7de2d..f5a4a2a 100644
 +    border: none;
 +}
 -- 
-2.4.9 (Apple Git-60)
+2.10.1 (Apple Git-78)
 
