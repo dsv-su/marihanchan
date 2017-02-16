@@ -31,7 +31,16 @@
   "ilearn2": {
     "rootDir": "/var/www/ilearn2",
     "requires": [ "moodle", "dsv_moodle_theme" ],
-    "patches": [ "moodle.patch", "moodle-guest.patch", "moodle-forum_unsubscribe.patch", "moodle-display-undated-assignments.patch", "moodle-editpdf.patch", "moodle-fix_calendar_timeformat.patch", "moodle-mailsimulator_js.patch" ],
+    "patches": [
+      "moodle.patch",
+      "moodle-guest.patch",
+      "moodle-forum_unsubscribe.patch",
+      "moodle-display-undated-assignments.patch",
+      "moodle-editpdf.patch",
+      "moodle-fix_calendar_timeformat.patch",
+      "moodle-mailsimulator_js.patch",
+      "moodle-old_action_menus.patch"
+    ],
     "components": {
       "dsv_custom": {
         "repo": "ssh://git.dsv.su.se/git/moodle-dsv_custom",
@@ -115,7 +124,16 @@
   "ilearn2test": {
     "rootDir": "/var/www/ilearn2test",
     "requires": [ "ilearn2" ],
-    "patches": [ "moodle.patch", "moodle-guest.patch", "moodle-login.patch", "moodle-forum_unsubscribe.patch", "moodle-editpdf.patch", "moodle-fix_calendar_timeformat.patch", "moodle-mailsimulator_js.patch" ],
+    "patches": [
+      "moodle.patch",
+      "moodle-guest.patch",
+      "moodle-login.patch",
+      "moodle-forum_unsubscribe.patch",
+      "moodle-editpdf.patch",
+      "moodle-fix_calendar_timeformat.patch",
+      "moodle-mailsimulator_js.patch",
+      "moodle-old_action_menus.patch"
+    ],
     "components": {
       "mod_advmindmap": {
         "repo": "https://github.com/ctchanandy/moodle-mod_advmindmap.git",
