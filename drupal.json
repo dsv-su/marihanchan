@@ -661,7 +661,8 @@
                 "repo": "http://git.drupal.org/project/conditional_fields.git",
                 "branch": "7.x-3.x",
                 "tag": "7.x-3.0-alpha2",
-                "path": "conditional_fields"
+                "path": "conditional_fields",
+                "patch": "drupal-conditional_fields.patch"
             },
             "currency": {
                 "defaults": "module_contrib",
