@@ -33,7 +33,7 @@
             "drupal_core": {
                 "repo": "http://git.drupal.org/project/drupal.git",
                 "branch": "7.x",
-                "tag": "7.52",
+                "tag": "7.54",
                 "patch": "core.patch",
                 "ignoreEmptyPath": true
             }
@@ -98,14 +98,14 @@
                 "defaults": "module_contrib",
                 "repo": "git://git.drupal.org/project/token.git",
                 "branch": "7.x-1.x",
-                "tag": "7.x-1.6",
+                "tag": "7.x-1.7",
                 "path": "token"
             },
             "views": {
                 "defaults": "module_contrib",
                 "repo": "git://git.drupal.org/project/views.git",
                 "branch": "7.x-3.x",
-                "tag": "7.x-3.14",
+                "tag": "7.x-3.15",
                 "path": "views",
                 "patch": "views.patch"
             },
@@ -239,7 +239,7 @@
                 "defaults": "module_contrib",
                 "repo": "git://git.drupal.org/project/i18n",
                 "branch": "7.x-1.x",
-                "tag": "7.x-1.14",
+                "tag": "7.x-1.15",
                 "path": "i18n"
             },
             "internationalization_views": {
@@ -265,15 +265,15 @@
             "localization_update": {
                 "defaults": "module_contrib",
                 "repo": "git://git.drupal.org/project/l10n_update",
-                "branch": "7.x-1.x",
-                "tag": "7.x-2.0",
+                "branch": "7.x-2.x",
+                "tag": "7.x-2.1",
                 "path": "l10n_update"
             },
             "title": {
                 "defaults": "module_contrib",
                 "repo": "git://git.drupal.org/project/title",
                 "branch": "7.x-1.x",
-                "tag": "7.x-1.0-alpha8",
+                "tag": "7.x-1.0-alpha9",
                 "path": "title"
             },
             "variable": {
@@ -472,7 +472,7 @@
                 "defaults": "module_contrib",
                 "repo": "git://git.drupal.org/project/panels.git",
                 "branch": "7.x-3.x",
-                "tag": "7.x-3.8",
+                "tag": "7.x-3.9",
                 "path": "panels"
             },
             "redirect": {
@@ -633,7 +633,7 @@
                 "defaults": "module_contrib",
                 "repo": "http://git.drupal.org/project/webform_validation.git",
                 "branch": "7.x-1.x",
-                "tag": "7.x-1.12",
+                "tag": "7.x-1.13",
                 "path": "webform_validation"
             },
             "webform_report": {
@@ -717,7 +717,7 @@
                 "defaults": "module_contrib",
                 "repo": "git://git.drupal.org/project/panels.git",
                 "branch": "7.x-3.x",
-                "tag": "7.x-3.8",
+                "tag": "7.x-3.9",
                 "path": "panels"
             },
             "projprop_edit": {
@@ -820,21 +820,21 @@
                 "defaults": "module_contrib",
                 "repo": "http://git.drupal.org/project/find_content.git",
                 "branch": "7.x-1.0",
-                "tag": "7.x-1.6",
+                "tag": "7.x-1.7",
                 "path": "find_content"
             },
             "form_builder": {
                 "defaults": "module_contrib",
                 "repo": "http://git.drupal.org/project/form_builder.git",
                 "branch": "7.x-1.0",
-                "tag": "7.x-1.19",
+                "tag": "7.x-1.20",
                 "path": "form_builder"
             },
             "menu_trail_by_path": {
                 "defaults": "module_contrib",
                 "repo": "http://git.drupal.org/project/menu_trail_by_path.git",
                 "branch": "7.x-3.x",
-                "tag": "7.x-3.1",
+                "tag": "7.x-3.2",
                 "path": "menu_trail_by_path"
             },
             "node_convert": {
@@ -899,6 +899,13 @@
         "rootDir": "/var/www/utbytes",
         "requires": [ "dsv_base", "dsv_theme", "dsv_auth", "dsv_wysiwyg" ],
         "components": {
+            "autocomplete_deluxe": {
+                "defaults": "module_contrib",
+                "repo": "http://git.drupal.org/project/autocomplete_deluxe.git",
+                "branch": "7.x-2.x",
+                "tag": "7.x-2.2",
+                "path": "autocomplete_deluxe"
+            },
             "webform": {
                 "defaults": "module_contrib",
                 "repo": "http://git.drupal.org/project/webform.git",
@@ -987,7 +994,7 @@
                 "defaults": "module_contrib",
                 "repo": "http://git.drupal.org/project/feeds.git",
                 "branch": "7.x-2.x",
-                "tag": "7.x-2.0-beta2",
+                "tag": "7.x-2.0-beta3",
                 "path": "feeds"
             },
             "admin_menu": {
@@ -1015,7 +1022,7 @@
                 "defaults": "module_contrib",
                 "repo": "http://git.drupal.org/project/better_exposed_filters.git",
                 "branch": "7.x-3.x",
-                "tag": "7.x-3.2",
+                "tag": "7.x-3.4",
                 "path": "better_exposed_filters"
             },
             "views_accordion": {
@@ -1036,7 +1043,7 @@
                 "defaults": "module_contrib",
                 "repo": "http://git.drupal.org/project/hierarchical_select.git",
                 "branch": "7.x-3.x",
-                "tag": "7.x-3.0-beta7",
+                "tag": "7.x-3.0-beta8",
                 "path": "hierarchical_select"
             },
             "dsv_forms_theme": {
