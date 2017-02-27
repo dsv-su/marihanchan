@@ -1,6 +1,6 @@
-From 6affa3a0bd6c116c70112aff3b6f1ee3103b0d18 Mon Sep 17 00:00:00 2001
+From 5360788a55b4a8653b427e87cd7d4b6ecff28bc0 Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
-Date: Wed, 22 Jun 2016 14:09:32 +0300
+Date: Mon, 27 Feb 2017 15:46:37 +0300
 Subject: [PATCH] Fixing removal of duplicate entires and link title
 
 ---
@@ -37,5 +37,5 @@ index 116a4de..0cf8ee1 100644
  
    function title() {
 -- 
-2.7.4 (Apple Git-66)
+2.10.1 (Apple Git-78)
 
