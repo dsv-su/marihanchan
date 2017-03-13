@@ -1,28 +1,28 @@
-From 45fa4959259de3a33412e65f885c14dd2dc1af92 Mon Sep 17 00:00:00 2001
+From 83adab788e058af1ef4202f59cd8a1a72c80fb03 Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
-Date: Tue, 31 Jan 2017 18:41:00 +0300
+Date: Mon, 13 Mar 2017 16:04:32 +0300
 Subject: [PATCH] Fixing mailsimulator submit button
 
 ---
- mod/assign/amd/build/grading_panel.min.js | Bin 5384 -> 5421 bytes
+ mod/assign/amd/build/grading_panel.min.js | Bin 5376 -> 5413 bytes
  mod/assign/amd/src/grading_panel.js       |   4 +++-
  2 files changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/mod/assign/amd/build/grading_panel.min.js b/mod/assign/amd/build/grading_panel.min.js
-index f371f8de35fe7ee06e018bb72da0859662448e83..6a6c72e003431d5c2b7d2b02e52d35446400b429 100644
+index 174909ab4f62c99137fca6bc106b85fe3cfa2b29..cde1d6425dd7014a20f5cc85119e9097767605a5 100644
 GIT binary patch
 delta 51
-zcmeCsTC26eS6EFcH!(A(I5W32C$S{IC_XJUH6<xAIa^85wj?97ST8RzH&sn7b+e!F
-GE=B<Aj1q7F
+zcmZqBTB^0dRai|aH!(A(I5W32C$S{IC_XJUH6<xAIa^85wj?97ST8RzH&sn7b+eoB
+GE=B<5+!9a#
 
 delta 14
-VcmZ3h)uFY)SC}zzbFuI)MgS*A1n>X=
+VcmZ3g)u6S(RhThxbGGm<MgS%c1keBg
 
 diff --git a/mod/assign/amd/src/grading_panel.js b/mod/assign/amd/src/grading_panel.js
-index 0e3b88c..e7f1427 100644
+index be19a7b..9cb46fa 100644
 --- a/mod/assign/amd/src/grading_panel.js
 +++ b/mod/assign/amd/src/grading_panel.js
-@@ -350,7 +350,9 @@ define(['jquery', 'core/yui', 'core/notification', 'core/templates', 'core/fragm
+@@ -348,7 +348,9 @@ define(['jquery', 'core/yui', 'core/notification', 'core/templates', 'core/fragm
          var region = $(this._region);
          // Add an event listener to prevent form submission when pressing enter key.
          region.on('submit', 'form', function(e) {
