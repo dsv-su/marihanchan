@@ -1,0 +1,56 @@
+From 8897b584d52722713044f12186bd3da70c6d2911 Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Fri, 17 Mar 2017 11:39:21 +0300
+Subject: [PATCH] MDL-57858 mod_assign: fix submissions count for assign with
+ scales
+
+---
+ mod/assign/lib.php      | 6 +++++-
+ mod/assign/locallib.php | 4 +++-
+ 2 files changed, 8 insertions(+), 2 deletions(-)
+
+diff --git a/mod/assign/lib.php b/mod/assign/lib.php
+index f8eaf08..d9544ad 100644
+--- a/mod/assign/lib.php
++++ b/mod/assign/lib.php
+@@ -736,10 +736,14 @@ function assign_get_grade_details_for_print_overview(&$unmarkedsubmissions, $sql
+                                              s.userid = g.userid AND
+                                              s.assignment = g.assignment AND
+                                              g.attemptnumber = s.attemptnumber
++                                   LEFT JOIN {assign} a ON
++                                             a.id = s.assignment
+                                        WHERE
+                                              ( g.timemodified is NULL OR
+                                              s.timemodified >= g.timemodified OR
+-                                             g.grade IS NULL ) AND
++                                             g.grade IS NULL OR
++                                             (g.grade = -1 AND
++                                             a.grade < 0)) AND
+                                              s.timemodified IS NOT NULL AND
+                                              s.status = ? AND
+                                              s.latest = 1 AND
+diff --git a/mod/assign/locallib.php b/mod/assign/locallib.php
+index 8ad4244..643e7a6 100644
+--- a/mod/assign/locallib.php
++++ b/mod/assign/locallib.php
+@@ -1990,6 +1990,7 @@ class assign {
+ 
+         $params['assignid'] = $this->get_instance()->id;
+         $params['submitted'] = ASSIGN_SUBMISSION_STATUS_SUBMITTED;
++        $sqlscalegrade = $this->get_instance()->grade < 0 ? ' OR g.grade = -1' : '';
+ 
+         $sql = 'SELECT COUNT(s.userid)
+                    FROM {assign_submission} s
+@@ -2003,7 +2004,8 @@ class assign {
+                         s.assignment = :assignid AND
+                         s.timemodified IS NOT NULL AND
+                         s.status = :submitted AND
+-                        (s.timemodified >= g.timemodified OR g.timemodified IS NULL OR g.grade IS NULL)';
++                        (s.timemodified >= g.timemodified OR g.timemodified IS NULL OR g.grade IS NULL '
++                            . $sqlscalegrade . ')';
+ 
+         return $DB->count_records_sql($sql, $params);
+     }
+-- 
+2.10.1 (Apple Git-78)
+
