@@ -1,6 +1,6 @@
-From feae7393085f11f7b2b0e0ac566bc78fc8fce0bf Mon Sep 17 00:00:00 2001
+From e8197a1673b4965391c488cbe4851e654da122fb Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
-Date: Thu, 12 Jan 2017 12:54:47 +0300
+Date: Mon, 15 May 2017 11:10:21 +0200
 Subject: [PATCH] Fix login functions to introduce needed variables for new
  login page
 
@@ -10,24 +10,23 @@ Subject: [PATCH] Fix login functions to introduce needed variables for new
  2 files changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/auth/classes/output/login.php b/auth/classes/output/login.php
-index 5b924bb..3216e8f 100644
+index 8bdf91de9e..cccfc89d2a 100644
 --- a/auth/classes/output/login.php
 +++ b/auth/classes/output/login.php
-@@ -146,10 +146,11 @@ class login implements renderable, templatable {
-         $data->hasinstructions = !empty($this->instructions);
+@@ -131,9 +131,10 @@ class login implements renderable, templatable {
+         $data->hasinstructions = !empty($this->instructions) || $this->cansignup;
          $data->identityproviders = $identityproviders;
          list($data->instructions, $data->instructionsformat) = external_format_text($this->instructions, FORMAT_MOODLE,
 -            context_system::instance()->id);
 +            context_system::instance()->id, null, null, null, array('noclean' => true));
          $data->loginurl = $this->loginurl->out(false);
          $data->rememberusername = $this->rememberusername;
-         $data->passwordautocomplete = $this->passwordautocomplete;
 +        $data->shibbolethauth = new moodle_url($CFG->httpswwwroot . '/auth/shibboleth');
          $data->signupurl = $this->signupurl->out(false);
          $data->username = $this->username;
  
 diff --git a/login/index.php b/login/index.php
-index e461234..d27e74e 100644
+index dec075c3c2..f3a52beef6 100644
 --- a/login/index.php
 +++ b/login/index.php
 @@ -45,6 +45,7 @@ if ($cancel) {
@@ -39,5 +38,5 @@ index e461234..d27e74e 100644
  $context = context_system::instance();
  $PAGE->set_url("$CFG->httpswwwroot/login/index.php");
 -- 
-2.10.1 (Apple Git-78)
+2.11.0 (Apple Git-81)
 

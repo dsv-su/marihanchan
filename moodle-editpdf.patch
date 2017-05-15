@@ -1,27 +1,18 @@
-From 2b9455823bbbcc574e28b009f9fd0f88380ba8dc Mon Sep 17 00:00:00 2001
+From bb6e14d4df3a040f987405ca78192642efc70650 Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
-Date: Tue, 11 Oct 2016 16:52:18 +0300
+Date: Mon, 15 May 2017 11:17:00 +0200
 Subject: [PATCH] Make PDF feedback not mandatory so anyone can turn it off for
- the assignment
+ the assign
 
 ---
- mod/assign/feedback/editpdf/locallib.php | 18 +++++++++++++++++-
- 1 file changed, 17 insertions(+), 1 deletion(-)
+ mod/assign/feedback/editpdf/locallib.php | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
 diff --git a/mod/assign/feedback/editpdf/locallib.php b/mod/assign/feedback/editpdf/locallib.php
-index c92f7ee..51c9416 100644
+index c8bc5cfc47..d0152d0bcf 100644
 --- a/mod/assign/feedback/editpdf/locallib.php
 +++ b/mod/assign/feedback/editpdf/locallib.php
-@@ -58,7 +58,7 @@ class assign_feedback_editpdf extends assign_feedback_plugin {
-      */
-     public function get_widget($userid, $grade, $readonly) {
-         $attempt = -1;
--        if ($grade) {
-+        if ($grade && $grade->attemptnumber) {
-             $attempt = $grade->attemptnumber;
-         } else {
-             $grade = $this->assignment->get_user_grade($userid, true);
-@@ -343,6 +343,7 @@ class assign_feedback_editpdf extends assign_feedback_plugin {
+@@ -337,6 +337,7 @@ class assign_feedback_editpdf extends assign_feedback_plugin {
       *
       * @return bool
       */
@@ -29,7 +20,7 @@ index c92f7ee..51c9416 100644
      public function is_enabled() {
          if ($this->enabledcache === null) {
              $testpath = assignfeedback_editpdf\pdf::test_gs_path(false);
-@@ -350,14 +351,29 @@ class assign_feedback_editpdf extends assign_feedback_plugin {
+@@ -344,14 +345,29 @@ class assign_feedback_editpdf extends assign_feedback_plugin {
          }
          return $this->enabledcache;
      }
@@ -60,5 +51,5 @@ index c92f7ee..51c9416 100644
      /**
       * Get file areas returns a list of areas this plugin stores files.
 -- 
-2.8.4 (Apple Git-73)
+2.11.0 (Apple Git-81)
 
