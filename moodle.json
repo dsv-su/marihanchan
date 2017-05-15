@@ -86,7 +86,8 @@
       },
       "mod_attendance": {
         "repo": "https://github.com/danmarsden/moodle-mod_attendance.git",
-        "path": "mod/attendance"
+        "path": "mod/attendance",
+        "branch": "MOODLE_33_STABLE"
       },
       "block_attendance": {
         "repo": "https://github.com/danmarsden/moodle-block_attendance.git",
