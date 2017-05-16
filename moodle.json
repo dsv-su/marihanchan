@@ -24,6 +24,11 @@
       "local_analytics": {
         "repo": "https://github.com/bmbrands/moodle-local_analytics.git",
         "path": "local/analytics"
+      },
+      "block_my_courses": {
+        "repo": "https://github.com/dsv-su/moodle-block_mycourses.git",
+        "branch": "master",
+        "path": "blocks/my_courses"
       }
     }
   },
@@ -53,11 +58,6 @@
       "assignsubmission_mailsimulator": {
         "repo": "https://github.com/dsv-su/moodle-assignsubmission_mailsimulator.git",
         "path": "mod/assign/submission/mailsimulator"
-      },
-      "block_my_courses": {
-        "repo": "https://github.com/dsv-su/moodle-block_mycourses.git",
-        "branch": "master",
-        "path": "blocks/my_courses"
       },
       "block_blog_menu_plus": {
         "repo": "https://github.com/dsv-su/moodle-block_blog_menu_plus.git",
