@@ -1,0 +1,81 @@
+From dc50d04336bd1cc107b50416b788eecb53337212 Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Tue, 16 May 2017 15:27:44 +0200
+Subject: [PATCH] Fix course_overview for forum
+
+---
+ block_course_overview.php |  8 ++++++--
+ styles.css                | 11 ++++++++++-
+ 2 files changed, 16 insertions(+), 3 deletions(-)
+
+diff --git a/block_course_overview.php b/block_course_overview.php
+index 292a8dc..6d175ee 100644
+--- a/block_course_overview.php
++++ b/block_course_overview.php
+@@ -39,7 +39,7 @@ class block_course_overview extends block_base {
+      * Block initialization
+      */
+     public function init() {
+-        $this->title = get_string('title', 'block_course_overview');
++        $this->title = get_string('modulenameplural', 'mod_forum');
+     }
+ 
+     /**
+@@ -83,7 +83,7 @@ class block_course_overview extends block_base {
+ 
+         // Number of sites to display.
+         if ($this->page->user_is_editing() && empty($config->forcedefaultmaxcourses)) {
+-            $this->content->text .= $renderer->editing_bar_head($totalcourses);
++            //$this->content->text .= $renderer->editing_bar_head($totalcourses);
+         }
+ 
+         if (empty($sortedcourses)) {
+@@ -125,4 +125,8 @@ class block_course_overview extends block_base {
+         $config = get_config('block_course_overview');
+         return !empty($config->showwelcomearea);
+     }
++
++    public function instance_can_be_collapsed() {
++        return false;
++    }
+ }
+diff --git a/styles.css b/styles.css
+index 2aab2a3..797f164 100644
+--- a/styles.css
++++ b/styles.css
+@@ -31,11 +31,15 @@
+ 
+ .block_course_overview .welcome_message {
+     float: left;
+-    padding: 10px;
++    padding: 0px 10px;
+     border-collapse: separate;
+     clear: none;
+ }
+ 
++.block_course_overview .welcome_message h2 {
++    line-height: 35px;
++}
++
+ .block_course_overview .content h2.title {
+     float: left;
+     margin: 0 0 .5em 0;
+@@ -58,6 +62,7 @@
+ 
+ .block_course_overview .course_list {
+     width: 100%;
++    margin-top: 15px;
+ }
+ 
+ .block_course_overview div.flush {
+@@ -85,3 +90,7 @@
+ .block_course_overview .content .course_list .movehere {
+     margin-bottom: 15px;
+ }
++
++.block_course_overview {
++    box-shadow: none !important;
++}
+-- 
+2.11.0 (Apple Git-81)
+
