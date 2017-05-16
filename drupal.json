@@ -91,7 +91,7 @@
                 "defaults": "module_contrib",
                 "repo": "git://git.drupal.org/project/rules.git",
                 "branch": "7.x-2.x",
-                "tag": "7.x-2.9",
+                "tag": "7.x-2.10",
                 "path": "rules",
                 "patch": "drupal-rules_cc_bcc.patch"
             },
@@ -151,7 +151,7 @@
                 "defaults": "module_contrib",
                 "repo": "git://git.drupal.org/project/shib_auth.git",
                 "branch": "7.x-4.x",
-                "tag": "7.x-4.3",
+                "tag": "7.x-4.4",
                 "path": "shib_auth"
             },
             "daisy_update_name": {
@@ -233,14 +233,14 @@
                 "defaults": "module_contrib",
                 "repo": "git://git.drupal.org/project/entity_translation",
                 "branch": "7.x-1.x",
-                "tag": "7.x-1.0-beta5",
+                "tag": "7.x-1.0-beta6",
                 "path": "entity_translation"
             },
             "internationalization": {
                 "defaults": "module_contrib",
                 "repo": "git://git.drupal.org/project/i18n",
                 "branch": "7.x-1.x",
-                "tag": "7.x-1.15",
+                "tag": "7.x-1.17",
                 "path": "i18n"
             },
             "internationalization_views": {
@@ -333,21 +333,21 @@
                 "defaults": "module_contrib",
                 "repo": "git://git.drupal.org/project/references",
                 "branch": "7.x-2.x",
-                "tag": "7.x-2.1",
+                "tag": "7.x-2.2",
                 "path": "references"
             },
             "uuid":{
                 "defaults": "module_contrib",
                 "repo": "git://git.drupal.org/project/uuid",
                 "branch": "7.x-1.x",
-                "tag": "7.x-1.0-beta2",
+                "tag": "7.x-1.0",
                 "path": "uuid"
             },
             "webform":{
                 "defaults": "module_contrib",
                 "repo": "git://git.drupal.org/project/webform",
                 "branch": "7.x-4.x",
-                "tag": "7.x-4.14",
+                "tag": "7.x-4.15",
                 "path": "webform"
             },
             "webform_conditional":{
@@ -543,7 +543,7 @@
                 "defaults": "module_contrib",
                 "repo": "git://git.drupal.org/project/mimemail.git",
                 "branch": "7.x-1.x",
-                "tag": "7.x-1.0-beta4",
+                "tag": "7.x-1.0",
                 "path": "mimemail"
             },
             "realname": {
@@ -627,7 +627,7 @@
                 "defaults": "module_contrib",
                 "repo": "http://git.drupal.org/project/webform.git",
                 "branch": "7.x-4.x",
-                "tag": "7.x-4.14",
+                "tag": "7.x-4.15",
                 "path": "webform"
             },
             "webform_validation": {
@@ -757,7 +757,7 @@
                 "defaults": "module_contrib",
                 "repo": "git://git.drupal.org/project/references",
                 "branch": "7.x-2.x",
-                "tag": "7.x-2.1",
+                "tag": "7.x-2.2",
                 "path": "references"
             },
             "views_contextual_filters_or": {
@@ -765,6 +765,13 @@
                 "repo": "git://git.drupal.org/project/views_contextual_filters_or",
                 "branch": "7.x-1.x",
                 "path": "views_contextual_filters_or"
+            },
+            "uuid":{
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/uuid",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.0",
+                "path": "uuid"
             }
         }
     },
@@ -835,7 +842,7 @@
                 "defaults": "module_contrib",
                 "repo": "http://git.drupal.org/project/menu_trail_by_path.git",
                 "branch": "7.x-3.x",
-                "tag": "7.x-3.2",
+                "tag": "7.x-3.3",
                 "path": "menu_trail_by_path"
             },
             "node_convert": {
@@ -877,7 +884,7 @@
                 "defaults": "module_contrib",
                 "repo": "git://git.drupal.org/project/webform",
                 "branch": "7.x-4.x",
-                "tag": "7.x-4.14",
+                "tag": "7.x-4.15",
                 "path": "webform"
             },
             "realname": {
@@ -911,14 +918,14 @@
                 "defaults": "module_contrib",
                 "repo": "http://git.drupal.org/project/webform.git",
                 "branch": "7.x-4.x",
-                "tag": "7.x-4.14",
+                "tag": "7.x-4.15",
                 "path": "webform"
             },
             "webform_validation": {
                 "defaults": "module_contrib",
                 "repo": "http://git.drupal.org/project/webform_validation.git",
                 "branch": "7.x-1.x",
-                "tag": "7.x-1.12",
+                "tag": "7.x-1.13",
                 "path": "webform_validation"
             },
             "webform_report": {
@@ -953,7 +960,7 @@
                 "defaults": "module_contrib",
                 "repo": "http://git.drupal.org/project/views_data_export.git",
                 "branch": "7.x-3.x",
-                "tag": "7.x-3.1",
+                "tag": "7.x-3.2",
                 "path": "views_data_export"
             },
             "search_autocomplete": {
@@ -1101,6 +1108,20 @@
                 "branch": "7.x-1.x",
                 "tag": "7.x-1.0",
                 "path": "views_export_xls"
+            },
+            "datereminder": {
+                "defaults": "module_contrib",
+                "repo": "http://git.drupal.org/project/datereminder.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.12",
+                "path": "datereminder"
+            },
+            "panels": {
+                "defaults": "module_contrib",
+                "repo": "http://git.drupal.org/project/panels.git",
+                "branch": "7.x-3.x",
+                "tag": "7.x-3.9",
+                "path": "panels"
             }
         }
     }

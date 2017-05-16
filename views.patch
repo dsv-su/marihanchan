@@ -1,6 +1,6 @@
-From 5360788a55b4a8653b427e87cd7d4b6ecff28bc0 Mon Sep 17 00:00:00 2001
+From 85beac206c4d7c435e7dc794da5e8050d03d8a08 Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
-Date: Mon, 27 Feb 2017 15:46:37 +0300
+Date: Tue, 16 May 2017 11:10:08 +0200
 Subject: [PATCH] Fixing removal of duplicate entires and link title
 
 ---
@@ -9,7 +9,7 @@ Subject: [PATCH] Fixing removal of duplicate entires and link title
  2 files changed, 5 insertions(+), 1 deletion(-)
 
 diff --git a/handlers/views_handler_field.inc b/handlers/views_handler_field.inc
-index 65210d9..60fea68 100644
+index 65210d9f..60fea684 100644
 --- a/handlers/views_handler_field.inc
 +++ b/handlers/views_handler_field.inc
 @@ -1176,7 +1176,7 @@ If you would like to have the characters \'[\' and \']\' please use the html ent
@@ -22,7 +22,7 @@ index 65210d9..60fea68 100644
          $suffix .= " " . $more_link;
        }
 diff --git a/modules/taxonomy/views_handler_argument_term_node_tid_depth.inc b/modules/taxonomy/views_handler_argument_term_node_tid_depth.inc
-index 116a4de..0cf8ee1 100644
+index 116a4ded..0cf8ee13 100644
 --- a/modules/taxonomy/views_handler_argument_term_node_tid_depth.inc
 +++ b/modules/taxonomy/views_handler_argument_term_node_tid_depth.inc
 @@ -132,6 +132,10 @@ class views_handler_argument_term_node_tid_depth extends views_handler_argument
@@ -37,5 +37,5 @@ index 116a4de..0cf8ee1 100644
  
    function title() {
 -- 
-2.10.1 (Apple Git-78)
+2.11.0 (Apple Git-81)
 
