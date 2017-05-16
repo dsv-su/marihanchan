@@ -25,10 +25,10 @@
         "repo": "https://github.com/bmbrands/moodle-local_analytics.git",
         "path": "local/analytics"
       },
-      "block_my_courses": {
-        "repo": "https://github.com/dsv-su/moodle-block_mycourses.git",
+      "block_course_overview": {
+        "repo": "https://github.com/moodlehq/moodle-block_course_overview.git",
         "branch": "master",
-        "path": "blocks/my_courses"
+        "path": "blocks/course_overview"
       }
     }
   },
