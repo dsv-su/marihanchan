@@ -63,6 +63,11 @@
         "repo": "https://github.com/dsv-su/moodle-block_blog_menu_plus.git",
         "path": "blocks/blog_menu_plus"
       },
+      "block_my_courses": {
+        "repo": "https://github.com/dsv-su/moodle-block_mycourses.git",
+        "branch": "master",
+        "path": "blocks/my_courses"
+      },
       "mod_choicegroup": {
         "repo": "https://github.com/ndunand/moodle-mod_choicegroup.git",
         "path": "mod/choicegroup"
@@ -401,6 +406,11 @@
       "theme_base": {
         "repo": "https://github.com/lazydaisy/moodle-theme_base.git",
         "path": "theme/base"
+      },
+      "block_course_overview": {
+        "repo": "https://github.com/moodlehq/moodle-block_course_overview.git",
+        "branch": "master",
+        "path": "blocks/course_overview"
       }
     }
   }
