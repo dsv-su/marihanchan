@@ -1,0 +1,52 @@
+From 0a82d25b2f24cb8f75794ecf331dbca78f9a6658 Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <psokolov@dsv.su.se>
+Date: Fri, 19 May 2017 15:48:47 +0200
+Subject: [PATCH] Fixing subpages to supress its display
+
+---
+ course/format/renderer.php | 6 +++++-
+ lib/navigationlib.php      | 4 ++++
+ 2 files changed, 9 insertions(+), 1 deletion(-)
+
+diff --git a/course/format/renderer.php b/course/format/renderer.php
+index f16bdd6..7aa801d 100644
+--- a/course/format/renderer.php
++++ b/course/format/renderer.php
+@@ -857,7 +857,7 @@ abstract class format_section_renderer_base extends plugin_renderer_base {
+      * @param array $modnamesused (argument not used)
+      */
+     public function print_multiple_section_page($course, $sections, $mods, $modnames, $modnamesused) {
+-        global $PAGE;
++        global $PAGE, $DB;
+ 
+         $modinfo = get_fast_modinfo($course);
+         $course = course_get_format($course)->get_course();
+@@ -890,6 +890,10 @@ abstract class format_section_renderer_base extends plugin_renderer_base {
+                 // activities inside this section are 'orphaned', this section will be printed as 'stealth' below
+                 continue;
+             }
++            if ($DB->record_exists('subpage_sections', array('sectionid' => $thissection->id)) && !$PAGE->user_is_editing()) {
++                // hide all subpage-sections
++                continue;
++            }
+             // Show the section if the user is permitted to access it, OR if it's not available
+             // but there is some available info text which explains the reason & should display.
+             $showsection = $thissection->uservisible ||
+diff --git a/lib/navigationlib.php b/lib/navigationlib.php
+index 13c5ae7..90389dd 100644
+--- a/lib/navigationlib.php
++++ b/lib/navigationlib.php
+@@ -2025,6 +2025,10 @@ class global_navigation extends navigation_node {
+             if ($course->id == $SITE->id) {
+                 $this->load_section_activities($coursenode, $section->section, $activities);
+             } else {
++                if ($DB->record_exists('subpage_sections', array('sectionid' => $section->id))) {
++                    // hide all subpage-sections
++                    continue;
++                }
+                 if (!$section->uservisible || (!$this->showemptysections &&
+                         !$section->hasactivites && $this->includesectionnum !== $section->section)) {
+                     continue;
+-- 
+2.1.4
+
