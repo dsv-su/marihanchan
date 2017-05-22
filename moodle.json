@@ -44,7 +44,10 @@
       "moodle-editpdf.patch",
       "moodle-fix_calendar_timeformat.patch",
       "moodle-mailsimulator_js.patch",
-      "moodle-old_action_menus.patch"
+      "moodle-old_action_menus.patch",
+      "moodle-hide_badge_menu_item",
+      "moodle-reverting-current-course-back.patch",
+      "moodle-subpage-display.patch"
     ],
     "components": {
       "dsv_custom": {
