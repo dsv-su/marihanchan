@@ -45,7 +45,7 @@
       "moodle-fix_calendar_timeformat.patch",
       "moodle-mailsimulator_js.patch",
       "moodle-old_action_menus.patch",
-      "moodle-hide_badge_menu_item",
+      "moodle-hide_badge_menu_item.patch",
       "moodle-reverting-current-course-back.patch",
       "moodle-subpage-display.patch"
     ],
