@@ -1,6 +1,6 @@
-From 632104bc4dbd6a9ba844746672b8ed3f51a8949b Mon Sep 17 00:00:00 2001
+From d47839a27a5089998ef27a2cb81608ec89432a14 Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
-Date: Fri, 10 Feb 2017 17:50:58 +0300
+Date: Tue, 30 May 2017 13:06:57 +0300
 Subject: [PATCH] Forum aggregator patch
 
 ---
@@ -159,7 +159,7 @@ index 0000000..aa4519f
 +
 +$string['viewoldertopics'] = 'Visa fler nyheter';
 diff --git a/styles.css b/styles.css
-index ac7de2d..f5a4a2a 100644
+index ac7de2d..30bdfce 100644
 --- a/styles.css
 +++ b/styles.css
 @@ -2,17 +2,39 @@
@@ -183,7 +183,7 @@ index ac7de2d..f5a4a2a 100644
 +    padding: 19px;
 +    padding: 6px;
 +    margin-bottom: 20px;
-+    background-color: #f5f5f5;
++    background-color: #fafafa;
 +    border: 1px solid #e3e3e3;
 +    border-color: #e3e3e3;
 +    -webkit-border-radius: 4px;
@@ -200,8 +200,8 @@ index ac7de2d..f5a4a2a 100644
 +
 +.block_forum_aggregator .postreadold {
 +    font-size:13px;
-+        float: right;
-+margin-top: -12px;
++    float: right;
++    margin-top: -12px;
  }
 +
  .block_forum_aggregator .content .head {
@@ -238,5 +238,5 @@ index ac7de2d..f5a4a2a 100644
 +    border: none;
 +}
 -- 
-2.10.1 (Apple Git-78)
+2.11.0 (Apple Git-81)
 
