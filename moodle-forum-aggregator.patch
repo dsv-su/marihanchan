@@ -183,7 +183,7 @@ index ac7de2d..30bdfce 100644
 +    padding: 19px;
 +    padding: 6px;
 +    margin-bottom: 20px;
-+    background-color: #fafafa;
++    background-color: #fcfcfc;
 +    border: 1px solid #e3e3e3;
 +    border-color: #e3e3e3;
 +    -webkit-border-radius: 4px;
