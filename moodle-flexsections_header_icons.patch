@@ -1,0 +1,42 @@
+From 3133a3acf29d660f68c64d6ce50a9d178131dca3 Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Thu, 1 Jun 2017 14:59:53 +0300
+Subject: [PATCH] Icons for sections
+
+---
+ renderer.php | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
+
+diff --git a/renderer.php b/renderer.php
+index 777d713..a2517df 100644
+--- a/renderer.php
++++ b/renderer.php
+@@ -97,7 +97,7 @@ class format_flexsections_renderer extends plugin_renderer_base {
+      * @param int $level nested level on the page (in case of 0 also displays additional start/end html code)
+      */
+     public function display_section($course, $section, $sr, $level = 0) {
+-        global $PAGE;
++        global $PAGE, $OUTPUT;
+         $course = course_get_format($course)->get_course();
+         $section = course_get_format($course)->get_section($section);
+         $context = context_course::instance($course->id);
+@@ -151,7 +151,15 @@ class format_flexsections_renderer extends plugin_renderer_base {
+             if ($collapsedcontrol) {
+                 $title = $this->render($collapsedcontrol). $title;
+             }
+-            echo html_writer::tag('h3', $title, array('class' => 'sectionname'));
++            if ($level <=1) {
++                echo html_writer::tag('h3', $title, array('class' => 'sectionname'));
++            } else {
++                if ($section->collapsed == FORMAT_FLEXSECTIONS_COLLAPSED) {
++                    echo html_writer::tag('h3', html_writer::empty_tag('img', array('src' => $OUTPUT->pix_url('collapsed', 'theme'), 'class' => 'iconmedium activityicon', 'alt' => ' ', 'role' => 'presentation')) . $title, array('class' => 'sectionname'));
++                } else {
++                    echo html_writer::tag('h3', html_writer::empty_tag('img', array('src' => $OUTPUT->pix_url('expanded', 'theme'), 'class' => 'iconmedium activityicon', 'alt' => ' ', 'role' => 'presentation')) . $title, array('class' => 'sectionname'));
++                }
++            }
+         }
+ 
+         echo $this->section_availability_message($section,
+-- 
+2.11.0 (Apple Git-81)
+
