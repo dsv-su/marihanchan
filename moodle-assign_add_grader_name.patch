@@ -1,0 +1,37 @@
+From 95d929cc1065e3785a707da04c5ee3c8d86acf93 Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Wed, 26 Jul 2017 11:42:18 +0300
+Subject: [PATCH] Add grader name to the assign grading table
+
+---
+ mod/assign/gradingtable.php | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/mod/assign/gradingtable.php b/mod/assign/gradingtable.php
+index c5464db56d..d7fa5563d1 100644
+--- a/mod/assign/gradingtable.php
++++ b/mod/assign/gradingtable.php
+@@ -142,6 +142,7 @@ class assign_grading_table extends table_sql implements renderable {
+         $fields .= 's.attemptnumber as attemptnumber, ';
+         $fields .= 'g.id as gradeid, ';
+         $fields .= 'g.grade as grade, ';
++        $fields .= 'g.grader as grader, ';
+         $fields .= 'g.timemodified as timemarked, ';
+         $fields .= 'g.timecreated as firstmarked, ';
+         $fields .= 'uf.mailed as mailed, ';
+@@ -1011,10 +1012,12 @@ class assign_grading_table extends table_sql implements renderable {
+      * @return string
+      */
+     public function col_timemarked(stdClass $row) {
++        global $DB;
+         $o = '-';
+ 
+         if ($row->timemarked && $row->grade !== null && $row->grade >= 0) {
+             $o = userdate($row->timemarked);
++            $o .= ' ('.fullname($DB->get_record('user', array('id' => $row->grader))).')';
+         }
+         if ($row->timemarked && $this->is_downloading()) {
+             // Force it for downloads as it affects import.
+-- 
+2.11.0 (Apple Git-81)
+
