@@ -1,17 +1,17 @@
-From 0acc8728f2b83a386b70be910649d7f5952eb4b5 Mon Sep 17 00:00:00 2001
+From 7db1589bf586d3b747c360ced932a1e51dfa3841 Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
-Date: Thu, 18 May 2017 16:32:23 +0200
+Date: Wed, 26 Jul 2017 13:28:36 +0300
 Subject: [PATCH] Reverting back Current Course
 
 ---
- lib/navigationlib.php | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+ lib/navigationlib.php | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
 
 diff --git a/lib/navigationlib.php b/lib/navigationlib.php
-index 13c5ae77f7..bfe2036f21 100644
+index 9e9b7eefd3..86644b3bc9 100644
 --- a/lib/navigationlib.php
 +++ b/lib/navigationlib.php
-@@ -1236,6 +1236,7 @@ class global_navigation extends navigation_node {
+@@ -1238,6 +1238,7 @@ class global_navigation extends navigation_node {
          $enrolledinanycourse = enrol_user_sees_own_courses();
  
          $this->rootnodes['currentcourse']->mainnavonly = true;
@@ -19,7 +19,7 @@ index 13c5ae77f7..bfe2036f21 100644
          if ($enrolledinanycourse) {
              $this->rootnodes['mycourses']->isexpandable = true;
              $this->rootnodes['mycourses']->showinflatnavigation = true;
-@@ -1246,7 +1247,7 @@ class global_navigation extends navigation_node {
+@@ -1248,7 +1249,7 @@ class global_navigation extends navigation_node {
          } else {
              $this->rootnodes['courses']->isexpandable = true;
          }
@@ -28,35 +28,37 @@ index 13c5ae77f7..bfe2036f21 100644
  
          $canviewcourseprofile = true;
  
-@@ -2519,6 +2520,7 @@ class global_navigation extends navigation_node {
+@@ -2544,7 +2545,7 @@ class global_navigation extends navigation_node {
+         $fullname = format_string($course->fullname, true, array('context' => $coursecontext));
          // This is the name that will be shown for the course.
          $coursename = empty($CFG->navshowfullcoursenames) ? $shortname : $fullname;
- 
+-
 +        /*
          if ($coursetype == self::COURSE_CURRENT) {
              if ($coursenode = $this->rootnodes['mycourses']->find($course->id, self::TYPE_COURSE)) {
                  return $coursenode;
-@@ -2526,6 +2528,7 @@ class global_navigation extends navigation_node {
+@@ -2552,7 +2553,7 @@ class global_navigation extends navigation_node {
                  $coursetype = self::COURSE_OTHER;
              }
          }
+-
 +        */
- 
          // Can the user expand the course to see its content.
          $canexpandcourse = true;
-@@ -2945,7 +2948,11 @@ class global_navigation extends navigation_node {
-             }
-         }
+         if ($issite) {
+@@ -2999,7 +3000,11 @@ class global_navigation extends navigation_node {
+ 
+         // Go through each course now and add it to the nav block, and the flatnav if applicable.
          foreach ($courses as $course) {
--            $this->add_course($course, false, self::COURSE_MY);
+-            $node = $this->add_course($course, false, self::COURSE_MY);
 +            if ($this->page->course->id == $course->id) {
-+                $this->add_course($course, false, self::COURSE_CURRENT);
++                $node = $this->add_course($course, false, self::COURSE_CURRENT);
 +            } else {
-+                $this->add_course($course, false, self::COURSE_MY);
++                $node = $this->add_course($course, false, self::COURSE_MY);
 +            }
-         }
-     }
- }
+             if ($node) {
+                 $node->showinflatnavigation = false;
+                 // Check if we should also add this to the flat nav as well.
 -- 
 2.11.0 (Apple Git-81)
 
