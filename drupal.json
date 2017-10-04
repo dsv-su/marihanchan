@@ -903,6 +903,11 @@
         }
     },
 
+    "empty": {
+        "rootDir": "/var/www/empty",
+        "requires": [ "dsv_base", "dsv_theme", "dsv_auth", "dsv_wysiwyg" ]
+    },
+
     "utbytes": {
         "rootDir": "/var/www/utbytes",
         "requires": [ "dsv_base", "dsv_theme", "dsv_auth", "dsv_wysiwyg" ],

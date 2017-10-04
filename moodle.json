@@ -381,7 +381,7 @@
  "addisco": {
     "rootDir": "/var/www/addisco",
     "requires": [ "moodle" ],
-    "patches": [ "addisco.patch", "moodle-addisco_overview.patch", "moodle-editpdf.patch", "moodle-fix_calendar_timeformat.patch", "moodle-mailsimulator_js.patch" ],
+    "patches": [ "addisco.patch", "moodle-editpdf.patch", "moodle-fix_calendar_timeformat.patch", "moodle-mailsimulator_js.patch" ],
     "components": {
       "format_topcoll": {
         "repo": "https://github.com/gjb2048/moodle-format_topcoll.git",

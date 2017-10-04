@@ -1,0 +1,134 @@
+From b224b0429bceeb0981b5b32228f360f5e459b080 Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Wed, 4 Oct 2017 14:19:18 +0200
+Subject: [PATCH] Add check if a scheduled task exists
+
+---
+ rules_check_scheduled_task.patch          | 57 +++++++++++++++++++++++++++++++
+ rules_scheduler/rules_scheduler.rules.inc | 39 +++++++++++++++++++++
+ 2 files changed, 96 insertions(+)
+ create mode 100644 rules_check_scheduled_task.patch
+
+diff --git a/rules_check_scheduled_task.patch b/rules_check_scheduled_task.patch
+new file mode 100644
+index 0000000..a98a729
+--- /dev/null
++++ b/rules_check_scheduled_task.patch
+@@ -0,0 +1,57 @@
++diff --git a/rules_scheduler/rules_scheduler.rules.inc b/rules_scheduler/rules_scheduler.rules.inc
++index 473a810..4edba11 100644
++--- a/rules_scheduler/rules_scheduler.rules.inc
+++++ b/rules_scheduler/rules_scheduler.rules.inc
++@@ -9,6 +9,34 @@
++  */
++ 
++ /**
+++ * Implements hook_rules_condition_info()
+++ */
+++function rules_scheduler_rules_condition_info() {
+++  return array(
+++    'schedule_exists' => array(
+++      'label' => t('Schedule exists'),
+++      'parameter' => array(
+++        'component' => array(
+++          'type' => 'text',
+++          'label' => t('Component'),
+++          'options list' => 'rules_scheduler_component_options_list',
+++          'description' => t('The component for which the task is scheduled.'),
+++          'optional' => FALSE,
+++        ),
+++        'task' => array(
+++          'type' => 'text',
+++          'label' => t('Task identifier'),
+++          'description' => t('A string used for identifying the task.'),
+++          'optional' => FALSE,
+++        ),
+++      ),
+++      'group' => t('Rules scheduler'),
+++      'base' => 'rules_scheduler_schedule_exists',
+++    ),
+++  );
+++}
+++
+++/**
++  * Implements hook_rules_action_info().
++  */
++ function rules_scheduler_rules_action_info() {
++@@ -63,6 +91,17 @@ function rules_scheduler_rules_action_info() {
++ }
++ 
++ /**
+++ * Condition: Schedule exists.
+++ */
+++function rules_scheduler_schedule_exists($component, $task) {
+++  $countQuery = db_select('rules_scheduler')
+++    ->condition('config', $component)
+++    ->condition('identifier', $task)
+++    ->countQuery();
+++  return $countQuery->execute()->fetchField() > 0;
+++}
+++
+++/**
++  * Options list callback returning a list of action components.
++  */
++ function rules_scheduler_component_options_list() {
+diff --git a/rules_scheduler/rules_scheduler.rules.inc b/rules_scheduler/rules_scheduler.rules.inc
+index 473a810..4edba11 100644
+--- a/rules_scheduler/rules_scheduler.rules.inc
++++ b/rules_scheduler/rules_scheduler.rules.inc
+@@ -9,6 +9,34 @@
+  */
+ 
+ /**
++ * Implements hook_rules_condition_info()
++ */
++function rules_scheduler_rules_condition_info() {
++  return array(
++    'schedule_exists' => array(
++      'label' => t('Schedule exists'),
++      'parameter' => array(
++        'component' => array(
++          'type' => 'text',
++          'label' => t('Component'),
++          'options list' => 'rules_scheduler_component_options_list',
++          'description' => t('The component for which the task is scheduled.'),
++          'optional' => FALSE,
++        ),
++        'task' => array(
++          'type' => 'text',
++          'label' => t('Task identifier'),
++          'description' => t('A string used for identifying the task.'),
++          'optional' => FALSE,
++        ),
++      ),
++      'group' => t('Rules scheduler'),
++      'base' => 'rules_scheduler_schedule_exists',
++    ),
++  );
++}
++
++/**
+  * Implements hook_rules_action_info().
+  */
+ function rules_scheduler_rules_action_info() {
+@@ -63,6 +91,17 @@ function rules_scheduler_rules_action_info() {
+ }
+ 
+ /**
++ * Condition: Schedule exists.
++ */
++function rules_scheduler_schedule_exists($component, $task) {
++  $countQuery = db_select('rules_scheduler')
++    ->condition('config', $component)
++    ->condition('identifier', $task)
++    ->countQuery();
++  return $countQuery->execute()->fetchField() > 0;
++}
++
++/**
+  * Options list callback returning a list of action components.
+  */
+ function rules_scheduler_component_options_list() {
+-- 
+2.13.5 (Apple Git-94)
+
