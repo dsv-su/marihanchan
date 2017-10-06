@@ -106,7 +106,7 @@
                 "defaults": "module_contrib",
                 "repo": "git://git.drupal.org/project/views.git",
                 "branch": "7.x-3.x",
-                "tag": "7.x-3.16",
+                "tag": "7.x-3.18",
                 "path": "views",
                 "patch": "views.patch"
             },
@@ -194,7 +194,7 @@
                 "defaults": "module_contrib",
                 "repo": "git://git.drupal.org/project/google_analytics",
                 "branch": "7.x-2.x",
-                "tag": "7.x-2.3",
+                "tag": "7.x-2.4",
                 "path": "google_analytics"
             }
 
@@ -233,7 +233,7 @@
                 "defaults": "module_contrib",
                 "repo": "git://git.drupal.org/project/entity_translation",
                 "branch": "7.x-1.x",
-                "tag": "7.x-1.0-beta6",
+                "tag": "7.x-1.0-beta7",
                 "path": "entity_translation"
             },
             "internationalization": {
@@ -634,7 +634,7 @@
                 "defaults": "module_contrib",
                 "repo": "http://git.drupal.org/project/webform_validation.git",
                 "branch": "7.x-1.x",
-                "tag": "7.x-1.13",
+                "tag": "7.x-1.14",
                 "path": "webform_validation"
             },
             "webform_report": {
@@ -916,7 +916,7 @@
                 "defaults": "module_contrib",
                 "repo": "http://git.drupal.org/project/autocomplete_deluxe.git",
                 "branch": "7.x-2.x",
-                "tag": "7.x-2.2",
+                "tag": "7.x-2.3",
                 "path": "autocomplete_deluxe"
             },
             "webform": {
@@ -930,7 +930,7 @@
                 "defaults": "module_contrib",
                 "repo": "http://git.drupal.org/project/webform_validation.git",
                 "branch": "7.x-1.x",
-                "tag": "7.x-1.13",
+                "tag": "7.x-1.14",
                 "path": "webform_validation"
             },
             "webform_report": {
@@ -1007,7 +1007,7 @@
                 "defaults": "module_contrib",
                 "repo": "http://git.drupal.org/project/feeds.git",
                 "branch": "7.x-2.x",
-                "tag": "7.x-2.0-beta3",
+                "tag": "7.x-2.0-beta4",
                 "path": "feeds"
             },
             "admin_menu": {
