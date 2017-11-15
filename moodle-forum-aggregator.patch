@@ -1,32 +1,33 @@
-From d47839a27a5089998ef27a2cb81608ec89432a14 Mon Sep 17 00:00:00 2001
+From 130dfbaa86deb980f5586985405113566e89356d Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
 Date: Tue, 30 May 2017 13:06:57 +0300
 Subject: [PATCH] Forum aggregator patch
 
 ---
- block_forum_aggregator.php         | 46 +++++++++++++++++++++++++++++--------
- lang/en/block_forum_aggregator.php |  4 +++-
+ block_forum_aggregator.php         | 48 +++++++++++++++++++++++++++++---------
+ lang/en/block_forum_aggregator.php |  5 +++-
  lang/sv/block_forum_aggregator.php | 24 +++++++++++++++++++
- styles.css                         | 47 +++++++++++++++++++++++++++++++-------
- 4 files changed, 102 insertions(+), 19 deletions(-)
+ styles.css                         | 47 ++++++++++++++++++++++++++++++-------
+ 4 files changed, 104 insertions(+), 20 deletions(-)
  create mode 100644 lang/sv/block_forum_aggregator.php
 
 diff --git a/block_forum_aggregator.php b/block_forum_aggregator.php
-index 45f0c0c..4cdfc85 100644
+index 0857e32..7ec7ef3 100644
 --- a/block_forum_aggregator.php
 +++ b/block_forum_aggregator.php
-@@ -96,7 +96,7 @@ class block_forum_aggregator extends block_base {
+@@ -98,22 +98,22 @@ class block_forum_aggregator extends block_base {
+ 
+                     $strftimerecent = get_string('strftimerecent');
                      $strmore = get_string('more', 'forum');
-                     
-                     //if visible
+-                    
 -                    if ($cm->visible == 1) {
++
 +                    if ($cm->visible == 1 && $cm->uservisible) {
                          
                          if (! $forum = $DB->get_record("forum", array("id" => $key))) {
                              print_error('invalidforumid', 'forum');
-@@ -104,14 +104,14 @@ class block_forum_aggregator extends block_base {
- 
-                         //show list                        
+                         }
+                      
                          $text .= html_writer::start_tag('ul', array('class'=> 'unlist'));
 -                        $text .= html_writer::tag('li', html_writer::link(new moodle_url('/mod/forum/view.php?id='.$cm->id), $cm->name), array('class' => 'forum_title'));
 +                        $text .= html_writer::tag('li', $cm->name, array('class' => 'forum_title'));
@@ -41,7 +42,7 @@ index 45f0c0c..4cdfc85 100644
                                              ORDER BY p.modified DESC ', null, 0, $max_posts);
                          
                          if (!empty($posts)) {
-@@ -126,26 +126,35 @@ class block_forum_aggregator extends block_base {
+@@ -128,26 +128,35 @@ class block_forum_aggregator extends block_base {
                                  }
                                  
                                  $post->message = format_string($post->message, true, $COURSE->id);                        
@@ -84,7 +85,7 @@ index 45f0c0c..4cdfc85 100644
                          $text .= html_writer::end_tag('ul');
                      }
              }
-@@ -168,6 +177,23 @@ class block_forum_aggregator extends block_base {
+@@ -170,4 +179,21 @@ class block_forum_aggregator extends block_base {
  
          return parent::instance_config_save($data, $nolongerused);
      }
@@ -106,22 +107,21 @@ index 45f0c0c..4cdfc85 100644
 +	if ($USER->id == 23) {return true;} else {return false;}
 +    }
  }
- 
- ?>
 diff --git a/lang/en/block_forum_aggregator.php b/lang/en/block_forum_aggregator.php
-index 1acda56..3edc42e 100644
+index f28da1f..ac2d50d 100644
 --- a/lang/en/block_forum_aggregator.php
 +++ b/lang/en/block_forum_aggregator.php
-@@ -33,6 +33,8 @@ $string['posts'] = 'Posts';
+@@ -34,6 +34,9 @@ $string['posts'] = 'Posts';
  $string['posted'] = 'Posted: ';
  $string['forum_description'] = 'Forum description';
  
 +$string['viewoldertopics'] = 'View all topics';
 +
- //Help strings
++//Help strings
  $string['max_num_of_posts'] = 'Maximum number of posts';
  $string['max_num_of_posts_help'] = 'Select maximum number of latest posts to be shown in block.';
-@@ -41,4 +43,4 @@ $string['forum_selection'] = 'Forum selection';
+ 
+@@ -41,4 +44,4 @@ $string['forum_selection'] = 'Forum selection';
  $string['forum_selection_help'] = 'If you want to show posts from this specific forum, then you have to check this box.';
  
  $string['unread_post_color'] = 'Unread color';
@@ -159,7 +159,7 @@ index 0000000..aa4519f
 +
 +$string['viewoldertopics'] = 'Visa fler nyheter';
 diff --git a/styles.css b/styles.css
-index ac7de2d..30bdfce 100644
+index ac7de2d..867973e 100644
 --- a/styles.css
 +++ b/styles.css
 @@ -2,17 +2,39 @@
@@ -238,5 +238,5 @@ index ac7de2d..30bdfce 100644
 +    border: none;
 +}
 -- 
-2.11.0 (Apple Git-81)
+2.15.0
 

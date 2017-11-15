@@ -1,28 +1,28 @@
-From 83adab788e058af1ef4202f59cd8a1a72c80fb03 Mon Sep 17 00:00:00 2001
+From 1621a2f59c25a78737eae11295d150f651738674 Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
-Date: Mon, 13 Mar 2017 16:04:32 +0300
+Date: Wed, 15 Nov 2017 13:42:52 +0300
 Subject: [PATCH] Fixing mailsimulator submit button
 
 ---
- mod/assign/amd/build/grading_panel.min.js | Bin 5376 -> 5413 bytes
+ mod/assign/amd/build/grading_panel.min.js | Bin 5791 -> 5828 bytes
  mod/assign/amd/src/grading_panel.js       |   4 +++-
  2 files changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/mod/assign/amd/build/grading_panel.min.js b/mod/assign/amd/build/grading_panel.min.js
-index 174909ab4f62c99137fca6bc106b85fe3cfa2b29..cde1d6425dd7014a20f5cc85119e9097767605a5 100644
+index ed1ab5c65c77666cef227db62a61f4b210c04f89..4f66f0f6c4310721a3d15814d929ef3674f489cc 100644
 GIT binary patch
 delta 51
-zcmZqBTB^0dRai|aH!(A(I5W32C$S{IC_XJUH6<xAIa^85wj?97ST8RzH&sn7b+eoB
-GE=B<5+!9a#
+zcmbQQdqj6bv51;dZenImab|95PGU)ZQG8lzYD!XKa<-D9ZAnIEv0h$cZmODE>gEy=
+GZ6*NwEfQn^
 
 delta 14
-VcmZ3g)u6S(RhThxbGGm<MgS%c1keBg
+VcmX@2J70H0u?S=0=9wbeOaLmu1mpk!
 
 diff --git a/mod/assign/amd/src/grading_panel.js b/mod/assign/amd/src/grading_panel.js
-index be19a7b..9cb46fa 100644
+index a9abbac852..681f4a4c87 100644
 --- a/mod/assign/amd/src/grading_panel.js
 +++ b/mod/assign/amd/src/grading_panel.js
-@@ -348,7 +348,9 @@ define(['jquery', 'core/yui', 'core/notification', 'core/templates', 'core/fragm
+@@ -381,7 +381,9 @@ define(['jquery', 'core/yui', 'core/notification', 'core/templates', 'core/fragm
          var region = $(this._region);
          // Add an event listener to prevent form submission when pressing enter key.
          region.on('submit', 'form', function(e) {
@@ -32,7 +32,7 @@ index be19a7b..9cb46fa 100644
 +            }
          });
  
-         docElement.on('user-changed', this._refreshGradingPanel.bind(this));
+         docElement.on('next-user', this._getNextUser.bind(this));
 -- 
-2.10.1 (Apple Git-78)
+2.15.0
 

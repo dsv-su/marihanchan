@@ -707,6 +707,20 @@
                 "tag": "7.x-1.0",
                 "path": "login_history"
             },
+            "mimemail": {
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/mimemail.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.0",
+                "path": "mimemail"
+            },
+            "mailsystem": {
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/mailsystem.git",
+                "branch": "7.x-2.x",
+                "tag": "7.x-2.34",
+                "path": "mailsystem"
+            },
             "node_save_redirect": {
                 "defaults": "module_contrib",
                 "repo": "http://git.drupal.org/project/node_save_redirect.git",

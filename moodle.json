@@ -4,7 +4,7 @@
     "components": {
       "moodle_core": {
         "repo": "https://github.com/moodle/moodle.git",
-        "branch": "MOODLE_33_STABLE",
+        "branch": "MOODLE_34_STABLE",
         "ignoreEmptyPath": true
       }
     }
@@ -19,7 +19,7 @@
       "local_mobile": {
         "repo": "https://github.com/jleyva/moodle-local_mobile.git",
         "path": "local/mobile",
-        "branch": "MOODLE_33_STABLE"
+        "branch": "MOODLE_34_STABLE"
       },
       "local_analytics": {
         "repo": "https://github.com/bmbrands/moodle-local_analytics.git",
@@ -96,7 +96,7 @@
       "mod_attendance": {
         "repo": "https://github.com/danmarsden/moodle-mod_attendance.git",
         "path": "mod/attendance",
-        "branch": "MOODLE_33_STABLE"
+        "branch": "MOODLE_34_STABLE"
       },
       "block_attendance": {
         "repo": "https://github.com/danmarsden/moodle-block_attendance.git",
@@ -152,7 +152,7 @@
       "mod_customcert": {
         "repo": "https://github.com/markn86/moodle-mod_customcert.git",
         "path": "mod/customcert",
-        "branch": "MOODLE_33_STABLE"
+        "branch": "MOODLE_34_STABLE"
       },
       "mod_engagement": {
         "repo": "https://github.com/netspotau/moodle-mod_engagement.git",
@@ -191,7 +191,7 @@
       "block_grade_me": {
         "repo": "https://github.com/remotelearner/moodle-block_grade_me.git",
         "path": "blocks/grade_me",
-        "branch": "MOODLE_31_STABLE"
+        "branch": "MOODLE_32_STABLE"
       },
       "block_completion_progress": {
         "repo": "https://github.com/deraadt/moodle-block_completion_progress.git",
@@ -253,6 +253,7 @@
       "moodle-display_eid_users.patch",
       "moodle-editpdf.patch",
       "moodle-fix_calendar_timeformat.patch",
+      "moodle-subpage-display.patch",
       "moodle-mailsimulator_js.patch"
     ],
     "components": {
@@ -272,7 +273,7 @@
       "custom_certificate": {
         "repo": "https://github.com/markn86/moodle-mod_customcert.git",
         "path": "mod/customcert",
-        "branch": "MOODLE_33_STABLE"
+        "branch": "MOODLE_34_STABLE"
       },
       "mailsimulator": {
         "repo": "https://github.com/dsv-su/moodle-assignsubmission_mailsimulator.git",
