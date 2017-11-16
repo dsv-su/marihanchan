@@ -399,6 +399,11 @@ def updateComponent( newComponent, oldComponent ):
         patch = newComponent.get( 'patch' )
         applyGitPatch( patch, repoPath )
 
+    # apply any patches in the project
+    if 'patches' in newComponent:
+        for patch in newComponent.get( 'patches' ):
+            applyGitPatch( patch, repoPath )
+
 
 # Removes a component from a built project
 def removeComponent( name, component ):
