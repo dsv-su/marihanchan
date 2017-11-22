@@ -8,9 +8,6 @@
         "patches": [
           "moodle.patch",
           "moodle-email_when_enrolling.patch",
-          "moodle-login.patch",
-          "moodle-guest.patch",
-          "moodle-forum_unsubscribe.patch",
           "moodle-display-undated-assignments.patch",
           "moodle-editpdf.patch",
           "moodle-fix_calendar_timeformat.patch",
@@ -27,6 +24,9 @@
   },
 
   "dsv_moodle_theme": {
+    "patches": [
+      "moodle-login.patch"
+    ],
     "components": {
       "dsv_theme_responsive": {
         "repo": "https://github.com/dsv-su/moodle-dsv_theme_responsive.git",
@@ -52,6 +52,10 @@
   "ilearn2": {
     "rootDir": "/var/www/ilearn2",
     "requires": [ "moodle", "dsv_moodle_theme" ],
+    "patches": [
+      "moodle-forum_unsubscribe.patch",
+      "moodle-guest.patch"
+    ],
     "components": {
       "dsv_custom": {
         "repo": "ssh://git.dsv.su.se/git/moodle-dsv_custom",
