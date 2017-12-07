@@ -7,7 +7,6 @@
         "branch": "MOODLE_34_STABLE",
         "patches": [
           "moodle.patch",
-          "moodle-email_when_enrolling.patch",
           "moodle-display-undated-assignments.patch",
           "moodle-editpdf.patch",
           "moodle-fix_calendar_timeformat.patch",
@@ -165,7 +164,7 @@
       "mod_vpl": {
         "repo": "https://github.com/jcrodriguez-dis/moodle-mod_vpl.git",
         "path": "mod/vpl",
-        "branch": "v3.2.4"
+        "branch": "v3.3.1"
       },
       "mod_webinar": {
         "repo": "https://github.com/epicopensource/webinar.git",
@@ -196,6 +195,10 @@
       "block_xp": {
         "repo": "https://github.com/FMCorz/moodle-block_xp.git",
         "path": "blocks/xp"
+      },
+      "availability_xp": {
+        "repo": "https://github.com/FMCorz/moodle-availability_xp.git",
+        "path": "availability/condition/xp"
       },
       "filter_geshi": {
         "repo": "https://github.com/moodlehq/moodle-filter_geshi.git",
@@ -403,7 +406,7 @@
         "path": "theme/base"
       },
       "block_course_overview": {
-        "repo": "https://github.com/moodlehq/moodle-block_course_overview.git",
+        "repo": "https://github.com/thepurpleblob/moodle-block_course_overview",
         "branch": "master",
         "path": "blocks/course_overview"
       }
