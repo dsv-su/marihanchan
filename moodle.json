@@ -14,7 +14,8 @@
           "moodle-hide_badge_menu_item.patch",
           "moodle-reverting-current-course-back.patch",
           "moodle-subpage-display.patch",
-          "moodle-assign_add_grader_name.patch"
+          "moodle-assign_add_grader_name.patch",
+          "moodle-login.patch"
         ],
         "ignoreEmptyPath": true
       }
@@ -22,9 +23,6 @@
   },
 
   "dsv_moodle_theme": {
-    "patches": [
-      "moodle-login.patch"
-    ],
     "components": {
       "dsv_theme_responsive": {
         "repo": "https://github.com/dsv-su/moodle-dsv_theme_responsive.git",

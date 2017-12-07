@@ -203,6 +203,10 @@ def fetchComponent( name, component ):
         patch = component.get( 'patch' )
         applyGitPatch( patch, clonePath )
 
+    if 'patches' in component:
+        for patch in component.get( 'patches' ):
+            applyGitPatch( patch, clonePath )
+
     return
 
 # Applies the specified patch to the specified project. If it fails, it will revert
