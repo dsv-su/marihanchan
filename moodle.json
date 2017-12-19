@@ -15,7 +15,8 @@
           "moodle-reverting-current-course-back.patch",
           "moodle-subpage-display.patch",
           "moodle-assign_add_grader_name.patch",
-          "moodle-login.patch"
+          "moodle-login.patch",
+          "moodle-assign_time_remaining_disclaimer.patch"
         ],
         "ignoreEmptyPath": true
       }
