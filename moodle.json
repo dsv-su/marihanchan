@@ -322,6 +322,11 @@
     }
   },
 
+  "un-moodle": {
+    "rootDir": "/var/www/un-moodle",
+    "requires": [ "moodle", "dsv_moodle_theme" ]
+  },
+
   "natgeo": {
     "rootDir": "/var/www/natgeo",
     "requires": [ "moodle", "dsv_moodle_theme" ],
