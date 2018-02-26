@@ -33,7 +33,7 @@
             "drupal_core": {
                 "repo": "http://git.drupal.org/project/drupal.git",
                 "branch": "7.x",
-                "tag": "7.56",
+                "tag": "7.57",
                 "patch": "core.patch",
                 "ignoreEmptyPath": true
             }
@@ -48,7 +48,7 @@
                 "defaults": "module_contrib",
                 "repo": "git://git.drupal.org/project/ctools.git",
                 "branch": "7.x-1.x",
-                "tag": "7.x-1.12",
+                "tag": "7.x-1.14",
                 "path": "ctools"
             },
             "git_deploy": {
@@ -70,7 +70,7 @@
                 "defaults": "module_contrib",
                 "repo": "git://git.drupal.org/project/entity.git",
                 "branch": "7.x-1.x",
-                "tag": "7.x-1.8",
+                "tag": "7.x-1.9",
                 "path": "entity"
             },
             "libraries": {
@@ -114,7 +114,7 @@
                 "defaults": "module_contrib",
                 "repo": "git://git.drupal.org/project/content_type_extras.git",
                 "branch": "7.x-1.x",
-                "tag": "7.x-1.12",
+                "tag": "7.x-1.13",
                 "path": "content_type_extras"
             }
         }
@@ -240,7 +240,7 @@
                 "defaults": "module_contrib",
                 "repo": "git://git.drupal.org/project/i18n",
                 "branch": "7.x-1.x",
-                "tag": "7.x-1.23",
+                "tag": "7.x-1.22",
                 "path": "i18n"
             },
             "internationalization_views": {
@@ -528,7 +528,7 @@
                 "defaults": "module_contrib",
                 "repo": "git://git.drupal.org/project/term_reference_tree.git",
                 "branch": "7.x-1.x",
-                "tag": "7.x-1.10",
+                "tag": "7.x-1.11",
                 "path": "term_reference_tree",
                 "patch": "drupal-term_reference.patch"
             },
@@ -704,7 +704,7 @@
                 "defaults": "module_contrib",
                 "repo": "http://git.drupal.org/project/login_history.git",
                 "branch": "7.x-1.x",
-                "tag": "7.x-1.0",
+                "tag": "7.x-1.1",
                 "path": "login_history"
             },
             "mimemail": {
@@ -993,7 +993,7 @@
                 "defaults": "module_contrib",
                 "repo": "http://git.drupal.org/project/job_scheduler.git",
                 "branch": "7.x-2.x",
-                "tag": "7.x-2.0-alpha3",
+                "tag": "7.x-2.0",
                 "path": "job_scheduler"
             },
             "auto_nodetitle": {
