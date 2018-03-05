@@ -560,6 +560,13 @@
                 "tag": "7.x-2.34",
                 "path": "mailsystem"
             },
+            "mail_logger": {
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/mail_logger.git",
+                "branch": "7.x-2.x",
+                "tag": "7.x-2.34",
+                "path": "mail_logger"
+            },
             "views_between_dates_filter": {
                 "defaults": "module_contrib",
                 "repo": "git://git.drupal.org/project/views_between_dates_filter.git",
@@ -599,7 +606,7 @@
                 "defaults": "module_contrib",
                 "repo": "http://git.drupal.org/project/captcha.git",
                 "branch": "7.x-1.x",
-                "tag": "7.x-1.3",
+                "tag": "7.x-1.5",
                 "path": "captcha"
             },
             "menu_block": {
@@ -661,7 +668,6 @@
                 "defaults": "module_contrib",
                 "repo": "http://git.drupal.org/project/conditional_fields.git",
                 "branch": "7.x-3.x",
-                "tag": "7.x-3.0-alpha2",
                 "path": "conditional_fields",
                 "patch": "drupal-conditional_fields.patch"
             },
@@ -717,9 +723,16 @@
             "mailsystem": {
                 "defaults": "module_contrib",
                 "repo": "git://git.drupal.org/project/mailsystem.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.6",
+                "path": "mailsystem"
+            },
+            "mail_logger": {
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/mail_logger.git",
                 "branch": "7.x-2.x",
                 "tag": "7.x-2.34",
-                "path": "mailsystem"
+                "path": "mail_logger"
             },
             "node_save_redirect": {
                 "defaults": "module_contrib",

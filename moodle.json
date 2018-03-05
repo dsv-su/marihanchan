@@ -163,7 +163,7 @@
       "mod_vpl": {
         "repo": "https://github.com/jcrodriguez-dis/moodle-mod_vpl.git",
         "path": "mod/vpl",
-        "branch": "v3.3.1"
+        "branch": "v3.3.3"
       },
       "mod_webinar": {
         "repo": "https://github.com/epicopensource/webinar.git",
@@ -185,7 +185,7 @@
       "block_grade_me": {
         "repo": "https://github.com/remotelearner/moodle-block_grade_me.git",
         "path": "blocks/grade_me",
-        "branch": "MOODLE_32_STABLE"
+        "branch": "MOODLE_34_STABLE"
       },
       "block_completion_progress": {
         "repo": "https://github.com/deraadt/moodle-block_completion_progress.git",
@@ -324,7 +324,13 @@
 
   "un-moodle": {
     "rootDir": "/var/www/un-moodle",
-    "requires": [ "moodle", "dsv_moodle_theme" ]
+    "requires": [ "moodle", "dsv_moodle_theme" ],
+    "components": {
+      "plagiarism_urkund": {
+        "repo": "https://github.com/danmarsden/moodle-plagiarism_urkund.git",
+        "path": "plagiarism/urkund"
+      }
+    }
   },
 
   "natgeo": {
