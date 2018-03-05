@@ -563,8 +563,8 @@
             "mail_logger": {
                 "defaults": "module_contrib",
                 "repo": "git://git.drupal.org/project/mail_logger.git",
-                "branch": "7.x-2.x",
-                "tag": "7.x-2.34",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.7",
                 "path": "mail_logger"
             },
             "views_between_dates_filter": {
