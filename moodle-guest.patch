@@ -18,7 +18,7 @@ index 6acd0f8..840513d 100644
      echo html_writer::start_tag('div', array('class'=>'course-content'));
  
 +    // Show warning notice for guests
-+    if (is_guest($context)) {
++    if (is_guest($context) && $course->id <> 694) {
 +        echo html_writer::start_tag('div', array('class' => 'alert alert-error'));
 +        echo html_writer::tag('p', html_writer::tag('h4','Attention!'));
 +        echo html_writer::tag('p', 'You are viewing this course in read only mode since you are not registered for it.');
