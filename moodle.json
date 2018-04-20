@@ -16,6 +16,7 @@
           "moodle-subpage-display.patch",
           "moodle-assign_add_grader_name.patch",
           "moodle-login.patch",
+          "moodle-user_search_multiple_names.patch",
           "moodle-assign_time_remaining_disclaimer.patch"
         ],
         "ignoreEmptyPath": true
@@ -233,6 +234,35 @@
         "repo": "https://github.com/jleyva/moodle-block_configurablereports/",
         "path": "blocks/configurable_reports",
         "branch": "MOODLE_30_STABLE"
+      },
+      "question_type_formulas": {
+        "repo": "https://github.com/trampgeek/moodle-qtype_coderunner.git",
+        "path": "question/type/coderunner"
+      },
+      "question_behaviour_adaptivemultipart": {
+        "repo": "https://github.com/maths/moodle-qbehaviour_adaptivemultipart.git",
+        "path": "question/behaviour/adaptivemultipart"
+      },
+      "question_type_coderunner": {
+        "repo": "https://github.com/jmvedrine/moodle-qtype_formulas.git",
+        "path": "question/type/formulas"
+      },
+      "question_behaviour_adaptive_adapted_for_coderunner": {
+        "repo": "https://github.com/trampgeek/moodle-qbehaviour_adaptive_adapted_for_coderunner.git",
+        "path": "question/behaviour/adaptive_adapted_for_coderunner"
+      },
+      "format_etask": {
+        "repo": "https://bitbucket.org/drlikm/etask/",
+        "path": "course/format/etask",
+        "branch": "moodle-3.4"
+      },
+      "format_buttons": {
+        "repo": "https://github.com/brandaorodrigo/moodle-format_buttons.git",
+        "path": "course/format/buttons"
+      },
+      "format_board": {
+        "repo": "https://github.com/brandaorodrigo/moodle-format_board.git",
+        "path": "course/format/board"
       },
       "ltiprovider": {
         "repo": "https://github.com/jleyva/moodle-local_ltiprovider.git",

@@ -1,0 +1,54 @@
+From 071f2b886ce9858ba148c004eb1bf96130c29ae5 Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Thu, 29 Mar 2018 11:16:44 +0300
+Subject: [PATCH] Enrol user search can now accept multiple strings and handle
+ them non-consequently
+
+---
+ enrol/locallib.php | 23 ++++++++++++++++++++---
+ 1 file changed, 20 insertions(+), 3 deletions(-)
+
+diff --git a/enrol/locallib.php b/enrol/locallib.php
+index ec46efaf4e..78e3735857 100644
+--- a/enrol/locallib.php
++++ b/enrol/locallib.php
+@@ -382,7 +382,7 @@ class course_enrolment_manager {
+             foreach (get_all_user_name_fields() as $field) {
+                 $conditions[] = 'u.'.$field;
+             }
+-            $conditions[] = $DB->sql_fullname('u.firstname', 'u.lastname');
++            $conditions['fullname'] = $DB->sql_fullname('u.firstname', 'u.lastname');
+             if ($searchanywhere) {
+                 $searchparam = '%' . $search . '%';
+             } else {
+@@ -390,8 +390,25 @@ class course_enrolment_manager {
+             }
+             $i = 0;
+             foreach ($conditions as $key => $condition) {
+-                $conditions[$key] = $DB->sql_like($condition, ":con{$i}00", false);
+-                $params["con{$i}00"] = $searchparam;
++                if ($key === 'fullname') {
++                    $j = 0;
++                    $searchsplit = preg_split('/\s+/', $search);
++                    $conditionssplit = array();
++                    foreach ($searchsplit as $subsearch) {
++                        if ($searchanywhere) {
++                            $searchparam = '%' . $subsearch . '%';
++                        } else {
++                            $searchparam = $subsearch . '%';
++                        }
++                        $conditionssplit[] = $DB->sql_like($condition, ":con{$i}00{$j}", false);
++                        $params["con{$i}00{$j}"] = $searchparam;
++                        $j++;
++                    }
++                    $conditions[$key] = '(' . implode(' AND ', $conditionssplit) . ')';
++                } else {
++                    $conditions[$key] = $DB->sql_like($condition, ":con{$i}00", false);
++                    $params["con{$i}00"] = $searchparam;
++                }
+                 $i++;
+             }
+             $tests[] = '(' . implode(' OR ', $conditions) . ')';
+-- 
+2.15.0
+
