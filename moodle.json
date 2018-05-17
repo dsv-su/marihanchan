@@ -128,6 +128,10 @@
         "path": "blocks/forum_aggregator",
         "patch": "moodle-forum-aggregator.patch"
       },
+      "course_modulenavigation": {
+        "repo": "https://github.com/DigiDago/moodle-block_course_modulenavigation.git",
+        "path": "blocks/course_modulenavigation"
+      },
       "plagiarism_urkund": {
         "repo": "https://github.com/danmarsden/moodle-plagiarism_urkund.git",
         "path": "plagiarism/urkund"
@@ -146,7 +150,7 @@
       "mod_customcert": {
         "repo": "https://github.com/markn86/moodle-mod_customcert.git",
         "path": "mod/customcert",
-        "branch": "MOODLE_34_STABLE"
+        "branch": "MOODLE_35_STABLE"
       },
       "mod_engagement": {
         "repo": "https://github.com/netspotau/moodle-mod_engagement.git",
@@ -290,7 +294,7 @@
       "custom_certificate": {
         "repo": "https://github.com/markn86/moodle-mod_customcert.git",
         "path": "mod/customcert",
-        "branch": "MOODLE_34_STABLE"
+        "branch": "MOODLE_35_STABLE"
       },
       "mailsimulator": {
         "repo": "https://github.com/dsv-su/moodle-assignsubmission_mailsimulator.git",
