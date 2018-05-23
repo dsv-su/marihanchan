@@ -594,6 +594,34 @@
                 "branch": "7.x-1.x",
                 "tag": "7.x-1.4",
                 "path": "image_url_formatter"
+            },
+            "ckeditor_plain_summary": {
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/ckeditor_plain_summary.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.0",
+                "path": "ckeditor_plain_summary"
+            },
+            "node_menu_permissions": {
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/node_menu_permissions.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.0",
+                "path": "node_menu_permissions"
+            },
+            "linkchecker": {
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/linkchecker.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.3",
+                "path": "linkchecker"
+            },
+            "text_summary_options": {
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/text_summary_options.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.0-beta1",
+                "path": "text_summary_options"
             }
         }
     },

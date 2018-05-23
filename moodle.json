@@ -32,7 +32,7 @@
       "local_mobile": {
         "repo": "https://github.com/jleyva/moodle-local_mobile.git",
         "path": "local/mobile",
-        "branch": "MOODLE_34_STABLE"
+        "branch": "MOODLE_35_STABLE"
       },
       "local_analytics": {
         "repo": "https://github.com/bmbrands/moodle-local_analytics.git",
@@ -237,7 +237,7 @@
         "path": "blocks/configurable_reports",
         "branch": "MOODLE_30_STABLE"
       },
-      "question_type_formulas": {
+      "question_type_coderunner": {
         "repo": "https://github.com/trampgeek/moodle-qtype_coderunner.git",
         "path": "question/type/coderunner"
       },
@@ -245,7 +245,7 @@
         "repo": "https://github.com/maths/moodle-qbehaviour_adaptivemultipart.git",
         "path": "question/behaviour/adaptivemultipart"
       },
-      "question_type_coderunner": {
+      "question_type_formulas": {
         "repo": "https://github.com/jmvedrine/moodle-qtype_formulas.git",
         "path": "question/type/formulas"
       },
