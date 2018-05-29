@@ -622,6 +622,13 @@
                 "branch": "7.x-1.x",
                 "tag": "7.x-1.0-beta1",
                 "path": "text_summary_options"
+            },
+            "views_menu_children_filter": {
+                "defaults": "module_contrib",
+                "repo": "git://git.drupal.org/project/views_menu_children_filter.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.0-rc3",
+                "path": "views_menu_children_filter"
             }
         }
     },
@@ -808,7 +815,7 @@
                 "tag": "7.x-1.0-rc3",
                 "path": "redirect"
             },
-            "references":{
+            "references": {
                 "defaults": "module_contrib",
                 "repo": "git://git.drupal.org/project/references",
                 "branch": "7.x-2.x",
@@ -821,7 +828,7 @@
                 "branch": "7.x-1.x",
                 "path": "views_contextual_filters_or"
             },
-            "uuid":{
+            "uuid": {
                 "defaults": "module_contrib",
                 "repo": "git://git.drupal.org/project/uuid",
                 "branch": "7.x-1.x",
