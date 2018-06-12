@@ -191,10 +191,6 @@
         "path": "blocks/grade_me",
         "branch": "MOODLE_34_STABLE"
       },
-      "block_completion_progress": {
-        "repo": "https://github.com/deraadt/moodle-block_completion_progress.git",
-        "path": "blocks/completion_progress"
-      },
       "block_xp": {
         "repo": "https://github.com/FMCorz/moodle-block_xp.git",
         "path": "blocks/xp"
@@ -451,6 +447,37 @@
         "repo": "https://github.com/thepurpleblob/moodle-block_course_overview",
         "branch": "master",
         "path": "blocks/course_overview"
+      }
+    }
+  },
+
+  "code": {
+    "rootDir": "/var/www/code",
+    "requires": [ "ilearn2" ],
+    "components": {
+      "question_type_coderunner": {
+        "repo": "https://github.com/trampgeek/moodle-qtype_coderunner.git",
+        "path": "question/type/coderunner"
+      },
+      "question_behaviour_adaptivemultipart": {
+        "repo": "https://github.com/maths/moodle-qbehaviour_adaptivemultipart.git",
+        "path": "question/behaviour/adaptivemultipart"
+      },
+      "question_type_formulas": {
+        "repo": "https://github.com/jmvedrine/moodle-qtype_formulas.git",
+        "path": "question/type/formulas"
+      },
+      "question_behaviour_adaptive_adapted_for_coderunner": {
+        "repo": "https://github.com/trampgeek/moodle-qbehaviour_adaptive_adapted_for_coderunner.git",
+        "path": "question/behaviour/adaptive_adapted_for_coderunner"
+      },
+      "format_buttons": {
+        "repo": "https://github.com/brandaorodrigo/moodle-format_buttons.git",
+        "path": "course/format/buttons"
+      },
+      "format_board": {
+        "repo": "https://github.com/brandaorodrigo/moodle-format_board.git",
+        "path": "course/format/board"
       }
     }
   }
