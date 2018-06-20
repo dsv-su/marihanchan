@@ -39,7 +39,7 @@
         "path": "local/analytics"
       },
       "block_course_overview": {
-        "repo": "https://github.com/moodlehq/moodle-block_course_overview.git",
+        "repo": "https://github.com/thepurpleblob/moodle-block_course_overview.git",
         "branch": "master",
         "path": "blocks/course_overview"
       }
@@ -206,7 +206,7 @@
       "format_grid": {
         "repo": "https://github.com/gjb2048/moodle-courseformat_grid.git",
         "path": "course/format/grid",
-        "branch": "MOODLE_33"
+        "branch": "MOODLE_34"
       },
       "report_engagement": {
         "repo": "https://github.com/netspotau/moodle-report_engagement.git",
@@ -411,7 +411,7 @@
       "format_topcoll": {
         "repo": "https://github.com/gjb2048/moodle-format_topcoll.git",
         "path": "course/format/topcoll",
-        "branch": "MOODLE_33"
+        "branch": "MOODLE_34"
       },
       "format_onetopic": {
         "repo": "https://github.com/davidherney/moodle-format_onetopic.git",
