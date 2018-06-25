@@ -454,6 +454,7 @@
   "code": {
     "rootDir": "/var/www/code",
     "requires": [ "ilearn2" ],
+    "patches": [ "moodle-old_action_menus.patch" ],
     "components": {
       "question_type_coderunner": {
         "repo": "https://github.com/trampgeek/moodle-qtype_coderunner.git",
@@ -478,6 +479,11 @@
       "format_board": {
         "repo": "https://github.com/brandaorodrigo/moodle-format_board.git",
         "path": "course/format/board"
+      },
+      "mod_vpl": {
+        "repo": "https://github.com/jcrodriguez-dis/moodle-mod_vpl.git",
+        "path": "mod/vpl",
+        "branch": "v3.3.3"
       }
     }
   }
