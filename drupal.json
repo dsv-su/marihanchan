@@ -93,7 +93,7 @@
                 "branch": "7.x-2.x",
                 "tag": "7.x-2.10",
                 "path": "rules",
-                "patch": "drupal-rules_cc_bcc.patch"
+                "patches": [ "drupal-rules_cc_bcc.patch", "drupal-rules_task_exists.patch" ]
             },
             "token": {
                 "defaults": "module_contrib",
