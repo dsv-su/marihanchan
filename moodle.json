@@ -16,7 +16,8 @@
           "moodle-assign_add_grader_name.patch",
           "moodle-login.patch",
           "moodle-user_search_multiple_names.patch",
-          "moodle-assign_time_remaining_disclaimer.patch"
+          "moodle-assign_time_remaining_disclaimer.patch",
+          "moodle-hide_quiz_teacher_overview.patch"
         ],
         "ignoreEmptyPath": true
       }
@@ -482,6 +483,11 @@
       "format_buttons": {
         "repo": "https://github.com/brandaorodrigo/moodle-format_buttons.git",
         "path": "course/format/buttons"
+      },
+      "format_flexsections": {
+        "repo": "https://github.com/marinaglancy/moodle-format_flexsections",
+        "path": "course/format/flexsections",
+        "branch": "master"
       },
       "format_board": {
         "repo": "https://github.com/brandaorodrigo/moodle-format_board.git",

@@ -1,0 +1,26 @@
+From 900dd7370c64c0ef319651f9f9868481ccbf018b Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Tue, 2 Oct 2018 12:39:25 +0300
+Subject: [PATCH] Remove quiz from print_overview for teachers
+
+---
+ mod/quiz/lib.php | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/mod/quiz/lib.php b/mod/quiz/lib.php
+index b83afcbba92..6f8346ad40e 100644
+--- a/mod/quiz/lib.php
++++ b/mod/quiz/lib.php
+@@ -1654,7 +1654,8 @@ function quiz_print_overview($courses, &$htmlarray) {
+                 // For teacher-like people, show a summary of the number of student attempts.
+                 // The $quiz objects returned by get_all_instances_in_course have the necessary $cm
+                 // fields set to make the following call work.
+-                $str .= '<div class="info">' . quiz_num_attempt_summary($quiz, $quiz, true) . '</div>';
++                //$str .= '<div class="info">' . quiz_num_attempt_summary($quiz, $quiz, true) . '</div>';
++                continue; // We don't want to show this to teachers since it has no point.
+ 
+             } else if (has_any_capability(array('mod/quiz:reviewmyattempts', 'mod/quiz:attempt'), $context)) { // Student
+                 // For student-like people, tell them how many attempts they have made.
+-- 
+2.17.0
+

@@ -1,0 +1,162 @@
+From fc8464d874c27d97723187f39776a2ac95ca860d Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Thu, 4 Oct 2018 13:46:12 +0300
+Subject: [PATCH] Add fullmatch option to matching qtype
+
+---
+ question/type/match/db/install.xml          |  1 +
+ question/type/match/db/upgrade.php          | 19 ++++++++++++++++++-
+ question/type/match/edit_match_form.php     |  6 ++++++
+ question/type/match/lang/en/qtype_match.php |  2 ++
+ question/type/match/question.php            |  7 ++++++-
+ question/type/match/questiontype.php        |  3 +++
+ question/type/match/version.php             |  2 +-
+ 7 files changed, 37 insertions(+), 3 deletions(-)
+
+diff --git a/question/type/match/db/install.xml b/question/type/match/db/install.xml
+index b0bc8dd9320..ac71fdf29e4 100644
+--- a/question/type/match/db/install.xml
++++ b/question/type/match/db/install.xml
+@@ -9,6 +9,7 @@
+         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+         <FIELD NAME="questionid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Foreign key link to question.id."/>
+         <FIELD NAME="shuffleanswers" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="1" SEQUENCE="false"/>
++        <FIELD NAME="fullmatch" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="1" SEQUENCE="false"/>
+         <FIELD NAME="correctfeedback" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="Feedback shown for any correct response."/>
+         <FIELD NAME="correctfeedbackformat" TYPE="int" LENGTH="2" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+         <FIELD NAME="partiallycorrectfeedback" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="Feedback shown for any partially correct response."/>
+diff --git a/question/type/match/db/upgrade.php b/question/type/match/db/upgrade.php
+index 9bf2fa7a77e..2f7cf0b9a6f 100644
+--- a/question/type/match/db/upgrade.php
++++ b/question/type/match/db/upgrade.php
+@@ -29,7 +29,9 @@ defined('MOODLE_INTERNAL') || die();
+  * @param int $oldversion the version we are upgrading from.
+  */
+ function xmldb_qtype_match_upgrade($oldversion) {
+-    global $CFG;
++    global $DB, $CFG;
++
++    $dbman = $DB->get_manager();
+ 
+     // Automatically generated Moodle v3.2.0 release upgrade line.
+     // Put any upgrade step following this.
+@@ -43,5 +45,20 @@ function xmldb_qtype_match_upgrade($oldversion) {
+     // Automatically generated Moodle v3.5.0 release upgrade line.
+     // Put any upgrade step following this.
+ 
++    // Add the format for the subqtext and feedback.
++    if ($oldversion < 2018051402) {
++        // Define field subqtextformat to be added to question_formulas_answers.
++        $table = new xmldb_table('qtype_match_options');
++        $field = new xmldb_field('fullmatch', XMLDB_TYPE_INTEGER, '4', null, XMLDB_NOTNULL, null, '0', 'shuffleanswers');
++
++        // Conditionally launch add field subqtextformat.
++        if (!$dbman->field_exists($table, $field)) {
++            $dbman->add_field($table, $field);
++        }
++
++        // Formulas savepoint reached.
++        upgrade_plugin_savepoint(true, 2018051402, 'qtype', 'match');
++    }
++
+     return true;
+ }
+diff --git a/question/type/match/edit_match_form.php b/question/type/match/edit_match_form.php
+index 5ee734a8804..bc8b1b18647 100644
+--- a/question/type/match/edit_match_form.php
++++ b/question/type/match/edit_match_form.php
+@@ -62,6 +62,11 @@ class qtype_match_edit_form extends question_edit_form {
+         $mform->addHelpButton('shuffleanswers', 'shuffle', 'qtype_match');
+         $mform->setDefault('shuffleanswers', 1);
+ 
++        $mform->addElement('advcheckbox', 'fullmatch',
++                get_string('fullmatch', 'qtype_match'), null, null, array(0, 1));
++        $mform->addHelpButton('fullmatch', 'fullmatch', 'qtype_match');
++        $mform->setDefault('fullmatch', 0);
++
+         $this->add_per_answer_fields($mform, get_string('questionno', 'question', '{no}'), 0);
+ 
+         $this->add_combined_feedback_fields(true);
+@@ -85,6 +90,7 @@ class qtype_match_edit_form extends question_edit_form {
+         }
+ 
+         $question->shuffleanswers = $question->options->shuffleanswers;
++        $question->fullmatch = $question->options->fullmatch;
+ 
+         $key = 0;
+         foreach ($question->options->subquestions as $subquestion) {
+diff --git a/question/type/match/lang/en/qtype_match.php b/question/type/match/lang/en/qtype_match.php
+index 8d20a72aa5c..0ece0578ddf 100644
+--- a/question/type/match/lang/en/qtype_match.php
++++ b/question/type/match/lang/en/qtype_match.php
+@@ -29,6 +29,8 @@ $string['correctansweris'] = 'The correct answer is: {$a}';
+ $string['deletedchoice'] = '[Deleted choice]';
+ $string['deletedsubquestion'] = 'This part of the question was deleted after the attempt was started.';
+ $string['filloutthreeqsandtwoas'] = 'You must provide at least two questions and three answers. You can provide extra wrong answers by giving an answer with a blank question. Entries where both the question and the answer are blank will be ignored.';
++$string['fullmatch'] = 'Require full match';
++$string['fullmatch_help'] = 'If activated, all matches have to be correct in order to get 100% mark, otherise 0% given';
+ $string['nomatchinganswer'] = 'You must specify an answer matching the question \'{$a}\'.';
+ $string['nomatchinganswerforq'] = 'You must specify an answer for this question.';
+ $string['notenoughqsandas'] = 'You must supply at least {$a->q} questions and {$a->a} answers.';
+diff --git a/question/type/match/question.php b/question/type/match/question.php
+index 41130100daf..4044d234b4b 100644
+--- a/question/type/match/question.php
++++ b/question/type/match/question.php
+@@ -36,6 +36,7 @@ require_once($CFG->dirroot . '/question/type/questionbase.php');
+ class qtype_match_question extends question_graded_automatically_with_countback {
+     /** @var boolean Whether the question stems should be shuffled. */
+     public $shufflestems;
++    public $fullmatch;
+ 
+     public $correctfeedback;
+     public $correctfeedbackformat;
+@@ -298,7 +299,11 @@ class qtype_match_question extends question_graded_automatically_with_countback
+ 
+     public function grade_response(array $response) {
+         list($right, $total) = $this->get_num_parts_right($response);
+-        $fraction = $right / $total;
++        if ($this->fullmatch) {
++            $fraction = ($right == $total) ? 1 : 0;
++        } else {
++            $fraction = $right / $total;
++        }
+         return array($fraction, question_state::graded_state_for_fraction($fraction));
+     }
+ 
+diff --git a/question/type/match/questiontype.php b/question/type/match/questiontype.php
+index ffc9b4d455e..3394f49cd35 100644
+--- a/question/type/match/questiontype.php
++++ b/question/type/match/questiontype.php
+@@ -101,6 +101,8 @@ class qtype_match extends question_type {
+         }
+ 
+         $options->shuffleanswers = $question->shuffleanswers;
++        $options->fullmatch = $question->fullmatch;
++
+         $options = $this->save_combined_feedback_helper($options, $question, $context, true);
+         $DB->update_record('qtype_match_options', $options);
+ 
+@@ -117,6 +119,7 @@ class qtype_match extends question_type {
+         parent::initialise_question_instance($question, $questiondata);
+ 
+         $question->shufflestems = $questiondata->options->shuffleanswers;
++        $question->fullmatch = $questiondata->options->fullmatch;
+         $this->initialise_combined_feedback($question, $questiondata, true);
+ 
+         $question->stems = array();
+diff --git a/question/type/match/version.php b/question/type/match/version.php
+index df4d1b788cf..b3022362a13 100644
+--- a/question/type/match/version.php
++++ b/question/type/match/version.php
+@@ -25,7 +25,7 @@
+ defined('MOODLE_INTERNAL') || die();
+ 
+ $plugin->component = 'qtype_match';
+-$plugin->version   = 2018051400;
++$plugin->version   = 2018051402;
+ 
+ $plugin->requires  = 2018050800;
+ 
+-- 
+2.17.0
+
