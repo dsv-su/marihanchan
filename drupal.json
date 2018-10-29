@@ -1034,7 +1034,7 @@
                 "defaults": "module_contrib",
                 "repo": "http://git.drupal.org/project/search_autocomplete.git",
                 "branch": "7.x-4.x",
-                "tag": "7.x-4.7",
+                "tag": "7.x-4.9",
                 "path": "search_autocomplete"
             },
             "job_scheduler": {
