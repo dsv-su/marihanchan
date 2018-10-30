@@ -1,9 +1,10 @@
-From fc8464d874c27d97723187f39776a2ac95ca860d Mon Sep 17 00:00:00 2001
+From c81eedb8998c1c1ec18f3270ab8379b3b3b0d4d9 Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
-Date: Thu, 4 Oct 2018 13:46:12 +0300
+Date: Tue, 30 Oct 2018 20:14:01 +0300
 Subject: [PATCH] Add fullmatch option to matching qtype
 
 ---
+ question/format/xml/format.php              |  5 +++++
  question/type/match/db/install.xml          |  1 +
  question/type/match/db/upgrade.php          | 19 ++++++++++++++++++-
  question/type/match/edit_match_form.php     |  6 ++++++
@@ -11,17 +12,40 @@ Subject: [PATCH] Add fullmatch option to matching qtype
  question/type/match/question.php            |  7 ++++++-
  question/type/match/questiontype.php        |  3 +++
  question/type/match/version.php             |  2 +-
- 7 files changed, 37 insertions(+), 3 deletions(-)
+ 8 files changed, 42 insertions(+), 3 deletions(-)
 
+diff --git a/question/format/xml/format.php b/question/format/xml/format.php
+index d3b9c82ae42..568f2dd02c3 100644
+--- a/question/format/xml/format.php
++++ b/question/format/xml/format.php
+@@ -719,6 +719,8 @@ class qformat_xml extends qformat_default {
+         $qo->qtype = 'match';
+         $qo->shuffleanswers = $this->trans_single($this->getpath($question,
+                 array('#', 'shuffleanswers', 0, '#'), 1));
++        $qo->fullmatch = $this->trans_single($this->getpath($question,
++                array('#', 'fullmatch', 0, '#'), 1));
+ 
+         // Run through subquestions.
+         $qo->subquestions = array();
+@@ -1282,6 +1284,9 @@ class qformat_xml extends qformat_default {
+                 $expout .= "    <shuffleanswers>" .
+                         $this->get_single($question->options->shuffleanswers) .
+                         "</shuffleanswers>\n";
++                $expout .= "    <fullmatch>" .
++                        $this->get_single($question->options->fullmatch) .
++                        "</fullmatch>\n";
+                 $expout .= $this->write_combined_feedback($question->options, $question->id, $question->contextid);
+                 foreach ($question->options->subquestions as $subquestion) {
+                     $files = $fs->get_area_files($contextid, 'qtype_match',
 diff --git a/question/type/match/db/install.xml b/question/type/match/db/install.xml
-index b0bc8dd9320..ac71fdf29e4 100644
+index b0bc8dd9320..a1f352de5c8 100644
 --- a/question/type/match/db/install.xml
 +++ b/question/type/match/db/install.xml
 @@ -9,6 +9,7 @@
          <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
          <FIELD NAME="questionid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Foreign key link to question.id."/>
          <FIELD NAME="shuffleanswers" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="1" SEQUENCE="false"/>
-+        <FIELD NAME="fullmatch" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="1" SEQUENCE="false"/>
++        <FIELD NAME="fullmatch" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
          <FIELD NAME="correctfeedback" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="Feedback shown for any correct response."/>
          <FIELD NAME="correctfeedbackformat" TYPE="int" LENGTH="2" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
          <FIELD NAME="partiallycorrectfeedback" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="Feedback shown for any partially correct response."/>
