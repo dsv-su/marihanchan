@@ -144,6 +144,22 @@
         "repo": "https://github.com/jcrodriguez-dis/moodle-mod_vpl.git",
         "path": "mod/vpl",
         "branch": "v3.3.5"
+      },
+      "question_type_coderunner": {
+        "repo": "https://github.com/trampgeek/moodle-qtype_coderunner.git",
+        "path": "question/type/coderunner"
+      },
+      "question_behaviour_adaptivemultipart": {
+        "repo": "https://github.com/maths/moodle-qbehaviour_adaptivemultipart.git",
+        "path": "question/behaviour/adaptivemultipart"
+      },
+      "question_type_formulas": {
+        "repo": "https://github.com/jmvedrine/moodle-qtype_formulas.git",
+        "path": "question/type/formulas"
+      },
+      "question_behaviour_adaptive_adapted_for_coderunner": {
+        "repo": "https://github.com/trampgeek/moodle-qbehaviour_adaptive_adapted_for_coderunner.git",
+        "path": "question/behaviour/adaptive_adapted_for_coderunner"
       }
     }
   },
@@ -241,22 +257,6 @@
         "repo": "https://github.com/jleyva/moodle-block_configurablereports/",
         "path": "blocks/configurable_reports",
         "branch": "MOODLE_30_STABLE"
-      },
-      "question_type_coderunner": {
-        "repo": "https://github.com/trampgeek/moodle-qtype_coderunner.git",
-        "path": "question/type/coderunner"
-      },
-      "question_behaviour_adaptivemultipart": {
-        "repo": "https://github.com/maths/moodle-qbehaviour_adaptivemultipart.git",
-        "path": "question/behaviour/adaptivemultipart"
-      },
-      "question_type_formulas": {
-        "repo": "https://github.com/jmvedrine/moodle-qtype_formulas.git",
-        "path": "question/type/formulas"
-      },
-      "question_behaviour_adaptive_adapted_for_coderunner": {
-        "repo": "https://github.com/trampgeek/moodle-qbehaviour_adaptive_adapted_for_coderunner.git",
-        "path": "question/behaviour/adaptive_adapted_for_coderunner"
       },
       "format_etask": {
         "repo": "https://bitbucket.org/drlikm/etask/",

@@ -1,0 +1,92 @@
+From 4035d5334e7774be3f9697fc2411bafe15909da6 Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Wed, 7 Nov 2018 13:42:44 +0300
+Subject: [PATCH] Add short txt report template
+
+---
+ lib.php    |  2 +-
+ report.php | 48 ++++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 49 insertions(+), 1 deletion(-)
+
+diff --git a/lib.php b/lib.php
+index 7012606..870e4c1 100644
+--- a/lib.php
++++ b/lib.php
+@@ -894,7 +894,7 @@ function choicegroup_get_response_data($choicegroup, $cm) {
+     // First get all the users who have access here.
+     // To start with we assume they are all "unanswered" then move them later.
+     $ctx = \context_module::instance($cm->id);
+-    $users = get_enrolled_users($ctx, 'mod/choicegroup:choose', 0, user_picture::fields('u', array('idnumber')), 'u.lastname ASC,u.firstname ASC');
++    $users = get_enrolled_users($ctx, 'mod/choicegroup:choose', 0, user_picture::fields('u', array('idnumber', 'username')), 'u.lastname ASC,u.firstname ASC');
+     if ($users) {
+         $modinfo = get_fast_modinfo($cm->course);
+         $cminfo = $modinfo->get_cm($cm->id);
+diff --git a/report.php b/report.php
+index b2ab6ea..df6be2e 100644
+--- a/report.php
++++ b/report.php
+@@ -269,6 +269,50 @@ if ($download == "txt" && has_capability('mod/choicegroup:downloadresponses', $c
+     }
+     exit;
+ }
++
++// print text file
++if ($download == "txtshort" && has_capability('mod/choicegroup:downloadresponses', $context)) {
++    $filename = clean_filename("$course->shortname ".strip_tags(format_string($choicegroup->name,true))).'.txt';
++
++    header("Content-Type: application/download\n");
++    header("Content-Disposition: attachment; filename=\"$filename\"");
++    header("Expires: 0");
++    header("Cache-Control: must-revalidate,post-check=0,pre-check=0");
++    header("Pragma: public");
++
++    /// Print names of all the fields
++
++    echo get_string("username")."\t";
++    echo get_string("group"). "\t";
++    echo get_string("choice","choicegroup"). "\n";
++
++    /// generate the data for the body of the spreadsheet
++    $i=0;
++    if ($users) {
++        $displayed = array();
++        foreach ($users as $option => $userid) {
++            foreach($userid as $user) {
++                if (in_array($user->id, $displayed)) {
++                    continue;
++                }
++                $displayed[] = $user->id;
++                echo $user->username. "\t";
++                $ug2 = array();
++                if ($usergrps = groups_get_all_groups($course->id, $user->id)) {
++                    foreach ($groups_ids as $gid) {
++                        if (array_key_exists($gid, $usergrps)) {
++                            $ug2[] = format_string($usergrps[$gid]->name);
++                        }
++                    }
++                }
++                echo implode(', ', $ug2) . "\t";
++                echo "\n";
++            }
++        }
++    }
++    exit;
++}
++
+ // Show those who haven't answered the question.
+ if (!empty($choicegroup->showunanswered)) {
+     $choicegroup->option[0] = get_string('notanswered', 'choicegroup');
+@@ -296,6 +340,10 @@ if (!empty($users) && has_capability('mod/choicegroup:downloadresponses',$contex
+     $button = $OUTPUT->single_button(new moodle_url("report.php", $options), get_string("downloadtext"));
+     $downloadoptions[] = html_writer::tag('li', $button, array('class'=>'reportoption'));
+ 
++    $options["download"] = "txtshort";
++    $button = $OUTPUT->single_button(new moodle_url("report.php", $options), 'Download usernames and groups only in text format');
++    $downloadoptions[] = html_writer::tag('li', $button, array('class'=>'reportoption'));
++
+     $downloadlist = html_writer::tag('ul', implode('', $downloadoptions));
+     $downloadlist .= html_writer::tag('div', '', array('class'=>'clearfloat'));
+     echo html_writer::tag('div',$downloadlist, array('class'=>'downloadreport'));
+-- 
+2.17.0
+
