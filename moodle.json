@@ -82,7 +82,8 @@
       },
       "mod_choicegroup": {
         "repo": "https://github.com/ndunand/moodle-mod_choicegroup.git",
-        "path": "mod/choicegroup"
+        "path": "mod/choicegroup",
+        "patch": "moodle-choicegroup_short_format.patch"
       },
       "mod_scheduler": {
         "repo": "https://github.com/bostelm/moodle-mod_scheduler.git",
@@ -167,6 +168,9 @@
   "ilearn2test": {
     "rootDir": "/var/www/ilearn2test",
     "requires": [ "ilearn2" ],
+    "patches": [
+      "moodle-qtype_match_fullmatch.patch"
+    ],
     "components": {
       "mod_advmindmap": {
         "repo": "https://github.com/ctchanandy/moodle-mod_advmindmap.git",
@@ -463,7 +467,10 @@
   "code": {
     "rootDir": "/var/www/code",
     "requires": [ "ilearn2" ],
-    "patches": [ "moodle-old_action_menus.patch" ],
+    "patches": [
+      "moodle-old_action_menus.patch",
+      "moodle-guest.patch"
+    ],
     "components": {
       "question_type_coderunner": {
         "repo": "https://github.com/trampgeek/moodle-qtype_coderunner.git",
