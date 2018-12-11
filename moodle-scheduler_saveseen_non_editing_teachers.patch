@@ -1,0 +1,41 @@
+From 1147c926f4c702e8589abcc7e5778b0c1abbdec1 Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Tue, 11 Dec 2018 14:57:48 +0300
+Subject: [PATCH] non-editing teachers should be able to save seen for slots
+
+---
+ ajax.php     | 4 +---
+ renderer.php | 2 +-
+ 2 files changed, 2 insertions(+), 4 deletions(-)
+
+diff --git a/ajax.php b/ajax.php
+index 1a9910e..ad3b98a 100644
+--- a/ajax.php
++++ b/ajax.php
+@@ -34,9 +34,7 @@ switch ($action) {
+         $app = $slot->get_appointment($appid);
+         $newseen = required_param('seen', PARAM_BOOL);
+ 
+-        if ($USER->id != $slot->teacherid) {
+-            require_capability('mod/scheduler:manageallappointments', $scheduler->context);
+-        }
++        require_capability('mod/scheduler:manage', $scheduler->context);
+ 
+         $app->attended = $newseen;
+         $slot->save();
+diff --git a/renderer.php b/renderer.php
+index b2946d2..cced8f4 100644
+--- a/renderer.php
++++ b/renderer.php
+@@ -522,7 +522,7 @@ class mod_scheduler_renderer extends plugin_renderer_base {
+         $divprops = array('id' => 'list'.$toggleid);
+         $o .= html_writer::start_div('studentlist', $divprops);
+         if (count($studentlist->students) > 0) {
+-            $editable = $studentlist->actionurl && $studentlist->editable;
++            $editable = has_capability('mod/scheduler:manage', $studentlist->scheduler->get_context()) || has_capability('mod/scheduler:manageallappointments', $studentlist->scheduler->get_context());
+             if ($editable) {
+                 $o .= html_writer::start_tag('form', array('action' => $studentlist->actionurl,
+                                 'method' => 'post', 'class' => 'studentselectform'));
+-- 
+2.17.0
+
