@@ -1,6 +1,6 @@
-From bb897118bb0dcb0317cf606e3822b5906ad91113 Mon Sep 17 00:00:00 2001
+From 227a34693eb7b4a59179d33dd8b471e05a9b6f50 Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
-Date: Fri, 13 Feb 2015 17:47:51 +0100
+Date: Wed, 19 Dec 2018 11:26:35 +0300
 Subject: [PATCH] Fixing undefined problems with translations
 
 ---
@@ -39,7 +39,7 @@ index 7dbcf84..8f8c58b 100644
      }
    }
 diff --git a/term_reference_tree.widget.inc b/term_reference_tree.widget.inc
-index 1685a43..0aa3e72 100644
+index dc96dbc..2e668ee 100644
 --- a/term_reference_tree.widget.inc
 +++ b/term_reference_tree.widget.inc
 @@ -286,9 +286,10 @@ function term_reference_tree_process_checkbox_tree($element, $form_state) {
@@ -55,5 +55,5 @@ index 1685a43..0aa3e72 100644
        }
        $element['#options'] = _term_reference_tree_get_options($element['#options_tree'], $allowed, $element['#filter_view']);
 -- 
-1.9.3 (Apple Git-50)
+2.17.0
 
