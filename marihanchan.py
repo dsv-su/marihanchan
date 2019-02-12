@@ -14,6 +14,7 @@ import argparse # parse cli args
 import json     # parse build files
 import git      # the main GitPython used to control git
 import shutil   # used to copy files
+import string
 
 # import path from os, everything from git
 from os import path
@@ -338,6 +339,11 @@ def updateComponent( newComponent, oldComponent ):
             repoPath += defaultPath
         repoPath += newComponent.get( 'path' )
     repo = Repo( repoPath, odbt=GitCmdObjectDB )
+
+    url = repo.remotes.origin.url
+    url = string.replace(url, 'git://', 'https://')
+    url = string.replace(url, 'http://', 'https://')
+    repo.remotes.origin.config_writer.set("url", url)
 
     # update branch
     if 'branch' in newComponent:
