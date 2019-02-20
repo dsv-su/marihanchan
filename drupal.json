@@ -133,7 +133,7 @@
                 "defaults": "theme_contrib",
                 "repo": "https://git.drupal.org/project/bootstrap.git",
                 "branch": "7.x-3.x",
-                "tag": "7.x-3.23",
+                "tag": "7.x-3.22",
                 "path": "bootstrap"
             },
             "dsv_drupal_theme": {
@@ -1203,6 +1203,49 @@
                 "branch": "7.x-2.x",
                 "tag": "7.x-2.4",
                 "path": "taxonomy_access_fix"
+            }
+        }
+    },
+
+    "specped-internt": {
+        "rootDir": "/var/www/project_proposals",
+        "requires": [ "internt"],
+        "components": {
+            "subscriptions": {
+                "defaults": "module_contrib",
+                "repo": "https://git.drupal.org/project/subscriptions.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.3",
+                "path": "subscriptions",
+                "patch": "drupal-subscriptions_hide_terms.patch"
+            },
+            "mail_edit": {
+                "defaults": "module_contrib",
+                "repo": "https://git.drupal.org/project/mail_edit.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.2",
+                "path": "mail_edit"
+            },
+            "taxonomy_access": {
+                "defaults": "module_contrib",
+                "repo": "https://git.drupal.org/project/insert_view.git",
+                "branch": "7.x-2.x",
+                "tag": "7.x-2.0",
+                "path": "insert_view"
+            },
+            "insert_view": {
+                "defaults": "module_contrib",
+                "repo": "https://git.drupal.org/project/insert_view.git",
+                "branch": "7.x-2.x",
+                "tag": "7.x-2.0",
+                "path": "insert_view"
+            },
+            "field_permissions": {
+                "defaults": "module_contrib",
+                "repo": "https://git.drupal.org/project/field_permissions.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.0",
+                "path": "field_permissions"
             }
         }
     }

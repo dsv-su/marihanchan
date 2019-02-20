@@ -1,0 +1,58 @@
+From 6dbabb1a27058eea39aeb5a5c5986244d69cb741 Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Wed, 20 Feb 2019 17:11:04 +0300
+Subject: [PATCH] Fix anslagstavlan and some permissions
+
+---
+ subscriptions_taxonomy.admin.inc | 9 +++++++++
+ subscriptions_taxonomy.module    | 5 ++++-
+ 2 files changed, 13 insertions(+), 1 deletion(-)
+
+diff --git a/subscriptions_taxonomy.admin.inc b/subscriptions_taxonomy.admin.inc
+index 31eb4cc..fc4094d 100644
+--- a/subscriptions_taxonomy.admin.inc
++++ b/subscriptions_taxonomy.admin.inc
+@@ -136,6 +136,9 @@ function _subscriptions_taxonomy_taxa_form(array $form, $uid, array $vocabularie
+           l($term_name, 'taxonomy/term/' . $term->tid, array('attributes' => array('class' => 'depth-' . $depth)));
+         if (!isset($subscriptions_vid[$term->tid][-1])) {
+           // author-less item is missing -- add it here:
++          if (!user_access('administer user subscriptions') && $term->tid<>56) {
++            continue;
++          }
+           $subscriptions_vid[$term->tid][-1] = array(
+             'send_interval' => _subscriptions_get_setting('send_interval', $uid),
+             'send_comments' => _subscriptions_get_setting('send_comments', $uid),
+@@ -153,8 +156,14 @@ function _subscriptions_taxonomy_taxa_form(array $form, $uid, array $vocabularie
+             $form[$vocab->vid][0]['checkboxes'][$tid][-1]['#disabled'] = TRUE;
+           }
+         }
++        if (!user_access('administer user subscriptions')) {
++          if ($term->tid <> 56) {
++            $form[$vocab->vid][0]['checkboxes'][$term->tid][-1]['#disabled'] = TRUE;
++          }
++        }
+       }
+     }
++
+     else {
+       $form[$vocab->vid]['info']['#value'] = '<p>' . t('This is a restricted category group; only subscribed categories show up in this list.<br />To subscribe to a category in this group, go to a post in that category and subscribe from there.') . '</p>';
+     }
+diff --git a/subscriptions_taxonomy.module b/subscriptions_taxonomy.module
+index 211d323..d62b7ef 100644
+--- a/subscriptions_taxonomy.module
++++ b/subscriptions_taxonomy.module
+@@ -109,7 +109,10 @@ function _subscriptions_taxonomy_node_options($account, $node) {
+           }
+           elseif (!empty($item['tid'])) {
+             $term = taxonomy_term_load($item['tid']);
+-            if ($term->vid != variable_get('forum_nav_vocabulary', 0)) {
++            if ($term->tid != 56) {
++              continue;
++            }
++            if ($term->vid != variable_get('forum_nav_vocabulary', 0) && $term->tid != 56) {
+               // The field is hidden for this content type.
+               if ($user->uid == 1) {
+                 $unavailable = ' ' . SUBSCRIPTIONS_UNAVAILABLE;
+-- 
+2.17.0
+
