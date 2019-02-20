@@ -1,0 +1,51 @@
+From c7177ac8767e8e37089219ff3c7c29b382a9eb6c Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Wed, 20 Feb 2019 18:00:48 +0300
+Subject: [PATCH] tweak access rights to hide single pages
+
+---
+ subscriptions.admin.inc      | 1 +
+ subscriptions.module         | 1 +
+ subscriptions_content.module | 2 +-
+ 3 files changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/subscriptions.admin.inc b/subscriptions.admin.inc
+index 4cb673d..96df0e9 100644
+--- a/subscriptions.admin.inc
++++ b/subscriptions.admin.inc
+@@ -577,6 +577,7 @@ function subscriptions_user_settings_form(array $form, array &$form_state, $acco
+     '#title'         => check_plain($tr('Settings')),
+     '#weight'        => 10,
+     '#collapsible'   => !empty($account),
++    '#access'        => user_access('administer user subscriptions', $account),
+     '#collapsed'     => !empty($account),
+   );
+   if ($uid < 0) {
+diff --git a/subscriptions.module b/subscriptions.module
+index 9dfc8c3..7eeea11 100644
+--- a/subscriptions.module
++++ b/subscriptions.module
+@@ -151,6 +151,7 @@ function subscriptions_menu() {
+       'weight' => $weight,
+     );
+     $items['user/%user/subscriptions/' . $stype]['title'] = $data['title'];
++    $items['user/%user/subscriptions/node']['access'] = 'administer user subscriptions';
+ 
+     if ($hide_overview_page && $minimum_weight == $weight) {
+       // Install the first subscription type page as the default task.
+diff --git a/subscriptions_content.module b/subscriptions_content.module
+index fda0fbd..98d311a 100644
+--- a/subscriptions_content.module
++++ b/subscriptions_content.module
+@@ -205,7 +205,7 @@ function _subscriptions_content_types() {
+     'page'       => 'subscriptions_content_page_node',
+     'fields'     => array('node', 'nid'),
+     'weight'     => -40,
+-    'access'     => 'subscribe to content',
++    'access'     => 'administer user subscriptions',
+     'permission' => array(
+       'title'       => t('Subscribe to content'),
+       'description' => t('Subscribe to single pages/threads.'),
+-- 
+2.17.0
+
