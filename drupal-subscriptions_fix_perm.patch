@@ -1,13 +1,27 @@
-From 7b5d8b26980e2a25e7a31b19e5c7498807be5d92 Mon Sep 17 00:00:00 2001
+From 7c773c3b4768329aa305ef2f2c6d06b2c38caec1 Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
-Date: Wed, 6 Mar 2019 11:32:11 +0300
+Date: Wed, 6 Mar 2019 11:42:44 +0300
 Subject: [PATCH] Fixed permission for all node types and for bulk editing
 
 ---
+ subscriptions.admin.inc         | 2 +-
  subscriptions.module            | 6 +++---
  subscriptions_content.admin.inc | 2 +-
- 2 files changed, 4 insertions(+), 4 deletions(-)
+ 3 files changed, 5 insertions(+), 5 deletions(-)
 
+diff --git a/subscriptions.admin.inc b/subscriptions.admin.inc
+index 4cca67f..0fda09b 100644
+--- a/subscriptions.admin.inc
++++ b/subscriptions.admin.inc
+@@ -108,7 +108,7 @@ function theme_subscriptions_form_table(array $variables) {
+   $output = '';
+   $rows = array();
+   drupal_add_js(drupal_get_path('module', 'subscriptions') . '/subscriptions_tableselect.js', array('preprocess' => FALSE));
+-  $columns['checkboxes']      = array('data' => '', 'width' => '1%', 'class' => 'subscriptions-table select-all');
++  $columns['checkboxes']      = array('data' => '', 'width' => '30px', 'class' => 'subscriptions-table select-all');
+   $columns['labels']          = array('data' => t('Subscription'), 'width' => '18%');
+   if (isset($element['send_interval']) && $element['send_interval']['#access']) {
+     $columns['send_interval'] = array('data' => t('Send interval'), 'width' => '20%');
 diff --git a/subscriptions.module b/subscriptions.module
 index 7eeea11..517ea78 100644
 --- a/subscriptions.module
