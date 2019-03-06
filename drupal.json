@@ -1210,6 +1210,7 @@
     "specped-internt": {
         "rootDir": "/var/www/project_proposals",
         "requires": [ "internt"],
+        "patches": [ "drupal-ignore_lang_url_alias.patch" ],
         "components": {
             "subscriptions": {
                 "defaults": "module_contrib",
@@ -1217,7 +1218,9 @@
                 "branch": "7.x-1.x",
                 "tag": "7.x-1.3",
                 "path": "subscriptions",
-                "patches": [ "drupal-subscriptions_hide_terms.patch", "drupal-subscriptions_hide_pages.patch" ] 
+                "patches": [ "drupal-subscriptions_hide_terms.patch",
+                    "drupal-subscriptions_hide_pages.patch",
+                    "drupal-subscriptions_fix_perm.patch" ] 
             },
             "mail_edit": {
                 "defaults": "module_contrib",
