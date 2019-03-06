@@ -1,6 +1,6 @@
-From 7c773c3b4768329aa305ef2f2c6d06b2c38caec1 Mon Sep 17 00:00:00 2001
+From c8cedf513637f46e43cc8bda4d1714fa373cbece Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
-Date: Wed, 6 Mar 2019 11:42:44 +0300
+Date: Wed, 6 Mar 2019 18:31:26 +0300
 Subject: [PATCH] Fixed permission for all node types and for bulk editing
 
 ---
@@ -23,7 +23,7 @@ index 4cca67f..0fda09b 100644
    if (isset($element['send_interval']) && $element['send_interval']['#access']) {
      $columns['send_interval'] = array('data' => t('Send interval'), 'width' => '20%');
 diff --git a/subscriptions.module b/subscriptions.module
-index 7eeea11..517ea78 100644
+index 7eeea11..08ec003 100644
 --- a/subscriptions.module
 +++ b/subscriptions.module
 @@ -54,7 +54,7 @@ function subscriptions_menu() {
@@ -31,7 +31,7 @@ index 7eeea11..517ea78 100644
      'file' => 'subscriptions.admin.inc',
      'page arguments' => array('subscriptions_settings_form'),
 -    'access arguments' => array('administer site configuration'),
-+    'access arguments' => array('subscribe to all content types'),
++    'access arguments' => array('administer software updates'),
    );
    $items[SUBSCRIPTIONS_CONFIG_PATH . '/settings'] = array(
      'title' => 'Site settings',
@@ -40,7 +40,7 @@ index 7eeea11..517ea78 100644
      'page arguments' => array('subscriptions_page_user_overview', SUBSCRIPTIONS_CONFIG_PATH_LEVEL + 2),
      'type' => MENU_LOCAL_TASK,
 -    'access arguments' => array('administer site configuration'),
-+    'access arguments' => array('subscribe to all content types'),
++    'access arguments' => array('administer software updates'),
    );
    $items[SUBSCRIPTIONS_CONFIG_PATH . '/userdefaults/settings'] = array(
      'type' => MENU_DEFAULT_LOCAL_TASK,
@@ -49,7 +49,7 @@ index 7eeea11..517ea78 100644
      'page arguments' => array('subscriptions_intervals'),
      'type' => MENU_LOCAL_TASK,
 -    'access arguments' => array('administer site configuration'),
-+    'access arguments' => array('subscribe to all content types'),
++    'access arguments' => array('administer software updates'),
    );
    $items['user/%user/subscriptions'] = array(
      'title' => 'Subscriptions',
