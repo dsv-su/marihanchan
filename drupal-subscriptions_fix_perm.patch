@@ -1,17 +1,46 @@
-From 354432359f458825ca986ae0803630b44aa322d0 Mon Sep 17 00:00:00 2001
+From 7b5d8b26980e2a25e7a31b19e5c7498807be5d92 Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
-Date: Tue, 5 Mar 2019 16:19:12 +0300
-Subject: [PATCH] Fixed permission for all node types
+Date: Wed, 6 Mar 2019 11:32:11 +0300
+Subject: [PATCH] Fixed permission for all node types and for bulk editing
 
 ---
+ subscriptions.module            | 6 +++---
  subscriptions_content.admin.inc | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
- mode change 100644 => 100755 subscriptions_content.admin.inc
+ 2 files changed, 4 insertions(+), 4 deletions(-)
 
+diff --git a/subscriptions.module b/subscriptions.module
+index 7eeea11..517ea78 100644
+--- a/subscriptions.module
++++ b/subscriptions.module
+@@ -54,7 +54,7 @@ function subscriptions_menu() {
+     'page callback' => 'drupal_get_form',
+     'file' => 'subscriptions.admin.inc',
+     'page arguments' => array('subscriptions_settings_form'),
+-    'access arguments' => array('administer site configuration'),
++    'access arguments' => array('subscribe to all content types'),
+   );
+   $items[SUBSCRIPTIONS_CONFIG_PATH . '/settings'] = array(
+     'title' => 'Site settings',
+@@ -68,7 +68,7 @@ function subscriptions_menu() {
+     'page callback' => 'drupal_get_form',
+     'page arguments' => array('subscriptions_page_user_overview', SUBSCRIPTIONS_CONFIG_PATH_LEVEL + 2),
+     'type' => MENU_LOCAL_TASK,
+-    'access arguments' => array('administer site configuration'),
++    'access arguments' => array('subscribe to all content types'),
+   );
+   $items[SUBSCRIPTIONS_CONFIG_PATH . '/userdefaults/settings'] = array(
+     'type' => MENU_DEFAULT_LOCAL_TASK,
+@@ -90,7 +90,7 @@ function subscriptions_menu() {
+     'file' => 'subscriptions.admin.inc',
+     'page arguments' => array('subscriptions_intervals'),
+     'type' => MENU_LOCAL_TASK,
+-    'access arguments' => array('administer site configuration'),
++    'access arguments' => array('subscribe to all content types'),
+   );
+   $items['user/%user/subscriptions'] = array(
+     'title' => 'Subscriptions',
 diff --git a/subscriptions_content.admin.inc b/subscriptions_content.admin.inc
-old mode 100644
-new mode 100755
-index 01b37ef..081d758
+index 01b37ef..081d758 100644
 --- a/subscriptions_content.admin.inc
 +++ b/subscriptions_content.admin.inc
 @@ -285,7 +285,7 @@ function _subscriptions_content_type_form(array $form, $uid) {
@@ -24,5 +53,5 @@ index 01b37ef..081d758
            $type_name = '<span class="error" title="' . t('This content type is blocked.') . '">' . $type_name . '</span>&nbsp;' . SUBSCRIPTIONS_UNAVAILABLE;
          }
 -- 
-2.17.2 (Apple Git-113)
+2.21.0
 
