@@ -1,0 +1,35 @@
+From c4d149c617483d06edd49e4859ed3d79ad76eef0 Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Tue, 5 Mar 2019 19:06:23 +0300
+Subject: [PATCH] make all url aliases lang independent
+
+---
+ modules/path/path.module | 2 ++
+ 1 file changed, 2 insertions(+)
+ mode change 100644 => 100755 modules/path/path.module
+
+diff --git a/modules/path/path.module b/modules/path/path.module
+old mode 100644
+new mode 100755
+index 4614b0fa22..c0ebd5ee55
+--- a/modules/path/path.module
++++ b/modules/path/path.module
+@@ -100,6 +100,7 @@ function path_form_node_form_alter(&$form, $form_state) {
+   if (!empty($form['#node']->nid)) {
+     $conditions = array('source' => 'node/' . $form['#node']->nid);
+     $langcode = entity_language('node', $form['#node']);
++    $langcode = LANGUAGE_NONE;
+     if ($langcode != LANGUAGE_NONE) {
+       $conditions['language'] = $langcode;
+     }
+@@ -192,6 +193,7 @@ function path_node_insert($node) {
+     if (!empty($path['alias'])) {
+       // Ensure fields for programmatic executions.
+       $langcode = entity_language('node', $node);
++      $langcode = LANGUAGE_NONE;
+       $path['source'] = 'node/' . $node->nid;
+       $path['language'] = isset($langcode) ? $langcode : LANGUAGE_NONE;
+       path_save($path);
+-- 
+2.21.0
+
