@@ -1210,7 +1210,7 @@
     "specped-internt": {
         "rootDir": "/var/www/project_proposals",
         "requires": [ "internt"],
-        "patches": [ "drupal-ignore_lang_url_alias.patch" ],
+        "patches": [ "drupal-ignore_lang_url_alias.patch", "drupal-remove_logout.patch" ],
         "components": {
             "subscriptions": {
                 "defaults": "module_contrib",
