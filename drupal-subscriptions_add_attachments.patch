@@ -1,0 +1,46 @@
+From 2128789a5bc2c5fb58ba60af8d079023c233992a Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Thu, 7 Mar 2019 11:21:52 +0300
+Subject: [PATCH] Append attachments as files
+
+---
+ subscriptions_mail.cron.inc | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
+
+diff --git a/subscriptions_mail.cron.inc b/subscriptions_mail.cron.inc
+index fb5712e..1f712d0 100644
+--- a/subscriptions_mail.cron.inc
++++ b/subscriptions_mail.cron.inc
+@@ -296,10 +296,29 @@ function _subscriptions_mail_send($module, $mailkey, $name, $to, $from, $uid, $s
+     return NULL;
+   }
+ 
++  $default_from = variable_get('site_mail', ini_get('sendmail_from'));
++  $site_name = variable_get('site_name', 'Drupal');
++  $node = node_load($data['subs']['object']->nid);
++  $sender = user_load($node->uid);
++  if ($sender->realname) {
++    $from = '"' . $sender->realname . ' (via '. $site_name .')" <no-reply@internt.specped.su.se>';
++  } else {
++    $from = '"'.$sender->name.' (via '.$site_name.')" <no-reply@internt.specped.su.se>';
++  }
++
++  $attachments = array();
++  $language = field_language('node', $node, 'field_attachment');
++  foreach($node->field_attachment[$language] as $file) {
++    $attachments[] = array(
++        'filepath' => $file['uri'],
++      );
++  }
++
+   $mail_success = drupal_mail($module, $mailkey, $to, user_preferred_language($user), array(
+     'data' => $data,
+     'account' => $user,
+     'object' => NULL,
++    'attachments' => $attachments,
+   ), $from, TRUE);
+ 
+   $to = check_plain($to);
+-- 
+2.21.0
+

@@ -1220,7 +1220,8 @@
                 "path": "subscriptions",
                 "patches": [ "drupal-subscriptions_hide_terms.patch",
                     "drupal-subscriptions_hide_pages.patch",
-                    "drupal-subscriptions_fix_perm.patch" ] 
+                    "drupal-subscriptions_fix_perm.patch",
+                    "drupal-subscriptions_add_attachments.patch" ] 
             },
             "mail_edit": {
                 "defaults": "module_contrib",
