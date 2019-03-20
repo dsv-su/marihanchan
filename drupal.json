@@ -587,7 +587,7 @@
                 "branch": "7.x-1.x",
                 "tag": "7.x-1.0-alpha2",
                 "path": "timefield",
-                "patch": "patch": "drupal-timefield_switch_markup.patch"
+                "patch": "drupal-timefield_switch_markup.patch"
             },
             "tvi": {
                 "defaults": "module_contrib",
