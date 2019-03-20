@@ -1,0 +1,42 @@
+From e6c549fa58d7c8c70e9f86e5fbf1697aa6740ddd Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <psokolov@dsv.su.se>
+Date: Wed, 20 Mar 2019 17:26:21 +0100
+Subject: [PATCH] Patch link checker intervals
+
+---
+ linkchecker.module | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/linkchecker.module b/linkchecker.module
+index ee53444..3231688 100644
+--- a/linkchecker.module
++++ b/linkchecker.module
+@@ -476,7 +476,7 @@ function linkchecker_cron() {
+  */
+ function _linkchecker_check_links() {
+   // Get max_execution_time from configuration, override 0 with 240 seconds.
+-  $max_execution_time = ini_get('max_execution_time') == 0 ? 240 : ini_get('max_execution_time');
++  $max_execution_time = ini_get('max_execution_time') == 0 ? 240 : ini_get('max_execution_time')/3;
+   // Make sure we have enough time to validate all of the links.
+   drupal_set_time_limit($max_execution_time);
+ 
+@@ -494,7 +494,7 @@ function _linkchecker_check_links() {
+   // a useful value that is higher, but not totally out of scope and limits the
+   // query result set to a reasonable size.
+   $linkchecker_check_connections_max = variable_get('linkchecker_check_connections_max', 8);
+-  $check_links_max_per_cron_run = ($has_httprl) ? ($linkchecker_check_connections_max * $max_execution_time) : $max_execution_time;
++  $check_links_max_per_cron_run = ($has_httprl) ? ($linkchecker_check_connections_max * $max_execution_time) : $max_execution_time*3;
+ 
+   $linkchecker_check_links_interval = variable_get('linkchecker_check_links_interval', 2419200);
+   $linkchecker_check_useragent = variable_get('linkchecker_check_useragent', 'Drupal (+http://drupal.org/)');
+@@ -576,6 +576,7 @@ function _linkchecker_check_links() {
+       _linkchecker_status_handling($response, $link);
+ 
+       if ((timer_read('page') / 1000) > ($max_execution_time / 2)) {
++	linkchecker_watchdog_log('linkchecker', 'Timeout link: %link', array('%link'=>$link->url), WATCHDOG_INFO);
+         // Stop once we have used over half of the maximum execution time.
+         break;
+       }
+-- 
+2.11.0
+

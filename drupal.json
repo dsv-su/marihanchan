@@ -106,7 +106,7 @@
                 "defaults": "module_contrib",
                 "repo": "https://git.drupal.org/project/views.git",
                 "branch": "7.x-3.x",
-                "tag": "7.x-3.20",
+                "tag": "7.x-3.21",
                 "path": "views",
                 "patch": "views.patch"
             },
@@ -621,7 +621,8 @@
                 "repo": "https://git.drupal.org/project/linkchecker.git",
                 "branch": "7.x-1.x",
                 "tag": "7.x-1.4",
-                "path": "linkchecker"
+                "path": "linkchecker",
+		"patch" "drupal-linkchecker_timeout.patch"
             },
             "text_summary_options": {
                 "defaults": "module_contrib",
