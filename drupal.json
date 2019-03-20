@@ -586,7 +586,8 @@
                 "repo": "https://git.drupal.org/project/timefield.git",
                 "branch": "7.x-1.x",
                 "tag": "7.x-1.0-alpha2",
-                "path": "timefield"
+                "path": "timefield",
+                "patch": "patch": "drupal-timefield_switch_markup.patch"
             },
             "tvi": {
                 "defaults": "module_contrib",
@@ -622,7 +623,7 @@
                 "branch": "7.x-1.x",
                 "tag": "7.x-1.4",
                 "path": "linkchecker",
-		"patch" "drupal-linkchecker_timeout.patch"
+                "patch": "drupal-linkchecker_timeout.patch"
             },
             "text_summary_options": {
                 "defaults": "module_contrib",
