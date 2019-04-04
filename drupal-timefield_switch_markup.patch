@@ -1,6 +1,6 @@
-From d363d71f7ff217ad4f446ffb6b5e8e7761b6ede7 Mon Sep 17 00:00:00 2001
-From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
-Date: Mon, 18 Mar 2019 15:44:50 +0300
+From a24cb3daa0536b8cf2ba33a126a1982264f741d3 Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <psokolov@dsv.su.se>
+Date: Thu, 4 Apr 2019 11:26:22 +0200
 Subject: [PATCH] Switch timefield markup
 
 ---
@@ -11,7 +11,7 @@ Subject: [PATCH] Switch timefield markup
 diff --git a/theme/timefield.tpl.php b/theme/timefield.tpl.php
 old mode 100644
 new mode 100755
-index 66d60c4..10877d3
+index 66d60c4..969fe2b
 --- a/theme/timefield.tpl.php
 +++ b/theme/timefield.tpl.php
 @@ -23,6 +23,6 @@
@@ -19,10 +19,10 @@ index 66d60c4..10877d3
  
  ?>
 -<div class="time-default">
-+<span class="time-default">
++<span class="time-default" style="display:inline-block;">
  <?php print $time['time'] ?>
 -</div>
 +</span>
 -- 
-2.21.0
+2.11.0
 
