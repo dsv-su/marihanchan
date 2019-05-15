@@ -4,7 +4,7 @@
     "components": {
       "moodle_core": {
         "repo": "https://github.com/moodle/moodle.git",
-        "branch": "MOODLE_36_STABLE",
+        "branch": "MOODLE_35_STABLE",
         "patches": [
           "moodle.patch",
           "moodle-display-undated-assignments.patch",
