@@ -1,0 +1,51 @@
+From f0053a463fe27f62295ad944dddee8316d4843e2 Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <psokolov@dsv.su.se>
+Date: Wed, 15 May 2019 21:54:22 +0200
+Subject: [PATCH] Ignore conflicts option for scheduler
+
+---
+ slotforms.php              | 5 +++++
+ teacherview.controller.php | 4 ++--
+ 2 files changed, 7 insertions(+), 2 deletions(-)
+
+diff --git a/slotforms.php b/slotforms.php
+index db9b9b9..4ff5fe0 100644
+--- a/slotforms.php
++++ b/slotforms.php
+@@ -545,6 +545,11 @@ class scheduler_addsession_form extends scheduler_slotform_base {
+         $mform->addElement('selectyesno', 'forcewhenoverlap', get_string('forcewhenoverlap', 'scheduler'));
+         $mform->addHelpButton('forcewhenoverlap', 'forcewhenoverlap', 'scheduler');
+ 
++        // Ignore conflict checkbox.
++        $mform->addElement('checkbox', 'ignoreconflicts', get_string('ignoreconflicts', 'scheduler'));
++        $mform->setDefault('ignoreconflicts', false);
++        $mform->addHelpButton('ignoreconflicts', 'ignoreconflicts', 'scheduler');
++
+         // Common fields.
+         $this->add_base_fields();
+ 
+diff --git a/teacherview.controller.php b/teacherview.controller.php
+index 6f72443..fcc2016 100644
+--- a/teacherview.controller.php
++++ b/teacherview.controller.php
+@@ -90,7 +90,7 @@ function scheduler_action_doaddsession($scheduler, $formdata, moodle_url $return
+                                      && $conflict->numstudents == 0; // Do not delete slots with bookings.
+                 }
+ 
+-                if ($conflicts) {
++                if ($conflicts && !$data->ignoreconflicts) {
+                     $conflictmsg = '';
+                     $cl = new scheduler_conflict_list();
+                     $cl->add_conflicts($conflicts);
+@@ -110,7 +110,7 @@ function scheduler_action_doaddsession($scheduler, $formdata, moodle_url $return
+                     }
+                     \core\notification::warning($conflictmsg);
+                 }
+-                if (!$conflicts || $resolvable) {
++                if (!$conflicts || $resolvable || $data->ignoreconflicts) {
+                     $slotid = $DB->insert_record('scheduler_slots', $slot, true, true);
+                     $slotobj = $scheduler->get_slot($slotid);
+                     \mod_scheduler\event\slot_added::create_from_slot($slotobj)->trigger();
+-- 
+2.11.0
+

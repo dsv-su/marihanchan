@@ -1,69 +1,17 @@
-From ebf13925fa94ddb9a0db59574b655272de455593 Mon Sep 17 00:00:00 2001
-From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
-Date: Mon, 10 Dec 2018 13:04:52 +0300
+From 757da77295cb8b5c4a90a4d741b7c40fc62143df Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <psokolov@dsv.su.se>
+Date: Wed, 15 May 2019 22:15:05 +0200
 Subject: [PATCH] Add fullmatch option to matching qtype
 
 ---
- question/type/match/db/install.xml          |  1 +
- question/type/match/db/upgrade.php          | 21 ++++++++++++++++++++-
- question/type/match/edit_match_form.php     |  6 ++++++
- question/type/match/lang/en/qtype_match.php |  2 ++
- question/type/match/question.php            |  7 ++++++-
- question/type/match/questiontype.php        |  3 +++
- 6 files changed, 38 insertions(+), 2 deletions(-)
+ question/type/match/edit_match_form.php     | 6 ++++++
+ question/type/match/lang/en/qtype_match.php | 2 ++
+ question/type/match/question.php            | 7 ++++++-
+ question/type/match/questiontype.php        | 3 +++
+ 4 files changed, 17 insertions(+), 1 deletion(-)
 
-diff --git a/question/type/match/db/install.xml b/question/type/match/db/install.xml
-index b0bc8dd9320..a1f352de5c8 100644
---- a/question/type/match/db/install.xml
-+++ b/question/type/match/db/install.xml
-@@ -9,6 +9,7 @@
-         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
-         <FIELD NAME="questionid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Foreign key link to question.id."/>
-         <FIELD NAME="shuffleanswers" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="1" SEQUENCE="false"/>
-+        <FIELD NAME="fullmatch" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
-         <FIELD NAME="correctfeedback" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="Feedback shown for any correct response."/>
-         <FIELD NAME="correctfeedbackformat" TYPE="int" LENGTH="2" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
-         <FIELD NAME="partiallycorrectfeedback" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="Feedback shown for any partially correct response."/>
-diff --git a/question/type/match/db/upgrade.php b/question/type/match/db/upgrade.php
-index 0483680ef12..f66c3371a63 100644
---- a/question/type/match/db/upgrade.php
-+++ b/question/type/match/db/upgrade.php
-@@ -29,7 +29,9 @@ defined('MOODLE_INTERNAL') || die();
-  * @param int $oldversion the version we are upgrading from.
-  */
- function xmldb_qtype_match_upgrade($oldversion) {
--    global $CFG;
-+    global $DB, $CFG;
-+
-+    $dbman = $DB->get_manager();
- 
-     // Automatically generated Moodle v3.2.0 release upgrade line.
-     // Put any upgrade step following this.
-@@ -46,5 +48,22 @@ function xmldb_qtype_match_upgrade($oldversion) {
-     // Automatically generated Moodle v3.6.0 release upgrade line.
-     // Put any upgrade step following this.
- 
-+
-+
-+    // Add the fullmatch option.
-+    if ($oldversion < 2018051402) {
-+        // Define field match to be added to qtype_match_options.
-+        $table = new xmldb_table('qtype_match_options');
-+        $field = new xmldb_field('fullmatch', XMLDB_TYPE_INTEGER, '4', null, XMLDB_NOTNULL, null, '0', 'shuffleanswers');
-+
-+        // Conditionally launch add field fullmatch.
-+        if (!$dbman->field_exists($table, $field)) {
-+            $dbman->add_field($table, $field);
-+        }
-+
-+        // Formulas savepoint reached.
-+        upgrade_plugin_savepoint(true, 2018051402, 'qtype', 'match');
-+    }
-+
-     return true;
- }
 diff --git a/question/type/match/edit_match_form.php b/question/type/match/edit_match_form.php
-index 5ee734a8804..bc8b1b18647 100644
+index 5ee734a8804..54deb45afdc 100644
 --- a/question/type/match/edit_match_form.php
 +++ b/question/type/match/edit_match_form.php
 @@ -62,6 +62,11 @@ class qtype_match_edit_form extends question_edit_form {
@@ -82,7 +30,7 @@ index 5ee734a8804..bc8b1b18647 100644
          }
  
          $question->shuffleanswers = $question->options->shuffleanswers;
-+        $question->fullmatch = $question->options->fullmatch;
++	$question->fullmatch = $question->options->fullmatch;
  
          $key = 0;
          foreach ($question->options->subquestions as $subquestion) {
@@ -125,14 +73,14 @@ index 41130100daf..4044d234b4b 100644
      }
  
 diff --git a/question/type/match/questiontype.php b/question/type/match/questiontype.php
-index ffc9b4d455e..3394f49cd35 100644
+index ffc9b4d455e..3ab8948534f 100644
 --- a/question/type/match/questiontype.php
 +++ b/question/type/match/questiontype.php
 @@ -101,6 +101,8 @@ class qtype_match extends question_type {
          }
  
          $options->shuffleanswers = $question->shuffleanswers;
-+        $options->fullmatch = $question->fullmatch;
++	$options->fullmatch = $question->fullmatch;
 +
          $options = $this->save_combined_feedback_helper($options, $question, $context, true);
          $DB->update_record('qtype_match_options', $options);
@@ -141,10 +89,10 @@ index ffc9b4d455e..3394f49cd35 100644
          parent::initialise_question_instance($question, $questiondata);
  
          $question->shufflestems = $questiondata->options->shuffleanswers;
-+        $question->fullmatch = $questiondata->options->fullmatch;
++	$question->fullmatch = $questiondata->options->fullmatch;
          $this->initialise_combined_feedback($question, $questiondata, true);
  
          $question->stems = array();
 -- 
-2.17.0
+2.11.0
 
