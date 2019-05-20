@@ -55,7 +55,6 @@
       "moodle-old_action_menus.patch",
       "moodle-guest.patch",
       "moodle-remove_logout_shib.patch",
-      "moodle-fix_unread_messages.patch",
       "moodle-qtype_match_fullmatch.patch"
     ],
     "components": {
