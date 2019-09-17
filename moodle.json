@@ -4,7 +4,7 @@
     "components": {
       "moodle_core": {
         "repo": "https://github.com/moodle/moodle.git",
-        "branch": "MOODLE_35_STABLE",
+        "branch": "MOODLE_37_STABLE",
         "patches": [
           "moodle.patch",
           "moodle-display-undated-assignments.patch",
@@ -33,7 +33,7 @@
       "local_mobile": {
         "repo": "https://github.com/jleyva/moodle-local_mobile.git",
         "path": "local/mobile",
-        "branch": "MOODLE_36_STABLE"
+        "branch": "MOODLE_37_STABLE"
       },
       "local_analytics": {
         "repo": "https://github.com/bmbrands/moodle-local_analytics.git",
@@ -104,7 +104,7 @@
       "mod_attendance": {
         "repo": "https://github.com/danmarsden/moodle-mod_attendance.git",
         "path": "mod/attendance",
-        "branch": "master"
+        "branch": "MOODLE_37_STABLE"
       },
       "block_attendance": {
         "repo": "https://github.com/danmarsden/moodle-block_attendance.git",
@@ -113,7 +113,7 @@
       "mod_subpage": {
         "repo": "https://github.com/moodleou/moodle-mod_subpage.git",
         "path": "mod/subpage",
-        "branch": "MOODLE_35_STABLE"
+        "branch": "MOODLE_36_STABLE"
       },
       "block_progressbar": {
         "repo": "https://github.com/deraadt/Moodle-block_progress.git",
@@ -183,7 +183,7 @@
       "mod_customcert": {
         "repo": "https://github.com/markn86/moodle-mod_customcert.git",
         "path": "mod/customcert",
-        "branch": "MOODLE_36_STABLE"
+        "branch": "MOODLE_37_STABLE"
       },
       "mod_engagement": {
         "repo": "https://github.com/netspotau/moodle-mod_engagement.git",
@@ -196,11 +196,6 @@
       "mod_taskchain": {
         "repo": "https://github.com/gbateson/moodle-mod_taskchain.git",
         "path": "mod/taskchain"
-      },
-      "mod_vpl": {
-        "repo": "https://github.com/jcrodriguez-dis/moodle-mod_vpl.git",
-        "path": "mod/vpl",
-        "branch": "v3.3.5"
       },
       "mod_webinar": {
         "repo": "https://github.com/epicopensource/webinar.git",
@@ -218,7 +213,7 @@
       "block_grade_me": {
         "repo": "https://github.com/remotelearner/moodle-block_grade_me.git",
         "path": "blocks/grade_me",
-        "branch": "MOODLE_35_STABLE"
+        "branch": "MOODLE_36_STABLE"
       },
       "block_xp": {
         "repo": "https://github.com/FMCorz/moodle-block_xp.git",
@@ -235,7 +230,7 @@
       "format_grid": {
         "repo": "https://github.com/gjb2048/moodle-courseformat_grid.git",
         "path": "course/format/grid",
-        "branch": "MOODLE_35"
+        "branch": "MOODLE_36"
       },
       "report_engagement": {
         "repo": "https://github.com/netspotau/moodle-report_engagement.git",
@@ -260,12 +255,12 @@
       "configurable_reports": {
         "repo": "https://github.com/jleyva/moodle-block_configurablereports/",
         "path": "blocks/configurable_reports",
-        "branch": "MOODLE_30_STABLE"
+        "branch": "MOODLE_36_STABLE"
       },
       "format_etask": {
         "repo": "https://bitbucket.org/drlikm/etask/",
         "path": "course/format/etask",
-        "branch": "moodle-3.6"
+        "branch": "moodle-3.7"
       },
       "format_buttons": {
         "repo": "https://github.com/brandaorodrigo/moodle-format_buttons.git",
@@ -320,12 +315,12 @@
       "format_grid": {
         "repo": "https://github.com/gjb2048/moodle-courseformat_grid.git",
         "path": "course/format/grid",
-        "branch": "MOODLE_35"
+        "branch": "MOODLE_36"
       },
       "mod_subpage": {
         "repo": "https://github.com/moodleou/moodle-mod_subpage.git",
         "path": "mod/subpage",
-        "branch": "MOODLE_35_STABLE"
+        "branch": "MOODLE_36_STABLE"
       },
       "filter_collapsible": {
         "repo": "https://github.com/eberhardt/moodle-filter_collapsible.git",
@@ -334,7 +329,7 @@
       "format_topcoll": {
         "repo": "https://github.com/gjb2048/moodle-format_topcoll.git",
         "path": "course/format/topcoll",
-        "branch": "MOODLE_35"
+        "branch": "MOODLE_36"
       },
       "format_flexsections": {
         "repo": "https://github.com/marinaglancy/moodle-format_flexsections",
@@ -404,7 +399,7 @@
       "mod_subpage": {
         "repo": "https://github.com/moodleou/moodle-mod_subpage.git",
         "path": "mod/subpage",
-        "branch": "MOODLE_35_STABLE"
+        "branch": "MOODLE_36_STABLE"
       },
       "mod_choicegroup": {
         "repo": "https://github.com/ndunand/moodle-mod_choicegroup.git",
@@ -424,7 +419,7 @@
       "format_topcoll": {
         "repo": "https://github.com/gjb2048/moodle-format_topcoll.git",
         "path": "course/format/topcoll",
-        "branch": "MOODLE_35"
+        "branch": "MOODLE_36"
       },
       "format_onetopic": {
         "repo": "https://github.com/davidherney/moodle-format_onetopic.git",
