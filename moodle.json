@@ -173,7 +173,7 @@
     "rootDir": "/var/www/ilearn2test",
     "requires": [ "ilearn2" ],
     "patches": [
-      "moodle-qtype_match_fullmatch.patch"
+      "moodle-forum_print_discussions.patch"
     ],
     "components": {
       "mod_advmindmap": {
@@ -196,11 +196,6 @@
       "mod_taskchain": {
         "repo": "https://github.com/gbateson/moodle-mod_taskchain.git",
         "path": "mod/taskchain"
-      },
-      "mod_webinar": {
-        "repo": "https://github.com/epicopensource/webinar.git",
-        "path": "mod/webinar",
-        "patch": "moodle-webinar.patch"
       },
       "block_engagement": {
         "repo": "https://github.com/netspotau/moodle-block_engagement.git",
@@ -298,7 +293,7 @@
       "custom_certificate": {
         "repo": "https://github.com/markn86/moodle-mod_customcert.git",
         "path": "mod/customcert",
-        "branch": "MOODLE_36_STABLE"
+        "branch": "MOODLE_37_STABLE"
       },
       "mailsimulator": {
         "repo": "https://github.com/dsv-su/moodle-assignsubmission_mailsimulator.git",
