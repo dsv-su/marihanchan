@@ -1,0 +1,139 @@
+From 88d76359dbb104bc853e21dca138ab45331a727c Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Sun, 10 Nov 2019 12:58:18 +0000
+Subject: [PATCH] Enabling printing of all discussions
+
+---
+ mod/forum/lib.php   | 11 ++++++
+ mod/forum/print.php | 90 +++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 101 insertions(+)
+ create mode 100644 mod/forum/print.php
+
+diff --git a/mod/forum/lib.php b/mod/forum/lib.php
+index 77631482ac1..99f59fa950c 100644
+--- a/mod/forum/lib.php
++++ b/mod/forum/lib.php
+@@ -5445,6 +5445,15 @@ function forum_extend_settings_navigation(settings_navigation $settingsnav, navi
+     $cansubscribe = $activeenrolled && !\mod_forum\subscriptions::is_forcesubscribed($forumobject) &&
+             (!\mod_forum\subscriptions::subscription_disabled($forumobject) || $canmanage);
+ 
++    if (!empty($discussionid)) {
++        $linktext = 'Print this discussion';
++        $url = new moodle_url('/mod/forum/print.php', array('id'=>$forumobject->id, 'sesskey'=>sesskey(), 'd' => $discussionid));
++    } else {
++        $linktext = 'Print all discussions';
++        $url = new moodle_url('/mod/forum/print.php', array('id'=>$forumobject->id, 'sesskey'=>sesskey()));
++    }
++    $forumnode->add($linktext, $url, navigation_node::TYPE_SETTING);
++
+     if ($canmanage) {
+         $mode = $forumnode->add(get_string('subscriptionmode', 'forum'), null, navigation_node::TYPE_CONTAINER);
+         $mode->add_class('subscriptionmode');
+@@ -5547,6 +5556,8 @@ function forum_extend_settings_navigation(settings_navigation $settingsnav, navi
+         $userid = $USER->id;
+     }
+ 
++
++
+     $hascourseaccess = ($PAGE->course->id == SITEID) || can_access_course($PAGE->course, $userid);
+     $enablerssfeeds = !empty($CFG->enablerssfeeds) && !empty($CFG->forum_enablerssfeeds);
+ 
+diff --git a/mod/forum/print.php b/mod/forum/print.php
+new file mode 100644
+index 00000000000..f3d67078eb0
+--- /dev/null
++++ b/mod/forum/print.php
+@@ -0,0 +1,90 @@
++<?php
++
++// This file is part of Moodle - http://moodle.org/
++//
++// Moodle is free software: you can redistribute it and/or modify
++// it under the terms of the GNU General Public License as published by
++// the Free Software Foundation, either version 3 of the License, or
++// (at your option) any later version.
++//
++// Moodle is distributed in the hope that it will be useful,
++// but WITHOUT ANY WARRANTY; without even the implied warranty of
++// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++// GNU General Public License for more details.
++//
++// You should have received a copy of the GNU General Public License
++// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
++
++/**
++ * This file is used to display forum posts
++ *
++ * @package   mod_forum
++ * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
++ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
++ */
++
++require_once("../../config.php");
++require_once("lib.php");
++
++$id    = required_param('id',PARAM_INT);           // forum
++$discussionid = optional_param('d',0,PARAM_INT);      // discussion
++
++$url = new moodle_url('/mod/forum/print.php', array('id'=>$id));
++if ($discussionid !== 0) {
++    $url->param('discussionid', $discussionid);
++}
++$PAGE->set_url($url);
++
++$forum = $DB->get_record('forum', array('id'=>$id), '*', MUST_EXIST);
++$course = $DB->get_record('course', array('id'=>$forum->course), '*', MUST_EXIST);
++if (! $cm = get_coursemodule_from_instance('forum', $forum->id, $course->id)) {
++    $cm->id = 0;
++}
++
++require_login($course, false, $cm);
++
++$context = context_module::instance($cm->id);
++if (!has_capability('mod/forum:exportdiscussion', $context)) {
++    print_error('mod/forum:exportdiscussion', 'forum');
++}
++
++$forumoutput = $PAGE->get_renderer('mod_forum');
++$options = array('forumid'=>$forum->id, 'discussionid'=>$discussionid, 'context'=>$context);
++$existingselector = new mod_forum_existing_subscriber_selector('existingsubscribers', $options);
++$subscriberselector = new mod_forum_potential_subscriber_selector('potentialsubscribers', $options);
++$subscriberselector->set_existing_subscribers($existingselector->find_users(''));
++
++$PAGE->navbar->add('Print posts');
++$PAGE->set_title('Print posts');
++$PAGE->set_heading($COURSE->fullname);
++echo $OUTPUT->header();
++echo $OUTPUT->heading(get_string('forum', 'forum').' '.'posts printout');
++
++$vaultfactory = mod_forum\local\container::get_vault_factory();
++$forumvault = $vaultfactory->get_forum_vault();
++
++$discussions = forum_get_discussions($cm);
++foreach ($discussions as $d) {
++    if ($discussionid && ($d->discussion != $discussionid)) {continue;}
++    $sort = 'p.created';
++    $allposts = forum_get_all_discussion_posts($d->discussion, $sort);
++    $discussionvault = $vaultfactory->get_discussion_vault();
++    $postvault = $vaultfactory->get_post_vault();
++    $discussion = $discussionvault->get_from_id($d->discussion);
++    $forum = $forumvault->get_from_id($discussion->get_forum_id());
++    $managerfactory = mod_forum\local\container::get_manager_factory();
++    $capabilitymanager = $managerfactory->get_capability_manager($forum);
++    $rendererfactory = mod_forum\local\container::get_renderer_factory();
++    $discussionrenderer = $rendererfactory->get_discussion_renderer($forum, $discussion, FORUM_MODE_NESTED);
++    $orderpostsby = 'created ASC';
++    $parent = $discussion->get_first_post_id();
++    $post = $postvault->get_from_id($parent);
++    $replies = $postvault->get_replies_to_post($USER, $post, $capabilitymanager->can_view_any_private_reply($USER), $orderpostsby);
++    $postids = array_map(function($post) {
++        return $post->get_id();
++    }, array_merge([$post], array_values($replies)));
++    echo $OUTPUT->heading(format_string($discussion->get_name()), 3, 'discussionname');
++    echo $discussionrenderer->render($USER, $post, $replies);
++}
++
++echo $OUTPUT->footer();
+-- 
+2.21.0
+
