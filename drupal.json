@@ -955,7 +955,7 @@
                 "defaults": "module_contrib",
                 "repo": "https://git.drupal.org/project/webform",
                 "branch": "7.x-4.x",
-                "tag": "7.x-4.19",
+                "tag": "7.x-4.20",
                 "path": "webform"
             },
             "realname": {
@@ -994,7 +994,7 @@
                 "defaults": "module_contrib",
                 "repo": "https://git.drupal.org/project/webform.git",
                 "branch": "7.x-4.x",
-                "tag": "7.x-4.19",
+                "tag": "7.x-4.20",
                 "path": "webform"
             },
             "webform_validation": {
