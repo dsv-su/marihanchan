@@ -9,7 +9,6 @@
           "moodle.patch",
           "moodle-display-undated-assignments.patch",
           "moodle-fix_calendar_timeformat.patch",
-          "moodle-mailsimulator_js.patch",
           "moodle-hide_badge_menu_item.patch",
           "moodle-reverting-current-course-back.patch",
           "moodle-subpage-display.patch",
@@ -55,6 +54,7 @@
       "moodle-old_action_menus.patch",
       "moodle-guest.patch",
       "moodle-remove_logout_shib.patch",
+      "moodle-mailsimulator_js.patch",
       "moodle-qtype_match_fullmatch.patch"
     ],
     "components": {
@@ -276,6 +276,7 @@
   "turing": {
     "rootDir": "/var/www/turing",
     "requires": [ "moodle", "dsv_moodle_theme" ],
+    "patches" : [  "moodle-mailsimulator_js.patch" ],
     "components": {
       "dsv_custom": {
         "repo": "ssh://git.dsv.su.se/git/moodle-dsv_custom",
