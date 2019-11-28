@@ -250,7 +250,7 @@
       "configurable_reports": {
         "repo": "https://github.com/jleyva/moodle-block_configurablereports/",
         "path": "blocks/configurable_reports",
-        "branch": "MOODLE_35_STABLE"
+        "branch": "MOODLE_36_STABLE"
       },
       "format_etask": {
         "repo": "https://bitbucket.org/drlikm/etask/",
