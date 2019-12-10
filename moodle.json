@@ -27,8 +27,8 @@
   "dsv_moodle_theme": {
     "components": {
       "dsv_theme_responsive": {
-        "repo": "https://github.com/dsv-su/moodle-dsv_theme_responsive.git",
-        "path": "theme/dsv_theme_responsive"
+        "repo": "https://github.com/dsv-su/moodle-theme_dsv_classic.git",
+        "path": "theme/dsv_classic"
       },
       "local_mobile": {
         "repo": "https://github.com/jleyva/moodle-local_mobile.git",
@@ -38,11 +38,6 @@
       "local_analytics": {
         "repo": "https://github.com/bmbrands/moodle-local_analytics.git",
         "path": "local/analytics"
-      },
-      "block_course_overview": {
-        "repo": "https://github.com/thepurpleblob/moodle-block_course_overview.git",
-        "branch": "master",
-        "path": "blocks/course_overview"
       }
     }
   },
