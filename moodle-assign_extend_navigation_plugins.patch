@@ -1,0 +1,57 @@
+From 5dcc89f5cf187c615d7ed3e5eaea789eff00eb46 Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Thu, 13 Jun 2013 19:19:39 +0200
+Subject: [PATCH] navigation
+
+---
+ mod/assign/lib.php | 34 ++++++++++++++++++++++++++++++++++
+ 1 file changed, 34 insertions(+)
+
+diff --git a/mod/assign/lib.php b/mod/assign/lib.php
+index d982def6179..75037928024 100644
+--- a/mod/assign/lib.php
++++ b/mod/assign/lib.php
+@@ -426,6 +426,40 @@ function assign_extend_settings_navigation(settings_navigation $settings, naviga
+     if (!$course) {
+         return;
+     }
++    
++    // Give the assign feedback and submission plugins a chance to include some navigation into settings block if they want.
++    global $CFG;
++    $plugins = get_plugin_list('assignsubmission');
++
++    foreach ($plugins as $name => $plugin) {
++        $disabled = get_config('assignsubmission_' . $name, 'disabled');
++        if (!$disabled) {
++            $function = 'assignsubmission_' . $name . '_extend_settings_navigation';
++            $file = $CFG->dirroot . '/mod/assign/submission/' . $name . '/lib.php';
++            if (file_exists($file)) {
++                require_once($file);
++            }
++            if (function_exists($function)) {
++                $function($settings, $navref);
++            }
++        }
++    }
++
++    $plugins = get_plugin_list('assignfeedback');
++
++    foreach ($plugins as $name => $plugin) {
++        $disabled = get_config('assignfeedback_' . $name, 'disabled');
++        if (!$disabled) {
++            $function = 'assignfeedback_' . $name . '_extend_settings_navigation';
++            $file = $CFG->dirroot . '/mod/assign/feedback/' . $name . '/lib.php';
++            if (file_exists($file)) {
++                require_once($file);
++            }
++            if (function_exists($function)) {
++                $function($settings, $navref);
++            }
++        }
++    }
+ 
+     if (has_capability('mod/assign:manageoverrides', $PAGE->cm->context)) {
+         $url = new moodle_url('/mod/assign/overrides.php', array('cmid' => $PAGE->cm->id));
+-- 
+2.24.0
+

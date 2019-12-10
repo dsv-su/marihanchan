@@ -6,8 +6,6 @@
         "repo": "https://github.com/moodle/moodle.git",
         "branch": "MOODLE_38_STABLE",
         "patches": [
-          "moodle.patch",
-          "moodle-display-undated-assignments.patch",
           "moodle-fix_calendar_timeformat.patch",
           "moodle-hide_badge_menu_item.patch",
           "moodle-reverting-current-course-back.patch",
@@ -16,7 +14,10 @@
           "moodle-login.patch",
           "moodle-user_search_multiple_names.patch",
           "moodle-assign_time_remaining_disclaimer.patch",
-          "moodle-hide_quiz_teacher_overview.patch"
+          "moodle-assign_sort_submissions_by_group.patch",
+          "moodle-assign_extend_navigation_plugins.patch",
+          "moodle-assign_reflection_ddisable_buttons.patch",
+          "moodle-group_fix_leading_zeros.patch"
         ],
         "ignoreEmptyPath": true
       }
@@ -88,10 +89,6 @@
         "repo": "https://github.com/bostelm/moodle-mod_scheduler.git",
         "path": "mod/scheduler",
         "branch": "master"
-      },
-      "assignsubmission_blog": {
-        "repo": "https://github.com/dsv-su/moodle-assignsubmission_blog.git",
-        "path": "mod/assign/submission/blog"
       },
       "assignsubmission_reflection": {
         "repo": "https://github.com/dsv-su/moodle-assignsubmission_reflection.git",

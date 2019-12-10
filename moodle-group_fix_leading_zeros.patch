@@ -1,0 +1,67 @@
+From 90d1a3e1f52f09e7e67e0350121e3912b81b9733 Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Mon, 10 Mar 2014 09:46:23 +0100
+Subject: [PATCH] Fixing leading zeros when autocreating groups
+
+---
+ group/autogroup.php      | 2 +-
+ group/autogroup_form.php | 2 +-
+ group/lib.php            | 9 +++++++--
+ 3 files changed, 9 insertions(+), 4 deletions(-)
+
+diff --git a/group/autogroup.php b/group/autogroup.php
+index b66ca45cb3a..3384a875c1e 100644
+--- a/group/autogroup.php
++++ b/group/autogroup.php
+@@ -133,7 +133,7 @@ if ($editform->is_cancelled()) {
+     // allocate the users - all groups equal count first
+     for ($i=0; $i<$numgrps; $i++) {
+         $groups[$i] = array();
+-        $groups[$i]['name']    = groups_parse_name(trim($data->namingscheme), $i);
++        $groups[$i]['name']    = groups_parse_name(trim($data->namingscheme), $i, $data->number);
+         $groups[$i]['members'] = array();
+         if ($data->allocateby == 'no') {
+             continue; // do not allocate users
+diff --git a/group/autogroup_form.php b/group/autogroup_form.php
+index 31340b06164..6a4e275ef6b 100644
+--- a/group/autogroup_form.php
++++ b/group/autogroup_form.php
+@@ -55,7 +55,7 @@ class autogroup_form extends moodleform {
+         $mform->setType('namingscheme', PARAM_TEXT);
+         // There must not be duplicate group names in course.
+         $template = get_string('grouptemplate', 'group');
+-        $gname = groups_parse_name($template, 0);
++        $gname = groups_parse_name($template, 0, 0);
+         if (!groups_get_group_by_name($COURSE->id, $gname)) {
+             $mform->setDefault('namingscheme', $template);
+         }
+diff --git a/group/lib.php b/group/lib.php
+index 42e7fbec1cc..35a8b88730e 100644
+--- a/group/lib.php
++++ b/group/lib.php
+@@ -866,7 +866,7 @@ function groups_get_potential_members($courseid, $roleid = null, $source = null,
+  * @param int $groupnumber The number of the group to be used in the parsed format string
+  * @return string the parsed format string
+  */
+-function groups_parse_name($format, $groupnumber) {
++function groups_parse_name($format, $groupnumber, $count = 0) {
+     if (strstr($format, '@') !== false) { // Convert $groupnumber to a character series
+         $letter = 'A';
+         for($i=0; $i<$groupnumber; $i++) {
+@@ -874,7 +874,12 @@ function groups_parse_name($format, $groupnumber) {
+         }
+         $str = str_replace('@', $letter, $format);
+     } else {
+-        $str = str_replace('#', $groupnumber+1, $format);
++        if ($count > 9) {
++            $num_length = strlen((string)$count);
++            $str = str_replace('#', str_pad($groupnumber+1, $num_length, '0', STR_PAD_LEFT), $format);
++        } else {
++            $str = str_replace('#', $groupnumber+1, $format);
++        }
+     }
+     return($str);
+ }
+-- 
+2.24.0
+
