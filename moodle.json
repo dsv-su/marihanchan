@@ -26,7 +26,7 @@
 
   "dsv_moodle_theme": {
     "components": {
-      "dsv_theme_responsive": {
+      "dsv_theme": {
         "repo": "https://github.com/dsv-su/moodle-theme_dsv_classic.git",
         "path": "theme/dsv_classic"
       },
@@ -219,10 +219,6 @@
       "report_engagement": {
         "repo": "https://github.com/netspotau/moodle-report_engagement.git",
         "path": "report/engagement"
-      },
-      "theme_bootstrap": {
-        "repo": "https://github.com/bmbrands/theme_bootstrap.git",
-        "path": "theme/bootstrap"
       },
       "assignsubmission_esign": {
         "repo": "https://github.com/dsv-su/moodle-assignsubmission_esign.git",
