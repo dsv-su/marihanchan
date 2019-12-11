@@ -248,11 +248,6 @@ def updateProject( projectName ):
     # then, sort out any updates / changes and apply them
     findChangesInProject( projectName, installedProjectDict )
 
-    # apply any patches in the project
-    if 'patches' in project:
-        for patch in project.get( 'patches' ):
-            applyGitPatch( patch, installPath )
-
     return
 
 # Forcefully reset a git repo to it's remote counterpart's HEAD
@@ -322,6 +317,11 @@ def findChangesInProject( projectName, oldBuildDict ):
         for requiredProjectName in project.get( 'requires' ):
             requiredProject = projects.get( requiredProjectName )
             findChangesInProject( requiredProjectName, oldBuildDict )
+
+    # apply any patches in the project
+    if 'patches' in project:
+        for patch in project.get( 'patches' ):
+            applyGitPatch( patch, installPath )
 
     return
 
