@@ -232,11 +232,6 @@
         "repo": "https://github.com/netspotau/moodle-mod_mediagallery.git",
         "path": "mod/mediagallery"
       },
-      "configurable_reports": {
-        "repo": "https://github.com/jleyva/moodle-block_configurablereports/",
-        "path": "blocks/configurable_reports",
-        "branch": "MOODLE_36_STABLE"
-      },
       "format_etask": {
         "repo": "https://bitbucket.org/drlikm/etask/",
         "path": "course/format/etask",
