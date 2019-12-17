@@ -1,18 +1,23 @@
-From 130dfbaa86deb980f5586985405113566e89356d Mon Sep 17 00:00:00 2001
+From 4baad4dbf37820d3fa0b78db1bd90311983f181e Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
-Date: Tue, 30 May 2017 13:06:57 +0300
+Date: Fri, 13 Dec 2019 17:44:56 +0300
 Subject: [PATCH] Forum aggregator patch
 
 ---
- block_forum_aggregator.php         | 48 +++++++++++++++++++++++++++++---------
+ block_forum_aggregator.php         | 48 +++++++++++++++++++++++-------
  lang/en/block_forum_aggregator.php |  5 +++-
- lang/sv/block_forum_aggregator.php | 24 +++++++++++++++++++
- styles.css                         | 47 ++++++++++++++++++++++++++++++-------
- 4 files changed, 104 insertions(+), 20 deletions(-)
- create mode 100644 lang/sv/block_forum_aggregator.php
+ lang/sv/block_forum_aggregator.php | 24 +++++++++++++++
+ styles.css                         | 44 ++++++++++++++++++++++-----
+ 4 files changed, 101 insertions(+), 20 deletions(-)
+ mode change 100644 => 100755 block_forum_aggregator.php
+ mode change 100644 => 100755 lang/en/block_forum_aggregator.php
+ create mode 100755 lang/sv/block_forum_aggregator.php
+ mode change 100644 => 100755 styles.css
 
 diff --git a/block_forum_aggregator.php b/block_forum_aggregator.php
-index 0857e32..7ec7ef3 100644
+old mode 100644
+new mode 100755
+index 0857e32..7ec7ef3
 --- a/block_forum_aggregator.php
 +++ b/block_forum_aggregator.php
 @@ -98,22 +98,22 @@ class block_forum_aggregator extends block_base {
@@ -108,7 +113,9 @@ index 0857e32..7ec7ef3 100644
 +    }
  }
 diff --git a/lang/en/block_forum_aggregator.php b/lang/en/block_forum_aggregator.php
-index f28da1f..ac2d50d 100644
+old mode 100644
+new mode 100755
+index f28da1f..ac2d50d
 --- a/lang/en/block_forum_aggregator.php
 +++ b/lang/en/block_forum_aggregator.php
 @@ -34,6 +34,9 @@ $string['posts'] = 'Posts';
@@ -129,7 +136,7 @@ index f28da1f..ac2d50d 100644
 \ No newline at end of file
 +$string['unread_post_color_description'] = 'Define the color background of unread posts.';
 diff --git a/lang/sv/block_forum_aggregator.php b/lang/sv/block_forum_aggregator.php
-new file mode 100644
+new file mode 100755
 index 0000000..aa4519f
 --- /dev/null
 +++ b/lang/sv/block_forum_aggregator.php
@@ -159,10 +166,12 @@ index 0000000..aa4519f
 +
 +$string['viewoldertopics'] = 'Visa fler nyheter';
 diff --git a/styles.css b/styles.css
-index ac7de2d..867973e 100644
+old mode 100644
+new mode 100755
+index ac7de2d..e23f1cf
 --- a/styles.css
 +++ b/styles.css
-@@ -2,17 +2,39 @@
+@@ -2,17 +2,36 @@
      text-align:center;
      font-weight:bold;
      margin-top:3px;
@@ -171,9 +180,6 @@ index ac7de2d..867973e 100644
 -    border-bottom: 2px solid #ddd;
 +    font-size: 15px;
 +    padding: 3px 0px 9px 0px;
-+    background-color: 666;
-+    /*border-top: 2px solid #ddd;
-+    border-bottom: 2px solid #ddd;*/
  }
  .block_forum_aggregator .post {
 -    border-bottom: 1px solid #ddd;
@@ -207,7 +213,7 @@ index ac7de2d..867973e 100644
  .block_forum_aggregator .content .head {
      margin-top:3px;
  }
-@@ -21,11 +43,13 @@
+@@ -21,11 +40,13 @@
      margin-right:3px;
  }
  .block_forum_aggregator .post div.head {
@@ -223,7 +229,7 @@ index ac7de2d..867973e 100644
  }
  .block_forum_aggregator .no_posts {
      text-align:center;
-@@ -38,4 +62,11 @@
+@@ -38,4 +59,11 @@
  }
  .block_forum_aggregator .forums .header {
      font-weight:bold;
@@ -238,5 +244,5 @@ index ac7de2d..867973e 100644
 +    border: none;
 +}
 -- 
-2.15.0
+2.24.0
 

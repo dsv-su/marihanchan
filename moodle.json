@@ -122,7 +122,7 @@
       "block_forum_aggregator": {
         "repo": "https://github.com/t6nis/moodle-block_forum_aggregator.git",
         "path": "blocks/forum_aggregator",
-        "patch": "moodle-forum-aggregator.patch"
+        "patch": "moodle-forum_aggregator.patch"
       },
       "course_modulenavigation": {
         "repo": "https://github.com/DigiDago/moodle-block_course_modulenavigation.git",
