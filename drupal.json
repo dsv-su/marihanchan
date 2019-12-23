@@ -33,7 +33,7 @@
             "drupal_core": {
                 "repo": "https://git.drupal.org/project/drupal.git",
                 "branch": "7.x",
-                "tag": "7.67",
+                "tag": "7.69",
                 "patch": "core.patch",
                 "ignoreEmptyPath": true
             }
@@ -240,7 +240,7 @@
                 "defaults": "module_contrib",
                 "repo": "https://git.drupal.org/project/entity_translation",
                 "branch": "7.x-1.x",
-                "tag": "7.x-1.0",
+                "tag": "7.x-1.1",
                 "path": "entity_translation"
             },
             "internationalization": {
@@ -994,7 +994,7 @@
                 "defaults": "module_contrib",
                 "repo": "https://git.drupal.org/project/webform.git",
                 "branch": "7.x-4.x",
-                "tag": "7.x-4.20",
+                "tag": "7.x-4.21",
                 "path": "webform"
             },
             "webform_validation": {
