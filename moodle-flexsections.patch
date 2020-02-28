@@ -1,0 +1,118 @@
+From c23ee6c0b8592b6386012f896c3bf9fc0757f942 Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Fri, 7 Feb 2020 12:45:47 +0300
+Subject: [PATCH] Merge up confirmation
+
+---
+ format.js                       | 22 ++++++++++++++++++++++
+ format.php                      |  5 ++++-
+ lang/en/format_flexsections.php |  1 +
+ lib.php                         |  3 ++-
+ renderer.php                    | 17 +++++++++++++++++
+ 5 files changed, 46 insertions(+), 2 deletions(-)
+
+diff --git a/format.js b/format.js
+index 6abe425..df873d7 100644
+--- a/format.js
++++ b/format.js
+@@ -87,6 +87,28 @@ M.course.format.handle_flexsections = function(e) {
+     });
+ }
+ 
++M.course.format.merge_flexsections = function(e) {
++    // Prevent the default button action
++    e.preventDefault();
++
++    var confirmstring = M.util.get_string('confirmmergeup', 'format_flexsections');
++
++    // Create the confirmation dialogue.
++    var confirm = new M.core.confirm({
++        question: confirmstring,
++        modal: true,
++        visible: false
++    });
++    confirm.show();
++
++    // If it is confirmed.
++    confirm.on('complete-yes', function() {
++        var href = e.currentTarget.getAttribute('href') + '&confirm=1';
++        window.location = href;
++    });
++}
++
+ M.course.format.init_flexsections = function(Y) {
+     Y.delegate('click', M.course.format.handle_flexsections, 'body', 'li.section > .controls > a.delete');
++    Y.delegate('click', M.course.format.merge_flexsections, 'body', 'li.section > .controls > a.mergeup');
+ }
+\ No newline at end of file
+diff --git a/format.php b/format.php
+index dd9ae5b..c86b57f 100644
+--- a/format.php
++++ b/format.php
+@@ -40,7 +40,10 @@ course_create_sections_if_missing($course, 0);
+ $renderer = $PAGE->get_renderer('format_flexsections');
+ if (($deletesection = optional_param('deletesection', 0, PARAM_INT)) && confirm_sesskey()) {
+     $renderer->confirm_delete_section($course, $displaysection, $deletesection);
+-} else {
++} else if (($mergeup = optional_param('mergeup', 0, PARAM_INT)) && confirm_sesskey()) {
++    $renderer->confirm_mergeup_section($course, $displaysection, $mergeup);
++}
++else {
+     $renderer->display_section($course, $displaysection, $displaysection);
+ }
+ 
+diff --git a/lang/en/format_flexsections.php b/lang/en/format_flexsections.php
+index 1ddba3e..80e654b 100644
+--- a/lang/en/format_flexsections.php
++++ b/lang/en/format_flexsections.php
+@@ -29,6 +29,7 @@ $string['backtocourse'] = 'Back to course \'{$a}\'';
+ $string['backtosection'] = 'Back to \'{$a}\'';
+ $string['cancelmoving'] = 'Cancel moving \'{$a}\'';
+ $string['confirmdelete'] = 'Are you sure you want to delete this section? All activities and subsections will also be deleted.';
++$string['confirmmergeup'] = 'Are you sure you want to merge up this section with the parent? All activities and subsections will be moved to the parent section.';
+ $string['currentsection'] = 'This section';
+ $string['deletesection'] = 'Delete section';
+ $string['displaycontent'] = 'Display content';
+diff --git a/lib.php b/lib.php
+index 3fd38a3..75240b2 100644
+--- a/lib.php
++++ b/lib.php
+@@ -568,7 +568,8 @@ class format_flexsections extends format_base {
+ 
+             // if requested, merge the section content with parent and remove the section
+             $mergeup = optional_param('mergeup', null, PARAM_INT);
+-            if ($mergeup && confirm_sesskey() && has_capability('moodle/course:update', $context)) {
++            if ($mergeup && confirm_sesskey() && has_capability('moodle/course:update', $context)
++                    && optional_param('confirm', 0, PARAM_INT) == 1) {
+                 $section = $this->get_section($mergeup, MUST_EXIST);
+                 $this->mergeup_section($section);
+                 $url = course_get_url($this->courseid, $section->parent);
+diff --git a/renderer.php b/renderer.php
+index 777d713..03849c9 100644
+--- a/renderer.php
++++ b/renderer.php
+@@ -312,4 +312,21 @@ class format_flexsections_renderer extends plugin_renderer_base {
+         echo $this->confirm(get_string('confirmdelete', 'format_flexsections'), $formcontinue, $formcancel);
+         echo $this->box_end();
+     }
++
++    /**
++     * Displays a confirmation dialogue when deleting the section (for non-JS mode)
++     *
++     * @param stdClass $course
++     * @param int $sectionreturn
++     * @param int $deletesection
++     */
++    public function confirm_mergeup_section($course, $sectionreturn, $mergeup) {
++        echo $this->box_start('noticebox');
++        $courseurl = course_get_url($course, $sectionreturn);
++        $optionsyes = array('confirm' => 1, 'deletesection' => $mergeup, 'sesskey' => sesskey());
++        $formcontinue = new single_button(new moodle_url($courseurl, $optionsyes), get_string('yes'));
++        $formcancel = new single_button($courseurl, get_string('no'), 'get');
++        echo $this->confirm(get_string('confirmmergeup', 'format_flexsections'), $formcontinue, $formcancel);
++        echo $this->box_end();
++    }
+ }
+-- 
+2.25.0
+

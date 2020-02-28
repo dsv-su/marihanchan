@@ -140,7 +140,8 @@
       "format_flexsections": {
         "repo": "https://github.com/marinaglancy/moodle-format_flexsections",
         "path": "course/format/flexsections",
-        "branch": "master"
+        "branch": "master",
+        "patch": "moodle-flexsections.patch"
       },
       "question_type_coderunner": {
         "repo": "https://github.com/trampgeek/moodle-qtype_coderunner.git",
@@ -172,7 +173,7 @@
       "mod_customcert": {
         "repo": "https://github.com/markn86/moodle-mod_customcert.git",
         "path": "mod/customcert",
-        "branch": "MOODLE_37_STABLE"
+        "branch": "MOODLE_38_STABLE"
       },
       "mod_engagement": {
         "repo": "https://github.com/netspotau/moodle-mod_engagement.git",
@@ -274,7 +275,7 @@
       "custom_certificate": {
         "repo": "https://github.com/markn86/moodle-mod_customcert.git",
         "path": "mod/customcert",
-        "branch": "MOODLE_37_STABLE"
+        "branch": "MOODLE_38_STABLE"
       },
       "mailsimulator": {
         "repo": "https://github.com/dsv-su/moodle-assignsubmission_mailsimulator.git",
@@ -310,7 +311,8 @@
       "format_flexsections": {
         "repo": "https://github.com/marinaglancy/moodle-format_flexsections",
         "path": "course/format/flexsections",
-        "branch": "master"
+        "branch": "master",
+        "patch": "moodle-flexsections.patch"
       },
       "progressbar": {
         "repo": "https://github.com/deraadt/Moodle-block_progress.git",
@@ -466,7 +468,8 @@
       "format_flexsections": {
         "repo": "https://github.com/marinaglancy/moodle-format_flexsections",
         "path": "course/format/flexsections",
-        "branch": "master"
+        "branch": "master",
+        "patch": "moodle-flexsections.patch"
       },
       "format_board": {
         "repo": "https://github.com/brandaorodrigo/moodle-format_board.git",

@@ -1,0 +1,88 @@
+From e54ec43f8276fd4aa7dc3c9159b15fe249dd8865 Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Fri, 28 Feb 2020 16:04:16 +0300
+Subject: [PATCH] Remove location textbox
+
+---
+ anonymous_suggestion_box.module | 18 ++----------------
+ 1 file changed, 2 insertions(+), 16 deletions(-)
+
+diff --git a/anonymous_suggestion_box.module b/anonymous_suggestion_box.module
+index 78b7a98..8949ef0 100644
+--- a/anonymous_suggestion_box.module
++++ b/anonymous_suggestion_box.module
+@@ -137,7 +137,6 @@ function anonymous_suggestion_box_mail($key, &$message, $params) {
+       $message['subject'] = t('Anonymous Suggestion Box submission from @site-name', array('@site-name' => variable_get('site_name', 'Drupal')), $options);
+       // Sanatize each of the submitted fields with check_plain and
+       // include them in the body of the message.
+-      $message['body'][] = t('Location: @location', array('@location' => $params['location']), $options);
+       $message['body'][] = t('Observation: @observation', array('@observation' => $params['observation']), $options);
+       $message['body'][] = t('Suggested Improvement: @suggested', array('@suggested' => $params['suggested']), $options);
+       break;
+@@ -183,7 +182,6 @@ function anonymous_suggestion_box_mail_send($form_values) {
+ function anonymous_suggestion_box_db_insert($form_values) {
+   // Load values to be saved to database from form values.
+   $entry = array(
+-    'location' => $form_values['location'],
+     'observation' => $form_values['observation'],
+     'suggested' => $form_values['suggested'],
+   );
+@@ -216,11 +214,6 @@ function anonymous_suggestion_box_form() {
+   $form['intro'] = array(
+     '#markup' => '<p>' . $intro_text . '</p>',
+   );
+-  $form['location'] = array(
+-    '#type' => 'textarea',
+-    '#title' => t('Location'),
+-    '#required' => TRUE,
+-  );
+   $form['observation'] = array(
+     '#type' => 'textarea',
+     '#title' => t('Observation'),
+@@ -247,18 +240,12 @@ function anonymous_suggestion_box_form() {
+  * Checks that submitted values fall with in minimum and maximum length.
+  */
+ function anonymous_suggestion_box_form_validate($form, &$form_state) {
+-  if (drupal_strlen($form_state['values']['location']) < variable_get('anonymous_suggestion_box_min_textarea')) {
+-    form_set_error('location', t('You must enter more text for the location.'));
+-  }
+   if (drupal_strlen($form_state['values']['observation']) < variable_get('anonymous_suggestion_box_min_textarea')) {
+     form_set_error('observation', t('You must enter more text for the observation.'));
+   }
+   if (drupal_strlen($form_state['values']['suggested']) < variable_get('anonymous_suggestion_box_min_textarea')) {
+     form_set_error('suggested', t('You must enter more text for the suggested improvements.'));
+   }
+-  if (drupal_strlen($form_state['values']['location']) > variable_get('anonymous_suggestion_box_max_textarea')) {
+-    form_set_error('suggested', t('You must enter less text for the location.'));
+-  }
+   if (drupal_strlen($form_state['values']['observation']) > variable_get('anonymous_suggestion_box_max_textarea')) {
+     form_set_error('suggested', t('You must enter less text for the observation.'));
+   }
+@@ -289,7 +276,7 @@ function anonymous_suggestion_box_form_submit($form, &$form_state) {
+  */
+ function anonymous_suggestion_box_view() {
+   $query = db_select('anonymous_suggestion_box', 's')
+-    ->fields('s', array('sid', 'location', 'observation', 'suggested'));
++    ->fields('s', array('sid', 'observation', 'suggested'));
+   $results = $query
+     ->extend('PagerDefault')
+     ->orderBy('sid', 'DESC')
+@@ -299,14 +286,13 @@ function anonymous_suggestion_box_view() {
+   $rows = array();
+   foreach ($results as $row) {
+     $rows[$row->sid] = array(
+-      check_plain($row->location),
+       check_plain($row->observation),
+       check_plain($row->suggested),
+     );
+   }
+   $output['content'] = array(
+     '#theme' => 'table',
+-    '#header' => array('location','observation','suggestion'),
++    '#header' => array('observation','suggestion'),
+     '#rows' => $rows,
+     '#sticky' => 'false',
+     '#empty' => t('No results found.'),
+-- 
+2.25.0
+

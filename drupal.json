@@ -843,6 +843,14 @@
                 "branch": "7.x-1.x",
                 "tag": "7.x-1.3",
                 "path": "uuid"
+            },
+            "anonymous_suggestion_box": {
+                "defaults": "module_contrib",
+                "repo": "https://git.drupal.org/project/anonymous_suggestion_box.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.0",
+                "path": "anonymous_suggestion_box",
+                "patch": "drupal-anonymous_suggestion_box.patch"
             }
         }
     },
