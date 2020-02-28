@@ -1,11 +1,12 @@
-From e54ec43f8276fd4aa7dc3c9159b15fe249dd8865 Mon Sep 17 00:00:00 2001
+From 4a5e70f05823906c13df1527b861fe9599d99a5d Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
-Date: Fri, 28 Feb 2020 16:04:16 +0300
-Subject: [PATCH] Remove location textbox
+Date: Fri, 28 Feb 2020 16:16:05 +0300
+Subject: [PATCH] Remove Location
 
 ---
- anonymous_suggestion_box.module | 18 ++----------------
- 1 file changed, 2 insertions(+), 16 deletions(-)
+ anonymous_suggestion_box.module          | 18 ++----------------
+ views/anonymous_suggestion_box.views.inc | 18 ------------------
+ 2 files changed, 2 insertions(+), 34 deletions(-)
 
 diff --git a/anonymous_suggestion_box.module b/anonymous_suggestion_box.module
 index 78b7a98..8949ef0 100644
@@ -83,6 +84,35 @@ index 78b7a98..8949ef0 100644
      '#rows' => $rows,
      '#sticky' => 'false',
      '#empty' => t('No results found.'),
+diff --git a/views/anonymous_suggestion_box.views.inc b/views/anonymous_suggestion_box.views.inc
+index a6d1bc1..c7d143a 100644
+--- a/views/anonymous_suggestion_box.views.inc
++++ b/views/anonymous_suggestion_box.views.inc
+@@ -32,24 +32,6 @@ function anonymous_suggestion_box_views_data() {
+     ),
+   );
+ 
+-  $data['anonymous_suggestion_box']['location'] = array(
+-    'title' => t('Suggestion Location'),
+-    'help' => t('Location submitted by user'),
+-    'field' => array(
+-      'handler' => 'views_handler_field',
+-      'click sortable' => TRUE,
+-    ),
+-    'sort' => array(
+-      'handler' => 'views_handler_sort',
+-    ),
+-    'filter' => array(
+-      'handler' => 'views_handler_filter_string',
+-    ),
+-    'argument' => array(
+-      'handler' => 'views_handler_argument_string',
+-    ),
+-  );
+-
+   $data['anonymous_suggestion_box']['observation'] = array(
+     'title' => t('Suggestion observation'),
+     'help' => t('observation submitted by user'),
 -- 
 2.25.0
 
