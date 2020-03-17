@@ -1,6 +1,6 @@
-From 018d3a71d4c2a813427c7cabb60094e403a0fa0d Mon Sep 17 00:00:00 2001
+From 6be3be4994925e5fca179a5dec2b94ad8f931baa Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
-Date: Tue, 17 Mar 2020 12:09:41 +0300
+Date: Tue, 17 Mar 2020 12:19:26 +0300
 Subject: [PATCH] Forum aggregator patch
 
 ---
@@ -17,7 +17,7 @@ Subject: [PATCH] Forum aggregator patch
 diff --git a/block_forum_aggregator.php b/block_forum_aggregator.php
 old mode 100644
 new mode 100755
-index 0857e32..7afbe8d
+index 0857e32..35cfebc
 --- a/block_forum_aggregator.php
 +++ b/block_forum_aggregator.php
 @@ -98,22 +98,22 @@ class block_forum_aggregator extends block_base {
@@ -47,7 +47,7 @@ index 0857e32..7afbe8d
                                              ORDER BY p.modified DESC ', null, 0, $max_posts);
                          
                          if (!empty($posts)) {
-@@ -128,27 +128,46 @@ class block_forum_aggregator extends block_base {
+@@ -128,26 +128,45 @@ class block_forum_aggregator extends block_base {
                                  }
                                  
                                  $post->message = format_string($post->message, true, $COURSE->id);                        
@@ -96,11 +96,10 @@ index 0857e32..7afbe8d
 +                        $text .= html_writer::start_tag('p');
 +                        $text .= html_writer::link($url, $linktext, array('class' => 'postreadold'));
 +                        $text .= html_writer::link(new moodle_url('/mod/forum/view.php?id='.$cm->id), $strold, array('class' => 'postreadold'));
-                         $text .= html_writer::end_tag('ul');
 +                        $text .= html_writer::end_tag('p');
+                         $text .= html_writer::end_tag('ul');
                      }
              }
-             
 @@ -170,4 +189,21 @@ class block_forum_aggregator extends block_base {
  
          return parent::instance_config_save($data, $nolongerused);
