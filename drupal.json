@@ -214,7 +214,7 @@
                 "defaults": "module_contrib",
                 "repo": "https://git.drupal.org/project/ckeditor",
                 "branch": "7.x-1.x",
-                "tag": "7.x-1.18",
+                "tag": "7.x-1.19",
                 "path": "ckeditor"
             },
             "ckeditor_library": {
@@ -653,53 +653,46 @@
                 "tag": "7.x-1.5",
                 "path": "captcha"
             },
-            "menu_block": {
-                "defaults": "module_contrib",
-                "repo": "https://git.drupal.org/project/menu_block.git",
-                "branch": "7.x-2.x",
-                "tag": "7.x-2.7",
-                "path": "menu_block"
-            },
-            "redirect": {
-                "defaults": "module_contrib",
-                "repo": "https://git.drupal.org/project/redirect.git",
-                "branch": "7.x-1.x",
-                "tag": "7.x-1.0-rc3",
-                "path": "redirect"
-            },
-            "view_unpublished": {
-                "defaults": "module_contrib",
-                "repo": "https://git.drupal.org/project/view_unpublished.git",
-                "branch": "7.x-1.x",
-                "tag": "7.x-1.1",
-                "path": "view_unpublished"
-            },
             "webform": {
                 "defaults": "module_contrib",
                 "repo": "https://git.drupal.org/project/webform.git",
                 "branch": "7.x-4.x",
-                "tag": "7.x-4.20",
+                "tag": "7.x-4.22",
                 "path": "webform"
             },
-            "webform_validation": {
+            "webform_references": {
                 "defaults": "module_contrib",
-                "repo": "https://git.drupal.org/project/webform_validation.git",
+                "repo": "https://git.drupal.org/project/webform_references.git",
                 "branch": "7.x-1.x",
-                "tag": "7.x-1.16",
-                "path": "webform_validation"
+                "tag": "7.x-1.9",
+                "path": "webform_references"
             },
-            "webform_report": {
+            "references":{
                 "defaults": "module_contrib",
-                "repo": "https://git.drupal.org/project/webform_report.git",
+                "repo": "https://git.drupal.org/project/references.git",
+                "branch": "7.x-2.x",
+                "tag": "7.x-2.2",
+                "path": "references"
+            },
+            "node_clone":{
+                "defaults": "module_contrib",
+                "repo": "https://git.drupal.org/project/node_clone.git",
                 "branch": "7.x-1.x",
                 "tag": "7.x-1.0",
-                "path": "webform_report"
+                "path": "node_clone"
             },
-            "dsv_forms_theme": {
-                "defaults": "theme_custom",
-                "repo": "https://github.com/dsv-su/dsv_forms_theme.git",
+            "menu_per_role": {
+                "defaults": "module_contrib",
+                "repo": "https://git.drupal.org/project/menu_per_role.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.0",
+                "path": "menu_per_role"
+            },
+            "application_edit": {
+                "defaults": "module_custom",
+                "repo": "https://github.com/dsv-su/drupal-forms_application_edit.git",
                 "branch": "master",
-                "path": "dsv_forms_theme"
+                "path": "application_edit"
             }
         }
     },
