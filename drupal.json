@@ -644,7 +644,7 @@
 
     "forms": {
         "rootDir": "/var/www/forms",
-        "requires": [ "dsv_base", "dsv_theme", "dsv_auth", "dsv_multilanguage" ],
+        "requires": [ "dsv_base", "dsv_theme", "dsv_auth", "dsv_multilanguage", "dsv_dev", "dsv_wysiwyg"],
         "components": {
             "captcha": {
                 "defaults": "module_contrib",
