@@ -697,7 +697,7 @@
         }
     },
 
-    "project_proposals": {
+    "projectproposals": {
         "rootDir": "/var/www/project_proposals",
         "requires": [ "dsv_base", "dsv_theme", "dsv_auth", "dsv_dev"],
         "components": {
