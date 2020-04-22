@@ -219,7 +219,7 @@
             },
             "ckeditor_library": {
                 "defaults": "library",
-                "repo": "https://github.com/ckeditor/ckeditor-releases.git",
+                "repo": "https://github.com/ckeditor/ckeditor-releases",
                 "branch": "4.6.x",
                 "tag": "standard/4.6.2",
                 "path": "ckeditor"
@@ -666,6 +666,13 @@
                 "branch": "7.x-1.x",
                 "tag": "7.x-1.9",
                 "path": "webform_references"
+            },
+            "webform_validation": {
+                "defaults": "module_contrib",
+                "repo": "https://git.drupal.org/project/webform_validation.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.16",
+                "path": "webform_validation"
             },
             "references":{
                 "defaults": "module_contrib",
