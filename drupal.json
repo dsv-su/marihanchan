@@ -700,7 +700,14 @@
                 "repo": "https://github.com/dsv-su/drupal-forms_application_edit.git",
                 "branch": "master",
                 "path": "application_edit"
-            }
+            },
+            "realname": {
+                "defaults": "module_contrib",
+                "repo": "https://git.drupal.org/project/realname.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.4",
+                "path": "realname"
+            },
         }
     },
 
