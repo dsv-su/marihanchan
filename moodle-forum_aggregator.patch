@@ -1,32 +1,25 @@
-From 6be3be4994925e5fca179a5dec2b94ad8f931baa Mon Sep 17 00:00:00 2001
+From 6886ec946ad6a44524f96eee05f8a4f279f14476 Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
-Date: Tue, 17 Mar 2020 12:19:26 +0300
+Date: Fri, 24 Apr 2020 09:50:25 +0300
 Subject: [PATCH] Forum aggregator patch
 
 ---
- block_forum_aggregator.php         | 58 ++++++++++++++++++++++++------
- lang/en/block_forum_aggregator.php |  5 ++-
- lang/sv/block_forum_aggregator.php | 24 +++++++++++++
- styles.css                         | 49 ++++++++++++++++++++-----
- 4 files changed, 116 insertions(+), 20 deletions(-)
- mode change 100644 => 100755 block_forum_aggregator.php
- mode change 100644 => 100755 lang/en/block_forum_aggregator.php
- create mode 100755 lang/sv/block_forum_aggregator.php
- mode change 100644 => 100755 styles.css
+ block_forum_aggregator.php         | 52 ++++++++++++++++++++++++------
+ lang/en/block_forum_aggregator.php |  4 ++-
+ lang/sv/block_forum_aggregator.php | 25 ++++++++++++++
+ styles.css                         | 48 ++++++++++++++++++++++-----
+ 4 files changed, 110 insertions(+), 19 deletions(-)
+ create mode 100644 lang/sv/block_forum_aggregator.php
 
 diff --git a/block_forum_aggregator.php b/block_forum_aggregator.php
-old mode 100644
-new mode 100755
-index 0857e32..35cfebc
+index 038f08a..47c5b73 100644
 --- a/block_forum_aggregator.php
 +++ b/block_forum_aggregator.php
-@@ -98,22 +98,22 @@ class block_forum_aggregator extends block_base {
- 
+@@ -99,21 +99,21 @@ class block_forum_aggregator extends block_base {
                      $strftimerecent = get_string('strftimerecent');
                      $strmore = get_string('more', 'forum');
--                    
+                     
 -                    if ($cm->visible == 1) {
-+
 +                    if ($cm->visible == 1 && $cm->uservisible) {
                          
                          if (! $forum = $DB->get_record("forum", array("id" => $key))) {
@@ -47,7 +40,7 @@ index 0857e32..35cfebc
                                              ORDER BY p.modified DESC ', null, 0, $max_posts);
                          
                          if (!empty($posts)) {
-@@ -128,26 +128,45 @@ class block_forum_aggregator extends block_base {
+@@ -128,19 +128,24 @@ class block_forum_aggregator extends block_base {
                                  }
                                  
                                  $post->message = format_string($post->message, true, $COURSE->id);                        
@@ -63,30 +56,25 @@ index 0857e32..35cfebc
 +                                $posted = get_string('bynameondate', 'forum', $by);
 +                                $strold = get_string('viewoldertopics', 'block_forum_aggregator');
 +
-+
                                  $text .= html_writer::start_tag('li', $post_style).
                                           html_writer::start_tag('div', array('class' => 'head')).
 -                                         html_writer::tag('div', $post->subject, array('class' => 'subject')).
--                                         html_writer::tag('div', $OUTPUT->user_picture($user, array('size'=>21, 'class'=>'userpostpic')), array('class' => 'userpic')).
+-                                         html_writer::tag('div', $OUTPUT->user_picture($user, array('size'=>31, 'class'=>'userpostpic')), array('class' => 'userpic')).
 -                                         html_writer::tag('div', fullname($post), array('class' => 'name')).
 -                                         html_writer::tag('div', get_string('posted', 'block_forum_aggregator').userdate($post->modified, $strftimerecent), array('class' => 'date')).
-+                                         html_writer::tag('div', html_writer::link(new moodle_url('/mod/forum/discuss.php?d='.$post->discussion.'#p'.$post->id), $post->subject), array('class' => 'subject')).
-+                                         //html_writer::tag('div', $OUTPUT->user_picture($user, array('size'=>21, 'class'=>'userpostpic')), array('class' => 'userpic')).
-+                                         //html_writer::tag('div', $user->department, array('class' => 'name')).
++                                         html_writer::tag('div', html_writer::link(new moodle_url('/mod/forum/discuss.php?d='.$post->discussion.'#p'.$post->id), $post->subject), array('class' => 'subject')).                                         html_writer::tag('div', $OUTPUT->user_picture($user, array('size'=>31, 'class'=>'userpostpic')), array('class' => 'userpic')).
 +                                         html_writer::tag('div', $posted, array('class' => 'date')).
                                           html_writer::end_tag('div').
                                           html_writer::start_tag('div').
 -                                         $post->message.' '.
 +                                         $post->message.'...</br>'.
                                           html_writer::link(new moodle_url('/mod/forum/discuss.php?d='.$post->discussion.'#p'.$post->id), $strmore.'...' , array('class' => 'postreadmore')).
--                                         html_writer::end_tag('div').
-+					                     html_writer::end_tag('div').
+                                          html_writer::end_tag('div').
                                           html_writer::end_tag('li');
-                             }
+@@ -148,6 +153,16 @@ class block_forum_aggregator extends block_base {
                          } else {
                              $text .= html_writer::tag('li', '('.get_string('noposts', 'block_forum_aggregator').')', array('class' => 'no_posts'));
                          }
-+
 +                        if (\mod_forum\subscriptions::is_subscribed($USER->id, $forum, null, $cm)) {
 +                            $linktext = get_string('unsubscribe', 'forum');
 +                        } else {
@@ -100,57 +88,49 @@ index 0857e32..35cfebc
                          $text .= html_writer::end_tag('ul');
                      }
              }
-@@ -170,4 +189,21 @@ class block_forum_aggregator extends block_base {
+@@ -170,4 +185,21 @@ class block_forum_aggregator extends block_base {
  
          return parent::instance_config_save($data, $nolongerused);
      }
+-}
 +
 +    public function instance_can_be_collapsed() {
 +        return false;
 +    }
-+
++    
 +    public function instance_can_be_hidden() {
 +        return false;
 +    }
-+
++    
 +    public function instance_can_be_docked() {
 +        return false;
 +    }
-+
++    
 +    public function user_can_edit() {
 +        global $USER;
-+	if ($USER->id == 23) {return true;} else {return false;}
++        if ($USER->id == 23) {return true;} else {return false;}
 +    }
- }
++}
+\ No newline at end of file
 diff --git a/lang/en/block_forum_aggregator.php b/lang/en/block_forum_aggregator.php
-old mode 100644
-new mode 100755
-index f28da1f..ac2d50d
+index f28da1f..0093395 100644
 --- a/lang/en/block_forum_aggregator.php
 +++ b/lang/en/block_forum_aggregator.php
-@@ -34,6 +34,9 @@ $string['posts'] = 'Posts';
- $string['posted'] = 'Posted: ';
- $string['forum_description'] = 'Forum description';
- 
-+$string['viewoldertopics'] = 'View all topics';
-+
-+//Help strings
- $string['max_num_of_posts'] = 'Maximum number of posts';
- $string['max_num_of_posts_help'] = 'Select maximum number of latest posts to be shown in block.';
- 
-@@ -41,4 +44,4 @@ $string['forum_selection'] = 'Forum selection';
+@@ -41,4 +41,6 @@ $string['forum_selection'] = 'Forum selection';
  $string['forum_selection_help'] = 'If you want to show posts from this specific forum, then you have to check this box.';
  
  $string['unread_post_color'] = 'Unread color';
 -$string['unread_post_color_description'] = 'Define the color background of unread posts.';
 \ No newline at end of file
 +$string['unread_post_color_description'] = 'Define the color background of unread posts.';
++
++$string['viewoldertopics'] = 'View all news';
 diff --git a/lang/sv/block_forum_aggregator.php b/lang/sv/block_forum_aggregator.php
-new file mode 100755
-index 0000000..aa4519f
+new file mode 100644
+index 0000000..964c317
 --- /dev/null
 +++ b/lang/sv/block_forum_aggregator.php
-@@ -0,0 +1,24 @@
+@@ -0,0 +1,25 @@
 +<?php
 +// This file is part of Moodle - http://moodle.org/
 +//
@@ -166,22 +146,21 @@ index 0000000..aa4519f
 +//
 +// You should have received a copy of the GNU General Public License
 +// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
-+/*
-+ * @package    block
-+ * @subpackage forum_aggregator
-+ * @author     Tõnis Tartes <t6nis20@gmail.com>
++/**
++ * Language strings.
++ * 
++ * @package    block_forum_aggregator
++ * @author     Tonis Tartes <t6nis20@gmail.com>
 + * @copyright  1999 onwards Martin Dougiamas  {@link http://moodle.com}
 + * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
 + */
 +
 +$string['viewoldertopics'] = 'Visa fler nyheter';
 diff --git a/styles.css b/styles.css
-old mode 100644
-new mode 100755
-index ac7de2d..fdc1fa5
+index 5c165a8..0ba572f 100644
 --- a/styles.css
 +++ b/styles.css
-@@ -2,17 +2,34 @@
+@@ -2,17 +2,33 @@
      text-align:center;
      font-weight:bold;
      margin-top:3px;
@@ -195,7 +174,6 @@ index ac7de2d..fdc1fa5
 -    border-bottom: 1px solid #ddd;
 +    /*border-bottom: 1px solid #ddd;*/
      padding-bottom: 3px;
-+    /*min-height: 20px;*/
 +    padding: 19px;
 +    padding: 6px;
 +    margin-bottom: 10px;
@@ -210,40 +188,40 @@ index ac7de2d..fdc1fa5
 +    box-shadow: inset 0 1px 1px rgba(0,0,0,0.05);
  }
  .block_forum_aggregator .post .postreadmore {
--    font-size:10px;
-+    font-size:12px;
-+}
+-    font-size:.8375rem;
++    font-size: 12px;
+ }
 +
 +.block_forum_aggregator .postreadold {
 +    font-size: 13px;
- }
++}
 +
  .block_forum_aggregator .content .head {
      margin-top:3px;
  }
-@@ -21,11 +38,13 @@
-     margin-right:3px;
+@@ -23,11 +39,12 @@
+     border-radius: 50%;
  }
  .block_forum_aggregator .post div.head {
--    font-size:10px;
+-    font-size:.9375rem;
 -    font-style:italic;
 +    font-size:12px;
-+    /*font-style:italic;*/
 +    margin-bottom: 10px;
  }
  .block_forum_aggregator .post div.head .subject {
      font-weight:bold;
-+    font-size:14px;
++    font-size: 14px;
  }
  .block_forum_aggregator .no_posts {
      text-align:center;
-@@ -38,4 +57,18 @@
+@@ -40,4 +57,19 @@
  }
  .block_forum_aggregator .forums .header {
      font-weight:bold;
 -}
 \ No newline at end of file
 +}
++
 +.block_forum_aggregator .unlist {
 +    border-bottom: 3px dashed #ddd;
 +    padding-bottom: 5px;
