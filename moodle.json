@@ -163,6 +163,11 @@
     }
   },
 
+  "ilearn2dev": {
+    "rootDir": "/var/www/ilearn2dev",
+    "requires": [ "ilearn2test" ]
+  },
+
   "ilearn2test": {
     "rootDir": "/var/www/ilearn2test",
     "requires": [ "ilearn2" ],
