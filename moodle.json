@@ -23,7 +23,6 @@
       }
     }
   },
-
   "dsv_moodle_theme": {
     "components": {
       "dsv_theme": {
@@ -41,10 +40,12 @@
       }
     }
   },
-
   "ilearn2": {
     "rootDir": "/var/www/ilearn2",
-    "requires": [ "moodle", "dsv_moodle_theme" ],
+    "requires": [
+      "moodle",
+      "dsv_moodle_theme"
+    ],
     "patches": [
       "moodle-forum_unsubscribe.patch",
       "moodle-old_action_menus.patch",
@@ -162,15 +163,24 @@
       }
     }
   },
-
   "ilearn2dev": {
     "rootDir": "/var/www/ilearn2dev",
-    "requires": [ "ilearn2test" ]
+    "requires": [
+      "ilearn2test"
+    ],
+    "components": {
+      "plagiarism_urkund": {
+        "repo": "https://github.com/danmarsden/moodle-plagiarism_urkund.git",
+        "path": "plagiarism/urkund",
+        "branch": "MOODLE_38_STABLE"
+      }
+    }
   },
-
   "ilearn2test": {
     "rootDir": "/var/www/ilearn2test",
-    "requires": [ "ilearn2" ],
+    "requires": [
+      "ilearn2"
+    ],
     "components": {
       "mod_advmindmap": {
         "repo": "https://github.com/ctchanandy/moodle-mod_advmindmap.git",
@@ -259,11 +269,15 @@
       }
     }
   },
-
   "turing": {
     "rootDir": "/var/www/turing",
-    "requires": [ "moodle", "dsv_moodle_theme" ],
-    "patches" : [  "moodle-mailsimulator_js.patch" ],
+    "requires": [
+      "moodle",
+      "dsv_moodle_theme"
+    ],
+    "patches": [
+      "moodle-mailsimulator_js.patch"
+    ],
     "components": {
       "dsv_custom": {
         "repo": "ssh://git.dsv.su.se/git/moodle-dsv_custom",
@@ -331,10 +345,12 @@
       }
     }
   },
-
   "ocw": {
     "rootDir": "/var/www/ocw",
-    "requires": [ "moodle", "dsv_moodle_theme" ],
+    "requires": [
+      "moodle",
+      "dsv_moodle_theme"
+    ],
     "components": {
       "dsv_custom": {
         "repo": "ssh://git.dsv.su.se/git/moodle-dsv_custom",
@@ -342,10 +358,12 @@
       }
     }
   },
-
   "un-moodle": {
     "rootDir": "/var/www/un-moodle",
-    "requires": [ "moodle", "dsv_moodle_theme" ],
+    "requires": [
+      "moodle",
+      "dsv_moodle_theme"
+    ],
     "components": {
       "plagiarism_urkund": {
         "repo": "https://github.com/danmarsden/moodle-plagiarism_urkund.git",
@@ -354,10 +372,12 @@
       }
     }
   },
-
   "natgeo": {
     "rootDir": "/var/www/natgeo",
-    "requires": [ "moodle", "dsv_moodle_theme" ],
+    "requires": [
+      "moodle",
+      "dsv_moodle_theme"
+    ],
     "components": {
       "progressbar": {
         "repo": "https://github.com/deraadt/Moodle-block_progress.git",
@@ -374,10 +394,12 @@
       }
     }
   },
-
   "forum": {
     "rootDir": "/var/www/forum",
-    "requires": [ "moodle", "dsv_moodle_theme" ],
+    "requires": [
+      "moodle",
+      "dsv_moodle_theme"
+    ],
     "components": {
       "dsv_custom": {
         "repo": "ssh://git.dsv.su.se/git/moodle-dsv_custom",
@@ -398,10 +420,11 @@
       }
     }
   },
-
- "addisco": {
+  "addisco": {
     "rootDir": "/var/www/addisco",
-    "requires": [ "moodle" ],
+    "requires": [
+      "moodle"
+    ],
     "components": {
       "format_topcoll": {
         "repo": "https://github.com/gjb2048/moodle-format_topcoll.git",
@@ -445,10 +468,11 @@
       }
     }
   },
-
   "code": {
     "rootDir": "/var/www/code",
-    "requires": [ "ilearn2" ],
+    "requires": [
+      "ilearn2"
+    ],
     "patches": [
       "moodle-old_action_menus.patch",
       "moodle-guest.patch"
