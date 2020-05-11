@@ -8,15 +8,13 @@
         "patches": [
           "moodle-fix_calendar_timeformat.patch",
           "moodle-hide_badge_menu_item.patch",
-          "moodle-reverting-current-course-back.patch",
-          "moodle-subpage-display.patch",
           "moodle-assign_add_grader_name.patch",
           "moodle-login.patch",
           "moodle-user_search_multiple_names.patch",
           "moodle-assign_time_remaining_disclaimer.patch",
           "moodle-assign_sort_submissions_by_group.patch",
           "moodle-assign_extend_navigation_plugins.patch",
-          "moodle-assign_reflection_ddisable_buttons.patch",
+          "moodle-assign_reflection_disable_buttons.patch",
           "moodle-group_fix_leading_zeros.patch"
         ],
         "ignoreEmptyPath": true
@@ -142,8 +140,7 @@
       "format_flexsections": {
         "repo": "https://github.com/marinaglancy/moodle-format_flexsections",
         "path": "course/format/flexsections",
-        "branch": "master",
-        "patch": "moodle-flexsections.patch"
+        "branch": "master"
       },
       "question_type_coderunner": {
         "repo": "https://github.com/trampgeek/moodle-qtype_coderunner.git",
@@ -250,9 +247,9 @@
         "path": "mod/mediagallery"
       },
       "format_etask": {
-        "repo": "https://bitbucket.org/drlikm/etask/",
+        "repo": "https://gitlab.com/drlikm/format_etask.git",
         "path": "course/format/etask",
-        "branch": "moodle-3.8"
+        "branch": "master"
       },
       "format_buttons": {
         "repo": "https://github.com/brandaorodrigo/moodle-format_buttons.git",
@@ -331,8 +328,7 @@
       "format_flexsections": {
         "repo": "https://github.com/marinaglancy/moodle-format_flexsections",
         "path": "course/format/flexsections",
-        "branch": "master",
-        "patch": "moodle-flexsections.patch"
+        "branch": "master"
       },
       "progressbar": {
         "repo": "https://github.com/deraadt/Moodle-block_progress.git",
@@ -501,8 +497,7 @@
       "format_flexsections": {
         "repo": "https://github.com/marinaglancy/moodle-format_flexsections",
         "path": "course/format/flexsections",
-        "branch": "master",
-        "patch": "moodle-flexsections.patch"
+        "branch": "master"
       },
       "format_board": {
         "repo": "https://github.com/brandaorodrigo/moodle-format_board.git",
