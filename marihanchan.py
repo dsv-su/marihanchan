@@ -239,7 +239,7 @@ def updateProject( projectName ):
 
     # if it's an old file located in a project dir - move it one level up
     if os.path.isfile( installPath + buildFileName):
-        shutil.copyfile( installPath + buildFileName , installPath.parent + projectName + '_' + buildFileName )
+        shutil.copyfile( installPath + buildFileName , installPath + projectName + '_' + buildFileName )
         os.remove( installPath + buildFileName )
 
     # first, get the build file from the existing project
