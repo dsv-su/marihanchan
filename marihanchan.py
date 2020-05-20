@@ -238,11 +238,11 @@ def updateProject( projectName ):
     resetGitRepo( installPath )
 
     # first, get the build file from the existing project
-    if os.path.isfile( installPath + buildFileName ):
-        oldBuildFile = open( installPath + buildFileName, 'r' )
+    if os.path.isfile( installPath + '../' + buildFileName ):
+        oldBuildFile = open( installPath + '../' + buildFileName, 'r' )
         installedProjectDict = json.load( oldBuildFile )
     else:
-        print 'error, no build file found at ' + installPath + buildFileName
+        print 'error, no build file found at ' + installPath + '../' + buildFileName
         sys.exit( -1 )
 
     # then, sort out any updates / changes and apply them
@@ -516,9 +516,9 @@ def main():
             buildProject( targetName )
 
     # save buildFile to install path
-    if os.path.isfile( installPath + buildFileName ):
-        os.remove( installPath + buildFileName )
-    shutil.copyfile( buildFilePath + buildFileName , installPath + buildFileName )
+    if os.path.isfile( installPath + '../' + buildFileName ):
+        os.remove( installPath + '../' + buildFileName )
+    shutil.copyfile( buildFilePath + buildFileName , installPath + '../' + buildFileName )
 
     print '*giggles* ok I\'m done! project ' + targetName + ' built :)'
     return
