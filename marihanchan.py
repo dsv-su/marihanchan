@@ -239,15 +239,16 @@ def updateProject( projectName ):
 
     # if it's an old file located in a project dir - move it one level up
     if os.path.isfile( installPath + buildFileName):
-        shutil.copyfile( installPath + buildFileName , installPath + '../' + projectName + '_' + buildFileName )
+        shutil.copyfile( installPath + buildFileName , installPath.parent + projectName + '_' + buildFileName )
         os.remove( installPath + buildFileName )
 
     # first, get the build file from the existing project
-    if os.path.isfile( installPath + '../' + projectName + '_' + buildFileName ):
-        oldBuildFile = open( installPath + '../' + projectName + '_' + buildFileName, 'r' )
+    parentPath = os.path.abspath(os.path.join(installPath, os.pardir)) + '/'
+    if os.path.isfile( parentPath + projectName + '_' + buildFileName ):
+        oldBuildFile = open( parentPath + projectName + '_' + buildFileName, 'r' )
         installedProjectDict = json.load( oldBuildFile )
     else:
-        print 'error, no build file found at ' + installPath + '../' + projectName + '_' + buildFileName
+        print 'error, no build file found at ' + parentPath + projectName + '_' + buildFileName
         sys.exit( -1 )
 
     # then, sort out any updates / changes and apply them
@@ -521,9 +522,10 @@ def main():
             buildProject( targetName )
 
     # save buildFile to install path
-    if os.path.isfile( installPath + '../' + targetName + '_' + buildFileName ):
-        os.remove( installPath + '../' + targetName + '_' + buildFileName )
-    shutil.copyfile( buildFilePath + buildFileName , installPath + '../' + targetName + '_' + buildFileName )
+    parentPath = os.path.abspath(os.path.join(installPath, os.pardir)) + '/'
+    if os.path.isfile( parentPath + targetName + '_' + buildFileName ):
+        os.remove( parentPath + targetName + '_' + buildFileName )
+    shutil.copyfile( buildFilePath + buildFileName , parentPath + targetName + '_' + buildFileName )
 
     print '*giggles* ok I\'m done! project ' + targetName + ' built :)'
     return
