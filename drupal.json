@@ -219,7 +219,7 @@
             },
             "ckeditor_library": {
                 "defaults": "library",
-                "repo": "https://github.com/ckeditor/ckeditor-releases",
+                "repo": "https://github.com/ckeditor/ckeditor-releases.git",
                 "branch": "4.6.x",
                 "tag": "standard/4.6.2",
                 "path": "ckeditor"
