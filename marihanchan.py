@@ -237,13 +237,14 @@ def updateProject( projectName ):
     # reset the built project so we don't get any git issues
     resetGitRepo( installPath )
 
+    parentPath = os.path.abspath(os.path.join(installPath, os.pardir)) + '/'
+
     # if it's an old file located in a project dir - move it one level up
     if os.path.isfile( installPath + buildFileName):
-        shutil.copyfile( installPath + buildFileName , installPath + projectName + '_' + buildFileName )
+        shutil.copyfile( installPath + buildFileName , parentPath + projectName + '_' + buildFileName )
         os.remove( installPath + buildFileName )
 
     # first, get the build file from the existing project
-    parentPath = os.path.abspath(os.path.join(installPath, os.pardir)) + '/'
     if os.path.isfile( parentPath + projectName + '_' + buildFileName ):
         oldBuildFile = open( parentPath + projectName + '_' + buildFileName, 'r' )
         installedProjectDict = json.load( oldBuildFile )
