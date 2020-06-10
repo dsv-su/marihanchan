@@ -212,7 +212,7 @@
         "components": {
             "ckeditor": {
                 "defaults": "module_contrib",
-                "repo": "https://git.drupal.org/project/ckeditor",
+                "repo": "https://git.drupalcode.org/project/ckeditor.git",
                 "branch": "7.x-1.x",
                 "tag": "7.x-1.19",
                 "path": "ckeditor"
