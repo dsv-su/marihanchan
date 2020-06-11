@@ -707,6 +707,19 @@
                 "branch": "7.x-1.x",
                 "tag": "7.x-1.4",
                 "path": "realname"
+            },
+            "tcpdf": {
+                "defaults": "library",
+                "repo": "https://github.com/tecnickcom/TCPDF.git",
+                "branch": "master",
+                "path": "tcpdf"
+            },
+            "webform2pdf": {
+                "defaults": "module_contrib",
+                "repo": "https://git.drupal.org/project/webform2pdf.git",
+                "branch": "7.x-4.x",
+                "tag": "7.x-4.1",
+                "path": "webform2pdf"
             }
         }
     },
