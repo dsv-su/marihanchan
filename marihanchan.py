@@ -347,6 +347,13 @@ def updateComponent( newComponent, oldComponent ):
         repoPath += newComponent.get( 'path' )
     repo = Repo( repoPath, odbt=GitCmdObjectDB )
 
+    if oldComponent.get('repo') != newComponent.get('repo'):
+        print 'updating repo url to ' + newComponent.get('repo')
+        repo.remotes.origin.set_url(newComponent.get('repo'))
+        repo.git.checkout('.')
+
+    repo.git.fetch()
+
     url = repo.remotes.origin.url
     url = string.replace(url, 'git://', 'https://')
     url = string.replace(url, 'http://', 'https://')
