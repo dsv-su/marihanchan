@@ -172,7 +172,7 @@
         "components": {
             "devel": {
                 "defaults": "module_contrib",
-                "repo": "https://git.drupalcode.org/project/drupal.git/",
+                "repo": "https://git.drupalcode.org/project/devel.git/",
                 "branch": "7.x-1.x",
                 "tag": "7.x-1.7",
                 "path": "devel"
@@ -719,7 +719,8 @@
                 "repo": "https://git.drupalcode.org/project/webform2pdf.git",
                 "branch": "7.x-4.x",
                 "tag": "7.x-4.1",
-                "path": "webform2pdf"
+                "path": "webform2pdf",
+                "patch": "drupal-webform2pdf.patch"
             }
         }
     },

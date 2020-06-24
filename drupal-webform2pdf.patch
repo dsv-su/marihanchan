@@ -1,0 +1,47 @@
+From c77c03a1318b6e4d8b044b68dc7bf9a68d26577e Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Wed, 24 Jun 2020 13:50:02 +0300
+Subject: [PATCH] Changing image scale and footer scale
+
+---
+ includes/webform2pdf.theme.inc | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/includes/webform2pdf.theme.inc b/includes/webform2pdf.theme.inc
+index 66c1299..f8e5bc8 100644
+--- a/includes/webform2pdf.theme.inc
++++ b/includes/webform2pdf.theme.inc
+@@ -122,8 +122,8 @@ function _webform2pdf_pdf_footer($pdf, $node, $template) {
+ 
+     $logo['left'] = drupal_realpath($f->uri);
+     // 75dpi image, image size convert millimeter
+-    $size['left']['w'] = $s['width']/75*25;
+-    $size['left']['h'] = $s['height']/75*25;
++    $size['left']['w'] = $s['width']/75*12;
++    $size['left']['h'] = $s['height']/75*12;
+   }
+   else {
+     $logo['left'] = '';
+@@ -137,8 +137,8 @@ function _webform2pdf_pdf_footer($pdf, $node, $template) {
+ 
+     $logo['right'] = drupal_realpath($f->uri);
+     // 75dpi image, image size convert millimeter
+-    $size['right']['w'] = $s['width']/75*25;
+-    $size['right']['h'] = $s['height']/75*25;
++    $size['right']['w'] = $s['width']/75*12;
++    $size['right']['h'] = $s['height']/75*12;
+   }
+   else {
+     $logo['right'] = '';
+@@ -178,7 +178,7 @@ function _webform2pdf_pdf_page($pdf) {
+   $pdf->SetAutoPageBreak(TRUE, 25 );
+ 
+   // set image scale factor
+-  $pdf->setImageScale(4);
++  $pdf->setImageScale(1.53);
+   // set image compression quality
+   $pdf->setJPEGQuality(100);
+   return $pdf;
+-- 
+2.25.0
+
