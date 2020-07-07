@@ -1,0 +1,26 @@
+From 797308653d81641b67eb274573ab6e22d64339b9 Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Tue, 7 Jul 2020 11:28:05 +0300
+Subject: [PATCH] Use local branch for determining tag name
+
+---
+ git_deploy.module | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/git_deploy.module b/git_deploy.module
+index 30a0bdc..36ee791 100644
+--- a/git_deploy.module
++++ b/git_deploy.module
+@@ -254,6 +254,9 @@ function _git_deploy_get_upstream($git, array $patterns = array('*')) {
+         $upstream['tag'] = $tag;
+       }
+     }
++    // If our local branch has a tag name higher than git describe one, use our tag
++    $branchtag = substr(exec("$git rev-parse --abbrev-ref HEAD"), 4);
++    $upstream['tag'] = $branchtag > $tag ? $branchtag : $tag;
+     // Find the timestamp for the current commit.
+     $upstream['datestamp'] = exec("$git log -1 --pretty=format:%at " . escapeshellarg($last_base) . " 2> " . GIT_DEPLOY_ERROR_DUMP);
+   }
+-- 
+2.25.0
+
