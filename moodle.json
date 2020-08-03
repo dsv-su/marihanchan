@@ -136,7 +136,7 @@
       "mod_vpl": {
         "repo": "https://github.com/jcrodriguez-dis/moodle-mod_vpl.git",
         "path": "mod/vpl",
-        "branch": "v3.3.7"
+        "branch": "v3.3.8"
       },
       "format_flexsections": {
         "repo": "https://github.com/marinaglancy/moodle-format_flexsections",
@@ -365,7 +365,7 @@
       "plagiarism_urkund": {
         "repo": "https://github.com/danmarsden/moodle-plagiarism_urkund.git",
         "path": "plagiarism/urkund",
-        "branch": "MOODLE_38_STABLE"
+        "branch": "master"
       }
     }
   },
