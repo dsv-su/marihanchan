@@ -712,7 +712,7 @@
             "tcpdf": {
                 "defaults": "library",
                 "repo": "https://github.com/tecnickcom/TCPDF.git",
-                "branch": "master",
+                "branch": "main",
                 "path": "tcpdf"
             },
             "webform2pdf": {
