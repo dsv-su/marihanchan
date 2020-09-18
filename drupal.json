@@ -713,6 +713,7 @@
                 "defaults": "library",
                 "repo": "https://github.com/tecnickcom/TCPDF.git",
                 "branch": "main",
+                "tag": "6.2.17",
                 "path": "tcpdf"
             },
             "webform2pdf": {
@@ -722,6 +723,13 @@
                 "tag": "7.x-4.1",
                 "path": "webform2pdf",
                 "patch": "drupal-webform2pdf.patch"
+            },
+            "esign": {
+                "defaults": "module_contrib",
+                "repo": "https://git.drupalcode.org/project/esign.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.15",
+                "path": "esign"
             }
         }
     },
