@@ -33,7 +33,7 @@
             "drupal_core": {
                 "repo": "https://git.drupalcode.org/project/drupal.git",
                 "branch": "7.x",
-                "tag": "7.72",
+                "tag": "7.73",
                 "patch": "core.patch",
                 "ignoreEmptyPath": true
             }
@@ -481,7 +481,7 @@
                 "defaults": "module_contrib",
                 "repo": "https://git.drupalcode.org/project/panels.git",
                 "branch": "7.x-3.x",
-                "tag": "7.x-3.9",
+                "tag": "7.x-3.10",
                 "path": "panels"
             },
             "redirect": {
@@ -495,7 +495,7 @@
                 "defaults": "module_contrib",
                 "repo": "https://git.drupalcode.org/project/scheduler.git",
                 "branch": "7.x-1.x",
-                "tag": "7.x-1.5",
+                "tag": "7.x-1.6",
                 "path": "scheduler"
             },
             "search_combine": {
@@ -672,7 +672,7 @@
                 "defaults": "module_contrib",
                 "repo": "https://git.drupalcode.org/project/webform_validation.git",
                 "branch": "7.x-1.x",
-                "tag": "7.x-1.17",
+                "tag": "7.x-1.18",
                 "path": "webform_validation"
             },
             "references":{
@@ -819,7 +819,7 @@
                 "defaults": "module_contrib",
                 "repo": "https://git.drupalcode.org/project/panels.git",
                 "branch": "7.x-3.x",
-                "tag": "7.x-3.9",
+                "tag": "7.x-3.10",
                 "path": "panels"
             },
             "projprop_edit": {
@@ -972,7 +972,7 @@
                 "defaults": "module_contrib",
                 "repo": "https://git.drupalcode.org/project/scheduler.git",
                 "branch": "7.x-1.x",
-                "tag": "7.x-1.5",
+                "tag": "7.x-1.6",
                 "path": "scheduler"
             },
             "search_autocomplete": {
@@ -1039,7 +1039,7 @@
                 "defaults": "module_contrib",
                 "repo": "https://git.drupalcode.org/project/webform_validation.git",
                 "branch": "7.x-1.x",
-                "tag": "7.x-1.17",
+                "tag": "7.x-1.18",
                 "path": "webform_validation"
             },
             "views_aggregator": {
@@ -1227,7 +1227,7 @@
                 "defaults": "module_contrib",
                 "repo": "https://git.drupalcode.org/project/panels.git",
                 "branch": "7.x-3.x",
-                "tag": "7.x-3.9",
+                "tag": "7.x-3.10",
                 "path": "panels"
             },
             "taxonomy_access_fix": {
