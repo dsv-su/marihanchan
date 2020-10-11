@@ -552,6 +552,7 @@
                 "repo": "https://git.drupalcode.org/project/mimemail.git",
                 "branch": "7.x-1.x",
                 "tag": "7.x-1.1",
+                "patch" : "drupal-mimemail_filename_utf8.patch",
                 "path": "mimemail"
             },
             "realname": {
@@ -792,6 +793,7 @@
                 "repo": "https://git.drupalcode.org/project/mimemail.git",
                 "branch": "7.x-1.x",
                 "tag": "7.x-1.1",
+                "patch": "drupal-mimemail_filename_utf8.patch",
                 "path": "mimemail"
             },
             "mailsystem": {

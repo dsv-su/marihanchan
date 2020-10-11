@@ -1,0 +1,26 @@
+From e86a74428fd6fadfc7a5ebf069c7b9f55adce32b Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Sun, 11 Oct 2020 17:56:31 +0300
+Subject: [PATCH] Fixing UTF encoding for filenames
+
+---
+ mimemail.inc | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/mimemail.inc b/mimemail.inc
+index dd7847f..6f438ea 100644
+--- a/mimemail.inc
++++ b/mimemail.inc
+@@ -427,7 +427,8 @@ function mimemail_html_body($body, $subject, $plain = FALSE, $plaintext = NULL,
+       $a = (object) $a;
+       $path = isset($a->uri) ? $a->uri : (isset($a->filepath) ? $a->filepath : NULL);
+       $content = isset($a->filecontent) ? $a->filecontent : NULL;
+-      $name = isset($a->filename) ? $a->filename : NULL;
++      //$name = isset($a->filename) ? $a->filename : NULL;
++      $name = mb_encode_mimeheader(basename($path),"UTF-8");
+       $type = isset($a->filemime) ? $a->filemime : NULL;
+       _mimemail_file($path, $content, $name, $type, 'attachment');
+       $parts = array_merge($parts, _mimemail_file());
+-- 
+2.28.0
+
