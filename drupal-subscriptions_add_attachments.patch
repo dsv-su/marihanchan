@@ -1,17 +1,17 @@
-From 3eb3caa91b4d4c70a26a6d1a25724dcc908fc4b8 Mon Sep 17 00:00:00 2001
+From 1277024bebc4e6c9f6bd18980c90deb37e63ea54 Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
-Date: Fri, 8 Mar 2019 18:55:14 +0300
-Subject: [PATCH] Append attachments as files
+Date: Sun, 18 Oct 2020 17:31:00 +0300
+Subject: [PATCH] Append attachments as files with UTF8 header
 
 ---
- subscriptions_mail.cron.inc | 21 +++++++++++++++++++++
- 1 file changed, 21 insertions(+)
+ subscriptions_mail.cron.inc | 22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
 
 diff --git a/subscriptions_mail.cron.inc b/subscriptions_mail.cron.inc
-index fb5712e..ad7248a 100644
+index fb5712e..5285774 100644
 --- a/subscriptions_mail.cron.inc
 +++ b/subscriptions_mail.cron.inc
-@@ -296,10 +296,31 @@ function _subscriptions_mail_send($module, $mailkey, $name, $to, $from, $uid, $s
+@@ -296,10 +296,32 @@ function _subscriptions_mail_send($module, $mailkey, $name, $to, $from, $uid, $s
      return NULL;
    }
  
@@ -30,6 +30,7 @@ index fb5712e..ad7248a 100644
 +  if (isset($node->field_attachment[$language])) {
 +    foreach($node->field_attachment[$language] as $file) {
 +      $attachments[] = array(
++          'filename' => mb_encode_mimeheader($file['filename']),
 +          'filepath' => $file['uri'],
 +        );
 +    }
@@ -44,5 +45,5 @@ index fb5712e..ad7248a 100644
  
    $to = check_plain($to);
 -- 
-2.21.0
+2.28.0
 
