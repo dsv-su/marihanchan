@@ -444,7 +444,10 @@ def removeComponent( name, component ):
 
     print 'removing component ' + name + ' from ' + removePath
 
-    shutil.rmtree( removePath )
+    if os.path.exists( removePath ):
+        shutil.rmtree( removePath )
+    else:
+        print 'the path does not exist, skipping'
     return
 
 # Main, will execute first when the script is run

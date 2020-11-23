@@ -4,7 +4,7 @@
     "components": {
       "moodle_core": {
         "repo": "https://github.com/moodle/moodle.git",
-        "branch": "MOODLE_39_STABLE",
+        "branch": "MOODLE_310_STABLE",
         "patches": [
           "moodle-fix_calendar_timeformat.patch",
           "moodle-hide_badge_menu_item.patch",
@@ -115,10 +115,6 @@
         "repo": "https://github.com/deraadt/moodle-block_completion_progress.git",
         "path": "blocks/completion_progress"
       },
-      "mod_booking": {
-        "repo": "https://github.com/dasistwas/moodle-mod_booking.git",
-        "path": "mod/booking"
-      },
       "block_forum_aggregator": {
         "repo": "https://github.com/t6nis/moodle-block_forum_aggregator.git",
         "path": "blocks/forum_aggregator",
@@ -212,7 +208,7 @@
       "block_grade_me": {
         "repo": "https://github.com/remotelearner/moodle-block_grade_me.git",
         "path": "blocks/grade_me",
-        "branch": "MOODLE_38_STABLE"
+        "branch": "MOODLE_39_STABLE"
       },
       "block_xp": {
         "repo": "https://github.com/FMCorz/moodle-block_xp.git",
@@ -229,7 +225,7 @@
       "format_grid": {
         "repo": "https://github.com/gjb2048/moodle-courseformat_grid.git",
         "path": "course/format/grid",
-        "branch": "MOODLE_38"
+        "branch": "MOODLE_39"
       },
       "report_engagement": {
         "repo": "https://github.com/netspotau/moodle-report_engagement.git",
@@ -310,7 +306,7 @@
       "format_grid": {
         "repo": "https://github.com/gjb2048/moodle-courseformat_grid.git",
         "path": "course/format/grid",
-        "branch": "MOODLE_38"
+        "branch": "MOODLE_39"
       },
       "mod_subpage": {
         "repo": "https://github.com/moodleou/moodle-mod_subpage.git",
@@ -523,7 +519,7 @@
       "mod_vpl": {
         "repo": "https://github.com/jcrodriguez-dis/moodle-mod_vpl.git",
         "path": "mod/vpl",
-        "branch": "v3.3.7"
+        "branch": "v3.3.8"
       }
     }
   }
