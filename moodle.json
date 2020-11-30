@@ -157,7 +157,7 @@
       },
       "mod_ipal": {
         "repo": "https://github.com/wjunkin/moodle-mod_ipal.git",
-        "path": "mod/vpl",
+        "path": "mod/ipal",
         "branch": "MOODLE_3.3_STABLE"
       }
     }
