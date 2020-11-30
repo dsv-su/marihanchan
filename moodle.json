@@ -154,7 +154,12 @@
       "question_behaviour_adaptive_adapted_for_coderunner": {
         "repo": "https://github.com/trampgeek/moodle-qbehaviour_adaptive_adapted_for_coderunner.git",
         "path": "question/behaviour/adaptive_adapted_for_coderunner"
-      }
+      },
+      "mod_ipal": {
+        "repo": "https://github.com/wjunkin/moodle-mod_ipal.git",
+        "path": "mod/vpl",
+        "branch": "MOODLE_3.3_STABLE"
+      },
     }
   },
   "ilearn2dev": {
@@ -183,7 +188,7 @@
       "mod_customcert": {
         "repo": "https://github.com/markn86/moodle-mod_customcert.git",
         "path": "mod/customcert",
-        "branch": "MOODLE_38_STABLE"
+        "branch": "MOODLE_39_STABLE"
       },
       "mod_engagement": {
         "repo": "https://github.com/netspotau/moodle-mod_engagement.git",
@@ -289,7 +294,7 @@
       "custom_certificate": {
         "repo": "https://github.com/markn86/moodle-mod_customcert.git",
         "path": "mod/customcert",
-        "branch": "MOODLE_38_STABLE"
+        "branch": "MOODLE_39_STABLE"
       },
       "mailsimulator": {
         "repo": "https://github.com/dsv-su/moodle-assignsubmission_mailsimulator.git",
