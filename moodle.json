@@ -159,7 +159,7 @@
         "repo": "https://github.com/wjunkin/moodle-mod_ipal.git",
         "path": "mod/vpl",
         "branch": "MOODLE_3.3_STABLE"
-      },
+      }
     }
   },
   "ilearn2dev": {
