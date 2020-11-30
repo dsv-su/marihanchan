@@ -154,11 +154,6 @@
       "question_behaviour_adaptive_adapted_for_coderunner": {
         "repo": "https://github.com/trampgeek/moodle-qbehaviour_adaptive_adapted_for_coderunner.git",
         "path": "question/behaviour/adaptive_adapted_for_coderunner"
-      },
-      "mod_ipal": {
-        "repo": "https://github.com/wjunkin/moodle-mod_ipal.git",
-        "path": "mod/ipal",
-        "branch": "MOODLE_3.3_STABLE"
       }
     }
   },
