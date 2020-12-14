@@ -1,14 +1,14 @@
-From e6c549fa58d7c8c70e9f86e5fbf1697aa6740ddd Mon Sep 17 00:00:00 2001
-From: Pavel Sokolov <psokolov@dsv.su.se>
-Date: Wed, 20 Mar 2019 17:26:21 +0100
+From 8aaea1262ee6efaf4534b93516dd24fd79729b0f Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Mon, 14 Dec 2020 13:52:43 +0300
 Subject: [PATCH] Patch link checker intervals
 
 ---
- linkchecker.module | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ linkchecker.module | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
 diff --git a/linkchecker.module b/linkchecker.module
-index ee53444..3231688 100644
+index ee53444..42ea340 100644
 --- a/linkchecker.module
 +++ b/linkchecker.module
 @@ -476,7 +476,7 @@ function linkchecker_cron() {
@@ -29,14 +29,16 @@ index ee53444..3231688 100644
  
    $linkchecker_check_links_interval = variable_get('linkchecker_check_links_interval', 2419200);
    $linkchecker_check_useragent = variable_get('linkchecker_check_useragent', 'Drupal (+http://drupal.org/)');
-@@ -576,6 +576,7 @@ function _linkchecker_check_links() {
+@@ -575,7 +575,8 @@ function _linkchecker_check_links() {
+ 
        _linkchecker_status_handling($response, $link);
  
-       if ((timer_read('page') / 1000) > ($max_execution_time / 2)) {
+-      if ((timer_read('page') / 1000) > ($max_execution_time / 2)) {
++      if ((timer_read('page') / 1000) > ($max_execution_time / 5)) {
 +	linkchecker_watchdog_log('linkchecker', 'Timeout link: %link', array('%link'=>$link->url), WATCHDOG_INFO);
          // Stop once we have used over half of the maximum execution time.
          break;
        }
 -- 
-2.11.0
+2.29.2
 
