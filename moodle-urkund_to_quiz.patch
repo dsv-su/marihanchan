@@ -1,0 +1,152 @@
+From dfe73fadfcf0bae603aa58707e48182a221eea5a Mon Sep 17 00:00:00 2001
+From: Dan Marsden <dan@danmarsden.com>
+Date: Fri, 1 May 2020 20:32:09 +1200
+Subject: [PATCH] MDL-32226 mod_quiz: Add Plagiarism hooks to quiz and essay
+ question.
+
+---
+ mod/quiz/lib.php                         |  1 +
+ mod/quiz/report/attemptsreport_table.php | 12 ++++++++-
+ mod/quiz/report/default.php              |  6 ++++-
+ plagiarism/upgrade.txt                   |  1 +
+ question/type/essay/renderer.php         | 31 +++++++++++++++++++++---
+ 5 files changed, 45 insertions(+), 6 deletions(-)
+
+diff --git a/mod/quiz/lib.php b/mod/quiz/lib.php
+index 20fe537a6be3..4c457f4ad2a4 100644
+--- a/mod/quiz/lib.php
++++ b/mod/quiz/lib.php
+@@ -1670,6 +1670,7 @@ function quiz_supports($feature) {
+         case FEATURE_SHOW_DESCRIPTION:          return true;
+         case FEATURE_CONTROLS_GRADE_VISIBILITY: return true;
+         case FEATURE_USES_QUESTIONS:            return true;
++        case FEATURE_PLAGIARISM:                return true;
+ 
+         default: return null;
+     }
+diff --git a/mod/quiz/report/attemptsreport_table.php b/mod/quiz/report/attemptsreport_table.php
+index c0b798acb788..ccf58d40fef8 100644
+--- a/mod/quiz/report/attemptsreport_table.php
++++ b/mod/quiz/report/attemptsreport_table.php
+@@ -246,7 +246,7 @@ public function get_row_class($attempt) {
+      * @param int $slot the number used to identify this question within this usage.
+      */
+     public function make_review_link($data, $attempt, $slot) {
+-        global $OUTPUT;
++        global $OUTPUT, $CFG;
+ 
+         $flag = '';
+         if ($this->is_flagged($attempt->usageid, $slot)) {
+@@ -273,6 +273,16 @@ public function make_review_link($data, $attempt, $slot) {
+                         array('height' => 450, 'width' => 650)),
+                 array('title' => get_string('reviewresponse', 'quiz')));
+ 
++        if (!empty($CFG->enableplagiarism)) {
++            require_once($CFG->libdir . '/plagiarismlib.php');
++            $output .= plagiarism_get_links(array('component' => 'qtype_'.$this->questions[$slot]->qtype,
++                'userid' => $attempt->userid,
++                'context' => $this->context->id,
++                'area' => $attempt->usageid,
++                'itemid' => $slot,
++                'cmid' => $this->context->instanceid
++            ));
++        }
+         return $output;
+     }
+ 
+diff --git a/mod/quiz/report/default.php b/mod/quiz/report/default.php
+index d783cf7311ac..55ce4356f88a 100644
+--- a/mod/quiz/report/default.php
++++ b/mod/quiz/report/default.php
+@@ -61,7 +61,7 @@ public abstract function display($cm, $course, $quiz);
+      * @param string $reportmode the report name.
+      */
+     public function print_header_and_tabs($cm, $course, $quiz, $reportmode = 'overview') {
+-        global $PAGE, $OUTPUT;
++        global $PAGE, $OUTPUT, $CFG;
+ 
+         // Print the page header.
+         $PAGE->set_title($quiz->name);
+@@ -69,6 +69,10 @@ public function print_header_and_tabs($cm, $course, $quiz, $reportmode = 'overvi
+         echo $OUTPUT->header();
+         $context = context_module::instance($cm->id);
+         echo $OUTPUT->heading(format_string($quiz->name, true, array('context' => $context)));
++        if (!empty($CFG->enableplagiarism)) {
++            require_once($CFG->libdir . '/plagiarismlib.php');
++            echo plagiarism_update_status($course, $cm);
++        }
+     }
+ 
+     /**
+diff --git a/plagiarism/upgrade.txt b/plagiarism/upgrade.txt
+index 1a664b82479f..6aa3489a58e9 100644
+--- a/plagiarism/upgrade.txt
++++ b/plagiarism/upgrade.txt
+@@ -4,6 +4,7 @@ This files describes API changes for code that uses the plagiarism API.
+ 
+ * The method get_form_elements_module has been deprecated. Please use {plugin name}_coursemodule_edit_post_actions() instead.
+ * The method save_form_elements has been deprecated. Please use {plugin name}_coursemodule_standard_elements() instead.
++* Support for Essay question type in Quiz has now been implemented. (MDL-32226)
+ 
+ === 3.7 ===
+ 
+diff --git a/question/type/essay/renderer.php b/question/type/essay/renderer.php
+index 06116ea58014..82dcd9dfdec0 100644
+--- a/question/type/essay/renderer.php
++++ b/question/type/essay/renderer.php
+@@ -36,7 +36,7 @@
+ class qtype_essay_renderer extends qtype_renderer {
+     public function formulation_and_controls(question_attempt $qa,
+             question_display_options $options) {
+-
++        global $CFG;
+         $question = $qa->get_question();
+         $responseoutput = $question->get_format_renderer($this->page);
+ 
+@@ -55,6 +55,17 @@ public function formulation_and_controls(question_attempt $qa,
+         } else {
+             $answer = $responseoutput->response_area_read_only('answer', $qa,
+                     $step, $question->responsefieldlines, $options->context);
++            if (!empty($CFG->enableplagiarism)) {
++                require_once($CFG->libdir . '/plagiarismlib.php');
++
++                $answer .= plagiarism_get_links(array('userid' => $step->get_user_id(),
++                    'component' => $qa->get_question()->qtype->plugin_name(),
++                    'context' => $options->context->id,
++                    'area' => $qa->get_usage_id(),
++                    'itemid' => $qa->get_slot(),
++                    'content' => $qa->get_response_summary()
++                ));
++            }
+         }
+ 
+         $files = '';
+@@ -86,13 +97,25 @@ public function formulation_and_controls(question_attempt $qa,
+      *      not be displayed. Used to get the context.
+      */
+     public function files_read_only(question_attempt $qa, question_display_options $options) {
++        global $CFG;
+         $files = $qa->get_last_qt_files('attachments', $options->context->id);
+         $output = array();
+ 
+         foreach ($files as $file) {
+-            $output[] = html_writer::tag('p', html_writer::link($qa->get_response_file_url($file),
+-                    $this->output->pix_icon(file_file_icon($file), get_mimetype_description($file),
+-                    'moodle', array('class' => 'icon')) . ' ' . s($file->get_filename())));
++            $out = html_writer::link($qa->get_response_file_url($file),
++                $this->output->pix_icon(file_file_icon($file), get_mimetype_description($file),
++                    'moodle', array('class' => 'icon')) . ' ' . s($file->get_filename()));
++            if (!empty($CFG->enableplagiarism)) {
++                require_once($CFG->libdir . '/plagiarismlib.php');
++
++                $out .= plagiarism_get_links(array('component' => $qa->get_question()->qtype->plugin_name(),
++                    'context' => $options->context->id,
++                    'area' => $qa->get_usage_id(),
++                    'itemid' => $qa->get_slot(),
++                    'file' => $file
++                ));
++            }
++            $output[] = html_writer::tag('p', $out);;
+         }
+         return implode($output);
+     }

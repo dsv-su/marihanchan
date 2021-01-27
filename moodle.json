@@ -15,7 +15,8 @@
           "moodle-assign_sort_submissions_by_group.patch",
           "moodle-assign_extend_navigation_plugins.patch",
           "moodle-assign_reflection_disable_buttons.patch",
-          "moodle-group_fix_leading_zeros.patch"
+          "moodle-group_fix_leading_zeros.patch",
+          "moodle-urkund_to_quiz.patch"
         ],
         "ignoreEmptyPath": true
       }
