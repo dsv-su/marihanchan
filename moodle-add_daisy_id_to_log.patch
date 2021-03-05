@@ -1,0 +1,48 @@
+From bebb5eaa9cf5317dbbd1ab2cc9381ddec1027e30 Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Fri, 5 Mar 2021 13:14:02 +0300
+Subject: [PATCH] Add Daisy ID to log
+
+---
+ report/log/classes/table_log.php | 14 +++++++++++++-
+ 1 file changed, 13 insertions(+), 1 deletion(-)
+
+diff --git a/report/log/classes/table_log.php b/report/log/classes/table_log.php
+index 845fac2e696..7329ee4a95f 100644
+--- a/report/log/classes/table_log.php
++++ b/report/log/classes/table_log.php
+@@ -69,11 +69,12 @@ class report_log_table_log extends table_sql {
+             $headers = array(get_string('course'));
+         }
+ 
+-        $this->define_columns(array_merge($cols, array('time', 'fullnameuser', 'relatedfullnameuser', 'context', 'component',
++        $this->define_columns(array_merge($cols, array('time', 'fullnameuser', 'idnumber', 'relatedfullnameuser', 'context', 'component',
+                 'eventname', 'description', 'origin', 'ip')));
+         $this->define_headers(array_merge($headers, array(
+                 get_string('time'),
+                 get_string('fullnameuser'),
++                get_string('idnumber'),
+                 get_string('eventrelatedfullnameuser', 'report_log'),
+                 get_string('eventcontext', 'report_log'),
+                 get_string('eventcomponent', 'report_log'),
+@@ -194,6 +195,17 @@ class report_log_table_log extends table_sql {
+         return $username;
+     }
+ 
++    /**
++     * Generate the idnumber column.
++     *
++     * @param stdClass $event event data.
++     * @return string HTML for the idnumber column
++     */
++    public function col_idnumber($event) {
++        global $DB;
++        return $DB->get_field('user', 'idnumber', array('id' => $event->userid));
++    }
++
+     /**
+      * Generate the related username column.
+      *
+-- 
+2.30.0
+
