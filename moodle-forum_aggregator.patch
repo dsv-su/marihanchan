@@ -1,21 +1,21 @@
-From 09d5d51dbf6142cce3ecd9c93a1b1aec94a5a5be Mon Sep 17 00:00:00 2001
+From 94bbc3bab322d30df1a4a605e89ee62bea8b630d Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
-Date: Tue, 16 Mar 2021 14:31:50 +0300
+Date: Tue, 16 Mar 2021 19:27:40 +0300
 Subject: [PATCH] Forum aggregator patch
 
 ---
- block_forum_aggregator.php         | 66 ++++++++++++++++++++++++------
+ block_forum_aggregator.php         | 77 +++++++++++++++++++++++++-----
  lang/en/block_forum_aggregator.php |  4 +-
- lang/sv/block_forum_aggregator.php | 25 +++++++++++
- styles.css                         | 48 ++++++++++++++++++----
- 4 files changed, 121 insertions(+), 22 deletions(-)
+ lang/sv/block_forum_aggregator.php | 25 ++++++++++
+ styles.css                         | 48 +++++++++++++++----
+ 4 files changed, 132 insertions(+), 22 deletions(-)
  create mode 100644 lang/sv/block_forum_aggregator.php
 
 diff --git a/block_forum_aggregator.php b/block_forum_aggregator.php
-index 038f08a..caac5e0 100644
+index 038f08a..7a09dab 100644
 --- a/block_forum_aggregator.php
 +++ b/block_forum_aggregator.php
-@@ -99,27 +99,35 @@ class block_forum_aggregator extends block_base {
+@@ -99,27 +99,46 @@ class block_forum_aggregator extends block_base {
                      $strftimerecent = get_string('strftimerecent');
                      $strmore = get_string('more', 'forum');
                      
@@ -49,6 +49,17 @@ index 038f08a..caac5e0 100644
 +                                if (!forum_user_can_see_post($forum, $post->discussion, $post, null, $cm)) {
 +                                   continue;
 +                                }
++
++                                // Check that the user can view a discussion that is normally hidden due to access times.
++                                if (!empty($CFG->forum_enabletimedposts)) {
++                                    $time = time();
++                                    $discussion = $DB->get_record('forum_discussions',array('id'=>$post->discussion));
++                                    if (($discussion->timestart != 0 && $discussion->timestart > $time)
++                                        || ($discussion->timeend != 0 && $discussion->timeend < $time)) {
++                                            continue;
++                                    }
++                                }
++
 +                                $n++;
 +                                if ($n > $max_posts) {
 +                                    continue;
@@ -57,7 +68,7 @@ index 038f08a..caac5e0 100644
                                  $post_style = array('class' => 'post');
                                  if ($forum->trackingtype == FORUM_TRACKING_ON) {
                                      if (!forum_tp_is_post_read($USER->id, $post)) {
-@@ -128,19 +136,24 @@ class block_forum_aggregator extends block_base {
+@@ -128,19 +147,24 @@ class block_forum_aggregator extends block_base {
                                  }
                                  
                                  $post->message = format_string($post->message, true, $COURSE->id);                        
@@ -88,7 +99,7 @@ index 038f08a..caac5e0 100644
                                           html_writer::link(new moodle_url('/mod/forum/discuss.php?d='.$post->discussion.'#p'.$post->id), $strmore.'...' , array('class' => 'postreadmore')).
                                           html_writer::end_tag('div').
                                           html_writer::end_tag('li');
-@@ -148,6 +161,16 @@ class block_forum_aggregator extends block_base {
+@@ -148,6 +172,16 @@ class block_forum_aggregator extends block_base {
                          } else {
                              $text .= html_writer::tag('li', '('.get_string('noposts', 'block_forum_aggregator').')', array('class' => 'no_posts'));
                          }
@@ -105,7 +116,7 @@ index 038f08a..caac5e0 100644
                          $text .= html_writer::end_tag('ul');
                      }
              }
-@@ -170,4 +193,21 @@ class block_forum_aggregator extends block_base {
+@@ -170,4 +204,21 @@ class block_forum_aggregator extends block_base {
  
          return parent::instance_config_save($data, $nolongerused);
      }
