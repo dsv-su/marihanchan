@@ -1,0 +1,29 @@
+From abdfbb65112013be618aa014132494fd39333d8a Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Thu, 25 Mar 2021 15:32:23 +0300
+Subject: [PATCH] Revert "If group activity don't retrieve grade from
+ gradebook"
+
+This reverts commit 67094f2c3d91289b2ada60bc2395e35ab9b19bc4.
+---
+ vpl_submission.class.php | 4 ----
+ 1 file changed, 4 deletions(-)
+
+diff --git a/vpl_submission.class.php b/vpl_submission.class.php
+index a664e51..2eb4988 100644
+--- a/vpl_submission.class.php
++++ b/vpl_submission.class.php
+@@ -608,10 +608,6 @@ class mod_vpl_submission {
+             if ($scaleid == 0) {
+                 return get_string( 'nograde' );
+             } else if ($grade == null) {
+-                // If group activity don't retrieve grade from gradebook.
+-                if ( $this->vpl->is_group_activity() ) {
+-                    return format_float($this->get_instance()->grade, 2, true, true);
+-                }
+                 if (! function_exists( 'grade_get_grades' )) {
+                     require_once($CFG->libdir . '/gradelib.php');
+                 }
+-- 
+2.30.0
+

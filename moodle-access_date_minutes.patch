@@ -1,0 +1,25 @@
+From 524ebd532fec38fd270a08a1df8f7fab0a4b7606 Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Mon, 29 Mar 2021 16:25:16 +0300
+Subject: [PATCH] More granular condition on access restriction
+
+---
+ availability/condition/date/classes/frontend.php | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/availability/condition/date/classes/frontend.php b/availability/condition/date/classes/frontend.php
+index abca3e6446b..1480d79e96e 100644
+--- a/availability/condition/date/classes/frontend.php
++++ b/availability/condition/date/classes/frontend.php
+@@ -105,7 +105,7 @@ class frontend extends \core_availability\frontend {
+             $hours[$i] = sprintf("%02d", $i);
+         }
+         $minutes = array();
+-        for ($i = 0; $i < 60; $i += 5) {
++        for ($i = 0; $i < 60; $i += 1) {
+             $minutes[$i] = sprintf("%02d", $i);
+         }
+ 
+-- 
+2.30.0
+

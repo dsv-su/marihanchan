@@ -16,7 +16,8 @@
           "moodle-assign_extend_navigation_plugins.patch",
           "moodle-assign_reflection_disable_buttons.patch",
           "moodle-group_fix_leading_zeros.patch",
-          "moodle-urkund_to_quiz.patch"
+          "moodle-urkund_to_quiz.patch",
+          "moodle-access_date_minutes.patch"
         ],
         "ignoreEmptyPath": true
       }
@@ -134,7 +135,8 @@
       "mod_vpl": {
         "repo": "https://github.com/jcrodriguez-dis/moodle-mod_vpl.git",
         "path": "mod/vpl",
-        "branch": "v3.3.8"
+        "branch": "v3.4.2",
+        "patch": "moodle-vpl_group_grade.patch"
       },
       "format_flexsections": {
         "repo": "https://github.com/marinaglancy/moodle-format_flexsections",
@@ -521,7 +523,8 @@
       "mod_vpl": {
         "repo": "https://github.com/jcrodriguez-dis/moodle-mod_vpl.git",
         "path": "mod/vpl",
-        "branch": "v3.3.8"
+        "branch": "v3.4.2",
+        "patch": "moodle-vpl_group_grade.patch"
       }
     }
   }
