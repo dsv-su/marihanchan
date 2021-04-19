@@ -53,7 +53,8 @@
       "moodle-remove_logout_shib.patch",
       "moodle-mailsimulator_js.patch",
       "moodle-qtype_match_fullmatch.patch",
-      "moodle-add_daisy_id_to_log.patch"
+      "moodle-add_daisy_id_to_log.patch",
+      "moodle-add_daisy_export.patch"
     ],
     "components": {
       "dsv_custom": {

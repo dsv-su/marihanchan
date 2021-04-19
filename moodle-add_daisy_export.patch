@@ -1,0 +1,241 @@
+From a99dde725d4f790cb63fe0d3bbf7c27ee4853e0c Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Mon, 19 Apr 2021 19:57:48 +0300
+Subject: [PATCH] Add Daisy export without non relevant columns
+
+---
+ grade/export/grade_export_form.php    |  4 ++++
+ grade/export/lib.php                  | 11 +++++++++--
+ grade/export/ods/grade_export_ods.php | 20 ++++++++++++++++----
+ grade/export/txt/grade_export_txt.php | 20 ++++++++++++++++----
+ grade/export/xls/grade_export_xls.php | 22 +++++++++++++++++-----
+ 5 files changed, 62 insertions(+), 15 deletions(-)
+
+diff --git a/grade/export/grade_export_form.php b/grade/export/grade_export_form.php
+index 889f6c469ce..5292f3ca3ba 100644
+--- a/grade/export/grade_export_form.php
++++ b/grade/export/grade_export_form.php
+@@ -96,6 +96,10 @@ class grade_export_form extends moodleform {
+             $mform->setConstant('export_onlyactive', 1);
+         }
+ 
++        $mform->addElement('advcheckbox', 'export_daisy', 'Export for Daisy (only DaisyID and Grades)');
++        $mform->setType('export_daisy', PARAM_BOOL);
++        $mform->setDefault('export_daisy', 0);
++
+         if (empty($features['simpleui'])) {
+             $options = array('10'=>10, '20'=>20, '100'=>100, '1000'=>1000, '100000'=>100000);
+             $mform->addElement('select', 'previewrows', get_string('previewrows', 'grades'), $options);
+diff --git a/grade/export/lib.php b/grade/export/lib.php
+index c05d31a9508..1ac60b9bd06 100644
+--- a/grade/export/lib.php
++++ b/grade/export/lib.php
+@@ -99,7 +99,8 @@ abstract class grade_export {
+                                               $displaytype = GRADE_DISPLAY_TYPE_REAL,
+                                               $decimalpoints = 2,
+                                               $onlyactive = false,
+-                                              $usercustomfields = false) {
++                                              $usercustomfields = false,
++                                              $daisy = false) {
+ 
+         debugging('Many argument constructor for class "grade_export" is deprecated. Call the 3 argument version instead.', DEBUG_DEVELOPER);
+ 
+@@ -188,6 +189,10 @@ abstract class grade_export {
+             $this->onlyactive = $formdata->export_onlyactive;
+         }
+ 
++        if (isset($formdata->export_daisy)) {
++            $this->daisy = $formdata->export_daisy;
++        }
++
+         if (isset($formdata->previewrows)) {
+             $this->previewrows = $formdata->previewrows;
+         }
+@@ -435,6 +440,7 @@ abstract class grade_export {
+                         'updatedgradesonly' => $updatedgradesonly,
+                         'decimalpoints'     => $this->decimalpoints,
+                         'export_onlyactive' => $this->onlyactive,
++                        'export_daisy'      => $this->daisy,
+                         'usercustomfields'  => $this->usercustomfields,
+                         'displaytype'       => $displaytypes,
+                         'key'               => $this->userkey);
+@@ -606,13 +612,14 @@ abstract class grade_export {
+      * @return stdClass $formdata
+      */
+     public static function export_bulk_export_data($id, $itemids, $exportfeedback, $onlyactive, $displaytype,
+-                                                   $decimalpoints, $updatedgradesonly = null, $separator = null) {
++                                                   $decimalpoints, $updatedgradesonly = null, $separator = null, $daisy = false) {
+ 
+         $formdata = new \stdClass();
+         $formdata->id = $id;
+         $formdata->itemids = self::convert_flat_itemids_to_array($itemids);
+         $formdata->exportfeedback = $exportfeedback;
+         $formdata->export_onlyactive = $onlyactive;
++        $formdata->export_daisy = $daisy;
+         $formdata->display = self::convert_flat_displaytypes_to_array($displaytype);
+         $formdata->decimals = $decimalpoints;
+ 
+diff --git a/grade/export/ods/grade_export_ods.php b/grade/export/ods/grade_export_ods.php
+index 40bbd903bc1..d9bdea35f1a 100644
+--- a/grade/export/ods/grade_export_ods.php
++++ b/grade/export/ods/grade_export_ods.php
+@@ -59,6 +59,14 @@ class grade_export_ods extends grade_export {
+ 
+         // Print names of all the fields.
+         $profilefields = grade_helper::get_user_profile_fields($this->course->id, $this->usercustomfields);
++        if ($this->daisy) {
++            foreach ($profilefields as $id => $field) {
++                if ($field->shortname != 'idnumber') {
++                    unset($profilefields[$id]);
++                }
++            }
++            $profilefields = array_values($profilefields);
++        }
+         foreach ($profilefields as $id => $field) {
+             $myxls->write_string(0, $id, $field->fullname);
+         }
+@@ -72,12 +80,14 @@ class grade_export_ods extends grade_export {
+             }
+ 
+             // Add a column_feedback column.
+-            if ($this->export_feedback) {
++            if ($this->export_feedback && !$this->daisy) {
+                 $myxls->write_string(0, $pos++, $this->format_column_name($grade_item, true));
+             }
+         }
+         // Last downloaded column header.
+-        $myxls->write_string(0, $pos++, get_string('timeexported', 'gradeexport_ods'));
++        if (!$this->daisy) {
++            $myxls->write_string(0, $pos++, get_string('timeexported', 'gradeexport_ods'));
++        }
+ 
+         // Print all the lines of data.
+         $i = 0;
+@@ -115,12 +125,14 @@ class grade_export_ods extends grade_export {
+                 }
+ 
+                 // writing feedback if requested
+-                if ($this->export_feedback) {
++                if ($this->export_feedback && !$this->daisy) {
+                     $myxls->write_string($i, $j++, $this->format_feedback($userdata->feedbacks[$itemid], $grade));
+                 }
+             }
+             // Time exported.
+-            $myxls->write_string($i, $j++, time());
++            if (!$this->daisy) {
++                $myxls->write_string($i, $j++, time());
++            }
+         }
+         $gui->close();
+         $geub->close();
+diff --git a/grade/export/txt/grade_export_txt.php b/grade/export/txt/grade_export_txt.php
+index e262d93ee0c..21b10b287c8 100644
+--- a/grade/export/txt/grade_export_txt.php
++++ b/grade/export/txt/grade_export_txt.php
+@@ -59,6 +59,14 @@ class grade_export_txt extends grade_export {
+ 
+         // Print names of all the fields
+         $exporttitle = array();
++        if ($this->daisy) {
++            foreach ($profilefields as $id => $field) {
++                if ($field->shortname != 'idnumber') {
++                    unset($profilefields[$id]);
++                }
++            }
++            $profilefields = array_values($profilefields);
++        }
+         foreach ($profilefields as $field) {
+             $exporttitle[] = $field->fullname;
+         }
+@@ -72,12 +80,14 @@ class grade_export_txt extends grade_export {
+             foreach ($this->displaytype as $gradedisplayname => $gradedisplayconst) {
+                 $exporttitle[] = $this->format_column_name($grade_item, false, $gradedisplayname);
+             }
+-            if ($this->export_feedback) {
++            if ($this->export_feedback && !$this->daisy) {
+                 $exporttitle[] = $this->format_column_name($grade_item, true);
+             }
+         }
+         // Last downloaded column header.
+-        $exporttitle[] = get_string('timeexported', 'gradeexport_txt');
++        if (!$this->daisy) {
++            $exporttitle[] = get_string('timeexported', 'gradeexport_txt');
++        }
+         $csvexport->add_data($exporttitle);
+ 
+         // Print all the lines of data.
+@@ -108,12 +118,14 @@ class grade_export_txt extends grade_export {
+                     $exportdata[] = $this->format_grade($grade, $gradedisplayconst);
+                 }
+ 
+-                if ($this->export_feedback) {
++                if ($this->export_feedback && !$this->daisy) {
+                     $exportdata[] = $this->format_feedback($userdata->feedbacks[$itemid], $grade);
+                 }
+             }
+             // Time exported.
+-            $exportdata[] = time();
++            if (!$this->daisy) {
++                $exportdata[] = time();
++            }
+             $csvexport->add_data($exportdata);
+         }
+         $gui->close();
+diff --git a/grade/export/xls/grade_export_xls.php b/grade/export/xls/grade_export_xls.php
+index ec4bbcd2d15..b868c1f255c 100644
+--- a/grade/export/xls/grade_export_xls.php
++++ b/grade/export/xls/grade_export_xls.php
+@@ -60,6 +60,15 @@ class grade_export_xls extends grade_export {
+ 
+         // Print names of all the fields
+         $profilefields = grade_helper::get_user_profile_fields($this->course->id, $this->usercustomfields);
++        if ($this->daisy) {
++            foreach ($profilefields as $id => $field) {
++                if ($field->shortname != 'idnumber') {
++                    unset($profilefields[$id]);
++                }
++            }
++            $profilefields = array_values($profilefields);
++        }
++
+         foreach ($profilefields as $id => $field) {
+             $myxls->write_string(0, $id, $field->fullname);
+         }
+@@ -72,13 +81,14 @@ class grade_export_xls extends grade_export {
+                 $myxls->write_string(0, $pos++, $this->format_column_name($grade_item, false, $gradedisplayname));
+             }
+             // Add a column_feedback column
+-            if ($this->export_feedback) {
++            if ($this->export_feedback && !$this->daisy) {
+                 $myxls->write_string(0, $pos++, $this->format_column_name($grade_item, true));
+             }
+         }
+         // Last downloaded column header.
+-        $myxls->write_string(0, $pos++, get_string('timeexported', 'gradeexport_xls'));
+-
++        if (!$this->daisy) {
++            $myxls->write_string(0, $pos++, get_string('timeexported', 'gradeexport_xls'));
++        }
+         // Print all the lines of data.
+         $i = 0;
+         $geub = new grade_export_update_buffer();
+@@ -112,12 +122,14 @@ class grade_export_xls extends grade_export {
+                     }
+                 }
+                 // writing feedback if requested
+-                if ($this->export_feedback) {
++                if ($this->export_feedback && !$this->daisy) {
+                     $myxls->write_string($i, $j++, $this->format_feedback($userdata->feedbacks[$itemid], $grade));
+                 }
+             }
+             // Time exported.
+-            $myxls->write_string($i, $j++, time());
++            if (!$this->daisy) {
++                $myxls->write_string($i, $j++, time());
++            }
+         }
+         $gui->close();
+         $geub->close();
+-- 
+2.30.0
+
