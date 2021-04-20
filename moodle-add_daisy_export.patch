@@ -1,14 +1,14 @@
-From 7fce910c3f58c44acfc0b2fa1418feb45b95648e Mon Sep 17 00:00:00 2001
+From a5c4307774f60dca8a0aa3c4161fc78b5e183559 Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
-Date: Tue, 20 Apr 2021 14:26:19 +0300
+Date: Tue, 20 Apr 2021 15:00:43 +0300
 Subject: [PATCH] Add Daisy gradebook export
 
 ---
  grade/export/grade_export_form.php    |  4 ++
- grade/export/lib.php                  | 11 +++++-
- grade/export/ods/grade_export_ods.php | 51 ++++++++++++++++++------
- grade/export/txt/grade_export_txt.php | 20 ++++++++--
- grade/export/xls/grade_export_xls.php | 57 +++++++++++++++++++++------
+ grade/export/lib.php                  | 11 ++++-
+ grade/export/ods/grade_export_ods.php | 50 +++++++++++++++++------
+ grade/export/txt/grade_export_txt.php | 20 +++++++--
+ grade/export/xls/grade_export_xls.php | 58 +++++++++++++++++++++------
  5 files changed, 112 insertions(+), 31 deletions(-)
 
 diff --git a/grade/export/grade_export_form.php b/grade/export/grade_export_form.php
@@ -76,7 +76,7 @@ index c05d31a9508..1ac60b9bd06 100644
          $formdata->decimals = $decimalpoints;
  
 diff --git a/grade/export/ods/grade_export_ods.php b/grade/export/ods/grade_export_ods.php
-index 40bbd903bc1..2bd2c359f60 100644
+index 40bbd903bc1..1efce74d59a 100644
 --- a/grade/export/ods/grade_export_ods.php
 +++ b/grade/export/ods/grade_export_ods.php
 @@ -38,7 +38,7 @@ class grade_export_ods extends grade_export {
@@ -138,7 +138,7 @@ index 40bbd903bc1..2bd2c359f60 100644
              $j = count($profilefields);
  
              if (!$this->onlyactive) {
-@@ -110,18 +115,40 @@ class grade_export_ods extends grade_export {
+@@ -110,18 +115,39 @@ class grade_export_ods extends grade_export {
                      if (is_numeric($gradestr)) {
                          $myxls->write_number($i, $j++, $gradestr);
                      } else {
@@ -151,6 +151,7 @@ index 40bbd903bc1..2bd2c359f60 100644
 +                                $gradestr = 'G';
 +                            }
 +                        }
++                        $empty = false;
                          $myxls->write_string($i, $j++, $gradestr);
                      }
                  }
@@ -160,8 +161,6 @@ index 40bbd903bc1..2bd2c359f60 100644
 +                if ($this->export_feedback && !$this->daisy) {
                      $myxls->write_string($i, $j++, $this->format_feedback($userdata->feedbacks[$itemid], $grade));
                  }
-+
-+                $empty = false;
              }
 +
              // Time exported.
@@ -235,7 +234,7 @@ index e262d93ee0c..21b10b287c8 100644
          }
          $gui->close();
 diff --git a/grade/export/xls/grade_export_xls.php b/grade/export/xls/grade_export_xls.php
-index ec4bbcd2d15..ca23be6cfe2 100644
+index ec4bbcd2d15..138b5d7104f 100644
 --- a/grade/export/xls/grade_export_xls.php
 +++ b/grade/export/xls/grade_export_xls.php
 @@ -38,7 +38,7 @@ class grade_export_xls extends grade_export {
@@ -301,7 +300,7 @@ index ec4bbcd2d15..ca23be6cfe2 100644
              if (!$this->onlyactive) {
                  $issuspended = ($user->suspendedenrolment) ? get_string('yes') : '';
                  $myxls->write_string($i, $j++, $issuspended);
-@@ -103,26 +110,50 @@ class grade_export_xls extends grade_export {
+@@ -103,26 +110,51 @@ class grade_export_xls extends grade_export {
                  if ($export_tracking) {
                      $status = $geub->track($grade);
                  }
@@ -320,6 +319,7 @@ index ec4bbcd2d15..ca23be6cfe2 100644
 +                                $gradestr = 'G';
 +                            }
 +                        }
++                        $empty = false;
                          $myxls->write_string($i, $j++, $gradestr);
                      }
                  }
@@ -329,8 +329,6 @@ index ec4bbcd2d15..ca23be6cfe2 100644
 +                if ($this->export_feedback && !$this->daisy) {
                      $myxls->write_string($i, $j++, $this->format_feedback($userdata->feedbacks[$itemid], $grade));
                  }
-+
-+                $empty = false;
              }
 +
              // Time exported.
@@ -344,7 +342,9 @@ index ec4bbcd2d15..ca23be6cfe2 100644
 +                    $myxls->write_string($i, $id, $fieldvalue);
 +                }
 +            }
-+            $i++;
++            if (($this->daisy && !$empty) || !$this->daisy) {
++                $i++;
++            }
          }
 +
          $gui->close();
