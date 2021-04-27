@@ -1,0 +1,25 @@
+From 9900589403eaa3b95efd76db605ebd3a6d928dea Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Tue, 27 Apr 2021 15:18:00 +0300
+Subject: [PATCH] Change quiz answer letters
+
+---
+ question/type/multichoice/renderer.php | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/question/type/multichoice/renderer.php b/question/type/multichoice/renderer.php
+index 93154f09644..4721aed9d27 100644
+--- a/question/type/multichoice/renderer.php
++++ b/question/type/multichoice/renderer.php
+@@ -187,7 +187,7 @@ abstract class qtype_multichoice_renderer_base extends qtype_with_combined_feedb
+         switch($style) {
+             case 'abc':
+                 $number = chr(ord('a') + $num);
+-                break;
++                return $number . ') ';
+             case 'ABCD':
+                 $number = chr(ord('A') + $num);
+                 break;
+-- 
+2.30.0
+

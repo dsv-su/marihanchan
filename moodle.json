@@ -17,7 +17,8 @@
           "moodle-assign_reflection_disable_buttons.patch",
           "moodle-group_fix_leading_zeros.patch",
           "moodle-urkund_to_quiz.patch",
-          "moodle-access_date_minutes.patch"
+          "moodle-access_date_minutes.patch",
+          "moodle-question_multi_ordering.patch"
         ],
         "ignoreEmptyPath": true
       }
