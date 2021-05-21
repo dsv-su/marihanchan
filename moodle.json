@@ -4,7 +4,7 @@
     "components": {
       "moodle_core": {
         "repo": "https://github.com/moodle/moodle.git",
-        "branch": "MOODLE_310_STABLE",
+        "branch": "MOODLE_311_STABLE",
         "patches": [
           "moodle-fix_calendar_timeformat.patch",
           "moodle-hide_badge_menu_item.patch",
@@ -16,7 +16,6 @@
           "moodle-assign_extend_navigation_plugins.patch",
           "moodle-assign_reflection_disable_buttons.patch",
           "moodle-group_fix_leading_zeros.patch",
-          "moodle-urkund_to_quiz.patch",
           "moodle-access_date_minutes.patch",
           "moodle-question_multi_ordering.patch"
         ],
@@ -101,7 +100,7 @@
       "mod_attendance": {
         "repo": "https://github.com/danmarsden/moodle-mod_attendance.git",
         "path": "mod/attendance",
-        "branch": "main"
+        "branch": "MOODLE_311_STABLE"
       },
       "block_attendance": {
         "repo": "https://github.com/danmarsden/moodle-block_attendance.git",
@@ -111,7 +110,7 @@
       "mod_subpage": {
         "repo": "https://github.com/moodleou/moodle-mod_subpage.git",
         "path": "mod/subpage",
-        "branch": "MOODLE_38_STABLE"
+        "branch": "MOODLE_39_STABLE"
       },
       "block_progressbar": {
         "repo": "https://github.com/deraadt/Moodle-block_progress.git",

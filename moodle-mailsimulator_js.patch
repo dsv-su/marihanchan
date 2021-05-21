@@ -1,29 +1,28 @@
-From 5fa29dd5ce461a2cd917e28516f7a854493a69cd Mon Sep 17 00:00:00 2001
+From b294148c642eabd12f6ba4c3b75a3e0df5f9f0fc Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
-Date: Mon, 23 Nov 2020 13:26:08 +0300
+Date: Fri, 21 May 2021 13:23:21 +0300
 Subject: [PATCH] Fixing mailsimulator submit button
 
 ---
- mod/assign/amd/build/grading_panel.min.js | Bin 5894 -> 5889 bytes
+ mod/assign/amd/build/grading_panel.min.js | Bin 6075 -> 6116 bytes
  mod/assign/amd/src/grading_panel.js       |   4 +++-
  2 files changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/mod/assign/amd/build/grading_panel.min.js b/mod/assign/amd/build/grading_panel.min.js
-index 59b397625a66968f970481001bbe4c7da2ab5bd8..64eb1769be2e151e3bce006f87943b8cd96c5264 100644
+index 180796928be65801038cd54d92e79446258ce5d9..b28f4c5fcbe06f74ed95675fa77225f0ed9bce4b 100644
 GIT binary patch
 delta 72
-zcmZqEYt-AYM8rBXO`{|uvsf=LF*jAwRy{W{Gp9H+w=^fQB)=#=Ej2YIDKR-)U9&n-
-bub?QkEH$shB{eOvG^a#Evv%_~5hW%7)vp?(
+zcmdn3|3rU7q^Nafnnp=RX0cvgVs5IUt$J=^W=?TtZfQ<pNq$j$T54)aQetwpx@L8v
+bUO`c6S!!O1OKMtTX-<iTX6@!|(Eug@><Jpz
 
-delta 78
-zcmZqFYt!4XL_{c2ub?QkEH$shB{eOvG^a#EbMt)>B_=(6ePxB>{L-T2RNuscg3P@1
-g&>$b%^rFNRATz!oF)uYoFE=w!FRNHDH?e>V091Ax>i_@%
+delta 16
+XcmaE&zgvGpr0C>EQQ^%~Mg5roJADQQ
 
 diff --git a/mod/assign/amd/src/grading_panel.js b/mod/assign/amd/src/grading_panel.js
-index dbd75ff0087..399fabcafe6 100644
+index fca1a1e018e..a34a8e1bfd3 100644
 --- a/mod/assign/amd/src/grading_panel.js
 +++ b/mod/assign/amd/src/grading_panel.js
-@@ -378,7 +378,9 @@ define(['jquery', 'core/yui', 'core/notification', 'core/templates', 'core/fragm
+@@ -388,7 +388,9 @@ define(['jquery', 'core/yui', 'core/notification', 'core/templates', 'core/fragm
          var region = $(this._region);
          // Add an event listener to prevent form submission when pressing enter key.
          region.on('submit', 'form', function(e) {
@@ -35,5 +34,5 @@ index dbd75ff0087..399fabcafe6 100644
  
          docElement.on('next-user', this._getNextUser.bind(this));
 -- 
-2.29.1
+2.30.0
 

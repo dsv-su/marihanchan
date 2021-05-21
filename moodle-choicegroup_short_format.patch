@@ -1,31 +1,17 @@
-From 4035d5334e7774be3f9697fc2411bafe15909da6 Mon Sep 17 00:00:00 2001
+From 7e7a3bc3b59e794f1adbde6061010b6f35eade3d Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
-Date: Wed, 7 Nov 2018 13:42:44 +0300
+Date: Fri, 21 May 2021 12:25:40 +0300
 Subject: [PATCH] Add short txt report template
 
 ---
- lib.php    |  2 +-
  report.php | 48 ++++++++++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 49 insertions(+), 1 deletion(-)
+ 1 file changed, 48 insertions(+)
 
-diff --git a/lib.php b/lib.php
-index 7012606..870e4c1 100644
---- a/lib.php
-+++ b/lib.php
-@@ -894,7 +894,7 @@ function choicegroup_get_response_data($choicegroup, $cm) {
-     // First get all the users who have access here.
-     // To start with we assume they are all "unanswered" then move them later.
-     $ctx = \context_module::instance($cm->id);
--    $users = get_enrolled_users($ctx, 'mod/choicegroup:choose', 0, user_picture::fields('u', array('idnumber')), 'u.lastname ASC,u.firstname ASC');
-+    $users = get_enrolled_users($ctx, 'mod/choicegroup:choose', 0, user_picture::fields('u', array('idnumber', 'username')), 'u.lastname ASC,u.firstname ASC');
-     if ($users) {
-         $modinfo = get_fast_modinfo($cm->course);
-         $cminfo = $modinfo->get_cm($cm->id);
 diff --git a/report.php b/report.php
-index b2ab6ea..df6be2e 100644
+index d11e0e4..151eb3a 100644
 --- a/report.php
 +++ b/report.php
-@@ -269,6 +269,50 @@ if ($download == "txt" && has_capability('mod/choicegroup:downloadresponses', $c
+@@ -268,6 +268,50 @@ if ($download == "txt" && has_capability('mod/choicegroup:downloadresponses', $c
      }
      exit;
  }
@@ -76,17 +62,17 @@ index b2ab6ea..df6be2e 100644
  // Show those who haven't answered the question.
  if (!empty($choicegroup->showunanswered)) {
      $choicegroup->option[0] = get_string('notanswered', 'choicegroup');
-@@ -296,6 +340,10 @@ if (!empty($users) && has_capability('mod/choicegroup:downloadresponses',$contex
+@@ -295,6 +339,10 @@ if (!empty($users) && has_capability('mod/choicegroup:downloadresponses',$contex
      $button = $OUTPUT->single_button(new moodle_url("report.php", $options), get_string("downloadtext"));
-     $downloadoptions[] = html_writer::tag('li', $button, array('class'=>'reportoption'));
+     $downloadoptions[] = html_writer::tag('li', $button, array('class'=>'reportoption mt-1'));
  
 +    $options["download"] = "txtshort";
 +    $button = $OUTPUT->single_button(new moodle_url("report.php", $options), 'Download usernames and groups only in text format');
-+    $downloadoptions[] = html_writer::tag('li', $button, array('class'=>'reportoption'));
++    $downloadoptions[] = html_writer::tag('li', $button, array('class'=>'reportoption mt-1'));
 +
      $downloadlist = html_writer::tag('ul', implode('', $downloadoptions));
      $downloadlist .= html_writer::tag('div', '', array('class'=>'clearfloat'));
      echo html_writer::tag('div',$downloadlist, array('class'=>'downloadreport'));
 -- 
-2.17.0
+2.30.0
 
