@@ -33,7 +33,7 @@
             "drupal_core": {
                 "repo": "https://git.drupalcode.org/project/drupal.git",
                 "branch": "7.x",
-                "tag": "7.78",
+                "tag": "7.81",
                 "patch": "core.patch",
                 "ignoreEmptyPath": true
             }
@@ -63,7 +63,7 @@
                 "defaults": "module_contrib",
                 "repo": "https://git.drupalcode.org/project/date.git",
                 "branch": "7.x-2.x",
-                "tag": "7.x-2.10",
+                "tag": "7.x-2.11",
                 "path": "date"
             },
             "entity": {
@@ -99,7 +99,7 @@
                 "defaults": "module_contrib",
                 "repo": "https://git.drupalcode.org/project/token.git",
                 "branch": "7.x-1.x",
-                "tag": "7.x-1.7",
+                "tag": "7.x-1.8",
                 "path": "token"
             },
             "views": {
@@ -247,7 +247,7 @@
                 "defaults": "module_contrib",
                 "repo": "https://git.drupalcode.org/project/i18n.git/",
                 "branch": "7.x-1.x",
-                "tag": "7.x-1.27",
+                "tag": "7.x-1.31",
                 "path": "i18n"
             },
             "internationalization_views": {
@@ -282,7 +282,7 @@
                 "defaults": "module_contrib",
                 "repo": "https://git.drupalcode.org/project/title.git/",
                 "branch": "7.x-1.x",
-                "tag": "7.x-1.0-beta3",
+                "tag": "7.x-1.0-beta4",
                 "path": "title"
             },
             "variable": {
@@ -355,7 +355,7 @@
                 "defaults": "module_contrib",
                 "repo": "https://git.drupalcode.org/project/webform",
                 "branch": "7.x-4.x",
-                "tag": "7.x-4.23",
+                "tag": "7.x-4.24",
                 "path": "webform"
             },
             "webform_conditional":{
@@ -488,7 +488,7 @@
                 "defaults": "module_contrib",
                 "repo": "https://git.drupalcode.org/project/redirect.git",
                 "branch": "7.x-1.x",
-                "tag": "7.x-1.0-rc3",
+                "tag": "7.x-1.0-rc4",
                 "path": "redirect"
             },
             "scheduler": {
@@ -659,7 +659,7 @@
                 "defaults": "module_contrib",
                 "repo": "https://git.drupalcode.org/project/webform.git",
                 "branch": "7.x-4.x",
-                "tag": "7.x-4.23",
+                "tag": "7.x-4.24",
                 "path": "webform"
             },
             "webform_references": {
@@ -995,7 +995,7 @@
                 "defaults": "module_contrib",
                 "repo": "https://git.drupalcode.org/project/webform",
                 "branch": "7.x-4.x",
-                "tag": "7.x-4.23",
+                "tag": "7.x-4.24",
                 "path": "webform"
             },
             "realname": {
@@ -1034,7 +1034,7 @@
                 "defaults": "module_contrib",
                 "repo": "https://git.drupalcode.org/project/webform.git",
                 "branch": "7.x-4.x",
-                "tag": "7.x-4.23",
+                "tag": "7.x-4.24",
                 "path": "webform"
             },
             "webform_validation": {
@@ -1111,7 +1111,7 @@
                 "defaults": "module_contrib",
                 "repo": "https://git.drupalcode.org/project/feeds.git",
                 "branch": "7.x-2.x",
-                "tag": "7.x-2.0-beta4",
+                "tag": "7.x-2.0-beta5",
                 "path": "feeds"
             },
             "admin_menu": {
@@ -1173,7 +1173,7 @@
                 "defaults": "module_contrib",
                 "repo": "https://git.drupalcode.org/project/link.git",
                 "branch": "7.x-1.x",
-                "tag": "7.x-1.7",
+                "tag": "7.x-1.9",
                 "path": "link"
             },
             "calendar": {
