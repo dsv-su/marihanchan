@@ -1,0 +1,56 @@
+From f27ea3bc67e01af4f697f53fbaf4c1f72a064e20 Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Wed, 23 Jun 2021 15:50:31 +0300
+Subject: [PATCH] Add sorting by discussion creation date
+
+---
+ mod/forum/templates/discussion_list.mustache | 26 ++++++++++++++++++--
+ 1 file changed, 24 insertions(+), 2 deletions(-)
+
+diff --git a/mod/forum/templates/discussion_list.mustache b/mod/forum/templates/discussion_list.mustache
+index d63e483b666..a38324cb151 100644
+--- a/mod/forum/templates/discussion_list.mustache
++++ b/mod/forum/templates/discussion_list.mustache
+@@ -142,6 +142,19 @@
+                                 {{/state.sortorder.isstarterasc}}
+                             {{/state.sortorder.isstarterdesc}}
+                         </th>
++                        <th scope="col" class="created px-3">
++                            {{#state.sortorder.iscreateddesc}}
++                                <a href="{{{forum.urls.sortcreatedasc}}}" aria-label="{{#str}}discussionlistsortbycreateddesc, mod_forum{{/str}}">{{#str}}created, mod_forum{{/str}}</a> <span class="text-primary">{{#pix}}t/downlong, core, {{#str}}desc, core{{/str}}{{/pix}}</span>
++                            {{/state.sortorder.iscreateddesc}}
++                            {{#state.sortorder.iscreatedasc}}
++                                <a href="{{{forum.urls.sortcreateddesc}}}" aria-label="{{#str}}discussionlistsortbycreatedasc, mod_forum{{/str}}">{{#str}}created, mod_forum{{/str}}</a> <span class="text-primary">{{#pix}}t/uplong, core, {{#str}}asc, core{{/str}}{{/pix}}</span>
++                            {{/state.sortorder.iscreatedasc}}
++                            {{^state.sortorder.iscreatedasc}}
++                                {{^state.sortorder.iscreateddesc}}
++                                    <a href="{{{forum.urls.sortcreateddesc}}}" aria-label="{{#str}}discussionlistsortbycreateddesc, mod_forum{{/str}}">{{#str}}created, mod_forum{{/str}}</a>
++                                {{/state.sortorder.iscreateddesc}}
++                            {{/state.sortorder.iscreatedasc}}
++                        </th>
+                         <th scope="col" class="lastpost px-3">
+                             {{#state.sortorder.islastpostdesc}}
+                                 <a href="{{{forum.urls.sortlastpostasc}}}" aria-label="{{#str}}discussionlistsortbylastpostasc, mod_forum{{/str}}">{{#str}}lastpost, mod_forum{{/str}}</a> <span class="text-primary">{{#pix}}t/downlong, core, {{#str}}desc, core{{/str}}{{/pix}}</span>
+@@ -255,8 +268,17 @@
+                                                  title="{{#str}}pictureof, moodle, {{fullname}}{{/str}}" >
+                                         </div>
+                                         <div class="author-info align-middle">
+-                                            <div class="mb-1 line-height-3 text-truncate">{{fullname}}</div>
+-                                            <div class="line-height-3">
++                                            <div class="line-height-5 text-truncate">{{fullname}}</div>
++                                        </div>
++                                    </div>
++                                {{/firstpostauthor}}
++                            </td>
++                            <td class="text-left align-middle fit-content limit-width px-3">
++                                {{! TODO Check q&a, eachuser }}
++                                {{#firstpostauthor}}
++                                    <div class="d-flex">
++                                        <div class="author-info align-middle">
++                                            <div class="line-height-2">
+                                                 {{< core/time_element }}
+                                                     {{$elementid}}created-{{discussion.id}}{{/elementid}}
+                                                     {{$timestampval}}{{discussion.times.created}}{{/timestampval}}
+-- 
+2.30.0
+
