@@ -17,7 +17,8 @@
           "moodle-assign_reflection_disable_buttons.patch",
           "moodle-group_fix_leading_zeros.patch",
           "moodle-access_date_minutes.patch",
-          "moodle-question_multi_ordering.patch"
+          "moodle-question_multi_ordering.patch",
+          "moodle-forum_discussion_created_sort.patch"
         ],
         "ignoreEmptyPath": true
       }
@@ -137,7 +138,7 @@
       "mod_vpl": {
         "repo": "https://github.com/jcrodriguez-dis/moodle-mod_vpl.git",
         "path": "mod/vpl",
-        "branch": "v3.4.2",
+        "branch": "v3.4.3",
         "patch": "moodle-vpl_group_grade.patch"
       },
       "format_flexsections": {
@@ -187,9 +188,9 @@
         "path": "mod/advmindmap"
       },
       "mod_customcert": {
-        "repo": "https://github.com/markn86/moodle-mod_customcert.git",
+        "repo": "https://github.com/mdjnelson/moodle-mod_customcert.git",
         "path": "mod/customcert",
-        "branch": "MOODLE_39_STABLE"
+        "branch": "MOODLE_311_STABLE"
       },
       "mod_engagement": {
         "repo": "https://github.com/netspotau/moodle-mod_engagement.git",
@@ -293,9 +294,9 @@
         "branch": "master"
       },
       "custom_certificate": {
-        "repo": "https://github.com/markn86/moodle-mod_customcert.git",
+        "repo": "https://github.com/mdjnelson/moodle-mod_customcert.git",
         "path": "mod/customcert",
-        "branch": "MOODLE_39_STABLE"
+        "branch": "MOODLE_311_STABLE"
       },
       "mailsimulator": {
         "repo": "https://github.com/dsv-su/moodle-assignsubmission_mailsimulator.git",
@@ -525,7 +526,7 @@
       "mod_vpl": {
         "repo": "https://github.com/jcrodriguez-dis/moodle-mod_vpl.git",
         "path": "mod/vpl",
-        "branch": "v3.4.2",
+        "branch": "v3.4.3",
         "patch": "moodle-vpl_group_grade.patch"
       }
     }
