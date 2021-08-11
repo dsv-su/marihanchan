@@ -18,7 +18,8 @@
           "moodle-group_fix_leading_zeros.patch",
           "moodle-access_date_minutes.patch",
           "moodle-question_multi_ordering.patch",
-          "moodle-forum_discussion_created_sort.patch"
+          "moodle-forum_discussion_created_sort.patch",
+          "moodle-align_completion_info.patch"
         ],
         "ignoreEmptyPath": true
       }
