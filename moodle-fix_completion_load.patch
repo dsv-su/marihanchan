@@ -1,0 +1,171 @@
+From 8729fcff07795f21bbe4743e6af650263788c995 Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <psokolov@dsv.su.se>
+Date: Thu, 12 Aug 2021 11:06:57 +0200
+Subject: [PATCH] Fixing completion loads
+
+---
+ availability/tests/info_test.php |  6 ++--
+ lib/modinfolib.php               | 49 ++++++++++++++++++++++++++------
+ 2 files changed, 44 insertions(+), 11 deletions(-)
+
+diff --git a/availability/tests/info_test.php b/availability/tests/info_test.php
+index 4108d604923..f8d7567d9d6 100644
+--- a/availability/tests/info_test.php
++++ b/availability/tests/info_test.php
+@@ -218,8 +218,8 @@ class info_testcase extends advanced_testcase {
+         // if we have already obtained dynamic data.
+         $modinfo = get_fast_modinfo($course, $student->id);
+         $cminfo = $modinfo->get_cm($cm->id);
+-        // This will obtain dynamic data.
+-        $name = $cminfo->name;
++        // This will obtain all dynamic data.
++        $available = $cminfo->available;
+         $beforequeries = $DB->perf_get_queries();
+         $this->assertTrue(info_module::is_user_visible($cminfo, $student->id, false));
+         $this->assertEquals($beforequeries, $DB->perf_get_queries());
+@@ -535,7 +535,7 @@ class info_testcase extends advanced_testcase {
+ 
+         // At this point we will generate dynamic data for $cm1, which will cause the debugging
+         // call below.
+-        $this->assertEquals('Page1', $cm1->name);
++        $this->assertEquals(false, $cm1->available);
+ 
+         $this->assertDebuggingCalled('Error processing availability data for ' .
+                 '&lsquo;Page1&rsquo;: Invalid availability text');
+diff --git a/lib/modinfolib.php b/lib/modinfolib.php
+index 8b8f44ca623..df27d9af9ed 100644
+--- a/lib/modinfolib.php
++++ b/lib/modinfolib.php
+@@ -1124,6 +1124,11 @@ class cm_info implements IteratorAggregate {
+      */
+     private $deletioninprogress;
+ 
++    /**
++     * @var bool Indicates if we deferred the loading of availability in {@link obtain_dynamic_data()}.
++     */
++    private $deferredloadavailability = false;
++
+     /**
+      * List of class read-only properties and their getter methods.
+      * Used by magic functions __get(), __isset(), __empty()
+@@ -1749,6 +1754,7 @@ class cm_info implements IteratorAggregate {
+      */
+     public function set_user_visible($uservisible) {
+         $this->check_not_view_only();
++        $this->load_availability();
+         $this->uservisible = $uservisible;
+     }
+ 
+@@ -1774,6 +1780,7 @@ class cm_info implements IteratorAggregate {
+      */
+     public function set_available($available, $showavailability=0, $availableinfo='') {
+         $this->check_not_view_only();
++        $this->load_availability();
+         $this->available = $available;
+         if (!$showavailability) {
+             $availableinfo = '';
+@@ -1906,13 +1913,40 @@ class cm_info implements IteratorAggregate {
+      * @return void
+      */
+     private function obtain_dynamic_data() {
+-        global $CFG;
+         $userid = $this->modinfo->get_user_id();
++
+         if ($this->state >= self::STATE_BUILDING_DYNAMIC || $userid == -1) {
+             return;
+         }
+         $this->state = self::STATE_BUILDING_DYNAMIC;
+ 
++        // Mark that we loaded dynamic data, and we can load availability if needed.
++        $this->deferredloadavailability = true;
++
++        // Let module make dynamic changes at this point
++        $this->call_mod_function('cm_info_dynamic');
++        $this->state = self::STATE_DYNAMIC;
++    }
++
++    /**
++     * Loads availability if needed. Only helpful if {@link obtain_dynamic_data} is called first.
++     *
++     * @return void
++     */
++    private function load_availability(): void {
++        global $CFG;
++
++        // If we shouldn't be loading yet, then don't.
++        if (!$this->deferredloadavailability) {
++            return;
++        }
++        $this->deferredloadavailability = false;
++
++        $userid = $this->modinfo->get_user_id();
++        if ($userid == -1) {
++            return;
++        }
++
+         if (!empty($CFG->enableavailability)) {
+             // Get availability information.
+             $ci = new \core_availability\info_module($this);
+@@ -1920,7 +1954,7 @@ class cm_info implements IteratorAggregate {
+             // Note that the modinfo currently available only includes minimal details (basic data)
+             // but we know that this function does not need anything more than basic data.
+             $this->available = $ci->is_available($this->availableinfo, true,
+-                    $userid, $this->modinfo);
++                $userid, $this->modinfo);
+         } else {
+             $this->available = true;
+         }
+@@ -1931,17 +1965,12 @@ class cm_info implements IteratorAggregate {
+             if (!$parentsection->get_available()) {
+                 // Do not store info from section here, as that is already
+                 // presented from the section (if appropriate) - just change
+-                // the flag
++                // the flag.
+                 $this->available = false;
+             }
+         }
+ 
+-        // Update visible state for current user.
+         $this->update_user_visible();
+-
+-        // Let module make dynamic changes at this point
+-        $this->call_mod_function('cm_info_dynamic');
+-        $this->state = self::STATE_DYNAMIC;
+     }
+ 
+     /**
+@@ -1955,6 +1984,7 @@ class cm_info implements IteratorAggregate {
+      */
+     public function get_user_visible() {
+         $this->obtain_dynamic_data();
++        $this->load_availability();
+         return $this->uservisible;
+     }
+ 
+@@ -1968,6 +1998,7 @@ class cm_info implements IteratorAggregate {
+      */
+     public function is_visible_on_course_page() {
+         $this->obtain_dynamic_data();
++        $this->load_availability();
+         return $this->uservisibleoncoursepage;
+     }
+ 
+@@ -1992,6 +2023,7 @@ class cm_info implements IteratorAggregate {
+      */
+     private function get_available() {
+         $this->obtain_dynamic_data();
++        $this->load_availability();
+         return $this->available;
+     }
+ 
+@@ -2014,6 +2046,7 @@ class cm_info implements IteratorAggregate {
+      */
+     private function get_available_info() {
+         $this->obtain_dynamic_data();
++        $this->load_availability();
+         return $this->availableinfo;
+     }
+ 
+-- 
+2.20.1
+

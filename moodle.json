@@ -19,7 +19,8 @@
           "moodle-access_date_minutes.patch",
           "moodle-question_multi_ordering.patch",
           "moodle-forum_discussion_created_sort.patch",
-          "moodle-align_completion_info.patch"
+          "moodle-align_completion_info.patch",
+	  "moodle-fix_completion_load.patch"
         ],
         "ignoreEmptyPath": true
       }
