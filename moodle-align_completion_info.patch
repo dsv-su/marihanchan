@@ -1,40 +1,51 @@
-From a5dd1b63e713f64e1a6b6d2c425e15b85629b009 Mon Sep 17 00:00:00 2001
+From 36065a65fbd2df2a4b774dee198460c320b68ab1 Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
-Date: Wed, 11 Aug 2021 08:49:27 +0300
-Subject: [PATCH] Move completion info to the right
+Date: Fri, 27 Aug 2021 11:58:09 +0300
+Subject: [PATCH] Pull activity completion to the right
 
 ---
- course/templates/activity_info.mustache | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ course/templates/activity_info.mustache | 22 ++++++++++++++++------
+ 1 file changed, 16 insertions(+), 6 deletions(-)
 
 diff --git a/course/templates/activity_info.mustache b/course/templates/activity_info.mustache
-index f415d2a4cf6..9073d0777b8 100644
+index f415d2a4cf6..5ad4514c35c 100644
 --- a/course/templates/activity_info.mustache
 +++ b/course/templates/activity_info.mustache
-@@ -50,6 +50,11 @@
+@@ -50,18 +50,28 @@
      }
  }}
  <div data-region="activity-information" data-activityname="{{activityname}}" class="activity-information">
-+    {{^isautomatic}}
-+        {{#showmanualcompletion}}
-+            {{> core_course/completion_manual }}
-+        {{/showmanualcompletion}}
-+    {{/isautomatic}}
++    {{#hascompletion}}
++        {{#uservisible}}
++            {{^isautomatic}}
++                {{#showmanualcompletion}}
++                    {{> core_course/completion_manual }}
++                {{/showmanualcompletion}}
++            {{/isautomatic}}
++        {{/uservisible}}
++    {{/hascompletion}}
      {{#hasdates}}
-     <div data-region="activity-dates" class="mb-1">
-         {{#activitydates}}
-@@ -67,11 +72,6 @@
+-    <div data-region="activity-dates" class="mb-1">
+-        {{#activitydates}}
+-            {{>core_course/activity_date}}
+-        {{/activitydates}}
+-    </div>
++        <div data-region="activity-dates" class="mb-1">
++            {{#activitydates}}
++                {{>core_course/activity_date}}
++            {{/activitydates}}
++        </div>
+     {{/hasdates}}
+     {{#hascompletion}}
+         {{#uservisible}}
+             <div data-region="completion-info">
+                 {{#isautomatic}}
+-                    <div class="automatic-completion-conditions" data-region ="completionrequirements" role="list" aria-label="{{#str}}completionrequirements, core_course, {{activityname}}{{/str}}">
++                    <div class="automatic-completion-conditions" data-region="completionrequirements" role="list"
++                         aria-label="{{#str}}completionrequirements, core_course, {{activityname}}{{/str}}">
+                         {{#completiondetails}}
+                             {{> core_course/completion_automatic }}
                          {{/completiondetails}}
-                     </div>
-                 {{/isautomatic}}
--                {{^isautomatic}}
--                    {{#showmanualcompletion}}
--                        {{> core_course/completion_manual }}
--                    {{/showmanualcompletion}}
--                {{/isautomatic}}
-             </div>
-         {{/uservisible}}
-     {{/hascompletion}}
 -- 
-2.32.0
+2.33.0
 
