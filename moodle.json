@@ -20,7 +20,7 @@
           "moodle-question_multi_ordering.patch",
           "moodle-forum_discussion_created_sort.patch",
           "moodle-align_completion_info.patch",
-	         "moodle-fix_completion_load.patch"
+          "moodle-fix_completion_load.patch"
         ],
         "ignoreEmptyPath": true
       }

@@ -1,17 +1,17 @@
-From 36065a65fbd2df2a4b774dee198460c320b68ab1 Mon Sep 17 00:00:00 2001
+From bb4add017ee3c053877f7f0dd4d74d27b0574cb8 Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
-Date: Fri, 27 Aug 2021 11:58:09 +0300
+Date: Fri, 27 Aug 2021 12:13:57 +0300
 Subject: [PATCH] Pull activity completion to the right
 
 ---
- course/templates/activity_info.mustache | 22 ++++++++++++++++------
- 1 file changed, 16 insertions(+), 6 deletions(-)
+ course/templates/activity_info.mustache | 27 +++++++++++++++----------
+ 1 file changed, 16 insertions(+), 11 deletions(-)
 
 diff --git a/course/templates/activity_info.mustache b/course/templates/activity_info.mustache
-index f415d2a4cf6..5ad4514c35c 100644
+index f415d2a4cf6..ba8fea09572 100644
 --- a/course/templates/activity_info.mustache
 +++ b/course/templates/activity_info.mustache
-@@ -50,18 +50,28 @@
+@@ -50,28 +50,33 @@
      }
  }}
  <div data-region="activity-information" data-activityname="{{activityname}}" class="activity-information">
@@ -46,6 +46,16 @@ index f415d2a4cf6..5ad4514c35c 100644
                          {{#completiondetails}}
                              {{> core_course/completion_automatic }}
                          {{/completiondetails}}
+                     </div>
+                 {{/isautomatic}}
+-                {{^isautomatic}}
+-                    {{#showmanualcompletion}}
+-                        {{> core_course/completion_manual }}
+-                    {{/showmanualcompletion}}
+-                {{/isautomatic}}
+             </div>
+         {{/uservisible}}
+     {{/hascompletion}}
 -- 
 2.33.0
 
