@@ -1,0 +1,25 @@
+From 7b67715db5e499bdb817dee63a92847073fff569 Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Mon, 13 Sep 2021 14:32:54 +0300
+Subject: [PATCH] Change max students default
+
+---
+ slotforms.php | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/slotforms.php b/slotforms.php
+index f8410ac..99b1bfe 100644
+--- a/slotforms.php
++++ b/slotforms.php
+@@ -93,7 +93,7 @@ abstract class scheduler_slotform_base extends moodleform {
+         $mform->setDefault('exclusivity', 1);
+ 
+         $exclgroup[] = $mform->createElement('advcheckbox', 'exclusivityenable', '', get_string('enable'));
+-        $mform->setDefault('exclusivityenable', 1);
++        $mform->setDefault('exclusivityenable', 0);
+         $mform->disabledIf('exclusivity', 'exclusivityenable', 'eq', 0);
+ 
+         $mform->addGroup($exclgroup, 'exclusivitygroup', get_string('maxstudentsperslot', 'scheduler'), ' ', false);
+-- 
+2.33.0
+

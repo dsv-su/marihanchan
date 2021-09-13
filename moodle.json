@@ -90,6 +90,7 @@
       "mod_scheduler": {
         "repo": "https://github.com/bostelm/moodle-mod_scheduler.git",
         "path": "mod/scheduler",
+        "patch": "moodle-scheduler_max_students_default.patch",
         "branch": "master"
       },
       "assignsubmission_reflection": {
