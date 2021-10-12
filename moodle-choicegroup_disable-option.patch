@@ -1,0 +1,41 @@
+From 2bb305d92379a9155f9b92d42076c05a7a29be18 Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Tue, 12 Oct 2021 12:46:51 +0300
+Subject: [PATCH] Disable choice until its reset
+
+---
+ renderer.php | 4 ++++
+ styles.css   | 2 ++
+ 2 files changed, 6 insertions(+)
+
+diff --git a/renderer.php b/renderer.php
+index 02c6ee1..94f1a5d 100644
+--- a/renderer.php
++++ b/renderer.php
+@@ -139,6 +139,10 @@ class mod_choicegroup_renderer extends plugin_renderer_base {
+             }
+             $attributes = (array) $option->attributes;
+             $attributes['id'] = 'choiceid_' . $option->attributes->value;
++            // Disable updates until the choice is reset
++            if (!$multipleenrollmentspossible && !empty($options['allowupdate']) && ($options['allowupdate'])) {
++                $attributes['disabled'] = true;
++            }
+             $html .= html_writer::empty_tag('input', $attributes);
+             $html .= html_writer::end_tag('td');
+             $html .= html_writer::tag('td', $labeltext);
+diff --git a/styles.css b/styles.css
+index be66a7d..2fa26ec 100644
+--- a/styles.css
++++ b/styles.css
+@@ -265,6 +265,8 @@
+ /* Styles to format the Choices table. */
+ .path-mod-choicegroup .width10 {
+     width: 10%;
++    vertical-align: middle;
++    text-align: center;
+ }
+ 
+ .path-mod-choicegroup .width40 {
+-- 
+2.33.0
+
