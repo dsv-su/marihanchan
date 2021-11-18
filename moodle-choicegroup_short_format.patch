@@ -1,6 +1,6 @@
-From 7e7a3bc3b59e794f1adbde6061010b6f35eade3d Mon Sep 17 00:00:00 2001
+From 7f3fffd60d1bfbb3195aeef130189cd07e8afd84 Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
-Date: Fri, 21 May 2021 12:25:40 +0300
+Date: Thu, 18 Nov 2021 15:26:00 +0300
 Subject: [PATCH] Add short txt report template
 
 ---
@@ -8,7 +8,7 @@ Subject: [PATCH] Add short txt report template
  1 file changed, 48 insertions(+)
 
 diff --git a/report.php b/report.php
-index d11e0e4..151eb3a 100644
+index 28d7e3f..e82d555 100644
 --- a/report.php
 +++ b/report.php
 @@ -268,6 +268,50 @@ if ($download == "txt" && has_capability('mod/choicegroup:downloadresponses', $c
@@ -28,7 +28,7 @@ index d11e0e4..151eb3a 100644
 +
 +    /// Print names of all the fields
 +
-+    echo get_string("username")."\t";
++    echo "#Username\t";
 +    echo get_string("group"). "\t";
 +    echo get_string("choice","choicegroup"). "\n";
 +
@@ -74,5 +74,5 @@ index d11e0e4..151eb3a 100644
      $downloadlist .= html_writer::tag('div', '', array('class'=>'clearfloat'));
      echo html_writer::tag('div',$downloadlist, array('class'=>'downloadreport'));
 -- 
-2.30.0
+2.33.0
 
