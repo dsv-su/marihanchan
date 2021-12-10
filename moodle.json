@@ -535,5 +535,11 @@
         "patch": "moodle-vpl_group_grade.patch"
       }
     }
+  },
+  "iexam": {
+    "rootDir": "/var/www/iexam",
+    "requires": [
+      "ilearn2"
+    ]
   }
 }
