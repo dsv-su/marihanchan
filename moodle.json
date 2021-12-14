@@ -58,7 +58,8 @@
       "moodle-qtype_match_fullmatch.patch",
       "moodle-add_daisy_id_to_log.patch",
       "moodle-add_daisy_export.patch",
-      "moodle-course_sort_id.patch"
+      "moodle-course_sort_id.patch",
+      "moodle-exam_login.patch"
     ],
     "components": {
       "dsv_custom": {

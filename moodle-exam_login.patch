@@ -1,0 +1,135 @@
+From 7fba32c20bf583fac24087c05f40df18bf336e26 Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Tue, 14 Dec 2021 13:50:53 +0300
+Subject: [PATCH] Exam login
+
+---
+ exam-login.php | 116 +++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 116 insertions(+)
+ create mode 100644 exam-login.php
+
+diff --git a/exam-login.php b/exam-login.php
+new file mode 100644
+index 00000000000..38500d7f59e
+--- /dev/null
++++ b/exam-login.php
+@@ -0,0 +1,116 @@
++<!DOCTYPE html>
++<html>
++<meta name="viewport" content="width=device-width, initial-scale=1.0">
++  <head>
++      <style>
++          body, html {
++              height: 100%;
++              font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
++              font-size: .9375rem;
++              font-weight: 400;
++              line-height: 1.5;
++              color: #212529;
++              margin: 0;
++          }
++          nav {
++              text-align: left;
++              padding: .5rem 1rem;
++              justify-content: flex-start;
++              position: fixed;
++              font-size: 1.5em;
++              top: 0;
++              right: 0;
++              left: 0;
++              z-index: 1030;
++              box-shadow: 0 2px 4px rgba(0,0,0,.08);
++              background-color: #002e5f!important;
++              flex-flow: wrap;
++              max-height: 180px;
++          }
++          nav span {
++              text-align: left;
++              -webkit-font-smoothing: antialiased;;
++              white-space: nowrap;
++              color: #fff;
++              box-sizing: border-box;
++              display: inline!important;
++          }
++          button {
++              font-family: inherit;
++              font-weight: 200;
++              border: 1px solid transparent;
++              padding: .5rem 1.1rem;
++              line-height: 1.5;
++              border-radius: .25rem;
++              transition: color 0.15s ease-in-out,background-color 0.15s ease-in-out,border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out;
++              color: #212529;
++              background-color: #ced4da;
++              border-color: #ced4da;
++              -webkit-user-select: none;
++              font-size: 1.5em;
++              cursor: pointer;
++              position: absolute;
++              top: 50%;
++              left: 50%;
++              transform: translate(-50%, -50%);
++          }
++          button:hover {
++              transition: color 0.15s ease-in-out,background-color 0.15s ease-in-out,border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out;
++              text-decoration: none;
++              background-color: #b8c1ca;
++              border-color: #b1bbc4;
++              cursor: pointer;
++          }
++          #container {
++              text-align: left;
++              -webkit-font-smoothing: antialiased;
++              box-sizing: border-box;
++              width: 100%;
++              padding-right: 15px;
++              padding-left: 15px;
++              margin-right: auto;
++              margin-left: auto;
++          }
++          footer {
++              text-size-adjust: 100%;
++              position: absolute;
++              bottom: 0;
++              left: 0;
++              width: 100%;
++              background-color: rgb(255, 255, 255) !important;
++              margin-top: 20px;
++              border-top: 1px solid rgb(210, 215, 220);
++              color: rgb(0, 47, 95);
++              line-height: 20px;
++              text-align: left;
++              font-size: 14px;
++              flex-shrink: 0;
++          }
++          footer .container {
++              padding: 10px;
++          }
++      </style>
++  </head>
++  <body>
++  <nav class="fixed-top navbar navbar-bootswatch navbar-expand moodle-has-zindex">
++      <span class="site-name d-none d-md-inline">iLearn</span>
++      <div style="flex-basis: 100%; height: 0;"></div>
++  </nav>
++    <div id="container">
++      <form method="GET"
++	    action="https://ilearn.dsv.su.se/course/view.php">
++	<input type="hidden"
++	       name="id"
++	       value="<?php echo $_GET['id']; ?>"
++	       />
++	<button type="submit">Log in to exam</button>
++      </form>
++    </div>
++  <footer id="page-footer" class="py-3 bg-white">
++      <div class="container">
++          <p><b>Department of Computer and Systems Sciences, DSV</b><br>Stockholm University, DSV, Postbox 7003, SE-164 07 Kista, Sweden | Phone: <a href="callto:+468162000">+46 8 16 20 00</a></p>
++      </div>
++  </footer>
++  </body>
++</html>
++
+-- 
+2.34.1
+
