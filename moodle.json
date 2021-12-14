@@ -541,6 +541,12 @@
     "rootDir": "/var/www/iexam",
     "requires": [
       "ilearn2"
-    ]
+    ],
+    "components": {
+      "dsv_custom": {
+        "repo": "ssh://git.dsv.su.se/git/moodle-dsv_custom",
+        "path": "dsv_custom"
+      }
+    }
   }
 }
