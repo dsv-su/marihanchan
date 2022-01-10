@@ -1,0 +1,38 @@
+From e7a4e4bbc5ed5960840473f5e722d95afc9e9d8e Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Mon, 10 Jan 2022 14:31:38 +0300
+Subject: [PATCH] Add all monitoring rules
+
+---
+ admin/tool/monitor/index.php | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/admin/tool/monitor/index.php b/admin/tool/monitor/index.php
+index 5392fd62805..c4d7c9c00df 100644
+--- a/admin/tool/monitor/index.php
++++ b/admin/tool/monitor/index.php
+@@ -130,7 +130,7 @@ echo $renderer->render($usercourses);
+ 
+ // Render the current subscriptions list.
+ $totalsubs = \tool_monitor\subscription_manager::count_user_subscriptions();
+-if (!empty($totalsubs) && !$choose) {
++if (!empty($totalsubs)) {
+     // Show the subscriptions section only if there are subscriptions.
+     $subs = new \tool_monitor\output\managesubs\subs('toolmonitorsubs', $indexurl, $courseid);
+     echo $OUTPUT->heading(get_string('currentsubscriptions', 'tool_monitor'), 3);
+@@ -138,10 +138,10 @@ if (!empty($totalsubs) && !$choose) {
+ }
+ 
+ // Render the potential rules list.
+-if (!$choose) {
++//if (!$choose) {
+     echo $OUTPUT->heading(get_string('rulescansubscribe', 'tool_monitor'), 3);
+     echo $renderer->render($rules);
+-}
++//}
+ 
+ // Check if the user can manage the course rules we are viewing.
+ $canmanagerules = has_capability('tool/monitor:managerules', $context);
+-- 
+2.34.1
+
