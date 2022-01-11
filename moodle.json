@@ -143,7 +143,7 @@
       "mod_vpl": {
         "repo": "https://github.com/jcrodriguez-dis/moodle-mod_vpl.git",
         "path": "mod/vpl",
-        "branch": "v3.4.3",
+        "branch": "V3.4.3+",
         "patch": "moodle-vpl_group_grade.patch"
       },
       "format_flexsections": {
@@ -220,7 +220,7 @@
       "block_grade_me": {
         "repo": "https://github.com/remotelearner/moodle-block_grade_me.git",
         "path": "blocks/grade_me",
-        "branch": "MOODLE_39_STABLE"
+        "branch": "MOODLE_311_STABLE"
       },
       "block_xp": {
         "repo": "https://github.com/FMCorz/moodle-block_xp.git",
@@ -533,7 +533,7 @@
       "mod_vpl": {
         "repo": "https://github.com/jcrodriguez-dis/moodle-mod_vpl.git",
         "path": "mod/vpl",
-        "branch": "v3.4.3",
+        "branch": "V3.4.3+",
         "patch": "moodle-vpl_group_grade.patch"
       }
     }
