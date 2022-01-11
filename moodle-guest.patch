@@ -1,6 +1,6 @@
-From e8d9e797e2e47aa5f162ac33f441485cfd95cf0c Mon Sep 17 00:00:00 2001
+From 44a816109305027c24be9953f386cc1fd43258b1 Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
-Date: Thu, 5 Feb 2015 18:32:06 +0300
+Date: Tue, 11 Jan 2022 15:10:39 +0300
 Subject: [PATCH] Guest access for students that are not enrolled; not
  available until course starts
 
@@ -10,18 +10,18 @@ Subject: [PATCH] Guest access for students that are not enrolled; not
  2 files changed, 12 insertions(+)
 
 diff --git a/course/view.php b/course/view.php
-index 6acd0f8..840513d 100644
+index a0a1cc35c29..4867bf9303a 100644
 --- a/course/view.php
 +++ b/course/view.php
-@@ -260,6 +260,14 @@
+@@ -257,6 +257,14 @@
      // Course wrapper start.
      echo html_writer::start_tag('div', array('class'=>'course-content'));
  
 +    // Show warning notice for guests
-+    if (is_guest($context) && $course->id <> 694) {
-+        echo html_writer::start_tag('div', array('class' => 'alert alert-error'));
++    if (is_guest($context) && $course->id <> 694 && !is_enrolled($context)) {
++        echo html_writer::start_tag('div', array('class' => 'alert alert-danger'));
 +        echo html_writer::tag('p', html_writer::tag('h4','Attention!'));
-+        echo html_writer::tag('p', 'You are viewing this course in read only mode since you are not registered for it.');
++        echo html_writer::tag('p', 'You are viewing this course in read-only mode since you are not registered for it.');
 +        echo html_writer::end_tag('div');
 +    }
 +
@@ -29,10 +29,10 @@ index 6acd0f8..840513d 100644
      course_create_sections_if_missing($course, 0);
  
 diff --git a/lib/moodlelib.php b/lib/moodlelib.php
-index 0df92ca..9025131 100644
+index 32e0234bf3d..3ada85e2ce7 100644
 --- a/lib/moodlelib.php
 +++ b/lib/moodlelib.php
-@@ -3127,6 +3127,10 @@ function require_login($courseorid = null, $autologinguest = true, $cm = null, $
+@@ -3014,6 +3014,10 @@ function require_login($courseorid = null, $autologinguest = true, $cm = null, $
              }
          }
  
@@ -44,5 +44,5 @@ index 0df92ca..9025131 100644
              if ($preventredirect) {
                  throw new require_login_exception('Not enrolled');
 -- 
-1.9.3 (Apple Git-50)
+2.34.1
 
