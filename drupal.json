@@ -33,7 +33,7 @@
             "drupal_core": {
                 "repo": "https://git.drupalcode.org/project/drupal.git",
                 "branch": "7.x",
-                "tag": "7.82",
+                "tag": "7.85",
                 "patch": "core.patch",
                 "ignoreEmptyPath": true
             }
@@ -63,14 +63,14 @@
                 "defaults": "module_contrib",
                 "repo": "https://git.drupalcode.org/project/date.git",
                 "branch": "7.x-2.x",
-                "tag": "7.x-2.11",
+                "tag": "7.x-2.12",
                 "path": "date"
             },
             "entity": {
                 "defaults": "module_contrib",
                 "repo": "https://git.drupalcode.org/project/entity.git",
                 "branch": "7.x-1.x",
-                "tag": "7.x-1.9",
+                "tag": "7.x-1.10",
                 "path": "entity"
             },
             "libraries": {
@@ -91,7 +91,7 @@
                 "defaults": "module_contrib",
                 "repo": "https://git.drupalcode.org/project/rules.git",
                 "branch": "7.x-2.x",
-                "tag": "7.x-2.12",
+                "tag": "7.x-2.13",
                 "path": "rules",
                 "patches": [ "drupal-rules_cc_bcc.patch", "drupal-rules_task_exists.patch" ]
             },
@@ -99,14 +99,14 @@
                 "defaults": "module_contrib",
                 "repo": "https://git.drupalcode.org/project/token.git",
                 "branch": "7.x-1.x",
-                "tag": "7.x-1.8",
+                "tag": "7.x-1.9",
                 "path": "token"
             },
             "views": {
                 "defaults": "module_contrib",
                 "repo": "https://git.drupalcode.org/project/views.git",
                 "branch": "7.x-3.x",
-                "tag": "7.x-3.24",
+                "tag": "7.x-3.25",
                 "path": "views",
                 "patch": "views.patch"
             },
@@ -214,7 +214,7 @@
                 "defaults": "module_contrib",
                 "repo": "https://git.drupalcode.org/project/ckeditor.git",
                 "branch": "7.x-1.x",
-                "tag": "7.x-1.19",
+                "tag": "7.x-1.22",
                 "path": "ckeditor"
             },
             "ckeditor_library": {
@@ -275,7 +275,7 @@
                 "defaults": "module_contrib",
                 "repo": "https://git.drupalcode.org/project/l10n_update.git",
                 "branch": "7.x-2.x",
-                "tag": "7.x-2.4",
+                "tag": "7.x-2.6",
                 "path": "l10n_update"
             },
             "title": {
@@ -551,7 +551,7 @@
                 "defaults": "module_contrib",
                 "repo": "https://git.drupalcode.org/project/mimemail.git",
                 "branch": "7.x-1.x",
-                "tag": "7.x-1.1",
+                "tag": "7.x-1.2",
                 "patch" : "drupal-mimemail_filename_utf8.patch",
                 "path": "mimemail"
             },

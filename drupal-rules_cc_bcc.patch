@@ -1,6 +1,6 @@
-From 390f03bd907947d9dcea38180761772db7c386e4 Mon Sep 17 00:00:00 2001
+From f5039f4c3ab76327ee97e6d67c1d1819e1720882 Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
-Date: Wed, 12 Apr 2017 13:15:02 +0300
+Date: Fri, 14 Jan 2022 16:06:49 +0300
 Subject: [PATCH] Rules add cc and bcc
 
 ---
@@ -9,15 +9,15 @@ Subject: [PATCH] Rules add cc and bcc
  2 files changed, 23 insertions(+), 1 deletion(-)
 
 diff --git a/modules/system.eval.inc b/modules/system.eval.inc
-index 0de887c..a4696ef 100644
+index 0e1cd8e5..efb83e35 100644
 --- a/modules/system.eval.inc
 +++ b/modules/system.eval.inc
-@@ -75,10 +75,16 @@ function rules_action_breadcrumb_set(array $titles, array $paths) {
+@@ -89,10 +89,16 @@ function rules_action_breadcrumb_set(array $titles, array $paths) {
  /**
   * Action Implementation: Send mail.
   */
--function rules_action_mail($to, $subject, $message, $from = NULL, $langcode, $settings, RulesState $state, RulesPlugin $element) {
-+function rules_action_mail($to, $cc, $bcc, $subject, $message, $from = NULL, $langcode, $settings, RulesState $state, RulesPlugin $element) {
+-function rules_action_mail($to, $subject, $message, $from, $langcode, $settings, RulesState $state, RulesPlugin $element) {
++function rules_action_mail($to, $cc, $bcc, $subject, $message, $from, $langcode, $settings, RulesState $state, RulesPlugin $element) {
    $to = str_replace(array("\r", "\n"), '', $to);
 +  $cc = str_replace(array("\r", "\n"), '', $cc);
 +  $bcc = str_replace(array("\r", "\n"), '', $bcc);
@@ -30,7 +30,7 @@ index 0de887c..a4696ef 100644
      'subject' => $subject,
      'message' => $message,
      'langcode' => $langcode,
-@@ -148,6 +154,9 @@ function rules_mail($key, &$message, $params) {
+@@ -162,6 +168,9 @@ function rules_mail($key, &$message, $params) {
  
    $message['subject'] .= str_replace(array("\r", "\n"), '', $params['subject']);
    $message['body'][] = $params['message'];
@@ -41,13 +41,13 @@ index 0de887c..a4696ef 100644
  
  /**
 diff --git a/modules/system.rules.inc b/modules/system.rules.inc
-index 2df01a3..56f928a 100644
+index b612e5d6..30a20a1e 100644
 --- a/modules/system.rules.inc
 +++ b/modules/system.rules.inc
-@@ -180,6 +180,19 @@ function rules_system_action_info() {
+@@ -222,6 +222,19 @@ function rules_system_action_info() {
            'type' => 'text',
            'label' => t('To'),
-           'description' => t('The e-mail address or addresses where the message will be sent to. The formatting of this string must comply with RFC 2822.'),
+           'description' => t('The e-mail address or addresses where the message will be sent to. The formatting of this string must comply with <a href="http://www.faqs.org/rfcs/rfc2822.html">RFC 2822</a>. Some examples are:<ul><li>user@example.com</li><li>user@example.com, anotheruser@example.com</li><li>User &lt;user@example.com&gt;</li><li>User &lt;user@example.com&gt;, Another User &lt;anotheruser@example.com&gt;</li></ul>'),
 +          'optional' => TRUE,
 +        ),
 +        'cc' => array(
@@ -65,5 +65,5 @@ index 2df01a3..56f928a 100644
          'subject' => array(
            'type' => 'text',
 -- 
-2.11.0 (Apple Git-81)
+2.34.1
 
