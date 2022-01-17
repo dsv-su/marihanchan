@@ -1,0 +1,27 @@
+From 909d42fd2103bef2ef3cda36e3d3d15db57b9f6a Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Mon, 17 Jan 2022 18:51:06 +0300
+Subject: [PATCH] Add group member info to grading
+
+---
+ mod/assign/renderer.php | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/mod/assign/renderer.php b/mod/assign/renderer.php
+index 3fbe526af05..db8b7747676 100644
+--- a/mod/assign/renderer.php
++++ b/mod/assign/renderer.php
+@@ -470,6 +470,10 @@ class mod_assign_renderer extends plugin_renderer_base {
+             $group = $status->submissiongroup;
+             if ($group) {
+                 $team = format_string($group->name, false, $status->context);
++                global $DB;
++                $members = array_map(function ($member) {return fullname($member);}, groups_get_members($group->id));
++                $members = format_string(' ('.implode(', ', $members).')', false, $status->context);
++                $team .= $members;
+             } else if ($status->preventsubmissionnotingroup) {
+                 if (count($status->usergroups) == 0) {
+                     $team = '<span class="alert alert-error">' . get_string('noteam', 'assign') . '</span>';
+-- 
+2.34.1
+

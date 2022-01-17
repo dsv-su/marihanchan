@@ -21,7 +21,8 @@
           "moodle-forum_discussion_created_sort.patch",
           "moodle-align_completion_info.patch",
           "moodle-fix_completion_load.patch",
-          "moodle-show_monitor_rules.patch"
+          "moodle-show_monitor_rules.patch",
+          "moodle-assign_show_group_members.patch"
         ],
         "ignoreEmptyPath": true
       }
