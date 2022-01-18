@@ -139,7 +139,7 @@
       "plagiarism_urkund": {
         "repo": "https://github.com/danmarsden/moodle-plagiarism_urkund.git",
         "path": "plagiarism/urkund",
-        "branch": "MOODLE_38_STABLE"
+        "branch": "main"
       },
       "mod_vpl": {
         "repo": "https://github.com/jcrodriguez-dis/moodle-mod_vpl.git",
@@ -179,7 +179,7 @@
       "plagiarism_urkund": {
         "repo": "https://github.com/danmarsden/moodle-plagiarism_urkund.git",
         "path": "plagiarism/urkund",
-        "branch": "MOODLE_38_STABLE"
+        "branch": "main"
       }
     }
   },
@@ -348,7 +348,7 @@
       "plagiarism_urkund": {
         "repo": "https://github.com/danmarsden/moodle-plagiarism_urkund.git",
         "path": "plagiarism/urkund",
-        "branch": "MOODLE_38_STABLE"
+        "branch": "main"
       },
       "question_type_coderunner": {
         "repo": "https://github.com/trampgeek/moodle-qtype_coderunner.git",
@@ -391,7 +391,7 @@
       "plagiarism_urkund": {
         "repo": "https://github.com/danmarsden/moodle-plagiarism_urkund.git",
         "path": "plagiarism/urkund",
-        "branch": "MOODLE_38_STABLE"
+        "branch": "main"
       }
     }
   },
@@ -413,7 +413,7 @@
       "plagiarism_urkund": {
         "repo": "https://github.com/danmarsden/moodle-plagiarism_urkund.git",
         "path": "plagiarism/urkund",
-        "branch": "MOODLE_38_STABLE"
+        "branch": "main"
       }
     }
   },
