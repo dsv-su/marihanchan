@@ -1,15 +1,15 @@
-From a5c4307774f60dca8a0aa3c4161fc78b5e183559 Mon Sep 17 00:00:00 2001
+From e039142b830d7cc4eb05f9533e006fba741cbc5f Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
-Date: Tue, 20 Apr 2021 15:00:43 +0300
+Date: Tue, 18 Jan 2022 12:35:50 +0300
 Subject: [PATCH] Add Daisy gradebook export
 
 ---
  grade/export/grade_export_form.php    |  4 ++
- grade/export/lib.php                  | 11 ++++-
- grade/export/ods/grade_export_ods.php | 50 +++++++++++++++++------
+ grade/export/lib.php                  |  8 +++-
+ grade/export/ods/grade_export_ods.php | 57 +++++++++++++++++++-----
  grade/export/txt/grade_export_txt.php | 20 +++++++--
- grade/export/xls/grade_export_xls.php | 58 +++++++++++++++++++++------
- 5 files changed, 112 insertions(+), 31 deletions(-)
+ grade/export/xls/grade_export_xls.php | 63 +++++++++++++++++++++------
+ 5 files changed, 122 insertions(+), 30 deletions(-)
 
 diff --git a/grade/export/grade_export_form.php b/grade/export/grade_export_form.php
 index 889f6c469ce..5292f3ca3ba 100644
@@ -27,20 +27,10 @@ index 889f6c469ce..5292f3ca3ba 100644
              $options = array('10'=>10, '20'=>20, '100'=>100, '1000'=>1000, '100000'=>100000);
              $mform->addElement('select', 'previewrows', get_string('previewrows', 'grades'), $options);
 diff --git a/grade/export/lib.php b/grade/export/lib.php
-index c05d31a9508..1ac60b9bd06 100644
+index 8a3fe3af910..96eddaf0633 100644
 --- a/grade/export/lib.php
 +++ b/grade/export/lib.php
-@@ -99,7 +99,8 @@ abstract class grade_export {
-                                               $displaytype = GRADE_DISPLAY_TYPE_REAL,
-                                               $decimalpoints = 2,
-                                               $onlyactive = false,
--                                              $usercustomfields = false) {
-+                                              $usercustomfields = false,
-+                                              $daisy = false) {
- 
-         debugging('Many argument constructor for class "grade_export" is deprecated. Call the 3 argument version instead.', DEBUG_DEVELOPER);
- 
-@@ -188,6 +189,10 @@ abstract class grade_export {
+@@ -189,6 +189,10 @@ abstract class grade_export {
              $this->onlyactive = $formdata->export_onlyactive;
          }
  
@@ -51,7 +41,7 @@ index c05d31a9508..1ac60b9bd06 100644
          if (isset($formdata->previewrows)) {
              $this->previewrows = $formdata->previewrows;
          }
-@@ -435,6 +440,7 @@ abstract class grade_export {
+@@ -436,6 +440,7 @@ abstract class grade_export {
                          'updatedgradesonly' => $updatedgradesonly,
                          'decimalpoints'     => $this->decimalpoints,
                          'export_onlyactive' => $this->onlyactive,
@@ -59,7 +49,7 @@ index c05d31a9508..1ac60b9bd06 100644
                          'usercustomfields'  => $this->usercustomfields,
                          'displaytype'       => $displaytypes,
                          'key'               => $this->userkey);
-@@ -606,13 +612,14 @@ abstract class grade_export {
+@@ -607,13 +612,14 @@ abstract class grade_export {
       * @return stdClass $formdata
       */
      public static function export_bulk_export_data($id, $itemids, $exportfeedback, $onlyactive, $displaytype,
@@ -76,7 +66,7 @@ index c05d31a9508..1ac60b9bd06 100644
          $formdata->decimals = $decimalpoints;
  
 diff --git a/grade/export/ods/grade_export_ods.php b/grade/export/ods/grade_export_ods.php
-index 40bbd903bc1..1efce74d59a 100644
+index 40bbd903bc1..31bae2f32c1 100644
 --- a/grade/export/ods/grade_export_ods.php
 +++ b/grade/export/ods/grade_export_ods.php
 @@ -38,7 +38,7 @@ class grade_export_ods extends grade_export {
@@ -138,20 +128,24 @@ index 40bbd903bc1..1efce74d59a 100644
              $j = count($profilefields);
  
              if (!$this->onlyactive) {
-@@ -110,18 +115,39 @@ class grade_export_ods extends grade_export {
+@@ -109,19 +114,47 @@ class grade_export_ods extends grade_export {
+                     $gradestr = $this->format_grade($grade, $gradedisplayconst);
                      if (is_numeric($gradestr)) {
                          $myxls->write_number($i, $j++, $gradestr);
++                        $empty = false;
                      } else {
 +                        $scale = $grade->grade_item->scaleid ? $DB->get_record('scale', ['id' => $grade->grade_item->scaleid]) : null;
 +                        if ($scale && $scale->courseid == 0 && $this->daisy) {
 +                            if ($gradestr == 'Underkänd' || $gradestr == 'F' || $gradestr == 'Fx' || $gradestr == 'Rest' || $gradestr == '-') {
-+                                continue;
++                                $gradestr = '';
 +                            }
 +                            if ($gradestr == 'P' || $gradestr == 'Godkänd') {
 +                                $gradestr = 'G';
 +                            }
 +                        }
-+                        $empty = false;
++                        if ($gradestr) {
++                            $empty = false;
++                        }
                          $myxls->write_string($i, $j++, $gradestr);
                      }
                  }
@@ -174,7 +168,11 @@ index 40bbd903bc1..1efce74d59a 100644
 +                    $myxls->write_string($i, $id, $fieldvalue);
 +                }
 +            }
-+            $i++;
++            if ($this->daisy && $empty) {
++                unset($myxls->data[$i]);
++            } else {
++                $i++;
++            }
          }
 +
          $gui->close();
@@ -234,7 +232,7 @@ index e262d93ee0c..21b10b287c8 100644
          }
          $gui->close();
 diff --git a/grade/export/xls/grade_export_xls.php b/grade/export/xls/grade_export_xls.php
-index ec4bbcd2d15..138b5d7104f 100644
+index ec4bbcd2d15..e2dd5ead173 100644
 --- a/grade/export/xls/grade_export_xls.php
 +++ b/grade/export/xls/grade_export_xls.php
 @@ -38,7 +38,7 @@ class grade_export_xls extends grade_export {
@@ -300,7 +298,7 @@ index ec4bbcd2d15..138b5d7104f 100644
              if (!$this->onlyactive) {
                  $issuspended = ($user->suspendedenrolment) ? get_string('yes') : '';
                  $myxls->write_string($i, $j++, $issuspended);
-@@ -103,26 +110,51 @@ class grade_export_xls extends grade_export {
+@@ -103,26 +110,56 @@ class grade_export_xls extends grade_export {
                  if ($export_tracking) {
                      $status = $geub->track($grade);
                  }
@@ -309,17 +307,20 @@ index ec4bbcd2d15..138b5d7104f 100644
                      $gradestr = $this->format_grade($grade, $gradedisplayconst);
                      if (is_numeric($gradestr)) {
                          $myxls->write_number($i, $j++, $gradestr);
++                        $empty = false;
                      } else {
 +                        $scale = $grade->grade_item->scaleid ? $DB->get_record('scale', ['id' => $grade->grade_item->scaleid]) : null;
 +                        if ($scale && $scale->courseid == 0 && $this->daisy) {
 +                            if ($gradestr == 'Underkänd' || $gradestr == 'F' || $gradestr == 'Fx' || $gradestr == 'Rest' || $gradestr == '-') {
-+                                continue;
++                                $gradestr = '';
 +                            }
 +                            if ($gradestr == 'P' || $gradestr == 'Godkänd') {
 +                                $gradestr = 'G';
 +                            }
 +                        }
-+                        $empty = false;
++                        if ($gradestr) {
++                            $empty = false;
++                        }
                          $myxls->write_string($i, $j++, $gradestr);
                      }
                  }
@@ -342,7 +343,9 @@ index ec4bbcd2d15..138b5d7104f 100644
 +                    $myxls->write_string($i, $id, $fieldvalue);
 +                }
 +            }
-+            if (($this->daisy && !$empty) || !$this->daisy) {
++            if ($this->daisy && $empty) {
++                unset($myxls->data[$i]);
++            } else {
 +                $i++;
 +            }
          }
@@ -356,5 +359,5 @@ index ec4bbcd2d15..138b5d7104f 100644
  
          exit;
 -- 
-2.30.0
+2.34.1
 
