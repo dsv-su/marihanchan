@@ -1,0 +1,25 @@
+From f7f5c2d65df13472f68362e35e884b76b3f5ddf7 Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Wed, 19 Jan 2022 16:25:00 +0300
+Subject: [PATCH] Fix quiz attempts export as csv
+
+---
+ mod/quiz/report/overview/report.php | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/mod/quiz/report/overview/report.php b/mod/quiz/report/overview/report.php
+index 9c4cf8e98a3..aa6f352264b 100644
+--- a/mod/quiz/report/overview/report.php
++++ b/mod/quiz/report/overview/report.php
+@@ -71,7 +71,7 @@ class quiz_overview_report extends quiz_attempts_report {
+                 $options, $groupstudentsjoins, $studentsjoins, $questions, $options->get_url());
+         $filename = quiz_report_download_filename(get_string('overviewfilename', 'quiz_overview'),
+                 $courseshortname, $quiz->name);
+-        $table->is_downloading($options->download, $filename,
++        $table->is_downloading($options->download, str_replace(',', '', $filename),
+                 $courseshortname . ' ' . format_string($quiz->name, true));
+         if ($table->is_downloading()) {
+             raise_memory_limit(MEMORY_EXTRA);
+-- 
+2.34.1
+
