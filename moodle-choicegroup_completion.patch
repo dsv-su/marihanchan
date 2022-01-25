@@ -1,0 +1,77 @@
+From f76136c325363eeb672951ca7875db400f805324 Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Tue, 25 Jan 2022 16:45:49 +0300
+Subject: [PATCH] Fix choicegroup custom completion rule
+
+---
+ lang/en/choicegroup.php |  1 +
+ lib.php                 | 30 ++++++++++++++++++++++++++++++
+ mod_form.php            |  2 +-
+ 3 files changed, 32 insertions(+), 1 deletion(-)
+
+diff --git a/lang/en/choicegroup.php b/lang/en/choicegroup.php
+index da12dbd..2c7b2d8 100644
+--- a/lang/en/choicegroup.php
++++ b/lang/en/choicegroup.php
+@@ -27,6 +27,7 @@ $string['addmorechoices'] = 'Add more choices';
+ $string['allowupdate'] = 'Allow choice to be updated';
+ $string['answered'] = 'Answered';
+ $string['completionsubmit'] = 'Show as complete when user makes a choice';
++$string['completiondetail:submit'] = 'Make a choice';
+ $string['defaultsettings'] = 'Default settings';
+ $string['displayhorizontal'] = 'Display horizontally';
+ $string['displaymode'] = 'Display mode';
+diff --git a/lib.php b/lib.php
+index 7b25768..e0e201f 100644
+--- a/lib.php
++++ b/lib.php
+@@ -1116,3 +1116,33 @@ function mod_choicegroup_core_calendar_provide_event_action(calendar_event $even
+     );
+ }
+ 
++
++/**
++ * Add a get_coursemodule_info function in case any choicegroup wants to add 'extra' information
++ * for the course (see resource).
++ *
++ * Given a course_module object, this function returns any "extra" information that may be needed
++ * when printing this activity in a course listing.  See get_array_of_activities() in course/lib.php.
++ *
++ * @param stdClass $coursemodule The coursemodule object (record).
++ * @return cached_cm_info An object on information that the courses
++ *                        will know about (most noticeably, an icon).
++ */
++function choicegroup_get_coursemodule_info($coursemodule) {
++    global $DB;
++
++    $dbparams = array('id'=>$coursemodule->instance);
++    if (! $choicegroup = $DB->get_record('choicegroup', $dbparams)) {
++        return false;
++    }
++
++    $result = new cached_cm_info();
++    $result->name = $choicegroup->name;
++
++    // Populate the custom completion rules as key => value pairs, but only if the completion mode is 'automatic'.
++    if ($coursemodule->completion == COMPLETION_TRACKING_AUTOMATIC) {
++        $result->customdata['customcompletionrules']['completionsubmit'] = $choicegroup->completionsubmit;
++    }
++
++    return $result;
++}
+diff --git a/mod_form.php b/mod_form.php
+index 71c5c85..2ae8487 100644
+--- a/mod_form.php
++++ b/mod_form.php
+@@ -321,7 +321,7 @@ class mod_choicegroup_mod_form extends moodleform_mod
+     {
+         $mform =& $this->_form;
+ 
+-        $mform->addElement('checkbox', 'completionsubmit', '', get_string('completionsubmit', 'choicegroup'));
++        $mform->addElement('advcheckbox', 'completionsubmit', '', get_string('completionsubmit', 'choicegroup'));
+         return array('completionsubmit');
+     }
+ 
+-- 
+2.34.1
+
