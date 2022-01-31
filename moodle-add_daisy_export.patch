@@ -1,15 +1,15 @@
-From e039142b830d7cc4eb05f9533e006fba741cbc5f Mon Sep 17 00:00:00 2001
+From 0144ac53c3743bb8eda57aeea301e2aaf2c6d6d9 Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
-Date: Tue, 18 Jan 2022 12:35:50 +0300
+Date: Mon, 31 Jan 2022 14:04:20 +0300
 Subject: [PATCH] Add Daisy gradebook export
 
 ---
  grade/export/grade_export_form.php    |  4 ++
  grade/export/lib.php                  |  8 +++-
- grade/export/ods/grade_export_ods.php | 57 +++++++++++++++++++-----
+ grade/export/ods/grade_export_ods.php | 56 ++++++++++++++++++------
  grade/export/txt/grade_export_txt.php | 20 +++++++--
- grade/export/xls/grade_export_xls.php | 63 +++++++++++++++++++++------
- 5 files changed, 122 insertions(+), 30 deletions(-)
+ grade/export/xls/grade_export_xls.php | 62 +++++++++++++++++++++------
+ 5 files changed, 120 insertions(+), 30 deletions(-)
 
 diff --git a/grade/export/grade_export_form.php b/grade/export/grade_export_form.php
 index 889f6c469ce..5292f3ca3ba 100644
@@ -66,7 +66,7 @@ index 8a3fe3af910..96eddaf0633 100644
          $formdata->decimals = $decimalpoints;
  
 diff --git a/grade/export/ods/grade_export_ods.php b/grade/export/ods/grade_export_ods.php
-index 40bbd903bc1..31bae2f32c1 100644
+index 40bbd903bc1..5d5e6fe1547 100644
 --- a/grade/export/ods/grade_export_ods.php
 +++ b/grade/export/ods/grade_export_ods.php
 @@ -38,7 +38,7 @@ class grade_export_ods extends grade_export {
@@ -128,14 +128,13 @@ index 40bbd903bc1..31bae2f32c1 100644
              $j = count($profilefields);
  
              if (!$this->onlyactive) {
-@@ -109,19 +114,47 @@ class grade_export_ods extends grade_export {
+@@ -109,19 +114,46 @@ class grade_export_ods extends grade_export {
                      $gradestr = $this->format_grade($grade, $gradedisplayconst);
                      if (is_numeric($gradestr)) {
                          $myxls->write_number($i, $j++, $gradestr);
 +                        $empty = false;
                      } else {
-+                        $scale = $grade->grade_item->scaleid ? $DB->get_record('scale', ['id' => $grade->grade_item->scaleid]) : null;
-+                        if ($scale && $scale->courseid == 0 && $this->daisy) {
++                        if ($this->daisy) {
 +                            if ($gradestr == 'Underkänd' || $gradestr == 'F' || $gradestr == 'Fx' || $gradestr == 'Rest' || $gradestr == '-') {
 +                                $gradestr = '';
 +                            }
@@ -232,7 +231,7 @@ index e262d93ee0c..21b10b287c8 100644
          }
          $gui->close();
 diff --git a/grade/export/xls/grade_export_xls.php b/grade/export/xls/grade_export_xls.php
-index ec4bbcd2d15..e2dd5ead173 100644
+index ec4bbcd2d15..1380c867a00 100644
 --- a/grade/export/xls/grade_export_xls.php
 +++ b/grade/export/xls/grade_export_xls.php
 @@ -38,7 +38,7 @@ class grade_export_xls extends grade_export {
@@ -298,7 +297,7 @@ index ec4bbcd2d15..e2dd5ead173 100644
              if (!$this->onlyactive) {
                  $issuspended = ($user->suspendedenrolment) ? get_string('yes') : '';
                  $myxls->write_string($i, $j++, $issuspended);
-@@ -103,26 +110,56 @@ class grade_export_xls extends grade_export {
+@@ -103,26 +110,55 @@ class grade_export_xls extends grade_export {
                  if ($export_tracking) {
                      $status = $geub->track($grade);
                  }
@@ -309,8 +308,7 @@ index ec4bbcd2d15..e2dd5ead173 100644
                          $myxls->write_number($i, $j++, $gradestr);
 +                        $empty = false;
                      } else {
-+                        $scale = $grade->grade_item->scaleid ? $DB->get_record('scale', ['id' => $grade->grade_item->scaleid]) : null;
-+                        if ($scale && $scale->courseid == 0 && $this->daisy) {
++                        if ($this->daisy) {
 +                            if ($gradestr == 'Underkänd' || $gradestr == 'F' || $gradestr == 'Fx' || $gradestr == 'Rest' || $gradestr == '-') {
 +                                $gradestr = '';
 +                            }
