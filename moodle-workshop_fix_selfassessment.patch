@@ -1,0 +1,25 @@
+From b39fa17077fa007c0e428d0a3ab5d0614b35ba47 Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Thu, 17 Feb 2022 16:37:21 +0300
+Subject: [PATCH] Fix addselfassessment typo
+
+---
+ mod/workshop/allocation/random/settings_form.php | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/mod/workshop/allocation/random/settings_form.php b/mod/workshop/allocation/random/settings_form.php
+index 50fa1a2ec24..a79f4d2b687 100644
+--- a/mod/workshop/allocation/random/settings_form.php
++++ b/mod/workshop/allocation/random/settings_form.php
+@@ -90,7 +90,7 @@ class workshop_random_allocator_form extends moodleform {
+         $mform->setDefault('assesswosubmission', 0);
+ 
+         if (empty($workshop->useselfassessment)) {
+-            $mform->addElement('static', 'addselfassessment', get_string('addselfassessment', 'workshopallocation_random'),
++            $mform->addElement('static', 'noselfassessment', get_string('addselfassessment', 'workshopallocation_random'),
+                                                                  get_string('selfassessmentdisabled', 'workshop'));
+         } else {
+             $mform->addElement('checkbox', 'addselfassessment', get_string('addselfassessment', 'workshopallocation_random'));
+-- 
+2.34.1
+

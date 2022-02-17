@@ -23,7 +23,8 @@
           "moodle-fix_completion_load.patch",
           "moodle-show_monitor_rules.patch",
           "moodle-assign_show_group_members.patch",
-          "moodle-quiz_export_csv_fix.patch"
+          "moodle-quiz_export_csv_fix.patch",
+          "moodle-workshop_fix_selfassessment.patch"
         ],
         "ignoreEmptyPath": true
       }
