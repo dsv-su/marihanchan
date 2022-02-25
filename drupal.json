@@ -33,7 +33,7 @@
             "drupal_core": {
                 "repo": "https://git.drupalcode.org/project/drupal.git",
                 "branch": "7.x",
-                "tag": "7.87",
+                "tag": "7.88",
                 "patch": "core.patch",
                 "ignoreEmptyPath": true
             }
