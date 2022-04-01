@@ -1,38 +1,38 @@
-From b294148c642eabd12f6ba4c3b75a3e0df5f9f0fc Mon Sep 17 00:00:00 2001
+From 58423317546210333434a25c4b8ac9c456916002 Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
-Date: Fri, 21 May 2021 13:23:21 +0300
+Date: Fri, 1 Apr 2022 11:26:22 +0300
 Subject: [PATCH] Fixing mailsimulator submit button
 
 ---
- mod/assign/amd/build/grading_panel.min.js | Bin 6075 -> 6116 bytes
+ mod/assign/amd/build/grading_panel.min.js | Bin 7506 -> 7550 bytes
  mod/assign/amd/src/grading_panel.js       |   4 +++-
  2 files changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/mod/assign/amd/build/grading_panel.min.js b/mod/assign/amd/build/grading_panel.min.js
-index 180796928be65801038cd54d92e79446258ce5d9..b28f4c5fcbe06f74ed95675fa77225f0ed9bce4b 100644
+index 6302f174e8b08c6dcd4488e4434fdb57898429b7..7d38265aed0de2af7ee6899d5e17ec1cc88f553c 100644
 GIT binary patch
-delta 72
-zcmdn3|3rU7q^Nafnnp=RX0cvgVs5IUt$J=^W=?TtZfQ<pNq$j$T54)aQetwpx@L8v
-bUO`c6S!!O1OKMtTX-<iTX6@!|(Eug@><Jpz
+delta 75
+zcmca)_0MWUsgzx2nnp=RX0cvgVs5H}qOGlhdTwH7PH|>#X-;BEeo=f{YHCVSVsf^+
+eW_7AwK~ZX1YF>#;YFc7xPKkzQ?dEo=(@X$91{_}i
 
-delta 16
-XcmaE&zgvGpr0C>EQQ^%~Mg5roJADQQ
+delta 31
+mcmexob;)W&sgzKvUO`c6S!!O1OKMtTX-<iT=H|^(r<nlJ&kT?N
 
 diff --git a/mod/assign/amd/src/grading_panel.js b/mod/assign/amd/src/grading_panel.js
-index fca1a1e018e..a34a8e1bfd3 100644
+index f6a1e4cfa95..025895ba2d3 100644
 --- a/mod/assign/amd/src/grading_panel.js
 +++ b/mod/assign/amd/src/grading_panel.js
-@@ -388,7 +388,9 @@ define(['jquery', 'core/yui', 'core/notification', 'core/templates', 'core/fragm
+@@ -386,7 +386,9 @@ define(['jquery', 'core/yui', 'core/notification', 'core/templates', 'core/fragm
          var region = $(this._region);
          // Add an event listener to prevent form submission when pressing enter key.
          region.on('submit', 'form', function(e) {
 -            e.preventDefault();
-+            if (this.name != 'mailsimulator_feedback') {
++            if (this.name !== 'mailsimulator_feedback') {
 +                e.preventDefault();
 +            }
          });
  
          docElement.on('next-user', this._getNextUser.bind(this));
 -- 
-2.30.0
+2.32.0 (Apple Git-132)
 

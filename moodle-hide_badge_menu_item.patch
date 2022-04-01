@@ -1,36 +1,35 @@
-From b9e376c06bc09e16f81c6ba3dc0300c36e6c26ec Mon Sep 17 00:00:00 2001
+From ee68a3a101f0fea639793f993721e1fd71fafcd3 Mon Sep 17 00:00:00 2001
 From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
-Date: Mon, 22 May 2017 15:23:49 +0200
-Subject: [PATCH] Hide badges menu link from the navigaton
+Date: Fri, 1 Apr 2022 11:12:18 +0300
+Subject: [PATCH] Hide badges menu link from the navigat
 
 ---
- course/lib.php | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ course/lib.php | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
 diff --git a/course/lib.php b/course/lib.php
-index e60bd2c48b..3c324f908a 100644
+index 803d28da3ac..5b51ea2ed32 100644
 --- a/course/lib.php
 +++ b/course/lib.php
-@@ -3779,7 +3779,7 @@ function course_get_tagged_course_modules($tag, $exclusivemode = false, $fromcon
+@@ -3794,7 +3794,7 @@ function course_get_tagged_course_modules($tag, $exclusivemode = false, $fromcon
   * @since  Moodle 3.2
   */
  function course_get_user_navigation_options($context, $course = null) {
--    global $CFG;
-+    global $CFG, $DB;
+-    global $CFG, $USER;
++    global $CFG, $USER, $DB;
  
      $isloggedin = isloggedin();
      $isguestuser = isguestuser();
-@@ -3826,7 +3826,9 @@ function course_get_user_navigation_options($context, $course = null) {
-     } else {
-         $options->participants = has_capability('moodle/course:viewparticipants', $context);
-         $options->badges = !empty($CFG->enablebadges) && !empty($CFG->badges_allowcoursebadges) &&
--                            has_capability('moodle/badges:viewbadges', $context);
-+                            has_capability('moodle/badges:viewbadges', $context) &&
-+                            $DB->record_exists('badge', array('courseid' => $course->id));
-+
-         // Add view grade report is permitted.
-         $grades = false;
- 
+@@ -3830,7 +3830,8 @@ function course_get_user_navigation_options($context, $course = null) {
+     if ($isfrontpage) {
+         // We are on the front page, so make sure we use the proper capability (site:viewparticipants).
+         $options->participants = course_can_view_participants($sitecontext);
+-        $options->badges = !empty($CFG->enablebadges) && has_capability('moodle/badges:viewbadges', $sitecontext);
++        $options->badges = !empty($CFG->enablebadges) && has_capability('moodle/badges:viewbadges', $sitecontext) &&
+++                            $DB->record_exists('badge', array('courseid' => $course->id));
+         $options->tags = !empty($CFG->usetags) && $isloggedin;
+         $options->search = !empty($CFG->enableglobalsearch) && has_capability('moodle/search:query', $sitecontext);
+         $options->calendar = $isloggedin;
 -- 
-2.11.0 (Apple Git-81)
+2.32.0 (Apple Git-132)
 
