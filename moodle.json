@@ -169,6 +169,10 @@
       "question_behaviour_adaptive_adapted_for_coderunner": {
         "repo": "https://github.com/trampgeek/moodle-qbehaviour_adaptive_adapted_for_coderunner.git",
         "path": "question/behaviour/adaptive_adapted_for_coderunner"
+      },
+      "question_type_multichoiceset": {
+        "repo": "https://github.com/ecampbell/moodle-qtype_multichoiceset.git",
+        "path": "question/type/multichoiceset"
       }
     }
   },
