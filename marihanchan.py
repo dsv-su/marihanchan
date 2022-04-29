@@ -52,7 +52,7 @@ def buildProject( projectName ):
 	if 'components' not in project:
 		print('warning: project has no components, skipping')
 	else:
-		for name, component in project.get( 'components' ).iteritems():
+		for name, component in project.get( 'components' ).items():
 			fetchComponent( name, component )
 
 	# if there are any git patches specified in this project, apply them
