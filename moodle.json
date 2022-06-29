@@ -141,18 +141,18 @@
       "plagiarism_urkund": {
         "repo": "https://github.com/danmarsden/moodle-plagiarism_urkund.git",
         "path": "plagiarism/urkund",
-        "branch": "main"
+        "branch": "MOODLE_39_STABLE"
       },
       "mod_vpl": {
         "repo": "https://github.com/jcrodriguez-dis/moodle-mod_vpl.git",
         "path": "mod/vpl",
-        "branch": "V3.4.3+",
+        "branch": "master",
         "patch": "moodle-vpl_group_grade.patch"
       },
       "format_flexsections": {
         "repo": "https://github.com/marinaglancy/moodle-format_flexsections",
         "path": "course/format/flexsections",
-        "branch": "master"
+        "branch": "MOODLE_311_STABLE"
       },
       "question_type_coderunner": {
         "repo": "https://github.com/trampgeek/moodle-qtype_coderunner.git",
@@ -173,6 +173,10 @@
       "question_type_multichoiceset": {
         "repo": "https://github.com/ecampbell/moodle-qtype_multichoiceset.git",
         "path": "question/type/multichoiceset"
+      },
+      "webservice_restful": {
+        "repo": "https://github.com/catalyst/moodle-webservice_restful.git",
+        "path": "webservice/restful"
       }
     }
   },
@@ -231,7 +235,8 @@
       },
       "block_xp": {
         "repo": "https://github.com/FMCorz/moodle-block_xp.git",
-        "path": "blocks/xp"
+        "path": "blocks/xp",
+        "branch": "master"
       },
       "availability_xp": {
         "repo": "https://github.com/FMCorz/moodle-availability_xp.git",
@@ -340,7 +345,7 @@
       "format_topcoll": {
         "repo": "https://github.com/gjb2048/moodle-format_topcoll.git",
         "path": "course/format/topcoll",
-        "branch": "MOODLE_38"
+        "branch": "MOODLE_311"
       },
       "format_flexsections": {
         "repo": "https://github.com/marinaglancy/moodle-format_flexsections",
@@ -540,7 +545,7 @@
       "mod_vpl": {
         "repo": "https://github.com/jcrodriguez-dis/moodle-mod_vpl.git",
         "path": "mod/vpl",
-        "branch": "V3.4.3+",
+        "branch": "master",
         "patch": "moodle-vpl_group_grade.patch"
       }
     }
