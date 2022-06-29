@@ -350,7 +350,7 @@
       "format_flexsections": {
         "repo": "https://github.com/marinaglancy/moodle-format_flexsections",
         "path": "course/format/flexsections",
-        "branch": "master"
+        "branch": "MOODLE_311_STABLE"
       },
       "progressbar": {
         "repo": "https://github.com/deraadt/Moodle-block_progress.git",
@@ -536,7 +536,7 @@
       "format_flexsections": {
         "repo": "https://github.com/marinaglancy/moodle-format_flexsections",
         "path": "course/format/flexsections",
-        "branch": "master"
+        "branch": "MOODLE_311_STABLE"
       },
       "format_board": {
         "repo": "https://github.com/brandaorodrigo/moodle-format_board.git",
