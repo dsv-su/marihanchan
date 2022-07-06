@@ -1,0 +1,48 @@
+From eb53dee99c4145c6584c17acb2a212f9ba6da7d4 Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Wed, 6 Jul 2022 11:49:09 +0300
+Subject: [PATCH] Add usernames to export and import
+
+---
+ mod/assign/feedback/file/importziplib.php | 6 +++++-
+ mod/assign/locallib.php                   | 2 +-
+ 2 files changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/mod/assign/feedback/file/importziplib.php b/mod/assign/feedback/file/importziplib.php
+index 3cbe9f79c1e..ef6e1c056aa 100644
+--- a/mod/assign/feedback/file/importziplib.php
++++ b/mod/assign/feedback/file/importziplib.php
+@@ -65,12 +65,16 @@ class assignfeedback_file_zip_importer {
+         while (!empty($pathparts)) {
+             // Get the next path part and break it up by underscores.
+             $pathpart = array_shift($pathparts);
+-            $info = explode('_', $pathpart, 5);
++            $info = explode('_', $pathpart, 6);
+ 
+             if (count($info) < 5) {
+                 continue;
+             }
+ 
++            if (count($info) == 6) {
++                array_shift($info);
++            }
++
+             // Check the participant id.
+             $participantid = $info[1];
+ 
+diff --git a/mod/assign/locallib.php b/mod/assign/locallib.php
+index 31f37f1bb6b..bfc963ddaeb 100644
+--- a/mod/assign/locallib.php
++++ b/mod/assign/locallib.php
+@@ -3622,7 +3622,7 @@ class assign {
+                 } else {
+                     $fullname = fullname($student, has_capability('moodle/site:viewfullnames', $this->get_context()));
+                     $prefix = str_replace('_', ' ', $groupname . $fullname);
+-                    $prefix = clean_filename($prefix . '_' . $this->get_uniqueid_for_user($userid));
++                    $prefix = clean_filename($DB->get_record('user', ['id' => $userid])->username . '_' . $prefix . '_' . $this->get_uniqueid_for_user($userid));
+                 }
+ 
+                 if ($submission) {
+-- 
+2.32.1 (Apple Git-133)
+

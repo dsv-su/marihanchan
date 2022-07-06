@@ -63,7 +63,8 @@
       "moodle-add_daisy_id_to_log.patch",
       "moodle-add_daisy_export.patch",
       "moodle-course_sort_id.patch",
-      "moodle-exam_login.patch"
+      "moodle-exam_login.patch",
+      "moodle-assign_add_usernames_export.patch"
     ],
     "components": {
       "dsv_custom": {
@@ -270,7 +271,7 @@
       "format_etask": {
         "repo": "https://gitlab.com/drlikm/format_etask.git",
         "path": "course/format/etask",
-        "branch": "master"
+        "branch": "FORMAT_ETASK_21_STABLE"
       },
       "format_buttons": {
         "repo": "https://github.com/brandaorodrigo/moodle-format_buttons.git",
