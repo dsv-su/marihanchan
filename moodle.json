@@ -157,7 +157,8 @@
       },
       "question_type_coderunner": {
         "repo": "https://github.com/trampgeek/moodle-qtype_coderunner.git",
-        "path": "question/type/coderunner"
+        "path": "question/type/coderunner",
+        "branch": "MOODLE_3X_STABLE"
       },
       "question_behaviour_adaptivemultipart": {
         "repo": "https://github.com/maths/moodle-qbehaviour_adaptivemultipart.git",
@@ -518,7 +519,8 @@
     "components": {
       "question_type_coderunner": {
         "repo": "https://github.com/trampgeek/moodle-qtype_coderunner.git",
-        "path": "question/type/coderunner"
+        "path": "question/type/coderunner",
+        "branch": "MOODLE_3X_STABLE"
       },
       "question_behaviour_adaptivemultipart": {
         "repo": "https://github.com/maths/moodle-qbehaviour_adaptivemultipart.git",
