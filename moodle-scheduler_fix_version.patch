@@ -1,0 +1,23 @@
+From 27c0642f7ab97b00e7da79bb009004bbfcf7a913 Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Mon, 22 Aug 2022 14:12:51 +0200
+Subject: [PATCH] Temporary fix for Moodle requirement
+
+---
+ version.php | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/version.php b/version.php
+index b318756..017c796 100644
+--- a/version.php
++++ b/version.php
+@@ -31,5 +31,5 @@ defined('MOODLE_INTERNAL') || die();
+ $plugin->component = 'mod_scheduler'; // Full name of the plugin (used for diagnostics).
+ $plugin->version   = 2022071500;      // The current module version (Date: YYYYMMDDXX).
+ $plugin->release   = '4.x dev';       // Human-friendly version name.
+-$plugin->requires  = 2022041900;      // requires Moodle 4.0.
++$plugin->requires  = 2019052000;      // requires Moodle 4.0.
+ $plugin->maturity  = MATURITY_ALPHA;  // Development release - not for production use.
+-- 
+2.32.1 (Apple Git-133)
+

@@ -96,7 +96,7 @@
       "mod_scheduler": {
         "repo": "https://github.com/bostelm/moodle-mod_scheduler.git",
         "path": "mod/scheduler",
-        "patch": "moodle-scheduler_max_students_default.patch",
+        "patches": ["moodle-scheduler_max_students_default.patch", "moodle-scheduler_fix_version.patch"],
         "branch": "master"
       },
       "assignsubmission_reflection": {
@@ -310,6 +310,7 @@
       "scheduler": {
         "repo": "https://github.com/bostelm/moodle-mod_scheduler.git",
         "path": "mod/scheduler",
+        "patch": "moodle-scheduler_fix_version.patch",
         "branch": "master"
       },
       "custom_certificate": {
@@ -364,7 +365,8 @@
       },
       "question_type_coderunner": {
         "repo": "https://github.com/trampgeek/moodle-qtype_coderunner.git",
-        "path": "question/type/coderunner"
+        "path": "question/type/coderunner",
+        "branch": "MOODLE_3X_STABLE"
       },
       "question_behaviour_adaptivemultipart": {
         "repo": "https://github.com/maths/moodle-qbehaviour_adaptivemultipart.git",
