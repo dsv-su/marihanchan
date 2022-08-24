@@ -1,0 +1,25 @@
+From b14004cb9ce8d5567e3e6d13140fe415c959b6cc Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Wed, 24 Aug 2022 14:24:13 +0200
+Subject: [PATCH] downgrade version requirement
+
+---
+ version.php | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/version.php b/version.php
+index 1224f74..d4e2a60 100644
+--- a/version.php
++++ b/version.php
+@@ -29,7 +29,7 @@
+ defined('MOODLE_INTERNAL') || die();
+ 
+ $plugin->version   = 2022051100;
+-$plugin->requires  = 2022041200;
++$plugin->requires  = 2019051100;
+ $plugin->component = 'mod_mediagallery';
+ $plugin->maturity  = MATURITY_STABLE;
+ $plugin->release   = '4.0.0';
+-- 
+2.32.1 (Apple Git-133)
+
