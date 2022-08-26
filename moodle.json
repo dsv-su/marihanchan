@@ -180,9 +180,9 @@
         "repo": "https://github.com/catalyst/moodle-webservice_restful.git",
         "path": "webservice/restful"
       },
-      "local_userlogs": {
-        "repo": "https://github.com/dsv-su/moodle-local_userlogs.git",
-        "path": "local/userlogs"
+      "local_apiextension": {
+        "repo": "https://github.com/dsv-su/moodle-local_apiextension.git",
+        "path": "local/apiextension"
       }
     }
   },
