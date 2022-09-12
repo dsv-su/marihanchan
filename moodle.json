@@ -164,10 +164,6 @@
         "repo": "https://github.com/maths/moodle-qbehaviour_adaptivemultipart.git",
         "path": "question/behaviour/adaptivemultipart"
       },
-      "question_type_formulas": {
-        "repo": "https://github.com/jmvedrine/moodle-qtype_formulas.git",
-        "path": "question/type/formulas"
-      },
       "question_behaviour_adaptive_adapted_for_coderunner": {
         "repo": "https://github.com/trampgeek/moodle-qbehaviour_adaptive_adapted_for_coderunner.git",
         "path": "question/behaviour/adaptive_adapted_for_coderunner"
