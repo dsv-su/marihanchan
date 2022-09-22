@@ -190,7 +190,11 @@
     "components": {
       "moodle-quiz_export": {
         "repo": "https://github.com/cbluesprl/moodle-quiz_export.git",
-        "path": "mod/quiz/report/"
+        "path": "mod/quiz/report"
+      },
+      "moodle-quiz_answersheets": {
+        "repo": "https://github.com/moodleou/moodle-quiz_answersheets.git",
+        "path": "mod/quiz/report/answersheets"
       },
       "plagiarism_urkund": {
         "repo": "https://github.com/danmarsden/moodle-plagiarism_urkund.git",
