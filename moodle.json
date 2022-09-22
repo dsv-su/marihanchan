@@ -188,6 +188,10 @@
       "ilearn2test"
     ],
     "components": {
+      "moodle-quiz_export": {
+        "repo": "https://github.com/cbluesprl/moodle-quiz_export.git",
+        "path": "mod/quiz/report/"
+      },
       "plagiarism_urkund": {
         "repo": "https://github.com/danmarsden/moodle-plagiarism_urkund.git",
         "path": "plagiarism/urkund",
