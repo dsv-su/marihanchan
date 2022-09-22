@@ -210,10 +210,6 @@
         "repo": "https://github.com/dsv-su/moodle-enrol_rest.git",
         "path": "enrol/rest"
       },
-      "assignsubmission_mailsimulator": {
-        "repo": "https://github.com/dsv-su/moodle-assignsubmission_mailsimulator.git",
-        "path": "mod/assign/submission/mailsimulator"
-      },
       "block_blog_menu_plus": {
         "repo": "https://github.com/dsv-su/moodle-block_blog_menu_plus.git",
         "path": "blocks/blog_menu_plus"
@@ -233,10 +229,6 @@
         "path": "mod/scheduler",
         "patches": ["moodle-scheduler_max_students_default.patch", "moodle-scheduler_fix_version.patch"],
         "branch": "master"
-      },
-      "assignsubmission_reflection": {
-        "repo": "https://github.com/dsv-su/moodle-assignsubmission_reflection.git",
-        "path": "mod/assign/submission/reflection"
       },
       "assignfeedback_signature": {
         "repo": "https://github.com/dsv-su/moodle-assignfeedback_signature.git",
@@ -371,10 +363,6 @@
         "repo": "https://github.com/netspotau/moodle-report_engagement.git",
         "path": "report/engagement"
       },
-      "assignsubmission_esign": {
-        "repo": "https://github.com/dsv-su/moodle-assignsubmission_esign.git",
-        "path": "mod/assign/submission/esign"
-      },
       "assignfeedback_esign": {
         "repo": "https://github.com/dsv-su/moodle-assignfeedback_esign.git",
         "path": "mod/assign/feedback/esign"
@@ -401,10 +389,6 @@
         "repo": "https://github.com/jleyva/moodle-local_ltiprovider.git",
         "path": "local/ltiprovider",
         "branch": "MOODLE_29_STABLE"
-      },
-      "moodle-quiz_answersheets": {
-        "repo": "https://github.com/moodleou/moodle-quiz_answersheets.git",
-        "path": "mod/quiz/report/answersheets"
       }
     }
   },
