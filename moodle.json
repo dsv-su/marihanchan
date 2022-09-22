@@ -389,6 +389,10 @@
         "repo": "https://github.com/jleyva/moodle-local_ltiprovider.git",
         "path": "local/ltiprovider",
         "branch": "MOODLE_29_STABLE"
+      },
+      "moodle-quiz_export": {
+        "repo": "https://github.com/cbluesprl/moodle-quiz_export.git",
+        "path": "mod/quiz/report/export"
       }
     }
   },
