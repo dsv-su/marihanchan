@@ -488,6 +488,10 @@
         "repo": "https://github.com/jleyva/moodle-local_ltiprovider.git",
         "path": "local/ltiprovider",
         "branch": "MOODLE_29_STABLE"
+      },
+      "filter_ace_inline": {
+        "repo": "https://github.com/trampgeek/moodle-filter_ace_inline.git",
+        "path": "filter/ace_inline"
       }
     }
   },
@@ -760,13 +764,140 @@
   "iexam": {
     "rootDir": "/var/www/iexam",
     "requires": [
-      "ilearn2"
+      "moodle",
+      "dsv_moodle_theme"
+    ],
+    "patches": [
+      "moodle-forum_unsubscribe.patch",
+      "moodle-old_action_menus.patch",
+      "moodle-guest.patch",
+      "moodle-remove_logout_shib.patch",
+      "moodle-mailsimulator_js.patch",
+      "moodle-qtype_match_fullmatch.patch",
+      "moodle-add_daisy_id_to_log.patch",
+      "moodle-add_daisy_export.patch",
+      "moodle-course_sort_id.patch",
+      "moodle-exam_login.patch",
+      "moodle-assign_add_usernames_export.patch"
     ],
     "components": {
       "dsv_custom": {
         "repo": "ssh://git.dsv.su.se/git/moodle-dsv_custom",
         "path": "dsv_custom",
         "branch": "ilearn2"
+      },
+      "dsv_custom": {
+        "repo": "ssh://git.dsv.su.se/git/moodle-dsv_custom",
+        "path": "dsv_custom"
+      },
+      "enrol_rest": {
+        "repo": "https://github.com/dsv-su/moodle-enrol_rest.git",
+        "path": "enrol/rest"
+      },
+      "assignsubmission_mailsimulator": {
+        "repo": "https://github.com/dsv-su/moodle-assignsubmission_mailsimulator.git",
+        "path": "mod/assign/submission/mailsimulator"
+      },
+      "block_blog_menu_plus": {
+        "repo": "https://github.com/dsv-su/moodle-block_blog_menu_plus.git",
+        "path": "blocks/blog_menu_plus"
+      },
+      "block_my_courses": {
+        "repo": "https://github.com/dsv-su/moodle-block_mycourses.git",
+        "branch": "master",
+        "path": "blocks/my_courses"
+      },
+      "mod_choicegroup": {
+        "repo": "https://github.com/ndunand/moodle-mod_choicegroup.git",
+        "path": "mod/choicegroup",
+        "patches": ["moodle-choicegroup_short_format.patch", "moodle-choicegroup_disable-option.patch", "moodle-choicegroup_completion.patch"]
+      },
+      "mod_scheduler": {
+        "repo": "https://github.com/bostelm/moodle-mod_scheduler.git",
+        "path": "mod/scheduler",
+        "patches": ["moodle-scheduler_max_students_default.patch", "moodle-scheduler_fix_version.patch"],
+        "branch": "master"
+      },
+      "assignsubmission_reflection": {
+        "repo": "https://github.com/dsv-su/moodle-assignsubmission_reflection.git",
+        "path": "mod/assign/submission/reflection"
+      },
+      "assignfeedback_signature": {
+        "repo": "https://github.com/dsv-su/moodle-assignfeedback_signature.git",
+        "path": "mod/assign/feedback/signature"
+      },
+      "mod_attendance": {
+        "repo": "https://github.com/danmarsden/moodle-mod_attendance.git",
+        "path": "mod/attendance",
+        "branch": "MOODLE_311_STABLE"
+      },
+      "block_attendance": {
+        "repo": "https://github.com/danmarsden/moodle-block_attendance.git",
+        "path": "blocks/attendance",
+        "branch": "main"
+      },
+      "mod_subpage": {
+        "repo": "https://github.com/moodleou/moodle-mod_subpage.git",
+        "path": "mod/subpage",
+        "branch": "MOODLE_39_STABLE"
+      },
+      "block_progressbar": {
+        "repo": "https://github.com/deraadt/Moodle-block_progress.git",
+        "path": "blocks/progress"
+      },
+      "block_completion_progress": {
+        "repo": "https://github.com/deraadt/moodle-block_completion_progress.git",
+        "path": "blocks/completion_progress"
+      },
+      "block_forum_aggregator": {
+        "repo": "https://github.com/t6nis/moodle-block_forum_aggregator.git",
+        "path": "blocks/forum_aggregator",
+        "patch": "moodle-forum_aggregator.patch"
+      },
+      "course_modulenavigation": {
+        "repo": "https://github.com/DigiDago/moodle-block_course_modulenavigation.git",
+        "path": "blocks/course_modulenavigation"
+      },
+      "plagiarism_urkund": {
+        "repo": "https://github.com/danmarsden/moodle-plagiarism_urkund.git",
+        "path": "plagiarism/urkund",
+        "branch": "MOODLE_39_STABLE"
+      },
+      "mod_vpl": {
+        "repo": "https://github.com/jcrodriguez-dis/moodle-mod_vpl.git",
+        "path": "mod/vpl",
+        "branch": "V3.5.1",
+        "patch": "moodle-vpl_group_grade.patch"
+      },
+      "format_flexsections": {
+        "repo": "https://github.com/marinaglancy/moodle-format_flexsections",
+        "path": "course/format/flexsections",
+        "branch": "MOODLE_311_STABLE"
+      },
+      "question_type_coderunner": {
+        "repo": "https://github.com/trampgeek/moodle-qtype_coderunner.git",
+        "path": "question/type/coderunner",
+        "branch": "MOODLE_3X_STABLE"
+      },
+      "question_behaviour_adaptivemultipart": {
+        "repo": "https://github.com/maths/moodle-qbehaviour_adaptivemultipart.git",
+        "path": "question/behaviour/adaptivemultipart"
+      },
+      "question_behaviour_adaptive_adapted_for_coderunner": {
+        "repo": "https://github.com/trampgeek/moodle-qbehaviour_adaptive_adapted_for_coderunner.git",
+        "path": "question/behaviour/adaptive_adapted_for_coderunner"
+      },
+      "question_type_multichoiceset": {
+        "repo": "https://github.com/ecampbell/moodle-qtype_multichoiceset.git",
+        "path": "question/type/multichoiceset"
+      },
+      "webservice_restful": {
+        "repo": "https://github.com/catalyst/moodle-webservice_restful.git",
+        "path": "webservice/restful"
+      },
+      "local_apiextension": {
+        "repo": "https://github.com/dsv-su/moodle-local_apiextension.git",
+        "path": "local/apiextension"
       }
     }
   },
