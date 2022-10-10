@@ -179,6 +179,10 @@
       "local_apiextension": {
         "repo": "https://github.com/dsv-su/moodle-local_apiextension.git",
         "path": "local/apiextension"
+      },
+      "filter_ace_inline": {
+        "repo": "https://github.com/trampgeek/moodle-filter_ace_inline.git",
+        "path": "filter/ace_inline"
       }
     }
   },
@@ -488,10 +492,6 @@
         "repo": "https://github.com/jleyva/moodle-local_ltiprovider.git",
         "path": "local/ltiprovider",
         "branch": "MOODLE_29_STABLE"
-      },
-      "filter_ace_inline": {
-        "repo": "https://github.com/trampgeek/moodle-filter_ace_inline.git",
-        "path": "filter/ace_inline"
       }
     }
   },
@@ -786,10 +786,6 @@
         "path": "dsv_custom",
         "branch": "ilearn2"
       },
-      "dsv_custom": {
-        "repo": "ssh://git.dsv.su.se/git/moodle-dsv_custom",
-        "path": "dsv_custom"
-      },
       "enrol_rest": {
         "repo": "https://github.com/dsv-su/moodle-enrol_rest.git",
         "path": "enrol/rest"
@@ -898,6 +894,10 @@
       "local_apiextension": {
         "repo": "https://github.com/dsv-su/moodle-local_apiextension.git",
         "path": "local/apiextension"
+      },
+      "filter_ace_inline": {
+        "repo": "https://github.com/trampgeek/moodle-filter_ace_inline.git",
+        "path": "filter/ace_inline"
       }
     }
   },
