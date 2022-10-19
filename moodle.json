@@ -492,6 +492,10 @@
         "repo": "https://github.com/jleyva/moodle-local_ltiprovider.git",
         "path": "local/ltiprovider",
         "branch": "MOODLE_29_STABLE"
+      },
+      "completion_progress": {
+        "repo" : "https://github.com/jonof/moodle-block_completion_progress.git",
+        "path": "blocks/completion_progress"
       }
     }
   },
