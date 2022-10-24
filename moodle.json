@@ -620,6 +620,20 @@
       }
     }
   },
+  "holicare": {
+    "rootDir": "/var/www/holicare",
+    "requires": [
+      "moodle",
+      "dsv_moodle_theme"
+    ],
+    "components": {
+      "plagiarism_urkund": {
+        "repo": "https://github.com/danmarsden/moodle-plagiarism_urkund.git",
+        "path": "plagiarism/urkund",
+        "branch": "MOODLE_39_STABLE"
+      }
+    }
+  },
   "natgeo": {
     "rootDir": "/var/www/natgeo",
     "requires": [
