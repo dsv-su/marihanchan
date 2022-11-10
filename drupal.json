@@ -133,7 +133,7 @@
                 "defaults": "theme_contrib",
                 "repo": "https://git.drupalcode.org/project/bootstrap.git",
                 "branch": "7.x-3.x",
-                "tag": "7.x-3.22",
+                "tag": "7.x-3.26",
                 "path": "bootstrap"
             },
             "dsv_drupal_theme": {
