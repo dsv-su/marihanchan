@@ -504,7 +504,8 @@
       },
       "moodle-quiz_answersheets": {
         "repo": "https://github.com/moodleou/moodle-quiz_answersheets",
-        "path": "mod/quiz/report/answersheets"
+        "path": "mod/quiz/report/answersheets",
+        "branch": "main"
       }
     }
   },
