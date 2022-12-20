@@ -501,6 +501,10 @@
       "completion_progress": {
         "repo" : "https://github.com/jonof/moodle-block_completion_progress.git",
         "path": "blocks/completion_progress"
+      },
+      "moodle-quiz_answersheets": {
+        "repo": "https://github.com/moodleou/moodle-quiz_answersheets",
+        "path": "mod/quiz/report/answersheets"
       }
     }
   },
