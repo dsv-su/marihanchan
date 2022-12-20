@@ -184,6 +184,10 @@
       "filter_ace_inline": {
         "repo": "https://github.com/trampgeek/moodle-filter_ace_inline.git",
         "path": "filter/ace_inline"
+      },
+      "mod_randomactivity": {
+        "repo": "https://gricad-gitlab.univ-grenoble-alpes.fr/moodle-plugins/moodle-mod_randomactivity",
+        "path": "mod/randomactivity"
       }
     }
   },
@@ -497,10 +501,6 @@
       "completion_progress": {
         "repo" : "https://github.com/jonof/moodle-block_completion_progress.git",
         "path": "blocks/completion_progress"
-      },
-      "mod_randomactivity": {
-        "repo": "https://gricad-gitlab.univ-grenoble-alpes.fr/moodle-plugins/moodle-mod_randomactivity",
-        "path": "mod/randomactivity"
       }
     }
   },
@@ -913,6 +913,10 @@
       "filter_ace_inline": {
         "repo": "https://github.com/trampgeek/moodle-filter_ace_inline.git",
         "path": "filter/ace_inline"
+      },
+      "mod_randomactivity": {
+        "repo": "https://gricad-gitlab.univ-grenoble-alpes.fr/moodle-plugins/moodle-mod_randomactivity",
+        "path": "mod/randomactivity"
       }
     }
   },
