@@ -648,6 +648,12 @@
         "rootDir": "/var/www/forms",
         "requires": [ "dsv_base", "dsv_theme", "dsv_auth", "dsv_multilanguage", "dsv_dev", "dsv_wysiwyg"],
         "components": {
+            "dsv_forms_theme": {
+                "defaults": "theme_custom",
+                "repo": "https://github.com/dsv-su/dsv_forms_theme.git",
+                "branch": "master",
+                "path": "dsv_forms_theme"
+            },
             "captcha": {
                 "defaults": "module_contrib",
                 "repo": "https://git.drupalcode.org/project/captcha.git",
