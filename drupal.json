@@ -731,6 +731,13 @@
                 "path": "webform2pdf",
                 "patch": "drupal-webform2pdf.patch"
             },
+            "webform_multiple_file": {
+                "defaults": "module_contrib",
+                "repo": "https://git.drupalcode.org/project/webform_multiple_file.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.0-beta4",
+                "path": "webform_multiple_file"
+            },
             "esign": {
                 "defaults": "module_contrib",
                 "repo": "https://git.drupalcode.org/project/esign.git",
