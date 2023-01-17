@@ -703,6 +703,12 @@
                 "branch": "master",
                 "path": "application_edit"
             },
+            "forms_gdpr": {
+                "defaults": "module_custom",
+                "repo": "https://github.com/dsv-su/forms-gdpr.git",
+                "branch": "master",
+                "path": "forms_gdpr"
+            },
             "realname": {
                 "defaults": "module_contrib",
                 "repo": "https://git.drupalcode.org/project/realname.git",
