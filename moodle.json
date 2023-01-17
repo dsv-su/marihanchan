@@ -30,6 +30,16 @@
       }
     }
   },
+  "moodle4": {
+    "rootDir": "moodle",
+    "components": {
+      "moodle_core": {
+        "repo": "https://github.com/moodle/moodle.git",
+        "branch": "MOODLE_401_STABLE",
+        "ignoreEmptyPath": true
+      }
+    }
+  },
   "dsv_moodle_theme": {
     "components": {
       "dsv_theme": {
@@ -632,15 +642,15 @@
   },
   "holicare": {
     "rootDir": "/var/www/holicare",
-    "requires": [
-      "moodle",
-      "dsv_moodle_theme"
-    ],
+      "requires": [
+        "moodle4",
+        "dsv_moodle_theme"
+      ],
     "components": {
       "plagiarism_urkund": {
         "repo": "https://github.com/danmarsden/moodle-plagiarism_urkund.git",
         "path": "plagiarism/urkund",
-        "branch": "MOODLE_39_STABLE"
+        "branch": "MOODLE_400_STABLE"
       }
     }
   },
