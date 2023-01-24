@@ -123,6 +123,13 @@
                 "branch": "7.x-3.x",
                 "tag": "7.x-3.0-rc6",
                 "path": "admin_menu"
+            },
+            "module_filter": {
+                "defaults": "module_contrib",
+                "repo": "https://git.drupalcode.org/project/module_filter.git",
+                "branch": "7.x-2.x",
+                "tag": "7.x-2.2",
+                "path": "module_filter"
             }
         }
     },
