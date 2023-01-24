@@ -116,6 +116,13 @@
                 "branch": "7.x-1.x",
                 "tag": "7.x-1.13",
                 "path": "content_type_extras"
+            },
+            "admin_menu": {
+                "defaults": "module_contrib",
+                "repo": "https://git.drupalcode.org/project/admin_menu.git",
+                "branch": "7.x-3.x",
+                "tag": "7.x-3.0-rc6",
+                "path": "admin_menu"
             }
         }
     },
