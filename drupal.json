@@ -740,7 +740,7 @@
                 "defaults": "library",
                 "repo": "https://github.com/tecnickcom/TCPDF.git",
                 "branch": "main",
-                "tag": "6.2.17",
+                "tag": "6.6.2",
                 "path": "tcpdf"
             },
             "webform2pdf": {
