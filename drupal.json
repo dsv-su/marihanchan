@@ -33,7 +33,7 @@
             "drupal_core": {
                 "repo": "https://git.drupalcode.org/project/drupal.git",
                 "branch": "7.x",
-                "tag": "7.92",
+                "tag": "7.94",
                 "patch": "core.patch",
                 "ignoreEmptyPath": true
             }
@@ -63,7 +63,7 @@
                 "defaults": "module_contrib",
                 "repo": "https://git.drupalcode.org/project/date.git",
                 "branch": "7.x-2.x",
-                "tag": "7.x-2.13",
+                "tag": "7.x-2.14",
                 "path": "date"
             },
             "entity": {
@@ -106,7 +106,7 @@
                 "defaults": "module_contrib",
                 "repo": "https://git.drupalcode.org/project/views.git",
                 "branch": "7.x-3.x",
-                "tag": "7.x-3.27",
+                "tag": "7.x-3.28",
                 "path": "views",
                 "patch": "views.patch"
             },
@@ -116,6 +116,20 @@
                 "branch": "7.x-1.x",
                 "tag": "7.x-1.13",
                 "path": "content_type_extras"
+            },
+            "admin_menu": {
+                "defaults": "module_contrib",
+                "repo": "https://git.drupalcode.org/project/admin_menu.git",
+                "branch": "7.x-3.x",
+                "tag": "7.x-3.0-rc6",
+                "path": "admin_menu"
+            },
+            "module_filter": {
+                "defaults": "module_contrib",
+                "repo": "https://git.drupalcode.org/project/module_filter.git",
+                "branch": "7.x-2.x",
+                "tag": "7.x-2.2",
+                "path": "module_filter"
             }
         }
     },
@@ -648,6 +662,12 @@
         "rootDir": "/var/www/forms",
         "requires": [ "dsv_base", "dsv_theme", "dsv_auth", "dsv_multilanguage", "dsv_dev", "dsv_wysiwyg"],
         "components": {
+            "dsv_forms_theme": {
+                "defaults": "theme_custom",
+                "repo": "https://github.com/dsv-su/dsv_forms_theme.git",
+                "branch": "master",
+                "path": "dsv_forms_theme"
+            },
             "captcha": {
                 "defaults": "module_contrib",
                 "repo": "https://git.drupalcode.org/project/captcha.git",
@@ -703,6 +723,12 @@
                 "branch": "master",
                 "path": "application_edit"
             },
+            "forms_gdpr": {
+                "defaults": "module_custom",
+                "repo": "https://github.com/dsv-su/forms-gdpr.git",
+                "branch": "master",
+                "path": "forms_gdpr"
+            },
             "realname": {
                 "defaults": "module_contrib",
                 "repo": "https://git.drupalcode.org/project/realname.git",
@@ -714,7 +740,7 @@
                 "defaults": "library",
                 "repo": "https://github.com/tecnickcom/TCPDF.git",
                 "branch": "main",
-                "tag": "6.2.17",
+                "tag": "6.6.2",
                 "path": "tcpdf"
             },
             "webform2pdf": {
@@ -724,6 +750,13 @@
                 "tag": "7.x-4.1",
                 "path": "webform2pdf",
                 "patch": "drupal-webform2pdf.patch"
+            },
+            "webform_multiple_file": {
+                "defaults": "module_contrib",
+                "repo": "https://git.drupalcode.org/project/webform_multiple_file.git",
+                "branch": "7.x-1.x",
+                "tag": "7.x-1.0-beta4",
+                "path": "webform_multiple_file"
             },
             "esign": {
                 "defaults": "module_contrib",
