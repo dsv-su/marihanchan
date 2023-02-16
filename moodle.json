@@ -107,8 +107,8 @@
       "mod_scheduler": {
         "repo": "https://github.com/bostelm/moodle-mod_scheduler.git",
         "path": "mod/scheduler",
-        "patches": ["moodle-scheduler_max_students_default.patch", "moodle-scheduler_fix_version.patch"],
-        "branch": "master"
+        "patches": ["moodle-scheduler_max_students_default.patch"],
+        "tag": "v3.7.0"
       },
       "assignsubmission_reflection": {
         "repo": "https://github.com/dsv-su/moodle-assignsubmission_reflection.git",
