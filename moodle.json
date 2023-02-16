@@ -248,8 +248,8 @@
       "mod_scheduler": {
         "repo": "https://github.com/bostelm/moodle-mod_scheduler.git",
         "path": "mod/scheduler",
-        "patches": ["moodle-scheduler_max_students_default.patch", "moodle-scheduler_fix_version.patch"],
-        "branch": "master"
+        "patches": ["moodle-scheduler_max_students_default.patch"],
+        "tag": "v3.7.0"
       },
       "assignfeedback_signature": {
         "repo": "https://github.com/dsv-su/moodle-assignfeedback_signature.git",
@@ -542,11 +542,10 @@
         "tag": "2022092200",
         "patches": ["moodle-choicegroup_short_format.patch", "moodle-choicegroup_disable-option.patch", "moodle-choicegroup_completion.patch"]
       },
-      "scheduler": {
+      "mod_scheduler": {
         "repo": "https://github.com/bostelm/moodle-mod_scheduler.git",
         "path": "mod/scheduler",
-        "patch": "moodle-scheduler_fix_version.patch",
-        "branch": "master"
+        "tag": "v3.7.0"
       },
       "custom_certificate": {
         "repo": "https://github.com/mdjnelson/moodle-mod_customcert.git",
@@ -731,7 +730,8 @@
       "mod_scheduler": {
         "repo": "https://github.com/bostelm/moodle-mod_scheduler.git",
         "path": "mod/scheduler",
-        "branch": "master"
+        "patches": ["moodle-scheduler_max_students_default.patch"],
+        "tag": "v3.7.0"
       },
       "assignsubmission_mailsimulator": {
         "repo": "https://github.com/dsv-su/moodle-assignsubmission_mailsimulator.git",
@@ -851,8 +851,8 @@
       "mod_scheduler": {
         "repo": "https://github.com/bostelm/moodle-mod_scheduler.git",
         "path": "mod/scheduler",
-        "patches": ["moodle-scheduler_max_students_default.patch", "moodle-scheduler_fix_version.patch"],
-        "branch": "master"
+        "patches": ["moodle-scheduler_max_students_default.patch"],
+        "tag": "v3.7.0"
       },
       "assignfeedback_signature": {
         "repo": "https://github.com/dsv-su/moodle-assignfeedback_signature.git",
