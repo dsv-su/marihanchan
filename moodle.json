@@ -242,6 +242,7 @@
       "mod_choicegroup": {
         "repo": "https://github.com/ndunand/moodle-mod_choicegroup.git",
         "path": "mod/choicegroup",
+        "tag": "2022092200",
         "patches": ["moodle-choicegroup_short_format.patch", "moodle-choicegroup_disable-option.patch", "moodle-choicegroup_completion.patch"]
       },
       "mod_scheduler": {
@@ -538,6 +539,7 @@
       "choicegroup": {
         "repo": "https://github.com/ndunand/moodle-mod_choicegroup.git",
         "path": "mod/choicegroup",
+        "tag": "2022092200",
         "patches": ["moodle-choicegroup_short_format.patch", "moodle-choicegroup_disable-option.patch", "moodle-choicegroup_completion.patch"]
       },
       "scheduler": {
@@ -697,6 +699,7 @@
       "mod_choicegroup": {
         "repo": "https://github.com/ndunand/moodle-mod_choicegroup.git",
         "path": "mod/choicegroup",
+        "tag": "2022092200",
         "patches": ["moodle-choicegroup_short_format.patch", "moodle-choicegroup_disable-option.patch", "moodle-choicegroup_completion.patch"]
       },
       "dsv_organization": {
@@ -842,6 +845,7 @@
       "mod_choicegroup": {
         "repo": "https://github.com/ndunand/moodle-mod_choicegroup.git",
         "path": "mod/choicegroup",
+        "tag": "2022092200",
         "patches": ["moodle-choicegroup_short_format.patch", "moodle-choicegroup_disable-option.patch", "moodle-choicegroup_completion.patch"]
       },
       "mod_scheduler": {
