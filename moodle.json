@@ -650,6 +650,10 @@
         "dsv_moodle_theme"
       ],
     "components": {
+      "holicare_theme": {
+        "repo": "https://github.com/dsv-su/moodle-theme_holicare_classic.git",
+        "path": "theme/holicare_classic"
+      },
       "plagiarism_urkund": {
         "repo": "https://github.com/danmarsden/moodle-plagiarism_urkund.git",
         "path": "plagiarism/urkund",
