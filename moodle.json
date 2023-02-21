@@ -101,14 +101,14 @@
       "mod_choicegroup": {
         "repo": "https://github.com/ndunand/moodle-mod_choicegroup.git",
         "path": "mod/choicegroup",
-        "tag": "2022092200",
-        "patches": ["moodle-choicegroup_short_format.patch", "moodle-choicegroup_disable-option.patch", "moodle-choicegroup_completion.patch"]
+        "patches": ["moodle-choicegroup_short_format.patch", "moodle-choicegroup_disable-option.patch", "moodle-choicegroup_completion.patch"],
+        "tag": "2022092200"
       },
       "mod_scheduler": {
-        "repo": "https://github.com/bostelm/moodle-mod_scheduler.git",
+        "repo": "https://github.com/dsv-su/moodle-mod_scheduler",
         "path": "mod/scheduler",
         "patches": ["moodle-scheduler_max_students_default.patch"],
-        "tag": "v3.7.0"
+        "branch": "dsv"
       },
       "assignsubmission_reflection": {
         "repo": "https://github.com/dsv-su/moodle-assignsubmission_reflection.git",
