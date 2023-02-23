@@ -199,6 +199,11 @@
       "mod_randomactivity": {
         "repo": "https://gricad-gitlab.univ-grenoble-alpes.fr/moodle-plugins/moodle-mod_randomactivity",
         "path": "mod/randomactivity"
+      },
+      "report_extendedlog": {
+        "repo": "https://github.com/vadimonus/moodle-report_extendedlog",
+        "path": "report/extendedlog",
+        "tag":"2023022000"
       }
     }
   },
