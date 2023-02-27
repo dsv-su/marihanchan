@@ -697,13 +697,13 @@
       "mod_subpage": {
         "repo": "https://github.com/moodleou/moodle-mod_subpage.git",
         "path": "mod/subpage",
-        "branch": "MOODLE_38_STABLE"
+        "branch": "MOODLE_39_STABLE"
       },
       "mod_choicegroup": {
         "repo": "https://github.com/ndunand/moodle-mod_choicegroup.git",
         "path": "mod/choicegroup",
-        "tag": "2022092200",
-        "patches": ["moodle-choicegroup_short_format.patch", "moodle-choicegroup_disable-option.patch", "moodle-choicegroup_completion.patch"]
+        "patches": ["moodle-choicegroup_short_format.patch", "moodle-choicegroup_disable-option.patch", "moodle-choicegroup_completion.patch"],
+        "tag": "2022092200"
       },
       "dsv_organization": {
         "repo": "https://github.com/dsv-su/moodle-local_dsv_organization.git",
