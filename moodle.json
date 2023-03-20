@@ -295,7 +295,7 @@
       "mod_vpl": {
         "repo": "https://github.com/jcrodriguez-dis/moodle-mod_vpl.git",
         "path": "mod/vpl",
-        "branch": "V3.5.1",
+        "tag": "v4.0.1",
         "patch": "moodle-vpl_group_grade.patch"
       },
       "format_flexsections": {
@@ -802,7 +802,7 @@
       "mod_vpl": {
         "repo": "https://github.com/jcrodriguez-dis/moodle-mod_vpl.git",
         "path": "mod/vpl",
-        "branch": "V3.5.1",
+        "tag": "v4.0.1",
         "patch": "moodle-vpl_group_grade.patch"
       }
     }
@@ -902,7 +902,7 @@
       "mod_vpl": {
         "repo": "https://github.com/jcrodriguez-dis/moodle-mod_vpl.git",
         "path": "mod/vpl",
-        "branch": "V3.5.1",
+        "tag": "v4.0.1",
         "patch": "moodle-vpl_group_grade.patch"
       },
       "format_flexsections": {
