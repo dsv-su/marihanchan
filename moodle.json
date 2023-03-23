@@ -101,7 +101,7 @@
         "repo": "https://github.com/ndunand/moodle-mod_choicegroup.git",
         "path": "mod/choicegroup",
         "patches": ["moodle-choicegroup_short_format.patch", "moodle-choicegroup_disable-option.patch", "moodle-choicegroup_completion.patch"],
-        "tag": "2022092200"
+        "tag": "2022092202"
       },
       "mod_scheduler": {
         "repo": "https://github.com/dsv-su/moodle-mod_scheduler",
@@ -242,7 +242,7 @@
         "repo": "https://github.com/ndunand/moodle-mod_choicegroup.git",
         "path": "mod/choicegroup",
         "patches": ["moodle-choicegroup_short_format.patch", "moodle-choicegroup_disable-option.patch", "moodle-choicegroup_completion.patch"],
-        "tag": "2022092200"
+        "tag": "2022092202"
       },
       "mod_scheduler": {
         "repo": "https://github.com/dsv-su/moodle-mod_scheduler",
@@ -538,7 +538,7 @@
       "choicegroup": {
         "repo": "https://github.com/ndunand/moodle-mod_choicegroup.git",
         "path": "mod/choicegroup",
-        "tag": "2022092200",
+        "tag": "2022092202",
         "patches": ["moodle-choicegroup_short_format.patch", "moodle-choicegroup_disable-option.patch", "moodle-choicegroup_completion.patch"]
       },
       "mod_scheduler": {
@@ -702,7 +702,7 @@
         "repo": "https://github.com/ndunand/moodle-mod_choicegroup.git",
         "path": "mod/choicegroup",
         "patches": ["moodle-choicegroup_short_format.patch", "moodle-choicegroup_disable-option.patch", "moodle-choicegroup_completion.patch"],
-        "tag": "2022092200"
+        "tag": "2022092202"
       },
       "dsv_organization": {
         "repo": "https://github.com/dsv-su/moodle-local_dsv_organization.git",
@@ -848,7 +848,7 @@
       "mod_choicegroup": {
         "repo": "https://github.com/ndunand/moodle-mod_choicegroup.git",
         "path": "mod/choicegroup",
-        "tag": "2022092200",
+        "tag": "2022092202",
         "patches": ["moodle-choicegroup_short_format.patch", "moodle-choicegroup_disable-option.patch", "moodle-choicegroup_completion.patch"]
       },
       "mod_scheduler": {
