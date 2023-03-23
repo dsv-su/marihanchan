@@ -852,10 +852,10 @@
         "patches": ["moodle-choicegroup_short_format.patch", "moodle-choicegroup_disable-option.patch", "moodle-choicegroup_completion.patch"]
       },
       "mod_scheduler": {
-        "repo": "https://github.com/bostelm/moodle-mod_scheduler.git",
+        "repo": "https://github.com/dsv-su/moodle-mod_scheduler",
         "path": "mod/scheduler",
         "patches": ["moodle-scheduler_max_students_default.patch"],
-        "tag": "v3.7.0"
+        "branch": "dsv"
       },
       "assignfeedback_signature": {
         "repo": "https://github.com/dsv-su/moodle-assignfeedback_signature.git",
