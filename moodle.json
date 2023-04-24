@@ -423,6 +423,10 @@
       "ilearn2"
     ],
     "components": {
+      "block_groups": {
+        "repo": "https://github.com/learnweb/moodle-block_groups",
+        "path":"blocks/groups"
+      },
       "report_extendedlog": {
         "repo": "https://github.com/vadimonus/moodle-report_extendedlog",
         "path": "report/extendedlog"
