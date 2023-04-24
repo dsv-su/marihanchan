@@ -423,6 +423,10 @@
       "ilearn2"
     ],
     "components": {
+      "report_extendedlog": {
+        "repo": "https://github.com/vadimonus/moodle-report_extendedlog",
+        "path": "report/extendedlog"
+      },
       "mod_advmindmap": {
         "repo": "https://github.com/ctchanandy/moodle-mod_advmindmap.git",
         "path": "mod/advmindmap"
