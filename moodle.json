@@ -241,7 +241,7 @@
       "mod_choicegroup": {
         "repo": "https://github.com/ndunand/moodle-mod_choicegroup.git",
         "path": "mod/choicegroup",
-        "patches": ["moodle-choicegroup_short_format.patch", "moodle-choicegroup_disable-option.patch", "moodle-choicegroup_completion.patch"],
+        "patches": ["moodle-choicegroup_short_format.patch", "moodle-choicegroup_disable-option.patch"],
         "tag": "2022092202"
       },
       "mod_scheduler": {
@@ -546,8 +546,8 @@
       "choicegroup": {
         "repo": "https://github.com/ndunand/moodle-mod_choicegroup.git",
         "path": "mod/choicegroup",
-        "tag": "2022092202",
-        "patches": ["moodle-choicegroup_short_format.patch", "moodle-choicegroup_disable-option.patch", "moodle-choicegroup_completion.patch"]
+        "patches": ["moodle-choicegroup_short_format.patch", "moodle-choicegroup_disable-option.patch"],
+        "tag": "2022092202"
       },
       "mod_scheduler": {
         "repo": "https://github.com/bostelm/moodle-mod_scheduler.git",
@@ -709,7 +709,7 @@
       "mod_choicegroup": {
         "repo": "https://github.com/ndunand/moodle-mod_choicegroup.git",
         "path": "mod/choicegroup",
-        "patches": ["moodle-choicegroup_short_format.patch", "moodle-choicegroup_disable-option.patch", "moodle-choicegroup_completion.patch"],
+        "patches": ["moodle-choicegroup_short_format.patch", "moodle-choicegroup_disable-option.patch"],
         "tag": "2022092202"
       },
       "dsv_organization": {
@@ -856,8 +856,8 @@
       "mod_choicegroup": {
         "repo": "https://github.com/ndunand/moodle-mod_choicegroup.git",
         "path": "mod/choicegroup",
-        "tag": "2022092202",
-        "patches": ["moodle-choicegroup_short_format.patch", "moodle-choicegroup_disable-option.patch", "moodle-choicegroup_completion.patch"]
+        "patches": ["moodle-choicegroup_short_format.patch", "moodle-choicegroup_disable-option.patch"],
+        "tag": "2022092202"
       },
       "mod_scheduler": {
         "repo": "https://github.com/dsv-su/moodle-mod_scheduler",
