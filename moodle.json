@@ -341,10 +341,6 @@
         "path": "mod/customcert",
         "branch": "MOODLE_311_STABLE"
       },
-      "mod_engagement": {
-        "repo": "https://github.com/netspotau/moodle-mod_engagement.git",
-        "path": "mod/engagement"
-      },
       "mod_stampcoll": {
         "repo": "https://github.com/mudrd8mz/moodle-mod_stampcoll.git",
         "path": "mod/stampcoll"
@@ -352,10 +348,6 @@
       "mod_taskchain": {
         "repo": "https://github.com/gbateson/moodle-mod_taskchain.git",
         "path": "mod/taskchain"
-      },
-      "block_engagement": {
-        "repo": "https://github.com/netspotau/moodle-block_engagement.git",
-        "path": "blocks/engagement"
       },
       "block_gismo": {
         "repo": "https://bitbucket.org/steveorulez/block_gismo.git",
@@ -383,10 +375,6 @@
         "repo": "https://github.com/gjb2048/moodle-courseformat_grid.git",
         "path": "course/format/grid",
         "branch": "MOODLE_311"
-      },
-      "report_engagement": {
-        "repo": "https://github.com/netspotau/moodle-report_engagement.git",
-        "path": "report/engagement"
       },
       "assignfeedback_esign": {
         "repo": "https://github.com/dsv-su/moodle-assignfeedback_esign.git",
@@ -439,10 +427,6 @@
         "path": "mod/customcert",
         "branch": "MOODLE_311_STABLE"
       },
-      "mod_engagement": {
-        "repo": "https://github.com/netspotau/moodle-mod_engagement.git",
-        "path": "mod/engagement"
-      },
       "mod_stampcoll": {
         "repo": "https://github.com/mudrd8mz/moodle-mod_stampcoll.git",
         "path": "mod/stampcoll"
@@ -450,14 +434,6 @@
       "mod_taskchain": {
         "repo": "https://github.com/gbateson/moodle-mod_taskchain.git",
         "path": "mod/taskchain"
-      },
-      "block_engagement": {
-        "repo": "https://github.com/netspotau/moodle-block_engagement.git",
-        "path": "blocks/engagement"
-      },
-      "block_gismo": {
-        "repo": "https://bitbucket.org/steveorulez/block_gismo.git",
-        "path": "blocks/gismo"
       },
       "block_grade_me": {
         "repo": "https://github.com/remotelearner/moodle-block_grade_me.git",
@@ -481,10 +457,6 @@
         "repo": "https://github.com/gjb2048/moodle-courseformat_grid.git",
         "path": "course/format/grid",
         "branch": "MOODLE_311"
-      },
-      "report_engagement": {
-        "repo": "https://github.com/netspotau/moodle-report_engagement.git",
-        "path": "report/engagement"
       },
       "assignsubmission_esign": {
         "repo": "https://github.com/dsv-su/moodle-assignsubmission_esign.git",
