@@ -410,11 +410,6 @@
         "repo": "https://github.com/brandaorodrigo/moodle-format_board.git",
         "path": "course/format/board"
       },
-      "ltiprovider": {
-        "repo": "https://github.com/jleyva/moodle-local_ltiprovider.git",
-        "path": "local/ltiprovider",
-        "branch": "MOODLE_29_STABLE"
-      },
       "moodle-quiz_export": {
         "repo": "https://github.com/cbluesprl/moodle-quiz_export.git",
         "path": "mod/quiz/report/export"
@@ -516,11 +511,6 @@
       "format_board": {
         "repo": "https://github.com/brandaorodrigo/moodle-format_board.git",
         "path": "course/format/board"
-      },
-      "ltiprovider": {
-        "repo": "https://github.com/jleyva/moodle-local_ltiprovider.git",
-        "path": "local/ltiprovider",
-        "branch": "MOODLE_29_STABLE"
       },
       "completion_progress": {
         "repo" : "https://github.com/jonof/moodle-block_completion_progress.git",
