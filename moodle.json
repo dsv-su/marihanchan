@@ -345,10 +345,6 @@
         "repo": "https://github.com/mudrd8mz/moodle-mod_stampcoll.git",
         "path": "mod/stampcoll"
       },
-      "mod_taskchain": {
-        "repo": "https://github.com/gbateson/moodle-mod_taskchain.git",
-        "path": "mod/taskchain"
-      },
       "block_gismo": {
         "repo": "https://bitbucket.org/steveorulez/block_gismo.git",
         "path": "blocks/gismo"
@@ -430,10 +426,6 @@
       "mod_stampcoll": {
         "repo": "https://github.com/mudrd8mz/moodle-mod_stampcoll.git",
         "path": "mod/stampcoll"
-      },
-      "mod_taskchain": {
-        "repo": "https://github.com/gbateson/moodle-mod_taskchain.git",
-        "path": "mod/taskchain"
       },
       "block_grade_me": {
         "repo": "https://github.com/remotelearner/moodle-block_grade_me.git",
