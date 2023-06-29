@@ -376,11 +376,6 @@
         "repo": "https://github.com/dsv-su/moodle-assignfeedback_esign.git",
         "path": "mod/assign/feedback/esign"
       },
-      "mediagallery": {
-        "repo": "https://github.com/netspotau/moodle-mod_mediagallery.git",
-        "path": "mod/mediagallery",
-        "patch": "moodle-mediagallery_version.patch"
-      },
       "format_etask": {
         "repo": "https://gitlab.com/drlikm/format_etask.git",
         "path": "course/format/etask",
@@ -457,11 +452,6 @@
       "assignfeedback_esign": {
         "repo": "https://github.com/dsv-su/moodle-assignfeedback_esign.git",
         "path": "mod/assign/feedback/esign"
-      },
-      "mediagallery": {
-        "repo": "https://github.com/netspotau/moodle-mod_mediagallery.git",
-        "path": "mod/mediagallery",
-        "patch": "moodle-mediagallery_version.patch"
       },
       "format_etask": {
         "repo": "https://gitlab.com/drlikm/format_etask.git",
