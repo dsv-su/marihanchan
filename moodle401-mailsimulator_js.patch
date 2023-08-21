@@ -1,0 +1,38 @@
+From 122a0d3c180cba8adeafa998f5701afd019a9aee Mon Sep 17 00:00:00 2001
+From: Pavel Sokolov <pavel.m.sokolov@gmail.com>
+Date: Fri, 1 Apr 2022 11:26:22 +0300
+Subject: [PATCH] Fixing mailsimulator submit button
+
+---
+ mod/assign/amd/build/grading_panel.min.js | Bin 7608 -> 7646 bytes
+ mod/assign/amd/src/grading_panel.js       |   4 +++-
+ 2 files changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/mod/assign/amd/build/grading_panel.min.js b/mod/assign/amd/build/grading_panel.min.js
+index bdd6256eb465315422f2ad0403fec7881b8ee9e0..c6aba174eda859242b2a225b93889b34c194404c 100644
+GIT binary patch
+delta 51
+zcmdmCeb0KsZ7DUS+{DbB;>_IAoWzp+qWHAb)Rd&e<ZLBHTicS1%woN~#N1RhwavGs
+H?lJ)YA2}2l
+
+delta 12
+Tcmca-y~BFLZK=(S(s!8vC+P)X
+
+diff --git a/mod/assign/amd/src/grading_panel.js b/mod/assign/amd/src/grading_panel.js
+index d499071df3d..53cd80f04c6 100644
+--- a/mod/assign/amd/src/grading_panel.js
++++ b/mod/assign/amd/src/grading_panel.js
+@@ -416,7 +416,9 @@ define([
+         var region = $(this._region);
+         // Add an event listener to prevent form submission when pressing enter key.
+         region.on('submit', 'form', function(e) {
+-            e.preventDefault();
++            if (this.name !== 'mailsimulator_feedback') {
++                e.preventDefault();
++            }
+         });
+ 
+         docElement.on('next-user', this._getNextUser.bind(this));
+-- 
+2.34.1
+
