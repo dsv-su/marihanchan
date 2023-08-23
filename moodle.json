@@ -666,55 +666,6 @@
       }
     }
   },
-  "addisco": {
-    "rootDir": "/var/www/addisco",
-    "requires": [
-      "moodle"
-    ],
-    "components": {
-      "format_topcoll": {
-        "repo": "https://github.com/gjb2048/moodle-format_topcoll.git",
-        "path": "course/format/topcoll",
-        "branch": "MOODLE_38"
-      },
-      "format_onetopic": {
-        "repo": "https://github.com/davidherney/moodle-format_onetopic.git",
-        "path": "course/format/onetopic",
-        "branch": "MOODLE_33"
-      },
-      "mod_labelcollapsed": {
-        "repo": "https://github.com/dsv-su/moodle-mod_labelcollapsed",
-        "path": "mod/labelcollapsed"
-      },
-      "mod_scheduler": {
-        "repo": "https://github.com/bostelm/moodle-mod_scheduler.git",
-        "path": "mod/scheduler",
-        "patches": ["moodle-scheduler_max_students_default.patch"],
-        "tag": "v3.7.0"
-      },
-      "assignsubmission_mailsimulator": {
-        "repo": "https://github.com/dsv-su/moodle-assignsubmission_mailsimulator.git",
-        "path": "mod/assign/submission/mailsimulator"
-      },
-      "assignsubmission_reflection": {
-        "repo": "https://github.com/dsv-su/moodle-assignsubmission_reflection.git",
-        "path": "mod/assign/submission/reflection"
-      },
-      "theme_canvas": {
-        "repo": "https://github.com/lazydaisy/moodle-theme_canvas.git",
-        "path": "theme/canvas"
-      },
-      "theme_base": {
-        "repo": "https://github.com/lazydaisy/moodle-theme_base.git",
-        "path": "theme/base"
-      },
-      "block_course_overview": {
-        "repo": "https://github.com/thepurpleblob/moodle-block_course_overview",
-        "branch": "master",
-        "path": "blocks/course_overview"
-      }
-    }
-  },
   "code": {
     "rootDir": "/var/www/code",
     "requires": [
