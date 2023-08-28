@@ -202,6 +202,11 @@
       "report_extendedlog": {
         "repo": "https://github.com/vadimonus/moodle-report_extendedlog",
         "path": "report/extendedlog"
+      },     
+      "report_allbackups": {
+        "repo": "https://github.com/catalyst/moodle-report_allbackups",
+        "path": "report/allbackups",
+        "branch":"MOODLE_311_STABLE"
       }
     }
   },
