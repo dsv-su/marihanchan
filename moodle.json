@@ -508,9 +508,10 @@
         "tag": "2022092202"
       },
       "mod_scheduler": {
-        "repo": "https://github.com/bostelm/moodle-mod_scheduler.git",
+        "repo": "https://github.com/dsv-su/moodle-mod_scheduler",
         "path": "mod/scheduler",
-        "tag": "v3.7.0"
+        "patches": ["moodle-scheduler_max_students_default.patch"],
+        "branch": "dsv"
       },
       "custom_certificate": {
         "repo": "https://github.com/mdjnelson/moodle-mod_customcert.git",
