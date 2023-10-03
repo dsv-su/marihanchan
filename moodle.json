@@ -716,13 +716,8 @@
       "format_board": {
         "repo": "https://github.com/brandaorodrigo/moodle-format_board.git",
         "path": "course/format/board"
-      },
-      "mod_vpl": {
-        "repo": "https://github.com/jcrodriguez-dis/moodle-mod_vpl.git",
-        "path": "mod/vpl",
-        "tag": "v4.1.0",
-        "patch": "moodle-vpl_group_grade.patch"
       }
+    
     }
   },
   "iexam": {
