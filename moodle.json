@@ -820,7 +820,7 @@
       "mod_vpl": {
         "repo": "https://github.com/jcrodriguez-dis/moodle-mod_vpl.git",
         "path": "mod/vpl",
-        "tag": "v4.1.0",
+        "branch": "v4.2.0",
         "patch": "moodle-vpl_group_grade.patch"
       },
       "format_flexsections": {
