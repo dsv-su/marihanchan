@@ -257,7 +257,7 @@
         "repo": "https://github.com/dsv-su/moodle-mod_scheduler",
         "path": "mod/scheduler",
         "patches": ["moodle-scheduler_max_students_default.patch"],
-        "branch": "dsv"
+        "branch": "dsv_moodle3"
       },
       "assignfeedback_signature": {
         "repo": "https://github.com/dsv-su/moodle-assignfeedback_signature.git",
