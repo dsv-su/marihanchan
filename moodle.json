@@ -23,7 +23,8 @@
           "moodle-fix_completion_load.patch",
           "moodle-show_monitor_rules.patch",
           "moodle-assign_show_group_members.patch",
-          "moodle-workshop_fix_selfassessment.patch"
+          "moodle-workshop_fix_selfassessment.patch",
+          "moodle-add-htlm-clean-option-dsvnoclean.patch"
         ],
         "ignoreEmptyPath": true
       }
