@@ -157,8 +157,7 @@
       },
       "mod_vpl": {
         "repo": "https://github.com/jcrodriguez-dis/moodle-mod_vpl.git",
-        "path": "mod/vpl",
-        "patch": "moodle-vpl_group_grade.patch"
+        "path": "mod/vpl"
       },
       "format_flexsections": {
         "repo": "https://github.com/marinaglancy/moodle-format_flexsections",
@@ -302,9 +301,7 @@
       },
       "mod_vpl": {
         "repo": "https://github.com/jcrodriguez-dis/moodle-mod_vpl.git",
-        "path": "mod/vpl",
-        "branch": "v4.2.0",
-        "patch": "moodle-vpl_group_grade.patch"
+        "path": "mod/vpl"
       },
       "format_flexsections": {
         "repo": "https://github.com/marinaglancy/moodle-format_flexsections",
