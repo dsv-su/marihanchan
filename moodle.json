@@ -73,7 +73,8 @@
       "moodle-add_daisy_export.patch",
       "moodle-course_sort_id.patch",
       "moodle-exam_login.patch",
-      "moodle-assign_add_usernames_export.patch"
+      "moodle-assign_add_usernames_export.patch",
+      "moodle-add-html-clean-option-dsvnoclean.patch"
     ],
     "components": {
       "dsv_custom": {

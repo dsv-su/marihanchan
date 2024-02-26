@@ -1,0 +1,26 @@
+From 11c5cc6b01376f65cbf0c6de2eff72e293e860a0 Mon Sep 17 00:00:00 2001
+From: Anton <anton@dsv.su.se>
+Date: Mon, 26 Feb 2024 17:35:14 +0100
+Subject: [PATCH] add html clean option dsvnoclean
+
+---
+ lib/weblib.php | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/lib/weblib.php b/lib/weblib.php
+index 9bdf381ad11..63503893d3e 100644
+--- a/lib/weblib.php
++++ b/lib/weblib.php
+@@ -1297,6 +1297,9 @@ function format_text($text, $format = FORMAT_MOODLE, $options = null, $courseidd
+ 
+     switch ($format) {
+         case FORMAT_HTML:
++            if ($_GET['dsvsnoclean'] ?? '' == '1') {
++                $options['noclean'] = true;
++            }
+             $filteroptions['stage'] = 'pre_format';
+             $text = $filtermanager->filter_text($text, $context, $filteroptions);
+             // Text is already in HTML format, so just continue to the next filtering stage.
+-- 
+2.34.1
+
