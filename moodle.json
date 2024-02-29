@@ -142,9 +142,9 @@
         "path": "blocks/completion_progress"
       },
       "block_forum_aggregator": {
-        "repo": "https://github.com/t6nis/moodle-block_forum_aggregator.git",
+        "repo": "https://github.com/dsv-su/moodle-block_forum_aggregator",
         "path": "blocks/forum_aggregator",
-        "patch": "moodle-forum_aggregator.patch"
+        "branch": "dsv"
       },
       "course_modulenavigation": {
         "repo": "https://github.com/DigiDago/moodle-block_course_modulenavigation.git",
