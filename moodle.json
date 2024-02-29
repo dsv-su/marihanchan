@@ -139,7 +139,8 @@
       },
       "block_completion_progress": {
         "repo": "https://github.com/deraadt/moodle-block_completion_progress.git",
-        "path": "blocks/completion_progress"
+        "path": "blocks/completion_progress",
+        "tag": "2023063000"
       },
       "block_forum_aggregator": {
         "repo": "https://github.com/dsv-su/moodle-block_forum_aggregator",
@@ -473,10 +474,6 @@
       "format_board": {
         "repo": "https://github.com/brandaorodrigo/moodle-format_board.git",
         "path": "course/format/board"
-      },
-      "completion_progress": {
-        "repo" : "https://github.com/jonof/moodle-block_completion_progress.git",
-        "path": "blocks/completion_progress"
       },
       "moodle-quiz_answersheets": {
         "repo": "https://github.com/moodleou/moodle-quiz_answersheets",
