@@ -808,10 +808,9 @@
         "branch": "MOODLE_39_STABLE"
       },
       "mod_vpl": {
-        "repo": "https://github.com/jcrodriguez-dis/moodle-mod_vpl.git",
+        "repo": "https://github.com/dsv-su/moodle-mod_vpl",
         "path": "mod/vpl",
-        "branch": "v4.2.0",
-        "patch": "moodle-vpl_group_grade.patch"
+        "branch": "4.2.3"
       },
       "format_flexsections": {
         "repo": "https://github.com/marinaglancy/moodle-format_flexsections",
