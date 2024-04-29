@@ -790,7 +790,8 @@
       },
       "block_completion_progress": {
         "repo": "https://github.com/deraadt/moodle-block_completion_progress.git",
-        "path": "blocks/completion_progress"
+        "path": "blocks/completion_progress",
+        "tag": "2023063000"
       },
       "block_forum_aggregator": {
         "repo": "https://github.com/t6nis/moodle-block_forum_aggregator.git",
